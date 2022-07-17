@@ -1,0 +1,55 @@
+Kickoff Meeting: 17.July.2022
+
+Old project: https://github.com/sueszli/dateWatch/
+
+Goals:
+    > Getting from "proof of concept" to a solid MVP
+    > Making the user-experience better than using paper and pen (therefore as simple and frictionless as possible).
+
+    Code manager:
+        - Github private repository (also contains all meeting notes and docs)
+    Frontend:
+        - Vue3
+        - Vant3 mobile first library
+    Backend:
+        > Ideally we want to avoid writing any backend code and want to rely on Supabase features as much as possible (see: https://supabase.com/docs/guides/with-vue-3#building-the-app).
+        - Supabase (BaaS)
+        - Java spring boot
+
+Name of app:
+    We can "DateWatch" because no one can sue us.
+    Other possible options:
+        - DateDriven
+        - SpeeDate
+        - IntelliDate
+        - SwiftDate
+        - DateBase
+        - DateBased
+        - DateStack
+        - EnDate
+        - DateBit
+        - DataLove
+        - MatchThree
+        - FastMatch
+        - SyncMatch
+        - SpeedMatch
+        - Speedup
+        - WatchDate
+        - Eko
+        - DashMatch
+        - QuickDate
+        - UpDate
+        - Matchy
+        - MatchWatch
+    Yahya's choices:
+        - Matchy
+
+Time budget:
+    The project should be done until October.
+
+Legal issue:
+    Yahya's old SEPM group has not yet allowed him to reuse their old code (still waiting).
+
+Revenue:
+    Every cent of revenue will be split by two.
+    Yahya is planning to either sell the entire app to a client or host speed-dating events on the "meetup" app.
