@@ -43,6 +43,8 @@ The most important ones are
 
 - [Typescript](https://www.typescriptlang.org/) - Typesafe Javascript
 - [Vue 3](https://github.com/vuejs/vue-next/) - Vue 3 with [the composition API](https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api)
+- Vant for our UI components *and for icons*
+
 
 We are also using
 
