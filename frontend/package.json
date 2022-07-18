@@ -2,7 +2,8 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
+    "dev": "vite --open",
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
