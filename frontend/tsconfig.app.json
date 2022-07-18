@@ -8,8 +8,6 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "compilerOptions": {
-      "lib": ["ESNext", "DOM", "DOM.Iterable"]
-    }
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   }
 }
