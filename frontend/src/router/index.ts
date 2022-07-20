@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../pages/HomePage.vue";
+import LoginPage from "../pages/LoginPage.vue";
+import SignUpPage from "../pages/SignUpPage.vue";
 
 // TODO: require auth https://github.com/stefnotch/sepm-project/blob/main/src/router/index.ts
 const router = createRouter({
@@ -7,12 +9,18 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
       component: HomeView,
     },
     {
+      path: "/login",
+      component: LoginPage,
+    },
+    {
+      path: "/signup",
+      component: SignUpPage,
+    },
+    {
       path: "/about",
-      name: "about",
       // lazy-loading: only load when route is visited
       component: () => import("../pages/AboutPage.vue"),
     },

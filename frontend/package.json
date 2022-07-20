@@ -15,6 +15,7 @@
     "@supabase/supabase-js": "^1.35.4",
     "ky": "^0.31.0",
     "pinia": "^2.0.16",
+    "unplugin-auto-import": "^0.9.3",
     "vant": "^4.0.0-alpha.4",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"
