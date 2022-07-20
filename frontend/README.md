@@ -16,6 +16,14 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+### Re-generate Supabase Types
+
+[Read here about Supabase Typescript types](https://supabase.com/docs/guides/api/generating-types)
+
+```sh
+npm run type-gen
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh

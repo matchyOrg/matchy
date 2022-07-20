@@ -13,7 +13,17 @@
       />
     </van-cell-group>
     <div style="margin: 16px">
-      <van-button round block type="primary" native-type="submit"> Login </van-button>
+      <van-button
+        round
+        block
+        type="primary"
+        native-type="submit"
+        :disabled="onSubmit.loading"
+        :loading="onSubmit.loading"
+        loading-text="Logging in..."
+      >
+        Login
+      </van-button>
     </div>
   </van-form>
 </template>
