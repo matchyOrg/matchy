@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import LoginPage from "../pages/LoginPage.vue";
+import ProfileEditPage from "../pages/ProfileEditPage.vue";
 
 // TODO: require auth https://github.com/stefnotch/sepm-project/blob/main/src/router/index.ts
 const router = createRouter({
@@ -13,6 +14,10 @@ const router = createRouter({
     {
       path: "/login",
       component: LoginPage,
+    },
+    {
+      path: "/profile-edit",
+      component: ProfileEditPage,
     },
     {
       path: "/about",

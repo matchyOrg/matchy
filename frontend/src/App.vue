@@ -12,6 +12,5 @@ supabase.auth.onAuthStateChange((_, session) => {
 </script>
 
 <template>
-  <!-- Router currently displays content from default path: "/" -->
   <RouterView />
 </template>
