@@ -24,7 +24,6 @@
 <script setup lang="ts">
 import { useUserStore } from "../stores/user";
 import { asyncLoading } from "../composables/loading";
-import { ref } from "vue";
 
 const store = useUserStore();
 const username = ref("");

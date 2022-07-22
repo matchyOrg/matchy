@@ -2,6 +2,7 @@
 import { RouterView } from "vue-router";
 import { supabase } from "@/services/supabase";
 import { useUserStore } from "@/stores/user";
+import NavBar from "./components/NavBar.vue";
 
 const userStore = useUserStore();
 
@@ -12,5 +13,6 @@ supabase.auth.onAuthStateChange((_, session) => {
 </script>
 
 <template>
+  <NavBar />
   <RouterView />
 </template>
