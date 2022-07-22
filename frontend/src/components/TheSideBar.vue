@@ -1,6 +1,5 @@
 <template>
   <Transition name="slide-fade">
-    <!-- TODO: Stretch to bottom of screen-->
     <div class="side-bar" @click="hideSideBar" v-if="visible">
       <van-sidebar v-model="active" @click.stop>
         <van-sidebar-item title="Title" />
@@ -31,9 +30,12 @@ function hideSideBar() {
 <style scoped>
 .side-bar {
   position: fixed;
+  top: 0;
   right: 0;
   left: 0;
+  bottom: 0;
   margin-bottom: auto;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .slide-fade-enter-active {

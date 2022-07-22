@@ -17,8 +17,9 @@ const sideBarVisible = ref(false);
 
 <template>
   <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
-  <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
   <div class="content">
+    <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
+
     <RouterView />
   </div>
 </template>
