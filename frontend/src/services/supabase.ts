@@ -11,6 +11,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 // Hehehe, this works very nicely
 // (Somewhat relevant Typescript issue: https://github.com/microsoft/TypeScript/issues/16936 )
+// More relevant supabase pull request https://github.com/supabase/postgrest-js/pull/279
+// ^ Apparently supabase will ship with better typings in the future
 export type SafeSupabaseClient = {
   from<T extends keyof definitions>(table: T): SupabaseQueryBuilder<definitions[T]>;
 };
