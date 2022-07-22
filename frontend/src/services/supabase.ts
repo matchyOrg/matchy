@@ -15,4 +15,4 @@ export type SafeSupabaseClient = {
   from<T extends keyof definitions>(table: T): SupabaseQueryBuilder<definitions[T]>;
 };
 
-export const supabase: SafeSupabaseClient & SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> = createClient(supabaseUrl, supabaseAnonKey);
