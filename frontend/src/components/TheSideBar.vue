@@ -1,0 +1,51 @@
+<template>
+  <Transition name="slide-fade">
+    <!-- TODO: Stretch to bottom of screen-->
+    <div class="side-bar" @click="hideSideBar" v-if="visible">
+      <van-sidebar v-model="active" @click.stop>
+        <van-sidebar-item title="Title" />
+        <van-sidebar-item title="Title" />
+        <van-sidebar-item title="Title" />
+      </van-sidebar>
+    </div>
+  </Transition>
+</template>
+
+<script setup lang="ts">
+const router = useRouter();
+
+const props = defineProps<{
+  visible: boolean;
+}>();
+
+const emits = defineEmits<{
+  (e: "update:visible", value: boolean): void;
+}>();
+
+const active = ref(2);
+
+function hideSideBar() {
+  emits("update:visible", false);
+}
+</script>
+<style scoped>
+.side-bar {
+  position: fixed;
+  right: 0;
+  left: 0;
+  margin-bottom: auto;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.1s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+</style>

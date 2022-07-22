@@ -1,6 +1,61 @@
 <template>
   <before-login v-if="!userStore.user"></before-login>
-  <div v-else>Logged in</div>
+  <div v-else>
+    Logged in
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus
+      consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum,
+      dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel
+      sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet
+      consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis
+      enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur
+      adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam
+      est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit
+      molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo
+      sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam
+      maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi,
+      temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores
+      eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus
+      numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi
+      similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam,
+      repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem
+      ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus
+      consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum,
+      dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel
+      sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet
+      consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis
+      enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur
+      adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam
+      est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit
+      molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo
+      sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam
+      maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi,
+      temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores
+      eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus
+      numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi
+      similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam,
+      repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem
+      ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus
+      consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum,
+      dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel
+      sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet
+      consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis
+      enim eos totam est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur
+      adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam
+      est? Natus odit molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      Voluptatibus ab illo sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit
+      molestiae totam maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo
+      sequi, temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam
+      maiores eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi,
+      temporibus numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores
+      eligendi similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus
+      numquam, repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi
+      similique? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus ab illo sequi, temporibus numquam,
+      repellendus consequuntur vel sed corporis enim eos totam est? Natus odit molestiae totam maiores eligendi similique?
+    </p>
+  </div>
 </template>
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
