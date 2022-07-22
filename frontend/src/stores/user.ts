@@ -26,24 +26,31 @@ export const useUserStore = defineStore("user", () => {
   const loadProfile = async () => {
     if (!user.value) throw new Error("User not loaded");
 
-    const { data, error, status } = await supabase
+    // Note that this will still end up logging a red line in the console
+    const { data, error } = await supabase
       .from("profiles")
       .select(`username, website, avatar_url`)
       .eq("id", user.value.id)
-      .single();
+      .maybeSingle();
 
-    if (error && status !== 406) throw error;
+    if (error) throw error;
 
-    if (!data || !data.username) throw new Error("Missing profile");
+    if (!data || !data.username) {
+      // The profile can still be missing when the user has just registered
+      return false;
+    }
 
     profile.value.username = data.username;
     return true;
   };
 
   const updateProfile = async (data: { username: string }) => {
+    if (!user.value) throw new Error("User not loaded");
+
     const { error } = await supabase.from("profiles").upsert(
       {
         ...data,
+        id: user.value.id,
         updated_at: new Date().toISOString(),
       },
       {

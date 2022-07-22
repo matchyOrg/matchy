@@ -9,6 +9,9 @@ import BeforeLogin from "../components/BeforeLogin.vue";
 const router = useRouter();
 const userStore = useUserStore();
 
+// TODO: Handle the error login case
+// http://127.0.0.1:5173/#/error=unauthorized_client&error_code=401&error_description=Email+link+is+invalid+or+has+expired
+
 watch(
   () => userStore.isLoggedIn,
   (v) => {
