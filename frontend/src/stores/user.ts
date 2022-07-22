@@ -2,6 +2,8 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 
+// TODO: Figure out if we want https://github.com/wobsoriano/pinia-shared-state
+
 const emptyProfile = () => {
   return {
     username: "",

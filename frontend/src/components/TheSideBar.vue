@@ -2,15 +2,18 @@
   <Transition name="slide-fade">
     <div class="side-bar" @click="hideSideBar" v-if="visible">
       <van-sidebar v-model="active" @click.stop>
+        <van-sidebar-item title="Home" @click="goToHome" />
         <van-sidebar-item title="Title" />
         <van-sidebar-item title="Title" />
-        <van-sidebar-item title="Title" />
+        <van-sidebar-item title="Switch to user view" v-if="PageMode !== 'user'" @click="PageMode = 'user'" />
+        <van-sidebar-item title="Switch to organizer view" v-if="PageMode !== 'organizer'" @click="PageMode = 'organizer'" />
       </van-sidebar>
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
+import { PageMode } from "@/stores/page-mode";
 const router = useRouter();
 
 const props = defineProps<{
@@ -23,6 +26,10 @@ const emits = defineEmits<{
 
 const active = ref(2);
 
+function goToHome() {
+  router.push("/");
+}
+
 function hideSideBar() {
   emits("update:visible", false);
 }
@@ -30,7 +37,7 @@ function hideSideBar() {
 <style scoped>
 .side-bar {
   position: fixed;
-  top: 0;
+  top: 40px; /** TODO: Replace this hack with something proper */
   right: 0;
   left: 0;
   bottom: 0;
