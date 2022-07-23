@@ -3,8 +3,6 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import Vant from "vant"; // OPTIMIZATION: import only chosen components
 
-import "vant/lib/index.css";
-
 // internal imports
 import App from "./App.vue";
 import router from "./router";
