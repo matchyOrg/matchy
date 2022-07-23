@@ -45,7 +45,6 @@ The most important ones are
 - [Vue 3](https://github.com/vuejs/vue-next/) - Vue 3 with [the composition API](https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api)
 - Vant for our UI components *and for icons*
 
-
 We are also using
 
 - [Vite](https://github.com/vuejs/vite) - a speedy Vue.js framework

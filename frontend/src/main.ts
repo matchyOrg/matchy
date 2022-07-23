@@ -1,7 +1,7 @@
 // external imports
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import Vant from "vant";
+import Vant from "vant"; // bad practice: imports all components
 
 // TODO: uncomment line below, when you start with styling
 // import 'vant/lib/index.css';
