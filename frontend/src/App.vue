@@ -22,9 +22,3 @@ supabase.auth.onAuthStateChange((_, session) => {
 
 const sideBarVisible = ref(false);
 </script>
-
-<style scoped>
-.content {
-  overflow-y: scroll;
-}
-</style>
