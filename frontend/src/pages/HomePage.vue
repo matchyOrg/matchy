@@ -1,5 +1,8 @@
 <template>
+  <!-- Not logged in: Show another page that links to the /login page -->
   <before-login v-if="!userStore.user"></before-login>
+
+  <!-- Logged in -->
   <div v-else>
     <h2>Welcome {{ t("mode." + PageMode) }} {{ userStore.profile.username }}</h2>
     <div v-if="PageMode === 'user'">

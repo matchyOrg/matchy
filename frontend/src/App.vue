@@ -1,9 +1,11 @@
 <template>
-  <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
-  <div class="content">
-    <RouterView />
+  <!-- only show nav if logged in -->
+  <div v-if="userStore.user">
+    <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
     <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
   </div>
+
+  <RouterView />
 </template>
 
 <script setup lang="ts">
@@ -13,12 +15,13 @@ import { useUserStore } from "@/stores/user";
 import TheNavBar from "./components/TheNavBar.vue";
 import TheSideBar from "./components/TheSideBar.vue";
 
-const userStore = useUserStore();
+// Used to communicate betweeen TheNavBar and TheSideBar
+const sideBarVisible = ref(false);
 
+// update user in store on authStateChange
+const userStore = useUserStore();
 userStore.user = supabase.auth.user();
 supabase.auth.onAuthStateChange((_, session) => {
   userStore.user = session?.user ?? null;
 });
-
-const sideBarVisible = ref(false);
 </script>

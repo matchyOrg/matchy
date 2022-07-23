@@ -1,0 +1,53 @@
+.whitespace-xxtiny{
+  margin: 0;
+  padding: 0;
+  height: 0.25rem;
+}
+
+.whitespace-xtiny {
+  margin: 0;
+  padding: 0;
+  height: 0.5rem;
+}
+
+.whitespace-tiny {
+  margin: 0;
+  padding: 0;
+  height: 1rem;
+}
+
+.whitespace-small{
+  margin: 0;
+  padding: 0;
+  height: 2rem;
+}
+
+.whitespace-medium{
+  margin: 0;
+  padding: 0;
+  height: 4rem;
+}
+
+.whitespace-large{
+  margin: 0;
+  padding: 0;
+  height: 8rem;
+}
+
+.whitespace-xlarge{
+  margin: 0;
+  padding: 0;
+  height: 16rem;
+}
+
+.whitespace-xxlarge{
+  margin: 0;
+  padding: 0;
+  height: 32rem;
+}
+
+.icon-width{
+  margin: 0;
+  padding: 0;
+  width: 40px;
+}

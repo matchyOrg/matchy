@@ -1,0 +1,33 @@
+/* centers and stacks content */
+.stacked-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+/* only stacks content, doesnt center */
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* doesn't stack, centers vertically and horizontally */
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* only takes up 95% of space so text stays readable */
+.text-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+/* space between items - horizontally */
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}

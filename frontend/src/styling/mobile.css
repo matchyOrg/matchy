@@ -20,7 +20,7 @@
     width: 100%;
     height: 100%;
     max-width: var(--mobile-m);
-  }  
+  }
 }
 
 
@@ -28,4 +28,11 @@
 /* hide scrollbar */
 *::-webkit-scrollbar {
   display: none !important;
+}
+
+:root {
+  --side-padding: 1rem;
+}
+body {
+  padding: 0 var(--side-padding) 0 var(--side-padding);
 }
