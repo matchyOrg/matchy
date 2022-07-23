@@ -24,7 +24,7 @@ export const useUserStore = defineStore("user", () => {
     }
   );
 
-  // Ugh Typescript doesn't have proper error handling
+  // Typescript doesn't have proper error handling
   const loadProfile = async () => {
     if (!user.value) throw new Error("User not loaded");
 

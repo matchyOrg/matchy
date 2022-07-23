@@ -3,6 +3,7 @@
 
   <EditEvent />
 </template>
+
 <script setup lang="ts">
 import EditEvent from "@/components/EditEvent.vue";
 </script>

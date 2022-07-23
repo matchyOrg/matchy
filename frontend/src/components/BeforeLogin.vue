@@ -13,4 +13,3 @@
     <router-link to="/login"><van-button>Log in</van-button></router-link>
   </div>
 </template>
-<script setup lang="ts"></script>

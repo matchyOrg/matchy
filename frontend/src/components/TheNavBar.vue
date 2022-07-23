@@ -8,6 +8,7 @@
     </template>
   </VanNavBar>
 </template>
+
 <script setup lang="ts">
 const router = useRouter();
 

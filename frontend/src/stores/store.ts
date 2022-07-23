@@ -1,8 +1,9 @@
+/**
+ * This component contains things that doesn't belong in any other stores
+ */
+
 import { acceptHMRUpdate, defineStore } from "pinia";
 
-/**
- * For stuff that doesn't belong in any other stores
- */
 export const useStore = defineStore("store", () => {
   return {};
 });

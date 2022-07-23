@@ -10,6 +10,7 @@
     <div v-if="PageMode === 'organizer'"></div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { useCurrentEventStore } from "@/stores/current-event";
 import { PageMode } from "@/stores/page-mode";

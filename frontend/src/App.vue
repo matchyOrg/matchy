@@ -1,3 +1,11 @@
+<template>
+  <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
+  <div class="content">
+    <RouterView />
+    <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { supabase } from "@/services/supabase";
@@ -14,14 +22,6 @@ supabase.auth.onAuthStateChange((_, session) => {
 
 const sideBarVisible = ref(false);
 </script>
-
-<template>
-  <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
-  <div class="content">
-    <RouterView />
-    <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
-  </div>
-</template>
 
 <style scoped>
 .content {
