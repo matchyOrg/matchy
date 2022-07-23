@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { supabase } from "../services/supabase";
-import { asyncLoading } from "../composables/loading";
+import { asyncLoading } from "../utils/loading";
 
 const email = ref("");
 const onSubmit = asyncLoading(async () => {
