@@ -74,6 +74,7 @@ export const useUserStore = defineStore("user", () => {
     loadProfile,
     updateProfile,
 
+    // TODO: Wrong API usage (relevant issue https://github.com/wobsoriano/pinia-shared-state/issues/14)
     // share with other tabs via pinia-shared-state:
     // - see: https://github.com/wobsoriano/pinia-shared-state
     // - see: https://www.npmjs.com/package/pinia-shared-state
