@@ -1,6 +1,6 @@
 {
   "mode": {
-    "user": "user",
-    "organizer": "organizer"
+    "eventVisitor": "visitor",
+    "eventOrganizer": "organizer"
   }
 }

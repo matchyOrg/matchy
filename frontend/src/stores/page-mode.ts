@@ -1,4 +1,4 @@
 import { useStorage } from "@vueuse/core";
 
-export type PageModes = "user" | "organizer";
-export const PageMode = useStorage<PageModes>("page-mode", "user");
+export type PageModes = "eventVisitor" | "eventOrganizer";
+export const PageMode = useStorage<PageModes>("page-mode", "eventVisitor");

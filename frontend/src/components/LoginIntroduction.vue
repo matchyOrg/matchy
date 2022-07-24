@@ -15,16 +15,8 @@
 
     <div class="whitespace-xxtiny" />
     <p>Check <a href="www.example.com">this sweet demo video</a> out to figure out how it works.</p>
-
   </div>
 </template>
-
-<script setup lang="ts">
-const router = useRouter();
-function toLogin() {
-  router.push("/login");
-}
-</script>
 
 <style scoped>
 .question {

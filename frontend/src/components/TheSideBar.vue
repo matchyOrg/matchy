@@ -5,8 +5,8 @@
         <van-sidebar-item title="Home" @click="goToHome" />
         <van-sidebar-item title="Title" />
         <van-sidebar-item title="Title" />
-        <van-sidebar-item title="Switch to user view" v-if="PageMode !== 'user'" @click="PageMode = 'user'" />
-        <van-sidebar-item title="Switch to organizer view" v-if="PageMode !== 'organizer'" @click="PageMode = 'organizer'" />
+        <van-sidebar-item title="Switch to user view" v-if="PageMode !== 'eventVisitor'" @click="PageMode = 'eventVisitor'" />
+        <van-sidebar-item title="Switch to organizer view" v-if="PageMode !== 'eventOrganizer'" @click="PageMode = 'eventOrganizer'" />
         <van-sidebar-item title="Sign out" @click="signOut" />
       </van-sidebar>
     </div>

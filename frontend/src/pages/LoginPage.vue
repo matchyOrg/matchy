@@ -3,6 +3,7 @@
     <main>
       <h3>🐱 matchy: paperless speed dating</h3>
 
+      <!-- Introduction popup -->
       <van-button block @click="showPopup">Woah, how does it work?</van-button>
       <van-popup v-model:show="show" closeable round position="bottom" :style="{ height: '80vh' }">
         <LoginIntroduction />
@@ -18,6 +19,7 @@
 
       <div class="whitespace-medium" />
 
+      <!-- Email field -->
       <van-cell-group inset>
         <van-field
           v-model="email"
@@ -30,17 +32,24 @@
     </main>
 
     <footer>
-      <van-button
-        round
-        block
-        type="primary"
-        native-type="submit"
-        :disabled="onSubmit.loading"
-        :loading="onSubmit.loading"
-        loading-text="Logging in..."
-      >
-        send me an email
-      </van-button>
+      <div v-if="mailSent">
+        <p>A mail has been sent to you!</p>
+      </div>
+
+      <!-- Email send button -->
+      <div class="button-container">
+        <van-button
+          round
+          block
+          type="primary"
+          native-type="submit"
+          :disabled="onSubmit.loading"
+          :loading="onSubmit.loading"
+          loading-text="Logging in..."
+        >
+          {{ !mailSent ? "send me an email" : "resend the email" }}
+        </van-button>
+      </div>
 
       <div class="whitespace-tiny" />
     </footer>
@@ -60,7 +69,11 @@ const showPopup = () => {
 // mail field
 const email = ref("");
 
+// whether button was clicked
+const mailSent = ref(false);
+
 const onSubmit = asyncLoading(async () => {
+  mailSent.value = true;
   try {
     // Use magic links instead of passwords
     const { error } = await supabase.auth.signIn({ email: email.value });
@@ -68,6 +81,7 @@ const onSubmit = asyncLoading(async () => {
     showToast("Check your email for the login link!");
 
     // TODO: redirect to the home page after having logged in or something
+    // ^ redirecting the user to the page they already are on? how do we know they clicked the link? 
   } catch (error: any) {
     console.error(error);
     alert(error.error_description || error.message);
