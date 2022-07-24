@@ -20,6 +20,7 @@
     "@vueuse/shared": "^8.9.4",
     "ky": "^0.31.1",
     "pinia": "^2.0.16",
+    "pinia-shared-state": "^0.2.8",
     "unplugin-auto-import": "^0.10.1",
     "vant": "^4.0.0-alpha.4",
     "vue": "^3.2.37",

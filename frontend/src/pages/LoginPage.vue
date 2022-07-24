@@ -57,8 +57,11 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from "@/stores/user";
 import { supabase } from "../services/supabase";
 import { asyncLoading } from "../utils/loading";
+const router = useRouter();
+const userStore = useUserStore();
 
 // introduction popup
 const show = ref(false);
@@ -69,7 +72,7 @@ const showPopup = () => {
 // mail field
 const email = ref("");
 
-// whether button was clicked
+// whether submit-button was clicked
 const mailSent = ref(false);
 
 const onSubmit = asyncLoading(async () => {
@@ -80,13 +83,25 @@ const onSubmit = asyncLoading(async () => {
     if (error) throw error;
     showToast("Check your email for the login link!");
 
-    // TODO: redirect to the home page after having logged in or something
-    // ^ redirecting the user to the page they already are on? how do we know they clicked the link? 
+    // TODO: redirect to the home page if already logged in
   } catch (error: any) {
     console.error(error);
     alert(error.error_description || error.message);
   }
 });
+
+watch(
+  // watch for changes to userStore.isLoggedIn
+  () => userStore.isLoggedIn,
+  // if user is logged in, redirect to the home page
+  (newState) => {
+    if (newState) {
+      console.log("User entered /login, but is already logged in, redirecting to /");
+      router.push("/");
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>

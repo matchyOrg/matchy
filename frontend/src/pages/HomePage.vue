@@ -5,7 +5,7 @@
   <!-- Visitor view -->
   <div v-if="PageMode === 'eventVisitor'">
     <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
-    <!--TODO: Navigate to current event-->
+    <!--TODO: Forward to current event, if running -->
     <router-link :to="''" v-else>Click here to go to your current event</router-link>
   </div>
 
@@ -23,8 +23,6 @@ const { t } = useI18n();
 const router = useRouter();
 const userStore = useUserStore();
 const currentEventStore = useCurrentEventStore();
-
-console.log("Currently logged in as: ", PageMode);
 
 // TODO: Handle the error login case
 // http://127.0.0.1:5173/#/error=unauthorized_client&error_code=401&error_description=Email+link+is+invalid+or+has+expired

@@ -2,8 +2,6 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 
-// TODO: Figure out if we want https://github.com/wobsoriano/pinia-shared-state
-
 const emptyProfile = () => {
   return {
     username: "",
@@ -75,6 +73,13 @@ export const useUserStore = defineStore("user", () => {
     profile,
     loadProfile,
     updateProfile,
+
+    // share with other tabs via pinia-shared-state:
+    // - see: https://github.com/wobsoriano/pinia-shared-state
+    // - see: https://www.npmjs.com/package/pinia-shared-state
+    share: {
+      enable: true,
+    },
   };
 });
 
