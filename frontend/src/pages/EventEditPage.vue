@@ -14,5 +14,17 @@ const event = ref<EditEventInfo>({
   description: "",
   date_time: Temporal.Now.zonedDateTimeISO(),
   event_location: "",
+  max_participants: 20,
+  uses_groups: true,
+  event_groups: {
+    groupA: {
+      title: "Male",
+      description: "",
+    },
+    groupB: {
+      title: "Male",
+      description: "",
+    },
+  },
 });
 </script>

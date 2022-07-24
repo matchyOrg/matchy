@@ -24,6 +24,8 @@ export interface paths {
           description?: parameters["rowFilter.matchy_event.description"];
           date_time?: parameters["rowFilter.matchy_event.date_time"];
           event_location?: parameters["rowFilter.matchy_event.event_location"];
+          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
+          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
           event_groups?: parameters["rowFilter.matchy_event.event_groups"];
           /** Filtering Columns */
           select?: parameters["select"];
@@ -83,6 +85,8 @@ export interface paths {
           description?: parameters["rowFilter.matchy_event.description"];
           date_time?: parameters["rowFilter.matchy_event.date_time"];
           event_location?: parameters["rowFilter.matchy_event.event_location"];
+          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
+          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
           event_groups?: parameters["rowFilter.matchy_event.event_groups"];
         };
         header: {
@@ -106,11 +110,115 @@ export interface paths {
           description?: parameters["rowFilter.matchy_event.description"];
           date_time?: parameters["rowFilter.matchy_event.date_time"];
           event_location?: parameters["rowFilter.matchy_event.event_location"];
+          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
+          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
           event_groups?: parameters["rowFilter.matchy_event.event_groups"];
         };
         body: {
           /** matchy_event */
           matchy_event?: definitions["matchy_event"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/event_registration": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_registration.id"];
+          event_id?: parameters["rowFilter.event_registration.event_id"];
+          user_id?: parameters["rowFilter.event_registration.user_id"];
+          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
+          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
+          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_registration"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_registration */
+          event_registration?: definitions["event_registration"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_registration.id"];
+          event_id?: parameters["rowFilter.event_registration.event_id"];
+          user_id?: parameters["rowFilter.event_registration.user_id"];
+          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
+          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
+          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_registration.id"];
+          event_id?: parameters["rowFilter.event_registration.event_id"];
+          user_id?: parameters["rowFilter.event_registration.user_id"];
+          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
+          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
+          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+        };
+        body: {
+          /** event_registration */
+          event_registration?: definitions["event_registration"];
         };
         header: {
           /** Preference */
@@ -439,12 +547,37 @@ export interface definitions {
     date_time: string;
     /** Format: text */
     event_location: string;
+    /** Format: integer */
+    max_participants?: number;
+    /** Format: boolean */
+    uses_groups?: boolean;
     /**
      * Format: bigint
      * @description Note:
      * This is a Foreign Key to `event_group_pair.id`.<fk table='event_group_pair' column='id'/>
      */
-    event_groups?: number;
+    event_groups: number;
+  };
+  event_registration: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /** Format: uuid */
+    event_id: string;
+    /** Format: uuid */
+    user_id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default timezone('utc'::text, now())
+     */
+    inserted_at: string;
+    /** Format: boolean */
+    in_group_a: boolean;
+    /** Format: boolean */
+    in_group_b: boolean;
   };
   event_group_pair: {
     /**
@@ -548,8 +681,26 @@ export interface parameters {
   "rowFilter.matchy_event.date_time": string;
   /** Format: text */
   "rowFilter.matchy_event.event_location": string;
+  /** Format: integer */
+  "rowFilter.matchy_event.max_participants": string;
+  /** Format: boolean */
+  "rowFilter.matchy_event.uses_groups": string;
   /** Format: bigint */
   "rowFilter.matchy_event.event_groups": string;
+  /** @description event_registration */
+  "body.event_registration": definitions["event_registration"];
+  /** Format: bigint */
+  "rowFilter.event_registration.id": string;
+  /** Format: uuid */
+  "rowFilter.event_registration.event_id": string;
+  /** Format: uuid */
+  "rowFilter.event_registration.user_id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.event_registration.inserted_at": string;
+  /** Format: boolean */
+  "rowFilter.event_registration.in_group_a": string;
+  /** Format: boolean */
+  "rowFilter.event_registration.in_group_b": string;
   /** @description event_group_pair */
   "body.event_group_pair": definitions["event_group_pair"];
   /** Format: bigint */
