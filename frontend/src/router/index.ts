@@ -10,10 +10,12 @@ const router = createRouter({
     {
       path: "/",
       component: HomePage,
+      meta: { requiresAuth: true },
     },
     {
       path: "/login",
       component: LoginPage,
+      // is the page the user gets forwarded to if `requiresAuth`
     },
     {
       path: "/profile-edit",
@@ -34,7 +36,7 @@ router.beforeEach((to, from, next) => {
   const loggedIn = supabase.auth.user();
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
     console.warn("not logged in");
-    //showToast("Please log in!");
+    showToast("Please log in first!");
     next({ path: "/login", query: { redirect: to.fullPath } });
     return;
   }

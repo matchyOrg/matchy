@@ -1,14 +1,11 @@
 <template>
   <h2>Welcome {{ t("mode." + PageMode) }} {{ userStore.profile.username }}</h2>
-  <div v-if="!userStore.isLoggedIn">
-    <HomeNotLoggedIn></HomeNotLoggedIn>
-  </div>
-  <div v-else-if="PageMode === 'user'">
+  <div v-if="PageMode === 'user'">
     <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
     <!--TODO: Navigate to current event-->
     <router-link :to="''" v-else>Click here to go to your current event</router-link>
   </div>
-  <div v-else-if="PageMode === 'organizer'"></div>
+  <div v-if="PageMode === 'organizer'"></div>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +13,6 @@ import { useCurrentEventStore } from "@/stores/current-event";
 import { PageMode } from "@/stores/page-mode";
 import { useUserStore } from "@/stores/user";
 import { useI18n } from "vue-i18n";
-import HomeNotLoggedIn from "../components/HomeNotLoggedIn.vue";
 const { t } = useI18n();
 const router = useRouter();
 const userStore = useUserStore();

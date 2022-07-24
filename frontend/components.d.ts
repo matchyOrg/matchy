@@ -20,11 +20,13 @@ declare module '@vue/runtime-core' {
     TheNavBar: typeof import('./src/components/TheNavBar.vue')['default']
     TheSideBar: typeof import('./src/components/TheSideBar.vue')['default']
     VanButton: typeof import('vant/es')['Button']
+    VanCell: typeof import('vant/es')['Cell']
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanField: typeof import('vant/es')['Field']
     VanForm: typeof import('vant/es')['Form']
     VanIcon: typeof import('vant/es')['Icon']
     VanNavBar: typeof import('vant/es')['NavBar']
+    VanPopup: typeof import('vant/es')['Popup']
     VanSidebar: typeof import('vant/es')['Sidebar']
     VanSidebarItem: typeof import('vant/es')['SidebarItem']
   }

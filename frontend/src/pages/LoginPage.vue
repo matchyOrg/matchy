@@ -1,14 +1,22 @@
 <template>
   <van-form class="stacked-container page" @submit="onSubmit.handler">
     <main>
-      <Logo />
+      <h3>🐱 matchy: paperless speed dating</h3>
+
+      <van-button block @click="showPopup">Woah, how does it work?</van-button>
+      <van-popup v-model:show="show" closeable round position="bottom" :style="{ height: '80vh' }">
+        <LoginIntroduction />
+      </van-popup>
 
       <div class="whitespace-tiny" />
+
+      <p>Are you ready?</p>
       <p>
-        With matchy you don't even need a password. This means you can log right in or register just by clicking a link in your
-        inbox and don't have to remember anything.
+        You don't need a password to register or log in. <br />
+        Just enter your email address below:
       </p>
-      <p>Enter your mail to continue.</p>
+
+      <div class="whitespace-medium" />
 
       <van-cell-group inset>
         <van-field
@@ -22,19 +30,17 @@
     </main>
 
     <footer>
-      <div class="button-container">
-        <van-button
-          round
-          block
-          type="primary"
-          native-type="submit"
-          :disabled="onSubmit.loading"
-          :loading="onSubmit.loading"
-          loading-text="Logging in..."
-        >
-          Send me a link
-        </van-button>
-      </div>
+      <van-button
+        round
+        block
+        type="primary"
+        native-type="submit"
+        :disabled="onSubmit.loading"
+        :loading="onSubmit.loading"
+        loading-text="Logging in..."
+      >
+        send me an email
+      </van-button>
 
       <div class="whitespace-tiny" />
     </footer>
@@ -45,6 +51,13 @@
 import { supabase } from "../services/supabase";
 import { asyncLoading } from "../utils/loading";
 
+// introduction popup
+const show = ref(false);
+const showPopup = () => {
+  show.value = true;
+};
+
+// mail field
 const email = ref("");
 
 const onSubmit = asyncLoading(async () => {

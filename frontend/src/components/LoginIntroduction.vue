@@ -1,6 +1,7 @@
+<!-- This component only contains the content, used in the modal / popup of the login page, served by clicking a button -->
 <template>
-  <main>
-    <div class="whitespace-xtiny" />
+  <div class="whitespace-small" />
+  <div class="text-container">
     <p class="question">Tired of paperwork?</p>
     <p class="answer">Well, so are we. That's why we made matchy!</p>
 
@@ -13,27 +14,9 @@
     </p>
 
     <div class="whitespace-xxtiny" />
-    <p>Check this sweet demo out to figure out how it works:</p>
+    <p>Check <a href="www.example.com">this sweet demo video</a> out to figure out how it works.</p>
 
-    <div class="centered-container">
-      <!-- Add "?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0" to youtube's links -->
-      <!--<iframe
-            src="https://www.youtube-nocookie.com/embed/PKwAa3xsEe8?rel=0&modestbranding=1&autohide=1&showinfo=0&controls=0"
-            frameborder="0"
-            allowfullscreen
-          >
-          </iframe>-->
-    </div>
-  </main>
-  <footer>
-    <div class="button-container">
-      <van-button round block type="primary" native-type="submit" @click="toLogin" loading-text="Logging in...">
-        Continue
-      </van-button>
-    </div>
-
-    <div class="whitespace-tiny" />
-  </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -53,8 +36,5 @@ function toLogin() {
 
 .content {
   margin-left: 1rem;
-}
-iframe {
-  width: 100%;
 }
 </style>
