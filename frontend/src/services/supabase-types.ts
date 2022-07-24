@@ -12,6 +12,210 @@ export interface paths {
       };
     };
   };
+  "/matchy_event": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.matchy_event.id"];
+          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
+          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
+          organizer?: parameters["rowFilter.matchy_event.organizer"];
+          title?: parameters["rowFilter.matchy_event.title"];
+          description?: parameters["rowFilter.matchy_event.description"];
+          date_time?: parameters["rowFilter.matchy_event.date_time"];
+          event_location?: parameters["rowFilter.matchy_event.event_location"];
+          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["matchy_event"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** matchy_event */
+          matchy_event?: definitions["matchy_event"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.matchy_event.id"];
+          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
+          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
+          organizer?: parameters["rowFilter.matchy_event.organizer"];
+          title?: parameters["rowFilter.matchy_event.title"];
+          description?: parameters["rowFilter.matchy_event.description"];
+          date_time?: parameters["rowFilter.matchy_event.date_time"];
+          event_location?: parameters["rowFilter.matchy_event.event_location"];
+          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.matchy_event.id"];
+          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
+          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
+          organizer?: parameters["rowFilter.matchy_event.organizer"];
+          title?: parameters["rowFilter.matchy_event.title"];
+          description?: parameters["rowFilter.matchy_event.description"];
+          date_time?: parameters["rowFilter.matchy_event.date_time"];
+          event_location?: parameters["rowFilter.matchy_event.event_location"];
+          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+        };
+        body: {
+          /** matchy_event */
+          matchy_event?: definitions["matchy_event"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/event_group_pair": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group_pair.id"];
+          group_a?: parameters["rowFilter.event_group_pair.group_a"];
+          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_group_pair"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_group_pair */
+          event_group_pair?: definitions["event_group_pair"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group_pair.id"];
+          group_a?: parameters["rowFilter.event_group_pair.group_a"];
+          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group_pair.id"];
+          group_a?: parameters["rowFilter.event_group_pair.group_a"];
+          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+        };
+        body: {
+          /** event_group_pair */
+          event_group_pair?: definitions["event_group_pair"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/profiles": {
     get: {
       parameters: {
@@ -111,9 +315,157 @@ export interface paths {
       };
     };
   };
+  "/event_group": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group.id"];
+          title?: parameters["rowFilter.event_group.title"];
+          description?: parameters["rowFilter.event_group.description"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_group"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_group */
+          event_group?: definitions["event_group"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group.id"];
+          title?: parameters["rowFilter.event_group.title"];
+          description?: parameters["rowFilter.event_group.description"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_group.id"];
+          title?: parameters["rowFilter.event_group.title"];
+          description?: parameters["rowFilter.event_group.description"];
+        };
+        body: {
+          /** event_group */
+          event_group?: definitions["event_group"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
 }
 
 export interface definitions {
+  matchy_event: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     * @default gen_random_uuid()
+     */
+    id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default timezone('utc'::text, now())
+     */
+    inserted_at: string;
+    /**
+     * Format: timestamp with time zone
+     * @default timezone('utc'::text, now())
+     */
+    updated_at: string;
+    /** Format: uuid */
+    organizer: string;
+    /** Format: text */
+    title: string;
+    /** Format: text */
+    description: string;
+    /** Format: timestamp with time zone */
+    date_time: string;
+    /** Format: text */
+    event_location: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_group_pair.id`.<fk table='event_group_pair' column='id'/>
+     */
+    event_groups?: number;
+  };
+  event_group_pair: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_group.id`.<fk table='event_group' column='id'/>
+     */
+    group_a: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_group.id`.<fk table='event_group' column='id'/>
+     */
+    group_b: number;
+  };
   /** @description User profile information like a phone number, not to be confused with user auth stuff */
   profiles: {
     /**
@@ -130,6 +482,18 @@ export interface definitions {
     avatar_url?: string;
     /** Format: text */
     website?: string;
+  };
+  event_group: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /** Format: text */
+    title?: string;
+    /** Format: text */
+    description?: string;
   };
 }
 
@@ -166,6 +530,34 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
+  /** @description matchy_event */
+  "body.matchy_event": definitions["matchy_event"];
+  /** Format: uuid */
+  "rowFilter.matchy_event.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.matchy_event.inserted_at": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.matchy_event.updated_at": string;
+  /** Format: uuid */
+  "rowFilter.matchy_event.organizer": string;
+  /** Format: text */
+  "rowFilter.matchy_event.title": string;
+  /** Format: text */
+  "rowFilter.matchy_event.description": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.matchy_event.date_time": string;
+  /** Format: text */
+  "rowFilter.matchy_event.event_location": string;
+  /** Format: bigint */
+  "rowFilter.matchy_event.event_groups": string;
+  /** @description event_group_pair */
+  "body.event_group_pair": definitions["event_group_pair"];
+  /** Format: bigint */
+  "rowFilter.event_group_pair.id": string;
+  /** Format: bigint */
+  "rowFilter.event_group_pair.group_a": string;
+  /** Format: bigint */
+  "rowFilter.event_group_pair.group_b": string;
   /** @description profiles */
   "body.profiles": definitions["profiles"];
   /** Format: uuid */
@@ -178,6 +570,14 @@ export interface parameters {
   "rowFilter.profiles.avatar_url": string;
   /** Format: text */
   "rowFilter.profiles.website": string;
+  /** @description event_group */
+  "body.event_group": definitions["event_group"];
+  /** Format: bigint */
+  "rowFilter.event_group.id": string;
+  /** Format: text */
+  "rowFilter.event_group.title": string;
+  /** Format: text */
+  "rowFilter.event_group.description": string;
 }
 
 export interface operations {}
