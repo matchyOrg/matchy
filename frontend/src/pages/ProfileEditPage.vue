@@ -30,15 +30,12 @@ import { asyncLoading } from "../utils/loading";
 const store = useUserStore();
 const username = ref("");
 
-console.log(supabase.auth.user());
-console.log(store.user);
-
 const loadingProfile = asyncLoading(() =>
   store.loadProfile().then(() => {
     username.value = store.profile.username;
   })
 );
-//loadingProfile.handler();
+loadingProfile.handler();
 
 const onSubmit = asyncLoading(async () => {
   try {
