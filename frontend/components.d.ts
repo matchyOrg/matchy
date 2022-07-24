@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BeforeLogin: typeof import('./src/components/BeforeLogin.vue')['default']
     EditEvent: typeof import('./src/components/EditEvent.vue')['default']
+    HomeNotLoggedIn: typeof import('./src/components/HomeNotLoggedIn.vue')['default']
     Intro: typeof import('./src/components/Intro.vue')['default']
     Introduction: typeof import('./src/components/Introduction.vue')['default']
     LoginIntroduction: typeof import('./src/components/LoginIntroduction.vue')['default']

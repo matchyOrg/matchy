@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ store.user }}
     <h1>Your Profile</h1>
     <van-form @submit="onSubmit.handler" v-if="store.user">
       <h2>User Data</h2>
@@ -22,18 +23,22 @@
 </template>
 
 <script setup lang="ts">
+import { supabase } from "@/services/supabase";
 import { useUserStore } from "../stores/user";
 import { asyncLoading } from "../utils/loading";
 
 const store = useUserStore();
 const username = ref("");
 
+console.log(supabase.auth.user());
+console.log(store.user);
+
 const loadingProfile = asyncLoading(() =>
   store.loadProfile().then(() => {
     username.value = store.profile.username;
   })
 );
-loadingProfile.handler();
+//loadingProfile.handler();
 
 const onSubmit = asyncLoading(async () => {
   try {

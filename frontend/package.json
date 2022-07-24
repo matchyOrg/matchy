@@ -19,7 +19,7 @@
     "@vueuse/shared": "^8.9.4",
     "ky": "^0.31.0",
     "pinia": "^2.0.16",
-    "unplugin-auto-import": "^0.9.3",
+    "unplugin-auto-import": "^0.10.0",
     "vant": "^4.0.0-alpha.4",
     "vue": "^3.2.37",
     "vue-i18n": "^9.1.10",
@@ -44,8 +44,8 @@
     "prettier": "^2.7.1",
     "typescript": "^4.7.4",
     "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.1",
+    "vite": "^3.0.2",
     "vitest": "^0.18.1",
-    "vue-tsc": "^0.38.8"
+    "vue-tsc": "^0.39.0"
   }
 }

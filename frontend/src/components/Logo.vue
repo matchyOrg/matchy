@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .logo {
   text-align: center;
 }

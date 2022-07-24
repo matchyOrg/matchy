@@ -63,9 +63,15 @@ export const useUserStore = defineStore("user", () => {
     if (error) throw error;
   };
 
+  const signOut = () => {
+    user.value = null;
+    supabase.auth.signOut();
+  };
+
   return {
     user,
     isLoggedIn,
+    signOut,
     profile,
     loadProfile,
     updateProfile,

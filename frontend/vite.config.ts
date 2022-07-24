@@ -24,7 +24,7 @@ export default defineConfig({
         "vue",
         "vue-router",
         {
-          vant: ["showToast"],
+          vant: ["showToast", "showDialog", "showNotify", "showImagePreview"],
         },
       ],
 

@@ -7,6 +7,7 @@
         <van-sidebar-item title="Title" />
         <van-sidebar-item title="Switch to user view" v-if="PageMode !== 'user'" @click="PageMode = 'user'" />
         <van-sidebar-item title="Switch to organizer view" v-if="PageMode !== 'organizer'" @click="PageMode = 'organizer'" />
+        <van-sidebar-item title="Sign out" @click="signOut" />
       </van-sidebar>
     </div>
   </Transition>
@@ -14,6 +15,8 @@
 
 <script setup lang="ts">
 import { PageMode } from "@/stores/page-mode";
+import { useUserStore } from "@/stores/user";
+const userStore = useUserStore();
 const router = useRouter();
 
 const props = defineProps<{
@@ -32,6 +35,10 @@ function goToHome() {
 
 function hideSideBar() {
   emits("update:visible", false);
+}
+function signOut() {
+  userStore.signOut();
+  router.push("/");
 }
 </script>
 <style scoped>
