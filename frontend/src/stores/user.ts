@@ -8,43 +8,55 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 
-// TODO: HIGH PRIORITY: remove email from profile -> create getter function that reads it from "user"
 interface Profile {
-  email: string; // immediately derived from "User"
-  username?: string; // required
+  email?: string; // derived from "user"
+  username?: string;
   description?: string;
   avatar_url?: string;
 }
 
-const emptyProfile = (): Profile => {
-  return {
-    email: "",
-    username: undefined,
-    description: undefined,
-    avatar_url: undefined,
-  };
-};
-
 export const useUserStore = defineStore("user", () => {
+  const emptyProfile = (): Profile => {
+    return {
+      email: undefined,
+      username: undefined,
+      description: undefined,
+      avatar_url: undefined,
+    };
+  };
+
   const user = ref<User | null>(null);
   const isLoggedIn = computed(() => user.value !== null);
 
-  const profile = ref(emptyProfile());
-  const isRegistered = computed(() => {
-    return profile.value.username !== undefined;
-  });
+  const profile = ref<Profile>(emptyProfile()); // is based on "user" (see: App.vue)
+  const isRegistered = computed(() => !!profile.value.username); // check required attributes
 
-  // Clear profile when user changes
-  watch(
-    () => user.value,
-    () => {
-      profile.value = emptyProfile();
-    }
-  );
+  const clearProfile = () => {
+    profile.value = emptyProfile();
+  };
 
-  const loadProfile = async () => {
+  /**
+   * CRUD OPERATIONS
+   */
+  const createEmptyProfile = async () => {
+    if (!user.value || !user.value.email) throw new Error("User not loaded");
+
+    console.log("Creating profile");
+    const { error } = await supabase.from("profiles").insert({
+      id: user.value.id,
+      updated_at: new Date().toISOString(),
+      username: undefined,
+      description: undefined,
+      avatar_url: undefined,
+    });
+    if (error) throw error;
+  };
+
+  let firstAttempt = true;
+  const fetchProfile = async () => {
     // Typescript doesn't have proper error handling
     if (!user.value || !user.value.email) throw new Error("User not loaded");
+    console.log("Fetching profile with email:", user.value.email);
 
     // this will still end up logging a red line in the console
     const { data, error } = await supabase
@@ -52,48 +64,59 @@ export const useUserStore = defineStore("user", () => {
       .select(`username, description, avatar_url`)
       .eq("id", user.value.id)
       .maybeSingle();
-
-    if (error) throw error;
-    if (!data || !data.username || !data.description || !data.avatar_url) {
+    if (error) {
+      throw error;
+    }
+    console.log("Fetched:", data);
+    if (!data && firstAttempt) {
+      console.log("Profile does not exist in database");
+      firstAttempt = false;
+      createEmptyProfile();
+      console.log("Starting to fetch a second time");
+      fetchProfile();
+    }
+    if (!data) {
+      console.error("Fetching profile failed after a second attempt");
       return false;
     }
-    profile.value.email = user.value.email;
-    profile.value.username = data.username;
-    profile.value.description = data.description;
-    profile.value.avatar_url = data.avatar_url;
+
+    const completeData = {
+      email: user.value.email,
+      username: data.username,
+      description: data.description,
+      avatar_url: data.avatar_url,
+    };
+    profile.value = completeData;
     return true;
   };
 
   const updateProfile = async (data: Profile) => {
     if (!user.value || !user.value.email) throw new Error("User not loaded");
-    const { error } = await supabase.from("profiles").upsert(
-      {
-        id: user.value.id,
-        updated_at: new Date().toISOString(),
-        username: data.username,
-        description: data.description,
-        avatar_url: data.avatar_url,
-      },
-      { returning: "minimal" } // Don't return the value after inserting
-    );
+    const { error } = await supabase
+      .from("profiles")
+      .update(
+        {
+          updated_at: new Date().toISOString(),
+          username: data.username,
+          description: data.description,
+          avatar_url: data.avatar_url,
+        },
+        { returning: "minimal" } // Don't return the value after inserting
+      )
+      .match({ id: user.value.id });
 
     if (error) throw error;
   };
 
-  const signOut = () => {
-    user.value = null;
-    // TODO: Clear profile
-    supabase.auth.signOut();
-  };
-
   return {
+    emptyProfile,
     user,
     isLoggedIn,
     profile,
     isRegistered,
-    loadProfile,
+    clearProfile,
+    fetchProfile,
     updateProfile,
-    signOut,
 
     // TODO: Wrong API usage (relevant issue https://github.com/wobsoriano/pinia-shared-state/issues/14)
     // share with other tabs via pinia-shared-state:

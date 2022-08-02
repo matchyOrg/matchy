@@ -12,17 +12,19 @@
   --mobile-l: 435px; /* average modern flagship phones */
 }
 
-/* if on desktop or touch-desktop: simulate mobile view  */
+/* check whether on desktop or touch-desktop  */
 /* see: https://habr.com/en/sandbox/163605/ */
-@media (pointer: fine), (pointer: none), ((pointer: fine) and (any-pointer: coarse))  {
-  html {
-    margin: 0 auto;
-    width: 100%;
-    height: 100%;
-    max-width: var(--mobile-m);
-  }
-}
+/* @media (pointer: fine), (pointer: none), ((pointer: fine) and (any-pointer: coarse))  {
+  ...
+} */
 
+/* force mobile view everywhere  */
+html {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  max-width: var(--mobile-m);
+}
 
 /* ======================================== global styling ======================================== */
 /* hide scrollbar */

@@ -18,19 +18,25 @@ import TheSideBar from "./components/TheSideBar.vue";
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-// update "user" on authStateChange
+// update "user" when the auth state changes
 const userStore = useUserStore();
 userStore.user = supabase.auth.user();
 supabase.auth.onAuthStateChange((_, session) => {
-  userStore.user = session?.user ?? null;
+  const newState = session?.user ?? null;
+  console.log("auth state changed, updating user to: ", newState);
+  userStore.user = newState;
 });
 
-// fetch "profile" on change of "user"
+// update "profile" when "user" changes
 watch(
   () => userStore.isLoggedIn,
-  (newState) => {
-    if (newState) {
-      userStore.loadProfile();
+  (isLoggedIn) => {
+    if (isLoggedIn) {
+      console.log("user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore fetching profile");
+      userStore.fetchProfile();
+    } else {
+      console.log("user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore clearing profile");
+      userStore.clearProfile();
     }
   },
   { immediate: true }

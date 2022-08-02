@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { supabase } from "@/services/supabase.js";
 import { PageMode } from "@/stores/page-mode";
 import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
@@ -37,7 +38,7 @@ function hideSideBar() {
   emits("update:visible", false);
 }
 function signOut() {
-  userStore.signOut();
+  supabase.auth.signOut();
   router.push("/");
 }
 </script>

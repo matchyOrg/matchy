@@ -65,7 +65,7 @@ import LoginModal from "../components/LoginModal.vue";
 const router = useRouter();
 const userStore = useUserStore();
 
-// introduction popup
+// popup
 const show = ref(false);
 const showPopup = () => {
   show.value = true;
@@ -87,31 +87,14 @@ const onSubmit = asyncLoading(async () => {
   }
 });
 
-// watch for changes to userStore.isLoggedIn
 watch(
   () => userStore.isLoggedIn,
-  (newState) => {
-    if (newState) {
-      console.log("The 'user'-state changed (possibly in another window). User is now logged in -> redirecting to /");
+  (isLoggedIn) => {
+    if (isLoggedIn) {
+      console.log("A login link was clicked in another window. Redirecting to '/'");
       router.push("/");
     }
   },
   { immediate: true }
 );
 </script>
-
-<style scoped>
-/* Splits page into 'main'-part and 'footer'-part to place the footer at
- the bottom of the viewport unless there is text to scroll */
-.page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* footer */
-footer {
-  width: 100%;
-}
-</style>

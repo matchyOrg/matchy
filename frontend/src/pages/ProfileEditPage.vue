@@ -1,47 +1,70 @@
 <template>
-  <h1>PROFILE EDIT</h1>
+  <van-form class="stacked-container page">
+    <main>
+      <h1>Edit profile</h1>
+      {{ store.profile }}
+    </main>
 
-  <!-- <div>
-    {{ store.user }}
-    <h1>Your Profile</h1>
-    <van-form @submit="onSubmit.handler" v-if="store.user">
-      <h2>User Data</h2>
-      <van-cell-group inset>
-        <van-field v-model="username" label="Name" placeholder="Your name" :disabled="loadingProfile.loading" />
-      </van-cell-group>
-
-      <h2>Login Information</h2>
-      <van-cell-group inset>
-        <van-field v-model="store.user.email" label="Email" placeholder="Login with email" :disabled="true" />
-      </van-cell-group>
-
-      <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit" :disabled="onSubmit.loading" :loading="onSubmit.loading">
-          Submit
-        </van-button>
+    <footer>
+      <!-- logout button -->
+      <div class="button-container">
+        <van-button round block type="primary" @click="signOut">sign out</van-button>
       </div>
-    </van-form>
-  </div> -->
+
+      <div class="whitespace-tiny" />
+    </footer>
+  </van-form>
+
+  <!-- <van-form @submit="onSubmit.handler" v-if="store.isRegistered">
+    <van-cell-group inset>
+      <van-field v-model="store.user.email" label="Email" placeholder="Login with email" :disabled="true" />
+    </van-cell-group>
+  </van-form> -->
+
+  <div class="whitespace-xlarge" />
+  <!-- <van-form @submit="onSubmit.handler" v-if="store.isRegistered">
+    <h2>User Data</h2>
+    <van-cell-group inset>
+      <van-field v-model="formData.username" label="Name" placeholder="Your name" :disabled="loadingProfile.loading" />
+    </van-cell-group>
+
+    <van-cell-group inset>
+      <van-field v-model="store.user.email" label="Email" placeholder="Login with email" :disabled="true" />
+    </van-cell-group>
+
+    <van-button round block type="primary" native-type="submit" :disabled="onSubmit.loading" :loading="onSubmit.loading">
+      Submit
+    </van-button>
+  </van-form> -->
 </template>
 
 <script setup lang="ts">
-// import { supabase } from "@/services/supabase";
-// import { useUserStore } from "../stores/user";
-// import { asyncLoading } from "../utils/loading";
+import { useUserStore } from "../stores/user";
+import { asyncLoading } from "../utils/loading";
+import { supabase } from "@/services/supabase";
+import router from "@/router";
+const store = useUserStore();
 
-// const store = useUserStore();
-// const username = ref("");
+console.log("LOGGED IN: ", store.isLoggedIn);
+console.log("REGISTERED: ", store.isRegistered);
+
+const signOut = () => {
+  supabase.auth.signOut();
+  router.push("/");
+};
+
+// const formData = ref(store.emptyProfile());
 
 // const loadingProfile = asyncLoading(() =>
-//   store.loadProfile().then(() => {
-//     username.value = store.profile.username;
+//   store.fetchProfile().then(() => {
+//     formData.value = store.profile;
 //   })
 // );
 // loadingProfile.handler();
 
 // const onSubmit = asyncLoading(async () => {
 //   try {
-//     await store.updateProfile({ username: username.value });
+//     await store.updateProfile(formData.value);
 //   } catch (error: any) {
 //     console.error(error);
 //     alert(error.error_description || error.message);

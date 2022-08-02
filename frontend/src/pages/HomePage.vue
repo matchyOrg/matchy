@@ -10,8 +10,7 @@
   </div>
 
   <!-- Organizer view -->
-  <div v-if="PageMode === 'eventOrganizer'">
-  </div>
+  <div v-if="PageMode === 'eventOrganizer'"></div>
 </template>
 
 <script setup lang="ts">
@@ -20,7 +19,6 @@ import { PageMode } from "@/stores/page-mode";
 import { useUserStore } from "@/stores/user";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-const router = useRouter();
 const userStore = useUserStore();
 const currentEventStore = useCurrentEventStore();
 
