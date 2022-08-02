@@ -26,21 +26,4 @@ const currentEventStore = useCurrentEventStore();
 
 // TODO: Handle the error login case
 // http://127.0.0.1:5173/#/error=unauthorized_client&error_code=401&error_description=Email+link+is+invalid+or+has+expired
-
-watch(
-  () => userStore.isLoggedIn,
-  (v) => {
-    if (v) {
-      userStore.loadProfile().then(() => {
-        // On first visit of home page, the user is required to fill out their profile
-        // TODO: check whether _all_ the user attributes are empty - user could close app mid way through signup
-        const profileIsEmpty = userStore.isLoggedIn && userStore.profile.username === "";
-        if (profileIsEmpty) {
-          router.push("/profile-edit");
-        }
-      });
-    }
-  },
-  { immediate: true }
-);
 </script>

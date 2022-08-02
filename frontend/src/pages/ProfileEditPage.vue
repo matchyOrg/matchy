@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <h1>PROFILE EDIT</h1>
+
+  <!-- <div>
     {{ store.user }}
     <h1>Your Profile</h1>
     <van-form @submit="onSubmit.handler" v-if="store.user">
@@ -19,30 +21,30 @@
         </van-button>
       </div>
     </van-form>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
-import { supabase } from "@/services/supabase";
-import { useUserStore } from "../stores/user";
-import { asyncLoading } from "../utils/loading";
+// import { supabase } from "@/services/supabase";
+// import { useUserStore } from "../stores/user";
+// import { asyncLoading } from "../utils/loading";
 
-const store = useUserStore();
-const username = ref("");
+// const store = useUserStore();
+// const username = ref("");
 
-const loadingProfile = asyncLoading(() =>
-  store.loadProfile().then(() => {
-    username.value = store.profile.username;
-  })
-);
-loadingProfile.handler();
+// const loadingProfile = asyncLoading(() =>
+//   store.loadProfile().then(() => {
+//     username.value = store.profile.username;
+//   })
+// );
+// loadingProfile.handler();
 
-const onSubmit = asyncLoading(async () => {
-  try {
-    await store.updateProfile({ username: username.value });
-  } catch (error: any) {
-    console.error(error);
-    alert(error.error_description || error.message);
-  }
-});
+// const onSubmit = asyncLoading(async () => {
+//   try {
+//     await store.updateProfile({ username: username.value });
+//   } catch (error: any) {
+//     console.error(error);
+//     alert(error.error_description || error.message);
+//   }
+// });
 </script>

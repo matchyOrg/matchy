@@ -1,12 +1,13 @@
+<!-- The user is stuck on this page until there is a change in the "user store" -->
 <template>
   <van-form class="stacked-container page" @submit="onSubmit.handler">
     <main>
       <h3>🐱 matchy: paperless speed dating</h3>
 
       <!-- Introduction popup -->
-      <van-button block @click="showPopup">Woah, how does it work?</van-button>
+      <van-button block @click="showPopup">Woah, so how does it work?</van-button>
       <van-popup v-model:show="show" closeable round position="bottom" :style="{ height: '80vh' }">
-        <LoginIntroduction />
+        <LoginModal />
       </van-popup>
 
       <div class="whitespace-tiny" />
@@ -17,7 +18,7 @@
         Just enter your email address below:
       </p>
 
-      <div class="whitespace-medium" />
+      <div class="whitespace-tiny" />
 
       <!-- Email field -->
       <van-cell-group inset>
@@ -60,6 +61,7 @@
 import { useUserStore } from "@/stores/user";
 import { supabase } from "../services/supabase";
 import { asyncLoading } from "../utils/loading";
+import LoginModal from "../components/LoginModal.vue";
 const router = useRouter();
 const userStore = useUserStore();
 
@@ -69,34 +71,28 @@ const showPopup = () => {
   show.value = true;
 };
 
-// mail field
 const email = ref("");
-
-// whether submit-button was clicked
 const mailSent = ref(false);
 
+// send magic link to user
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   try {
-    // Use magic links instead of passwords
     const { error } = await supabase.auth.signIn({ email: email.value });
     if (error) throw error;
     showToast("Check your email for the login link!");
-
-    // TODO: redirect to the home page if already logged in
   } catch (error: any) {
     console.error(error);
     alert(error.error_description || error.message);
   }
 });
 
+// watch for changes to userStore.isLoggedIn
 watch(
-  // watch for changes to userStore.isLoggedIn
   () => userStore.isLoggedIn,
-  // if user is logged in, redirect to the home page
   (newState) => {
     if (newState) {
-      console.log("User entered /login, but is already logged in, redirecting to /");
+      console.log("The 'user'-state changed (possibly in another window). User is now logged in -> redirecting to /");
       router.push("/");
     }
   },
@@ -105,8 +101,8 @@ watch(
 </script>
 
 <style scoped>
-/* Splits page into 'main'-part and 'footer'-part */
-/* place footer at viewport bottom (unless there is text to scroll) */
+/* Splits page into 'main'-part and 'footer'-part to place the footer at
+ the bottom of the viewport unless there is text to scroll */
 .page {
   min-height: 100vh;
   display: flex;

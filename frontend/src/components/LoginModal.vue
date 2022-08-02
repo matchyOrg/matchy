@@ -1,6 +1,8 @@
-<!-- This component only contains the content, used in the modal / popup of the login page, served by clicking a button -->
+<!-- Content of modal / popup in the login page -->
 <template>
-  <div class="whitespace-small" />
+  <div class="text-container">
+    <h2>How it works</h2>
+  </div>
   <div class="text-container">
     <p class="question">Tired of paperwork?</p>
     <p class="answer">Well, so are we. That's why we made matchy!</p>
@@ -10,11 +12,12 @@
       experiences and lasting relationships.
     </p>
     <p class="content">
-      It provides a truly unique and seamless experience from your registration to finding out who you matched with.
+      Replacing paper is no easy feat. But matchy is simple and accessible enough to be able to do so and compete with the
+      status quo.
     </p>
 
-    <div class="whitespace-xxtiny" />
-    <p>Check <a href="www.example.com">this sweet demo video</a> out to figure out how it works.</p>
+    <div class="whitespace-xxxtiny" />
+    <p>Check <a href="https://www.example.com">this sweet demo video</a> out to figure out how it works.</p>
   </div>
 </template>
 

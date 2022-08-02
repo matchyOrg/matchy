@@ -1,3 +1,4 @@
+import { useUserStore } from "@/stores/user";
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import LoginPage from "../pages/LoginPage.vue";
@@ -5,17 +6,16 @@ import ProfileEditPage from "../pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory("import.meta.env.BASE_URL"),
   routes: [
     {
       path: "/",
       component: HomePage,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, requiresProfile: true },
     },
     {
       path: "/login",
       component: LoginPage,
-      // is the page the user gets forwarded to if `requiresAuth`
     },
     {
       path: "/profile-edit",
@@ -34,10 +34,18 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const loggedIn = supabase.auth.user();
+
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
-    console.warn("not logged in");
+    console.warn("tried to access", to.fullPath, "but not logged in, forwarding to /login");
     // showToast("Please log in first!");
     next({ path: "/login", query: { redirect: to.fullPath } });
+    return;
+  }
+
+  const registered = useUserStore().isRegistered;
+  if (to.matched.some((record) => record.meta.requiresProfile) && loggedIn && !registered) {
+    console.warn("tried to access", to.fullPath, "but not registered, forwarding to /profile-edit");
+    next({ path: "/profile-edit", query: { redirect: to.fullPath } });
     return;
   }
   next();

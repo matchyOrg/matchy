@@ -601,6 +601,7 @@ export interface definitions {
   };
   /** @description User profile information like a phone number, not to be confused with user auth stuff */
   profiles: {
+    description: any;
     /**
      * Format: uuid
      * @description Note:

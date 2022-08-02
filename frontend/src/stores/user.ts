@@ -1,10 +1,27 @@
+/**
+ * This store manages the applications state based on:
+ * - "user": the users authentication data
+ * - "profile": the users profile data
+ */
+
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 
-const emptyProfile = () => {
+// TODO: HIGH PRIORITY: remove email from profile -> create getter function that reads it from "user"
+interface Profile {
+  email: string; // immediately derived from "User"
+  username?: string; // required
+  description?: string;
+  avatar_url?: string;
+}
+
+const emptyProfile = (): Profile => {
   return {
-    username: "",
+    email: "",
+    username: undefined,
+    description: undefined,
+    avatar_url: undefined,
   };
 };
 
@@ -13,6 +30,9 @@ export const useUserStore = defineStore("user", () => {
   const isLoggedIn = computed(() => user.value !== null);
 
   const profile = ref(emptyProfile());
+  const isRegistered = computed(() => {
+    return profile.value.username !== undefined;
+  });
 
   // Clear profile when user changes
   watch(
@@ -22,40 +42,39 @@ export const useUserStore = defineStore("user", () => {
     }
   );
 
-  // Typescript doesn't have proper error handling
   const loadProfile = async () => {
-    if (!user.value) throw new Error("User not loaded");
+    // Typescript doesn't have proper error handling
+    if (!user.value || !user.value.email) throw new Error("User not loaded");
 
-    // Note that this will still end up logging a red line in the console
+    // this will still end up logging a red line in the console
     const { data, error } = await supabase
       .from("profiles")
-      .select(`username, website, avatar_url`)
+      .select(`username, description, avatar_url`)
       .eq("id", user.value.id)
       .maybeSingle();
 
     if (error) throw error;
-
-    if (!data || !data.username) {
-      // The profile can still be missing when the user has just registered
+    if (!data || !data.username || !data.description || !data.avatar_url) {
       return false;
     }
-
+    profile.value.email = user.value.email;
     profile.value.username = data.username;
+    profile.value.description = data.description;
+    profile.value.avatar_url = data.avatar_url;
     return true;
   };
 
-  const updateProfile = async (data: { username: string }) => {
-    if (!user.value) throw new Error("User not loaded");
-
+  const updateProfile = async (data: Profile) => {
+    if (!user.value || !user.value.email) throw new Error("User not loaded");
     const { error } = await supabase.from("profiles").upsert(
       {
-        ...data,
         id: user.value.id,
         updated_at: new Date().toISOString(),
+        username: data.username,
+        description: data.description,
+        avatar_url: data.avatar_url,
       },
-      {
-        returning: "minimal", // Don't return the value after inserting
-      }
+      { returning: "minimal" } // Don't return the value after inserting
     );
 
     if (error) throw error;
@@ -63,16 +82,18 @@ export const useUserStore = defineStore("user", () => {
 
   const signOut = () => {
     user.value = null;
+    // TODO: Clear profile
     supabase.auth.signOut();
   };
 
   return {
     user,
     isLoggedIn,
-    signOut,
     profile,
+    isRegistered,
     loadProfile,
     updateProfile,
+    signOut,
 
     // TODO: Wrong API usage (relevant issue https://github.com/wobsoriano/pinia-shared-state/issues/14)
     // share with other tabs via pinia-shared-state:
