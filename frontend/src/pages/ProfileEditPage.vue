@@ -1,41 +1,49 @@
 <template>
-  <van-form class="stacked-container page">
+  <van-form class="stacked-container nav-page" @submit="onSubmit.handler">
     <main>
-      <h1>Edit profile</h1>
-      {{ store.profile }}
+      <div class="text-container">
+        <h3>{{ store.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}</h3>
+        <p style="color: var(--light-text)" v-if="!store.isRegistered">
+          Enter your full name and a description below to continue.
+        </p>
+      </div>
+
+      <van-cell-group inset>
+        <van-field v-model="formData.email" label="Email" placeholder="Login with email" :disabled="true" />
+
+        <van-field
+          v-model="formData.username"
+          label="Full Name"
+          placeholder="Your full name"
+          :disabled="loadingProfile.loading"
+          :rules="[{ required: true, message: 'Your full name is required' }]"
+        />
+
+        <van-field
+          v-model="formData.description"
+          label="Description"
+          placeholder="Optionally: Everything you want others to know, like your instagram handle, your favorite food, etc."
+          type="textarea"
+          rows="3"
+          autosize
+          :disabled="loadingProfile.loading"
+        />
+      </van-cell-group>
     </main>
 
     <footer>
-      <!-- logout button -->
-      <div class="button-container">
-        <van-button round block type="primary" @click="signOut">sign out</van-button>
-      </div>
+      <!-- submit button -->
+      <van-button round block type="primary" native-type="submit" :disabled="onSubmit.loading" :loading="onSubmit.loading">
+        {{ store.isRegistered ? "submit" : "register" }}
+      </van-button>
 
+      <div class="whitespace-xtiny"></div>
+
+      <!-- sign out button -->
+      <van-button v-if="!store.isRegistered" round block plain type="primary" @click="signOut">sign out</van-button>
       <div class="whitespace-tiny" />
     </footer>
   </van-form>
-
-  <!-- <van-form @submit="onSubmit.handler" v-if="store.isRegistered">
-    <van-cell-group inset>
-      <van-field v-model="store.user.email" label="Email" placeholder="Login with email" :disabled="true" />
-    </van-cell-group>
-  </van-form> -->
-
-  <div class="whitespace-xlarge" />
-  <!-- <van-form @submit="onSubmit.handler" v-if="store.isRegistered">
-    <h2>User Data</h2>
-    <van-cell-group inset>
-      <van-field v-model="formData.username" label="Name" placeholder="Your name" :disabled="loadingProfile.loading" />
-    </van-cell-group>
-
-    <van-cell-group inset>
-      <van-field v-model="store.user.email" label="Email" placeholder="Login with email" :disabled="true" />
-    </van-cell-group>
-
-    <van-button round block type="primary" native-type="submit" :disabled="onSubmit.loading" :loading="onSubmit.loading">
-      Submit
-    </van-button>
-  </van-form> -->
 </template>
 
 <script setup lang="ts">
@@ -43,31 +51,36 @@ import { useUserStore } from "../stores/user";
 import { asyncLoading } from "../utils/loading";
 import { supabase } from "@/services/supabase";
 import router from "@/router";
+import { showFailToast, showSuccessToast } from "vant";
 const store = useUserStore();
-
-console.log("LOGGED IN: ", store.isLoggedIn);
-console.log("REGISTERED: ", store.isRegistered);
 
 const signOut = () => {
   supabase.auth.signOut();
   router.push("/");
 };
 
-// const formData = ref(store.emptyProfile());
+const formData = ref(store.emptyProfile());
 
-// const loadingProfile = asyncLoading(() =>
-//   store.fetchProfile().then(() => {
-//     formData.value = store.profile;
-//   })
-// );
-// loadingProfile.handler();
+const loadingProfile = asyncLoading(() =>
+  store.fetchProfile().then(() => {
+    formData.value.avatar_url = store.profile.avatar_url;
+    formData.value.email = store.profile.email;
+    formData.value.username = store.profile.username;
+    formData.value.description = store.profile.description;
+  })
+);
+console.log("ProfileEditPage.vue: Calling fetchProfile()");
+loadingProfile.handler();
 
-// const onSubmit = asyncLoading(async () => {
-//   try {
-//     await store.updateProfile(formData.value);
-//   } catch (error: any) {
-//     console.error(error);
-//     alert(error.error_description || error.message);
-//   }
-// });
+const onSubmit = asyncLoading(async () => {
+  try {
+    await store.updateProfile(formData.value);
+    showSuccessToast("Updated");
+    location.reload();
+  } catch (error: any) {
+    showFailToast("Error");
+    console.error(error);
+    alert(error.error_description || error.message);
+  }
+});
 </script>

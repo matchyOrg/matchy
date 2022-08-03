@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Avatar: typeof import('./src/components/Avatar.vue')['default']
     BeforeLogin: typeof import('./src/components/BeforeLogin.vue')['default']
     EditEvent: typeof import('./src/components/EditEvent.vue')['default']
     HomeNotLoggedIn: typeof import('./src/components/HomeNotLoggedIn.vue')['default']

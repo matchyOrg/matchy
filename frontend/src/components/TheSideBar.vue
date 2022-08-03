@@ -3,7 +3,7 @@
     <div class="side-bar" @click="hideSideBar" v-if="visible">
       <van-sidebar v-model="active" @click.stop>
         <van-sidebar-item title="Home" @click="goToHome" />
-        <van-sidebar-item title="empty" />
+        <van-sidebar-item title="Profile" @click="goToProfile" />
         <van-sidebar-item title="empty" />
         <van-sidebar-item title="Switch to visitor view" v-if="PageMode !== 'eventVisitor'" @click="PageMode = 'eventVisitor'" />
         <van-sidebar-item title="Switch to organizer view" v-if="PageMode !== 'eventOrganizer'" @click="PageMode = 'eventOrganizer'" />
@@ -32,6 +32,12 @@ const active = ref(2);
 
 function goToHome() {
   router.push("/");
+  hideSideBar();
+}
+
+function goToProfile() {
+  router.push("/profile-edit");
+  hideSideBar();
 }
 
 function hideSideBar() {

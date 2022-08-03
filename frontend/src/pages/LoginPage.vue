@@ -5,7 +5,7 @@
       <h3>🐱 matchy: paperless speed dating</h3>
 
       <!-- Introduction popup -->
-      <van-button block @click="showPopup">Woah, so how does it work?</van-button>
+      <van-button class="explaination-button" @click="showPopup">Woah, so how does it work?</van-button>
       <van-popup v-model:show="show" closeable round position="bottom" :style="{ height: '80vh' }">
         <LoginModal />
       </van-popup>
@@ -33,8 +33,8 @@
     </main>
 
     <footer>
-      <div v-if="mailSent">
-        <p>A mail has been sent to you!</p>
+      <div class="mailSent" v-if="mailSent">
+        <p>A mail was sent to you.</p>
       </div>
 
       <!-- Email send button -->
@@ -87,6 +87,7 @@ const onSubmit = asyncLoading(async () => {
   }
 });
 
+// magic link clicked in another window
 watch(
   () => userStore.isLoggedIn,
   (isLoggedIn) => {
@@ -98,3 +99,17 @@ watch(
   { immediate: true }
 );
 </script>
+
+<style scoped>
+.explaination-button {
+  width: 100%;
+  border-style: none !important;
+  border-radius: 25px !important;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 8px 8px 16px #bfbfbf, -8px -8px 16px #ffffff;
+}
+
+.mailSent {
+  color: var(--light-text);
+}
+</style>

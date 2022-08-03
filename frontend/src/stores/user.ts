@@ -41,7 +41,7 @@ export const useUserStore = defineStore("user", () => {
   const createEmptyProfile = async () => {
     if (!user.value || !user.value.email) throw new Error("User not loaded");
 
-    console.log("Creating profile");
+    console.log("user.ts: Creating profile");
     const { error } = await supabase.from("profiles").insert({
       id: user.value.id,
       updated_at: new Date().toISOString(),
@@ -55,8 +55,8 @@ export const useUserStore = defineStore("user", () => {
   let firstAttempt = true;
   const fetchProfile = async () => {
     // Typescript doesn't have proper error handling
-    if (!user.value || !user.value.email) throw new Error("User not loaded");
-    console.log("Fetching profile with email:", user.value.email);
+    if (!user.value || !user.value.email) throw new Error("user.ts: User not loaded");
+    console.log("user.ts: Fetching profile with email:", user.value.email);
 
     // this will still end up logging a red line in the console
     const { data, error } = await supabase
@@ -67,12 +67,12 @@ export const useUserStore = defineStore("user", () => {
     if (error) {
       throw error;
     }
-    console.log("Fetched:", data);
+    console.log("user.ts: Fetched:", data);
     if (!data && firstAttempt) {
-      console.log("Profile does not exist in database");
+      console.log("user.ts: Profile does not exist in database");
       firstAttempt = false;
       createEmptyProfile();
-      console.log("Starting to fetch a second time");
+      console.log("user.ts: Starting to fetch a second time");
       fetchProfile();
     }
     if (!data) {

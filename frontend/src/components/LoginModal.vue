@@ -1,7 +1,7 @@
 <!-- Content of modal / popup in the login page -->
 <template>
   <div class="text-container">
-    <h2>How it works</h2>
+    <h3>How it works</h3>
   </div>
   <div class="text-container">
     <p class="question">Tired of paperwork?</p>

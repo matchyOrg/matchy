@@ -23,7 +23,7 @@ const userStore = useUserStore();
 userStore.user = supabase.auth.user();
 supabase.auth.onAuthStateChange((_, session) => {
   const newState = session?.user ?? null;
-  console.log("auth state changed, updating user to: ", newState);
+  console.log("App.vue: auth state changed, updating user to: ", newState);
   userStore.user = newState;
 });
 
@@ -32,10 +32,10 @@ watch(
   () => userStore.isLoggedIn,
   (isLoggedIn) => {
     if (isLoggedIn) {
-      console.log("user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore fetching profile");
+      console.log("App.vue: user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore fetching profile");
       userStore.fetchProfile();
     } else {
-      console.log("user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore clearing profile");
+      console.log("App.vue: user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore clearing profile");
       userStore.clearProfile();
     }
   },
