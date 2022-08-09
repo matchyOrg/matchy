@@ -5,4 +5,4 @@ Sounds interesting? Feel free to put this project on your watch list by clicking
 
 This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
 
-Check out the `CONTRIBUTING.md` file if you want contribute. It's an in depth explaination of our tech stack and our dependencies. Also feel free to open an issue to tell us about bugs or suggestions.
+Check out the `CONTRIBUTING.md` file if you want contribute. It's an in depth explaination of our tech stack and our dependencies. Also feel free to open an issue to tell us about bugs or your suggestions.
