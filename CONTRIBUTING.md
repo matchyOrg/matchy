@@ -108,4 +108,4 @@ Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find
 <br><br>
 
 # What's next?
-Next you can check out the existing documentation in `./docs`.
+Next you can check out the existing documentation in `./docs` and contact me directly so I can invite you to this repository 🙌.
