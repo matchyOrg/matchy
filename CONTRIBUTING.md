@@ -111,3 +111,4 @@ Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find
 Next you can:
 - check out the existing documentation in `./docs`
 - [join our discord](https://discord.gg/tFf2RkTg) 🙌
+- let your friends know about this project 🤝
