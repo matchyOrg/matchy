@@ -23,7 +23,7 @@ This file contains everything you need to know to contribute to this project.
     - [Lint with ESLint](#lint-with-eslint)
 - [Backend](#backend)
 - [What's next?](#whats-next)
-<br><br>
+<br><br><br><br>
 
 # Frontend
 ## Prerequisites
@@ -100,12 +100,12 @@ npm run test:unit
 ```sh
 npm run lint
 ```
-<br><br>
+<br><br><br><br>
 
 # Backend
 As you probably noticed, we didn't write any backend and are using the BaaS called [supabase](https://supabase.com/).
 Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find out how to get started with vue and let me know what your email address is so I can give you access to our supabase workspace (haha that rhymes nicely).
-<br><br>
+<br><br><br><br>
 
 # What's next?
 Next you can:
