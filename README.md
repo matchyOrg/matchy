@@ -16,5 +16,10 @@ The main goal of this app is to provide existing (non
 - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
 - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
 
+## How can I join the community? How can I contribute?
+Joining the community doesn't require you to commit to anything / contribute anything. <br>
+You can just [join our wonderful discord server](https://discord.gg/tFf2RkTg) and just have a good time and get to know us. <br>
+Most of us are software developers or students on the side and since we are also doing this for a good cause, we understand that it's the community that drives this project forward and not greed.
+
 Check out the `CONTRIBUTING.md` file if you want contribute. It's an in depth explaination of our tech stack and our dependencies. <br>
 Also feel free to open an issue to tell us about bugs or your suggestions.
