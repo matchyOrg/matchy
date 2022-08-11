@@ -8,7 +8,7 @@ This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/match
 <br><br>
 
 ## Who is this for?
-The main goal of this app is to provide existing non-profit speed friending organizations with a better alternative to pen and paper. We've already been asked by some of these communities to develop this app, therefore we are certain that there already is a demand for it.
+The main goal of this app is to provide existing non-profit speed friending organizations with a better alternative to pen and paper. We've already been asked by some of these communities to develop this app. Therefore we know with certainty that there already is some demand for it.
 - https://speedfriending.at/
 - https://mikulabeutl.com/speed-friending/
 - https://esnuniwien.com/events/speedfriending-esn-1
