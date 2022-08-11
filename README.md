@@ -21,5 +21,5 @@ Joining the community doesn't require you to commit to anything / contribute any
 You can just [join our wonderful discord server](https://discord.gg/tFf2RkTg) and just have a good time and get to know us. <br>
 Most of us are software developers or students on the side and since we are also doing this for a good cause, we understand that it's the community that drives this project forward and not greed.
 
-Check out the `CONTRIBUTING.md` file if you want contribute. It's an in depth explaination of our tech stack and our dependencies. <br>
+If you feel ready to contribute: Check out the `CONTRIBUTING.md`. It's an in depth explaination of our tech stack and our dependencies. <br>
 Also feel free to open an issue to tell us about bugs or your suggestions.
