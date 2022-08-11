@@ -15,6 +15,7 @@ The main goal of this app is to provide existing (non
 - https://www.meetup.com/speed-friending-events/
 - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
 - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
+<br><br>
 
 ## How can I join the community? How can I contribute?
 Joining the community doesn't require you to commit to anything / contribute anything. <br>
