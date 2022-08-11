@@ -1,7 +1,8 @@
 # matchy
 Howdy friend! <br>
-In this source project, we're trying to make speed dating paperless! <br>
-Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made 👩‍💻🌈.
+In this source project, we're trying to make speed dating paperless! 💌
+
+> Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made.
 
 This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
 <br><br>
