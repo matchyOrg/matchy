@@ -1,6 +1,6 @@
 # matchy
 Howdy friend! <br>
-In this source project, we're trying to make speed dating paperless! 💌
+In this open source project, we're making speed dating paperless! 💌
 
 > Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made.
 
