@@ -33,8 +33,9 @@ This file contains everything you need to know to contribute to this project.
 ## Setup
 1. Fork the repository
 2. Clone your fork
-3. `npm install`
-4. `npm run dev`
+3. Open the `frontend` folder in your IDE
+4. `npm install`
+5. `npm run dev`
 
 ## Recommended Tooling
 I recommend using [Visual Studio Code](https://code.visualstudio.com/) with
