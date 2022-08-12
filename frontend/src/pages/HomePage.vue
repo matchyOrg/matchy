@@ -1,5 +1,5 @@
 <template>
-  <h2>Welcome, {{ userStore.profile.username }}!</h2>
+  <h2 class="text-center color-blue">Welcome, {{ userStore.profile.username }}!</h2>
   <h6 style="margin-top: -1rem">Current view: {{ t("mode." + PageMode) }}</h6>
 
   <!-- Visitor view -->

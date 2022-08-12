@@ -8,6 +8,8 @@ import { VantResolver } from "unplugin-vue-components/resolvers";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import Unocss from "unocss/vite";
+import presetWind from "@unocss/preset-wind";
 
 export default defineConfig({
   plugins: [
@@ -42,6 +44,7 @@ export default defineConfig({
       dts: "src/auto-imports.d.ts",
     }),
     Components({ resolvers: [VantResolver()] }),
+    Unocss({ presets: [presetWind()] }),
   ],
   resolve: {
     alias: {

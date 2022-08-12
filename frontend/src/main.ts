@@ -12,6 +12,7 @@ import "./styles/colorPalette.css";
 import "./styles/containers.css";
 import "./styles/mobile.css";
 import "./styles/whitespaces.css";
+import "uno.css";
 
 // vant globals
 import "vant/es/toast/style";
