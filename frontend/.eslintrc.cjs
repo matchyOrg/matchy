@@ -13,6 +13,17 @@ module.exports = {
   rules: {
     "linebreak-style": ["error", "unix"],
     "@typescript-eslint/no-explicit-any": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["*.js"],
+            message: "Remove the .js file extension.",
+          },
+        ],
+      },
+    ],
   },
   ignorePatterns: ["components.d.ts"],
 };
