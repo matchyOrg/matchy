@@ -4,6 +4,7 @@ Present: @coati, @MrGandalfAndhi, @stefnotch, @sueszli, @The Eternal Kraut, @Zwi
 What we talked about:
 - Short recap of our motivation for this project
 - Whether we should fork, use pull requests with individual branches or mash everything into the master branch
+- Whether we should use tailwind
 
 What we did:
 - admire @stefnotch
