@@ -1,13 +1,14 @@
 # Contributing Guide
-Welcome, interested person! Contributions are welcome. If you're ever unsure, feel free to open an issue.
-
+Welcome, interested person! <br>
+Contributions are welcome. If you're ever unsure, feel free to open an issue. <br>
 Preferably, features are developed in another branch or fork. After the feature is ready, a pull request to the master branch should be opened.
 
-This file contains everything you need to know to contribute to this project.
+> This file contains everything you need to know to contribute to this project.
 <br><br>
 
 **Table of Contents:**
 - [Contributing Guide](#contributing-guide)
+- [General overview](#general-overview)
 - [Frontend](#frontend)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
@@ -22,8 +23,20 @@ This file contains everything you need to know to contribute to this project.
     - [Run Unit Tests with Vitest](#run-unit-tests-with-vitest)
     - [Lint with ESLint](#lint-with-eslint)
 - [Backend](#backend)
-- [What's next?](#whats-next)
 <br><br><br><br>
+
+
+# General overview
+Before we get to the technical details about this project, here are all the links and files you will need:
+
+**Models:**
+- [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033)
+- [database schema](https://lucid.app/lucidchart/35ad676d-1823-467a-97b7-766c705b3fc9/edit?viewport_loc=-101%2C420%2C1873%2C1664%2C0_0&invitationId=inv_c85d836e-0163-4aca-9a0a-93c149f84de2#)
+
+**Communication:**
+- [discord](https://discord.gg/tFf2RkTg)
+<br><br><br><br>
+
 
 # Frontend
 ## Prerequisites
@@ -103,13 +116,7 @@ npm run lint
 ```
 <br><br><br><br>
 
+
 # Backend
 As you probably noticed, we didn't write any backend and are using the BaaS called [supabase](https://supabase.com/).
 Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find out how to get started with vue and let me know what your email address is so I can give you access to our supabase workspace (haha that rhymes nicely).
-<br><br><br><br>
-
-# What's next?
-Next you can:
-- check out the existing documentation in `./docs`
-- [join our discord](https://discord.gg/tFf2RkTg) 🙌
-- let your friends know about this project 🤝

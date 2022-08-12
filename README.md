@@ -24,5 +24,4 @@ Most of us are students or working as software engineers and have pretty tight s
 
 Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
 
-If you feel ready to contribute: Check out the `CONTRIBUTING.md`. It's an in depth explaination of our tech stack and our dependencies. <br>
-Also feel free to open an issue to tell us about bugs or your suggestions.
+If you feel ready to contribute: Check out the [`CONTRIBUTING.md`. It's contains everything you need to know.
