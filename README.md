@@ -20,8 +20,10 @@ The main goal of this app is to provide existing non-profit speed friending orga
 ## How can I join the community? How do I contribute?
 Joining the community doesn't require you to commit to anything / contribute anything. <br>
 You can just [join our wonderful discord server](https://discord.gg/tFf2RkTg) and just have a good time, meme around and get to know us. <br>
-Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱
-
+Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
+There are so many ways you could contribute! You don't even necessarily have to code to be part of our team. <br>
 Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
 
-If you feel ready to contribute: Check out the `CONTRIBUTING.md`. It's contains everything you need to know.
+If you feel ready to contribute:
+- Check out the `CONTRIBUTING.md` file. It's an in depth guide to this app.
+- Access all relevant documents, resources and references of this project on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6

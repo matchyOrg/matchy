@@ -1,14 +1,14 @@
 # Contributing Guide
-Welcome, interested person! <br>
-Contributions are welcome. If you're ever unsure, feel free to open an issue. <br>
-Preferably, features are developed in another branch or fork. After the feature is ready, a pull request to the master branch should be opened.
+Welcome, interested person!
 
-> This file contains everything you need to know to contribute to this project.
+This page gives you an in depth introduction to the project.
+
+To access all the relevant documents, resources and references for this project, visit our public notion page (see: `README.md`).
 <br><br>
 
 **Table of Contents:**
 - [Contributing Guide](#contributing-guide)
-- [General overview](#general-overview)
+- [Github](#github)
 - [Frontend](#frontend)
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
@@ -25,18 +25,10 @@ Preferably, features are developed in another branch or fork. After the feature 
 - [Backend](#backend)
 <br><br><br><br>
 
-
-# General overview
-Before we get to the technical details about this project, here are all the links and files you will need:
-
-**Models:**
-- [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033)
-- [database schema](https://lucid.app/lucidchart/35ad676d-1823-467a-97b7-766c705b3fc9/edit?viewport_loc=-101%2C420%2C1873%2C1664%2C0_0&invitationId=inv_c85d836e-0163-4aca-9a0a-93c149f84de2#)
-
-**Communication:**
-- [discord](https://discord.gg/tFf2RkTg)
+# Github
+Preferably, features are developed in another branch or fork. <br>
+After the feature is ready, a pull request to the master branch should be opened.
 <br><br><br><br>
-
 
 # Frontend
 ## Prerequisites
