@@ -1,6 +1,6 @@
 <template>
   <Transition name="slide-fade">
-    <div class="side-bar" @click="hideSideBar" v-if="visible">
+    <div class="fixed left-0 top-12 bottom-0 z-10" @click="hideSideBar" v-if="visible">
       <van-sidebar v-model="active" @click.stop>
         <van-sidebar-item title="Home" @click="goToHome" />
         <van-sidebar-item title="Profile" @click="goToProfile" />

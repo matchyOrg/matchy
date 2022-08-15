@@ -5,7 +5,7 @@
   --breakpoint-medium: 768px;
   --breakpoint-large: 992px;
   --breakpoint-extra-large: 1200px;
-  
+
   /* chrome breakpoints */
   --mobile-s: 320px; /* 2010-era devices like the iPhone 4 */
   --mobile-m: 375px; /* small modern devices */
@@ -32,8 +32,8 @@ html {
   display: none !important;
 }
 
-:root {
-  --side-padding: 1rem;
+body {
+  --van-nav-bar-height: 3rem !important;
 }
 body {
   padding: 0 var(--side-padding) 0 var(--side-padding);
