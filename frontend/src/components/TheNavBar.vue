@@ -3,9 +3,9 @@
     <template #left>
       <van-icon name="wap-nav" />
     </template>
-    <template #right>
+    <!-- <template #right>
       <van-icon name="user-circle-o" />
-    </template>
+    </template> -->
   </VanNavBar>
 </template>
 

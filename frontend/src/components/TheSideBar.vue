@@ -15,6 +15,7 @@
             v-if="PageMode !== 'eventOrganizer'"
             @click="PageMode = 'eventOrganizer'"
           />
+          <van-sidebar-item title="Create event" v-if="PageMode === 'eventOrganizer'" />
           <van-sidebar-item title="Sign out" @click="signOut" />
         </van-sidebar>
       </div>
