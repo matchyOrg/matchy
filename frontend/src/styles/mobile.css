@@ -23,7 +23,7 @@ html {
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  max-width: var(--mobile-m);
+  max-width: var(--mobile-l);
 }
 
 /* ======================================== global styling ======================================== */
@@ -34,7 +34,10 @@ html {
 
 body {
   --van-nav-bar-height: 3rem !important;
+  --van-sidebar-width: min(65vw, var(--mobile-l)) !important;
+  --van-overlay-background: rgba(0, 0, 0, 0.4) !important;
 }
+
 body {
   padding: 0 var(--side-padding) 0 var(--side-padding);
   background-color: #f7f8fa;
