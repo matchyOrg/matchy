@@ -17,6 +17,13 @@
           />
           <van-sidebar-item title="Create event" v-if="PageMode === 'eventOrganizer'" />
           <van-sidebar-item title="Sign out" @click="signOut" />
+          <van-sidebar-item>
+            <template v-slot:title>
+              <a class="underline" href="https://github.com/sueszli/matchy" target="_blank" rel="noreferrer">
+                Source Code <van-icon name="link-o"></van-icon>
+              </a>
+            </template>
+          </van-sidebar-item>
         </van-sidebar>
       </div>
     </van-overlay>
