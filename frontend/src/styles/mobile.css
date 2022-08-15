@@ -35,7 +35,7 @@ html {
 body {
   --van-nav-bar-height: 3rem !important;
   --van-sidebar-width: min(65vw, var(--mobile-l)) !important;
-  --van-overlay-background: rgba(0, 0, 0, 0.4) !important;
+  --van-overlay-background: rgba(0, 0, 0, 0.05) !important;
 }
 
 body {
