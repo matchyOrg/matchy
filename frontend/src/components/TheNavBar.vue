@@ -1,5 +1,5 @@
 <template>
-  <VanNavBar @click-left="openSideBar" @click-right="goToProfile">
+  <VanNavBar @click-left="openSideBar" @click-right="goToProfile" z-index="3">
     <template #left>
       <van-icon name="wap-nav" />
     </template>

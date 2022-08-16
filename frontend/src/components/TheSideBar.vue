@@ -1,23 +1,32 @@
 <template>
   <Transition name="slide-fade">
-    <div class="side-bar" @click="hideSideBar" v-if="visible">
-      <van-sidebar v-model="active" @click.stop>
-        <van-sidebar-item title="Home" @click="goToHome" />
-        <van-sidebar-item title="Profile" @click="goToProfile" />
-        <van-sidebar-item title="empty" />
-        <van-sidebar-item
-          title="Switch to visitor view"
-          v-if="PageMode !== 'eventVisitor'"
-          @click="PageMode = 'eventVisitor'"
-        />
-        <van-sidebar-item
-          title="Switch to organizer view"
-          v-if="PageMode !== 'eventOrganizer'"
-          @click="PageMode = 'eventOrganizer'"
-        />
-        <van-sidebar-item title="Sign out" @click="signOut" />
-      </van-sidebar>
-    </div>
+    <van-overlay :show="visible" @click="hideSideBar">
+      <div class="side-bar fixed top-12 bottom-0 z-10" @click="hideSideBar" v-if="visible">
+        <van-sidebar v-model="active" @click.stop>
+          <van-sidebar-item title="Home" @click="hideSideBar" to="/" />
+          <van-sidebar-item title="Profile" @click="hideSideBar" to="/profile-edit" />
+          <van-sidebar-item
+            title="Switch to visitor view"
+            v-if="PageMode !== 'eventVisitor'"
+            @click="PageMode = 'eventVisitor'"
+          />
+          <van-sidebar-item
+            title="Switch to organizer view"
+            v-if="PageMode !== 'eventOrganizer'"
+            @click="PageMode = 'eventOrganizer'"
+          />
+          <van-sidebar-item title="Create event" v-if="PageMode === 'eventOrganizer'" />
+          <van-sidebar-item title="Sign out" @click="signOut" />
+          <van-sidebar-item>
+            <template v-slot:title>
+              <a class="underline" href="https://github.com/sueszli/matchy" target="_blank" rel="noreferrer">
+                Source Code <van-icon name="link-o"></van-icon>
+              </a>
+            </template>
+          </van-sidebar-item>
+        </van-sidebar>
+      </div>
+    </van-overlay>
   </Transition>
 </template>
 
@@ -38,16 +47,6 @@ const emits = defineEmits<{
 
 const active = ref(2);
 
-function goToHome() {
-  router.push("/");
-  hideSideBar();
-}
-
-function goToProfile() {
-  router.push("/profile-edit");
-  hideSideBar();
-}
-
 function hideSideBar() {
   emits("update:visible", false);
 }
@@ -58,13 +57,8 @@ function signOut() {
 </script>
 <style scoped>
 .side-bar {
-  position: fixed;
-  top: 40px; /** TODO: Replace this hack with something proper */
-  right: 0;
-  left: 0;
-  bottom: 0;
-  margin-bottom: auto;
-  background: rgba(0, 0, 0, 0.5);
+  left: max(calc((100vw - var(--mobile-l)) / 2), 0px);
+  max-width: var(--mobile-l);
 }
 
 .slide-fade-enter-active {

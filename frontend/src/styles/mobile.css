@@ -5,7 +5,7 @@
   --breakpoint-medium: 768px;
   --breakpoint-large: 992px;
   --breakpoint-extra-large: 1200px;
-  
+
   /* chrome breakpoints */
   --mobile-s: 320px; /* 2010-era devices like the iPhone 4 */
   --mobile-m: 375px; /* small modern devices */
@@ -23,7 +23,7 @@ html {
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  max-width: var(--mobile-m);
+  max-width: var(--mobile-l);
 }
 
 /* ======================================== global styling ======================================== */
@@ -32,9 +32,12 @@ html {
   display: none !important;
 }
 
-:root {
-  --side-padding: 1rem;
+body {
+  --van-nav-bar-height: 3rem !important;
+  --van-sidebar-width: min(65vw, var(--mobile-l)) !important;
+  --van-overlay-background: rgba(0, 0, 0, 0.05) !important;
 }
+
 body {
   padding: 0 var(--side-padding) 0 var(--side-padding);
   background-color: #f7f8fa;

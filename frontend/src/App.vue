@@ -4,16 +4,14 @@
     <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
     <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
   </div>
-
-  <RouterView />
+  <div class="px-4">
+    <RouterView />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 import { supabase } from "@/services/supabase";
 import { useUserStore } from "@/stores/user";
-import TheNavBar from "./components/TheNavBar.vue";
-import TheSideBar from "./components/TheSideBar.vue";
 
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
