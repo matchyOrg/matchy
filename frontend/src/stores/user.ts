@@ -25,15 +25,36 @@ export const useUserStore = defineStore("user", () => {
     };
   };
 
-  const user = ref<User | null>(null);
+  const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
   const profile = ref<Profile>(emptyProfile()); // is based on "user" (see: App.vue)
   const isRegistered = computed(() => !!profile.value.username); // check required attributes
 
-  const clearProfile = () => {
-    profile.value = emptyProfile();
-  };
+  async function login(email: string) {
+    const result = await supabase.auth.signIn({ email: email });
+    user.value = result.user;
+    return result;
+  }
+
+  supabase.auth.onAuthStateChange((_, session) => {
+    user.value = session?.user ?? null;
+  });
+
+  watch(
+    isLoggedIn,
+    (isLoggedIn) => {
+      if (isLoggedIn) {
+        profile.value = emptyProfile();
+
+        // TODO: That function is async, so there would be a theoretical bug when very quickly logging in and logging out.
+        fetchProfile();
+      } else {
+        profile.value = emptyProfile();
+      }
+    },
+    { immediate: true }
+  );
 
   /**
    * CRUD OPERATIONS
@@ -111,10 +132,10 @@ export const useUserStore = defineStore("user", () => {
   return {
     emptyProfile,
     user,
+    login,
     isLoggedIn,
     profile,
     isRegistered,
-    clearProfile,
     fetchProfile,
     updateProfile,
 

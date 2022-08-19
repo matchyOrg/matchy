@@ -10,33 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import { supabase } from "@/services/supabase";
 import { useUserStore } from "@/stores/user";
 
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-// update "user" when the auth state changes
 const userStore = useUserStore();
-userStore.user = supabase.auth.user();
-supabase.auth.onAuthStateChange((_, session) => {
-  const newState = session?.user ?? null;
-  console.log("App.vue: auth state changed, updating user to: ", newState);
-  userStore.user = newState;
-});
-
-// update "profile" when "user" changes
-watch(
-  () => userStore.isLoggedIn,
-  (isLoggedIn) => {
-    if (isLoggedIn) {
-      console.log("App.vue: user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore fetching profile");
-      userStore.fetchProfile();
-    } else {
-      console.log("App.vue: user changed, updating profile. isLoggedIn = ", isLoggedIn, " -> therefore clearing profile");
-      userStore.clearProfile();
-    }
-  },
-  { immediate: true }
-);
 </script>

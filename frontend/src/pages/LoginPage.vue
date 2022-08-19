@@ -59,7 +59,6 @@
 
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
-import { supabase } from "../services/supabase";
 import { asyncLoading } from "../utils/loading";
 import LoginModal from "../components/LoginModal.vue";
 const router = useRouter();
@@ -78,7 +77,7 @@ const mailSent = ref(false);
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   try {
-    const { error } = await supabase.auth.signIn({ email: email.value });
+    const { error } = await userStore.login(email.value);
     if (error) throw error;
     showToast("Check your email for the login link!");
   } catch (error: any) {
