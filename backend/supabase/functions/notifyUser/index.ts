@@ -1,8 +1,7 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
-
 /**
+ * Configure your editor for dino:
+ * - https://deno.land/manual/getting_started/setup_your_environment
+ * 
  * See these tutorials for better understanding of this function:
  * - https://youtu.be/ZhlXnWRts04?t=3692
  * - https://github.com/supabase-community/partner-gallery-example
@@ -40,8 +39,8 @@ serve(async (req) => {
     await client.send({
       from: Deno.env.get('SMTP_FROM')!,
       to: Deno.env.get('SMTP_TO')!,
-      subject: `Matches now available!`,
-      content: `The time has come! Today's matches have arrived. Take a look inside the matchy app to check them out yo!`,
+      subject: `Notification`,
+      content: `Yo heres a notification!`,
     })
 
     await client.close()
