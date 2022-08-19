@@ -41,21 +41,6 @@ export const useUserStore = defineStore("user", () => {
     user.value = session?.user ?? null;
   });
 
-  watch(
-    isLoggedIn,
-    (isLoggedIn) => {
-      if (isLoggedIn) {
-        profile.value = emptyProfile();
-
-        // TODO: That function is async, so there would be a theoretical bug when very quickly logging in and logging out.
-        fetchProfile();
-      } else {
-        profile.value = emptyProfile();
-      }
-    },
-    { immediate: true }
-  );
-
   /**
    * CRUD OPERATIONS
    */
@@ -128,6 +113,21 @@ export const useUserStore = defineStore("user", () => {
 
     if (error) throw error;
   };
+
+  watch(
+    isLoggedIn,
+    (isLoggedIn) => {
+      if (isLoggedIn) {
+        profile.value = emptyProfile();
+
+        // TODO: That function is async, so there would be a theoretical bug when very quickly logging in and logging out.
+        fetchProfile();
+      } else {
+        profile.value = emptyProfile();
+      }
+    },
+    { immediate: true }
+  );
 
   return {
     emptyProfile,

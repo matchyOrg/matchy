@@ -43,7 +43,7 @@ export default defineConfig({
       // Set `false` to disable.
       dts: "src/auto-imports.d.ts",
     }),
-    Components({ resolvers: [VantResolver()] }),
+    Components({ resolvers: [VantResolver()], dts: "src/components.d.ts" }),
     Unocss({ presets: [presetWind()] }),
   ],
   resolve: {
