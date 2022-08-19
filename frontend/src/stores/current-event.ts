@@ -12,5 +12,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useCurrentEventStore, import.meta.hot));
+  import.meta.hot.accept(
+    acceptHMRUpdate(useCurrentEventStore, import.meta.hot)
+  );
 }

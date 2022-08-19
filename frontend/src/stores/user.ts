@@ -61,7 +61,8 @@ export const useUserStore = defineStore("user", () => {
   let firstAttempt = true;
   const fetchProfile = async () => {
     // Typescript doesn't have proper error handling
-    if (!user.value || !user.value.email) throw new Error("user.ts: User not loaded");
+    if (!user.value || !user.value.email)
+      throw new Error("user.ts: User not loaded");
     console.log("user.ts: Fetching profile with email:", user.value.email);
 
     // this will still end up logging a red line in the console

@@ -10,6 +10,9 @@ module.exports = {
     "@vue/eslint-config-prettier",
     "./.eslintrc-auto-import.json",
   ],
+  parserOptions: {
+    ecmaVersion: "latest",
+  },
   rules: {
     "linebreak-style": ["error", "unix"],
     "@typescript-eslint/no-explicit-any": "off",
@@ -25,5 +28,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ["components.d.ts"],
+  ignorePatterns: ["components.d.ts", "auto-imports.d.ts"],
 };

@@ -2,7 +2,10 @@
   <!-- only show nav if logged in -->
   <div v-if="userStore.user && userStore.isRegistered">
     <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
-    <TheSideBar :visible="sideBarVisible" @update:visible="(value) => (sideBarVisible = value)" />
+    <TheSideBar
+      :visible="sideBarVisible"
+      @update:visible="(value) => (sideBarVisible = value)"
+    />
   </div>
   <div class="px-4">
     <RouterView />
