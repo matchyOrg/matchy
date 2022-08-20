@@ -34,32 +34,34 @@ $$
 declare 
   notif_json varchar;
   num_rows int;
-
+  anon_key text;
+  func_secret text;
 begin
   create local temp table temp_due_notifications (
     ID bigint primary key,
-    User_id uuid not null,
+    Email varchar not null,
     Content text not null,
     Subject text not null,
     Send_earliest_at timestamp with time zone
   );
-  insert into temp_due_notifications (ID, User_id, Content, Subject, Send_earliest_at) select id, user_id, content, subject, send_earliest_at from due_notifications;
+  insert into temp_due_notifications (ID, Email, Content, Subject, Send_earliest_at) select id, email, content, subject, send_earliest_at from due_notifications;
   num_rows := (select count(n) from due_notifications as n);
 
   if (num_rows = 0) then
     return;
   end if;
-  
+
+  anon_key := (select public_key from auth.secrets);
+  func_secret := (select function_secret from auth.secrets);
+
   notif_json := (select json_agg(temp_due_notifications) from temp_due_notifications);
   
   perform http((
     'POST',
-    'https://ngryplxakzlojeqhdkse.functions.supabase.co/testFn',
+    'https://ngryplxakzlojeqhdkse.functions.supabase.co/sendBatchNotifications',
     ARRAY[
-        http_header(
-            'Authorization',
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncnlwbHhha3psb2plcWhka3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTgwOTg5MDksImV4cCI6MTk3MzY3NDkwOX0.D7r1RQLp1cwCwdgO318R0Tj7gteS9zcJBa1vdQQEUPI'
-        )
+        http_header('Authorization', 'Bearer ' || anon_key),
+        http_header('function-secret', func_secret)
     ],
     'application/json',
     notif_json
