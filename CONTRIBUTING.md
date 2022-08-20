@@ -10,18 +10,6 @@ To access all the relevant documents, resources and references for this project,
 - [Contributing Guide](#contributing-guide)
 - [Github](#github)
 - [Frontend](#frontend)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-  - [Recommended Tooling](#recommended-tooling)
-  - [Used Libraries](#used-libraries)
-  - [Recommended IDE Setup](#recommended-ide-setup)
-  - [Customize configuration](#customize-configuration)
-  - [Project Setup](#project-setup)
-    - [Re-generate Supabase Types](#re-generate-supabase-types)
-    - [Compile and Hot-Reload for Development](#compile-and-hot-reload-for-development)
-    - [Type-Check, Compile and Minify for Production](#type-check-compile-and-minify-for-production)
-    - [Run Unit Tests with Vitest](#run-unit-tests-with-vitest)
-    - [Lint with ESLint](#lint-with-eslint)
 - [Backend](#backend)
 <br><br><br><br>
 
