@@ -12,21 +12,22 @@ export interface paths {
       };
     };
   };
-  "/matchy_event": {
+  "/events": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.matchy_event.id"];
-          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
-          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
-          organizer?: parameters["rowFilter.matchy_event.organizer"];
-          title?: parameters["rowFilter.matchy_event.title"];
-          description?: parameters["rowFilter.matchy_event.description"];
-          date_time?: parameters["rowFilter.matchy_event.date_time"];
-          event_location?: parameters["rowFilter.matchy_event.event_location"];
-          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
-          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
-          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+          id?: parameters["rowFilter.events.id"];
+          organizer?: parameters["rowFilter.events.organizer"];
+          title?: parameters["rowFilter.events.title"];
+          description?: parameters["rowFilter.events.description"];
+          header_image?: parameters["rowFilter.events.header_image"];
+          location?: parameters["rowFilter.events.location"];
+          max_participants?: parameters["rowFilter.events.max_participants"];
+          event_group_pair?: parameters["rowFilter.events.event_group_pair"];
+          is_cancelled?: parameters["rowFilter.events.is_cancelled"];
+          delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
+          datetime?: parameters["rowFilter.events.datetime"];
+          is_ended?: parameters["rowFilter.events.is_ended"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -48,7 +49,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["matchy_event"][];
+          schema: definitions["events"][];
         };
         /** Partial Content */
         206: unknown;
@@ -57,8 +58,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** matchy_event */
-          matchy_event?: definitions["matchy_event"];
+          /** events */
+          events?: definitions["events"];
         };
         query: {
           /** Filtering Columns */
@@ -77,17 +78,18 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.matchy_event.id"];
-          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
-          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
-          organizer?: parameters["rowFilter.matchy_event.organizer"];
-          title?: parameters["rowFilter.matchy_event.title"];
-          description?: parameters["rowFilter.matchy_event.description"];
-          date_time?: parameters["rowFilter.matchy_event.date_time"];
-          event_location?: parameters["rowFilter.matchy_event.event_location"];
-          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
-          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
-          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+          id?: parameters["rowFilter.events.id"];
+          organizer?: parameters["rowFilter.events.organizer"];
+          title?: parameters["rowFilter.events.title"];
+          description?: parameters["rowFilter.events.description"];
+          header_image?: parameters["rowFilter.events.header_image"];
+          location?: parameters["rowFilter.events.location"];
+          max_participants?: parameters["rowFilter.events.max_participants"];
+          event_group_pair?: parameters["rowFilter.events.event_group_pair"];
+          is_cancelled?: parameters["rowFilter.events.is_cancelled"];
+          delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
+          datetime?: parameters["rowFilter.events.datetime"];
+          is_ended?: parameters["rowFilter.events.is_ended"];
         };
         header: {
           /** Preference */
@@ -102,21 +104,22 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.matchy_event.id"];
-          inserted_at?: parameters["rowFilter.matchy_event.inserted_at"];
-          updated_at?: parameters["rowFilter.matchy_event.updated_at"];
-          organizer?: parameters["rowFilter.matchy_event.organizer"];
-          title?: parameters["rowFilter.matchy_event.title"];
-          description?: parameters["rowFilter.matchy_event.description"];
-          date_time?: parameters["rowFilter.matchy_event.date_time"];
-          event_location?: parameters["rowFilter.matchy_event.event_location"];
-          max_participants?: parameters["rowFilter.matchy_event.max_participants"];
-          uses_groups?: parameters["rowFilter.matchy_event.uses_groups"];
-          event_groups?: parameters["rowFilter.matchy_event.event_groups"];
+          id?: parameters["rowFilter.events.id"];
+          organizer?: parameters["rowFilter.events.organizer"];
+          title?: parameters["rowFilter.events.title"];
+          description?: parameters["rowFilter.events.description"];
+          header_image?: parameters["rowFilter.events.header_image"];
+          location?: parameters["rowFilter.events.location"];
+          max_participants?: parameters["rowFilter.events.max_participants"];
+          event_group_pair?: parameters["rowFilter.events.event_group_pair"];
+          is_cancelled?: parameters["rowFilter.events.is_cancelled"];
+          delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
+          datetime?: parameters["rowFilter.events.datetime"];
+          is_ended?: parameters["rowFilter.events.is_ended"];
         };
         body: {
-          /** matchy_event */
-          matchy_event?: definitions["matchy_event"];
+          /** events */
+          events?: definitions["events"];
         };
         header: {
           /** Preference */
@@ -129,16 +132,13 @@ export interface paths {
       };
     };
   };
-  "/event_registration": {
+  "/event_group_pairs": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_registration.id"];
-          event_id?: parameters["rowFilter.event_registration.event_id"];
-          user_id?: parameters["rowFilter.event_registration.user_id"];
-          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
-          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
-          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+          id?: parameters["rowFilter.event_group_pairs.id"];
+          group_a?: parameters["rowFilter.event_group_pairs.group_a"];
+          group_b?: parameters["rowFilter.event_group_pairs.group_b"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -160,7 +160,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["event_registration"][];
+          schema: definitions["event_group_pairs"][];
         };
         /** Partial Content */
         206: unknown;
@@ -169,8 +169,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** event_registration */
-          event_registration?: definitions["event_registration"];
+          /** event_group_pairs */
+          event_group_pairs?: definitions["event_group_pairs"];
         };
         query: {
           /** Filtering Columns */
@@ -189,12 +189,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_registration.id"];
-          event_id?: parameters["rowFilter.event_registration.event_id"];
-          user_id?: parameters["rowFilter.event_registration.user_id"];
-          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
-          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
-          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+          id?: parameters["rowFilter.event_group_pairs.id"];
+          group_a?: parameters["rowFilter.event_group_pairs.group_a"];
+          group_b?: parameters["rowFilter.event_group_pairs.group_b"];
         };
         header: {
           /** Preference */
@@ -209,16 +206,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_registration.id"];
-          event_id?: parameters["rowFilter.event_registration.event_id"];
-          user_id?: parameters["rowFilter.event_registration.user_id"];
-          inserted_at?: parameters["rowFilter.event_registration.inserted_at"];
-          in_group_a?: parameters["rowFilter.event_registration.in_group_a"];
-          in_group_b?: parameters["rowFilter.event_registration.in_group_b"];
+          id?: parameters["rowFilter.event_group_pairs.id"];
+          group_a?: parameters["rowFilter.event_group_pairs.group_a"];
+          group_b?: parameters["rowFilter.event_group_pairs.group_b"];
         };
         body: {
-          /** event_registration */
-          event_registration?: definitions["event_registration"];
+          /** event_group_pairs */
+          event_group_pairs?: definitions["event_group_pairs"];
         };
         header: {
           /** Preference */
@@ -231,13 +225,15 @@ export interface paths {
       };
     };
   };
-  "/event_group_pair": {
+  "/event_registrations": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group_pair.id"];
-          group_a?: parameters["rowFilter.event_group_pair.group_a"];
-          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+          id?: parameters["rowFilter.event_registrations.id"];
+          event_id?: parameters["rowFilter.event_registrations.event_id"];
+          user_id?: parameters["rowFilter.event_registrations.user_id"];
+          group_id?: parameters["rowFilter.event_registrations.group_id"];
+          present?: parameters["rowFilter.event_registrations.present"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -259,7 +255,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["event_group_pair"][];
+          schema: definitions["event_registrations"][];
         };
         /** Partial Content */
         206: unknown;
@@ -268,8 +264,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** event_group_pair */
-          event_group_pair?: definitions["event_group_pair"];
+          /** event_registrations */
+          event_registrations?: definitions["event_registrations"];
         };
         query: {
           /** Filtering Columns */
@@ -288,9 +284,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group_pair.id"];
-          group_a?: parameters["rowFilter.event_group_pair.group_a"];
-          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+          id?: parameters["rowFilter.event_registrations.id"];
+          event_id?: parameters["rowFilter.event_registrations.event_id"];
+          user_id?: parameters["rowFilter.event_registrations.user_id"];
+          group_id?: parameters["rowFilter.event_registrations.group_id"];
+          present?: parameters["rowFilter.event_registrations.present"];
         };
         header: {
           /** Preference */
@@ -305,13 +303,207 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group_pair.id"];
-          group_a?: parameters["rowFilter.event_group_pair.group_a"];
-          group_b?: parameters["rowFilter.event_group_pair.group_b"];
+          id?: parameters["rowFilter.event_registrations.id"];
+          event_id?: parameters["rowFilter.event_registrations.event_id"];
+          user_id?: parameters["rowFilter.event_registrations.user_id"];
+          group_id?: parameters["rowFilter.event_registrations.group_id"];
+          present?: parameters["rowFilter.event_registrations.present"];
         };
         body: {
-          /** event_group_pair */
-          event_group_pair?: definitions["event_group_pair"];
+          /** event_registrations */
+          event_registrations?: definitions["event_registrations"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/event_groups": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_groups.id"];
+          creator?: parameters["rowFilter.event_groups.creator"];
+          title?: parameters["rowFilter.event_groups.title"];
+          description?: parameters["rowFilter.event_groups.description"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_groups"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_groups */
+          event_groups?: definitions["event_groups"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_groups.id"];
+          creator?: parameters["rowFilter.event_groups.creator"];
+          title?: parameters["rowFilter.event_groups.title"];
+          description?: parameters["rowFilter.event_groups.description"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_groups.id"];
+          creator?: parameters["rowFilter.event_groups.creator"];
+          title?: parameters["rowFilter.event_groups.title"];
+          description?: parameters["rowFilter.event_groups.description"];
+        };
+        body: {
+          /** event_groups */
+          event_groups?: definitions["event_groups"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/votes": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.votes.id"];
+          user_id?: parameters["rowFilter.votes.user_id"];
+          user_pair_id?: parameters["rowFilter.votes.user_pair_id"];
+          vote?: parameters["rowFilter.votes.vote"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["votes"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** votes */
+          votes?: definitions["votes"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.votes.id"];
+          user_id?: parameters["rowFilter.votes.user_id"];
+          user_pair_id?: parameters["rowFilter.votes.user_pair_id"];
+          vote?: parameters["rowFilter.votes.vote"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.votes.id"];
+          user_id?: parameters["rowFilter.votes.user_id"];
+          user_pair_id?: parameters["rowFilter.votes.user_pair_id"];
+          vote?: parameters["rowFilter.votes.vote"];
+        };
+        body: {
+          /** votes */
+          votes?: definitions["votes"];
         };
         header: {
           /** Preference */
@@ -328,11 +520,10 @@ export interface paths {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          updated_at?: parameters["rowFilter.profiles.updated_at"];
-          username?: parameters["rowFilter.profiles.username"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          website?: parameters["rowFilter.profiles.website"];
+          user_id?: parameters["rowFilter.profiles.user_id"];
+          full_name?: parameters["rowFilter.profiles.full_name"];
+          description?: parameters["rowFilter.profiles.description"];
+          email?: parameters["rowFilter.profiles.email"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -383,11 +574,10 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          updated_at?: parameters["rowFilter.profiles.updated_at"];
-          username?: parameters["rowFilter.profiles.username"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          website?: parameters["rowFilter.profiles.website"];
+          user_id?: parameters["rowFilter.profiles.user_id"];
+          full_name?: parameters["rowFilter.profiles.full_name"];
+          description?: parameters["rowFilter.profiles.description"];
+          email?: parameters["rowFilter.profiles.email"];
         };
         header: {
           /** Preference */
@@ -402,11 +592,10 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          updated_at?: parameters["rowFilter.profiles.updated_at"];
-          username?: parameters["rowFilter.profiles.username"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          website?: parameters["rowFilter.profiles.website"];
+          user_id?: parameters["rowFilter.profiles.user_id"];
+          full_name?: parameters["rowFilter.profiles.full_name"];
+          description?: parameters["rowFilter.profiles.description"];
+          email?: parameters["rowFilter.profiles.email"];
         };
         body: {
           /** profiles */
@@ -423,13 +612,15 @@ export interface paths {
       };
     };
   };
-  "/event_group": {
+  "/due_notifications": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group.id"];
-          title?: parameters["rowFilter.event_group.title"];
-          description?: parameters["rowFilter.event_group.description"];
+          id?: parameters["rowFilter.due_notifications.id"];
+          content?: parameters["rowFilter.due_notifications.content"];
+          subject?: parameters["rowFilter.due_notifications.subject"];
+          send_earliest_at?: parameters["rowFilter.due_notifications.send_earliest_at"];
+          email?: parameters["rowFilter.due_notifications.email"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -451,7 +642,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["event_group"][];
+          schema: definitions["due_notifications"][];
         };
         /** Partial Content */
         206: unknown;
@@ -460,8 +651,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** event_group */
-          event_group?: definitions["event_group"];
+          /** due_notifications */
+          due_notifications?: definitions["due_notifications"];
         };
         query: {
           /** Filtering Columns */
@@ -480,9 +671,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group.id"];
-          title?: parameters["rowFilter.event_group.title"];
-          description?: parameters["rowFilter.event_group.description"];
+          id?: parameters["rowFilter.due_notifications.id"];
+          content?: parameters["rowFilter.due_notifications.content"];
+          subject?: parameters["rowFilter.due_notifications.subject"];
+          send_earliest_at?: parameters["rowFilter.due_notifications.send_earliest_at"];
+          email?: parameters["rowFilter.due_notifications.email"];
         };
         header: {
           /** Preference */
@@ -497,13 +690,15 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.event_group.id"];
-          title?: parameters["rowFilter.event_group.title"];
-          description?: parameters["rowFilter.event_group.description"];
+          id?: parameters["rowFilter.due_notifications.id"];
+          content?: parameters["rowFilter.due_notifications.content"];
+          subject?: parameters["rowFilter.due_notifications.subject"];
+          send_earliest_at?: parameters["rowFilter.due_notifications.send_earliest_at"];
+          email?: parameters["rowFilter.due_notifications.email"];
         };
         body: {
-          /** event_group */
-          event_group?: definitions["event_group"];
+          /** due_notifications */
+          due_notifications?: definitions["due_notifications"];
         };
         header: {
           /** Preference */
@@ -516,118 +711,577 @@ export interface paths {
       };
     };
   };
+  "/event_rounds": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_rounds.id"];
+          event_id?: parameters["rowFilter.event_rounds.event_id"];
+          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
+          start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
+          end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_rounds"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_rounds */
+          event_rounds?: definitions["event_rounds"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_rounds.id"];
+          event_id?: parameters["rowFilter.event_rounds.event_id"];
+          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
+          start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
+          end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_rounds.id"];
+          event_id?: parameters["rowFilter.event_rounds.event_id"];
+          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
+          start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
+          end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
+        };
+        body: {
+          /** event_rounds */
+          event_rounds?: definitions["event_rounds"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/notifications": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.notifications.id"];
+          content?: parameters["rowFilter.notifications.content"];
+          subject?: parameters["rowFilter.notifications.subject"];
+          /** The earliest time we may send the notification */
+          send_earliest_at?: parameters["rowFilter.notifications.send_earliest_at"];
+          /** The user's email */
+          email?: parameters["rowFilter.notifications.email"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["notifications"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** notifications */
+          notifications?: definitions["notifications"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.notifications.id"];
+          content?: parameters["rowFilter.notifications.content"];
+          subject?: parameters["rowFilter.notifications.subject"];
+          /** The earliest time we may send the notification */
+          send_earliest_at?: parameters["rowFilter.notifications.send_earliest_at"];
+          /** The user's email */
+          email?: parameters["rowFilter.notifications.email"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.notifications.id"];
+          content?: parameters["rowFilter.notifications.content"];
+          subject?: parameters["rowFilter.notifications.subject"];
+          /** The earliest time we may send the notification */
+          send_earliest_at?: parameters["rowFilter.notifications.send_earliest_at"];
+          /** The user's email */
+          email?: parameters["rowFilter.notifications.email"];
+        };
+        body: {
+          /** notifications */
+          notifications?: definitions["notifications"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/event_user_pairs": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_user_pairs.id"];
+          event_round?: parameters["rowFilter.event_user_pairs.event_round"];
+          main_user?: parameters["rowFilter.event_user_pairs.main_user"];
+          other_user?: parameters["rowFilter.event_user_pairs.other_user"];
+          match?: parameters["rowFilter.event_user_pairs.match"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["event_user_pairs"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** event_user_pairs */
+          event_user_pairs?: definitions["event_user_pairs"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_user_pairs.id"];
+          event_round?: parameters["rowFilter.event_user_pairs.event_round"];
+          main_user?: parameters["rowFilter.event_user_pairs.main_user"];
+          other_user?: parameters["rowFilter.event_user_pairs.other_user"];
+          match?: parameters["rowFilter.event_user_pairs.match"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.event_user_pairs.id"];
+          event_round?: parameters["rowFilter.event_user_pairs.event_round"];
+          main_user?: parameters["rowFilter.event_user_pairs.main_user"];
+          other_user?: parameters["rowFilter.event_user_pairs.other_user"];
+          match?: parameters["rowFilter.event_user_pairs.match"];
+        };
+        body: {
+          /** event_user_pairs */
+          event_user_pairs?: definitions["event_user_pairs"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/rpc/create_event_with_groups": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: uuid */
+            organizer: string;
+            /** Format: text */
+            groupBTitle: string;
+            /** Format: integer */
+            max_participants: number;
+            /** Format: text */
+            groupADescription: string;
+            /** Format: uuid */
+            header_image: string;
+            /** Format: text */
+            groupBDescription: string;
+            /** Format: text */
+            description: string;
+            /** Format: text */
+            title: string;
+            /** Format: timestamp with time zone */
+            datetime: string;
+            /** Format: text */
+            groupATitle: string;
+            /** Format: text */
+            event_location: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {
-  matchy_event: {
+  /** @description Events */
+  events: {
     /**
-     * Format: uuid
+     * Format: bigint
      * @description Note:
      * This is a Primary Key.<pk/>
-     * @default gen_random_uuid()
      */
-    id: string;
-    /**
-     * Format: timestamp with time zone
-     * @default timezone('utc'::text, now())
-     */
-    inserted_at: string;
-    /**
-     * Format: timestamp with time zone
-     * @default timezone('utc'::text, now())
-     */
-    updated_at: string;
+    id: number;
     /** Format: uuid */
     organizer: string;
     /** Format: text */
     title: string;
     /** Format: text */
     description: string;
-    /** Format: timestamp with time zone */
-    date_time: string;
-    /** Format: text */
-    event_location: string;
-    /** Format: integer */
-    max_participants?: number;
-    /** Format: boolean */
-    uses_groups?: boolean;
+    /** Format: uuid */
+    header_image?: string;
+    /** Format: character varying */
+    location: string;
+    /** Format: smallint */
+    max_participants: number;
     /**
      * Format: bigint
      * @description Note:
-     * This is a Foreign Key to `event_group_pair.id`.<fk table='event_group_pair' column='id'/>
+     * This is a Foreign Key to `event_group_pairs.id`.<fk table='event_group_pairs' column='id'/>
      */
-    event_groups: number;
+    event_group_pair?: number;
+    /**
+     * Format: boolean
+     * @default false
+     */
+    is_cancelled: boolean;
+    /** Format: smallint */
+    delay_for_sending_matches?: number;
+    /** Format: timestamp with time zone */
+    datetime: string;
+    /**
+     * Format: boolean
+     * @default false
+     */
+    is_ended: boolean;
   };
-  event_registration: {
+  /** @description Attribute of event: 2 groups */
+  event_group_pairs: {
     /**
      * Format: bigint
      * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /** Format: uuid */
-    event_id: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_groups.id`.<fk table='event_groups' column='id'/>
+     */
+    group_a?: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_groups.id`.<fk table='event_groups' column='id'/>
+     */
+    group_b?: number;
+  };
+  /** @description Registration of participants to events */
+  event_registrations: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `events.id`.<fk table='events' column='id'/>
+     */
+    event_id: number;
     /** Format: uuid */
     user_id: string;
     /**
-     * Format: timestamp with time zone
-     * @default timezone('utc'::text, now())
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_groups.id`.<fk table='event_groups' column='id'/>
      */
-    inserted_at: string;
-    /** Format: boolean */
-    in_group_a: boolean;
-    /** Format: boolean */
-    in_group_b: boolean;
+    group_id?: number;
+    /**
+     * Format: boolean
+     * @default false
+     */
+    present: boolean;
   };
-  event_group_pair: {
+  /** @description Attribute of event: 1 of 2 groups */
+  event_groups: {
     /**
      * Format: bigint
      * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /**
-     * Format: bigint
-     * @description Note:
-     * This is a Foreign Key to `event_group.id`.<fk table='event_group' column='id'/>
-     */
-    group_a: number;
-    /**
-     * Format: bigint
-     * @description Note:
-     * This is a Foreign Key to `event_group.id`.<fk table='event_group' column='id'/>
-     */
-    group_b: number;
+    /** Format: uuid */
+    creator: string;
+    /** Format: character varying */
+    title: string;
+    /** Format: text */
+    description: string;
   };
-  /** @description User profile information like a phone number, not to be confused with user auth stuff */
+  /** @description Attribute of pairings (2 for each pairing): A vote on whether the user liked their date or not */
+  votes: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /** Format: uuid */
+    user_id: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_user_pairs.id`.<fk table='event_user_pairs' column='id'/>
+     */
+    user_pair_id: number;
+    /** Format: boolean */
+    vote: boolean;
+  };
+  /** @description Extends the user / authentication table (created automatically with a trigger) */
   profiles: {
-    description: any;
     /**
      * Format: uuid
      * @description Note:
      * This is a Primary Key.<pk/>
      */
-    id: string;
-    /** Format: timestamp with time zone */
-    updated_at?: string;
+    user_id: string;
+    /** Format: character varying */
+    full_name?: string;
     /** Format: text */
-    username?: string;
-    /** Format: text */
-    avatar_url?: string;
-    /** Format: text */
-    website?: string;
+    description?: string;
+    /** Format: character varying */
+    email: string;
   };
-  event_group: {
+  due_notifications: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id?: number;
+    /** Format: character varying */
+    content?: string;
+    /** Format: character varying */
+    subject?: string;
+    /** Format: timestamp with time zone */
+    send_earliest_at?: string;
+    /** Format: character varying */
+    email?: string;
+  };
+  /** @description A single round of an event */
+  event_rounds: {
     /**
      * Format: bigint
      * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /** Format: text */
-    title?: string;
-    /** Format: text */
-    description?: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `events.id`.<fk table='events' column='id'/>
+     */
+    event_id: number;
+    /** Format: timestamp with time zone */
+    break_start_timestamp: string;
+    /** Format: timestamp with time zone */
+    start_timestamp: string;
+    /** Format: timestamp with time zone */
+    end_timestamp: string;
+  };
+  /** @description Notifications for users */
+  notifications: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: character varying
+     * @default
+     */
+    content: string;
+    /**
+     * Format: character varying
+     * @default
+     */
+    subject: string;
+    /**
+     * Format: timestamp with time zone
+     * @description The earliest time we may send the notification
+     */
+    send_earliest_at?: string;
+    /**
+     * Format: character varying
+     * @description The user's email
+     */
+    email: string;
+  };
+  /** @description A pairing of users in an event round */
+  event_user_pairs: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `event_rounds.id`.<fk table='event_rounds' column='id'/>
+     */
+    event_round: number;
+    /** Format: uuid */
+    main_user: string;
+    /** Format: uuid */
+    other_user: string;
+    /** Format: boolean */
+    match?: boolean;
   };
 }
 
@@ -664,72 +1318,136 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
-  /** @description matchy_event */
-  "body.matchy_event": definitions["matchy_event"];
+  /** @description events */
+  "body.events": definitions["events"];
+  /** Format: bigint */
+  "rowFilter.events.id": string;
   /** Format: uuid */
-  "rowFilter.matchy_event.id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.matchy_event.inserted_at": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.matchy_event.updated_at": string;
-  /** Format: uuid */
-  "rowFilter.matchy_event.organizer": string;
+  "rowFilter.events.organizer": string;
   /** Format: text */
-  "rowFilter.matchy_event.title": string;
+  "rowFilter.events.title": string;
   /** Format: text */
-  "rowFilter.matchy_event.description": string;
+  "rowFilter.events.description": string;
+  /** Format: uuid */
+  "rowFilter.events.header_image": string;
+  /** Format: character varying */
+  "rowFilter.events.location": string;
+  /** Format: smallint */
+  "rowFilter.events.max_participants": string;
+  /** Format: bigint */
+  "rowFilter.events.event_group_pair": string;
+  /** Format: boolean */
+  "rowFilter.events.is_cancelled": string;
+  /** Format: smallint */
+  "rowFilter.events.delay_for_sending_matches": string;
   /** Format: timestamp with time zone */
-  "rowFilter.matchy_event.date_time": string;
+  "rowFilter.events.datetime": string;
+  /** Format: boolean */
+  "rowFilter.events.is_ended": string;
+  /** @description event_group_pairs */
+  "body.event_group_pairs": definitions["event_group_pairs"];
+  /** Format: bigint */
+  "rowFilter.event_group_pairs.id": string;
+  /** Format: bigint */
+  "rowFilter.event_group_pairs.group_a": string;
+  /** Format: bigint */
+  "rowFilter.event_group_pairs.group_b": string;
+  /** @description event_registrations */
+  "body.event_registrations": definitions["event_registrations"];
+  /** Format: bigint */
+  "rowFilter.event_registrations.id": string;
+  /** Format: bigint */
+  "rowFilter.event_registrations.event_id": string;
+  /** Format: uuid */
+  "rowFilter.event_registrations.user_id": string;
+  /** Format: bigint */
+  "rowFilter.event_registrations.group_id": string;
+  /** Format: boolean */
+  "rowFilter.event_registrations.present": string;
+  /** @description event_groups */
+  "body.event_groups": definitions["event_groups"];
+  /** Format: bigint */
+  "rowFilter.event_groups.id": string;
+  /** Format: uuid */
+  "rowFilter.event_groups.creator": string;
+  /** Format: character varying */
+  "rowFilter.event_groups.title": string;
   /** Format: text */
-  "rowFilter.matchy_event.event_location": string;
-  /** Format: integer */
-  "rowFilter.matchy_event.max_participants": string;
-  /** Format: boolean */
-  "rowFilter.matchy_event.uses_groups": string;
+  "rowFilter.event_groups.description": string;
+  /** @description votes */
+  "body.votes": definitions["votes"];
   /** Format: bigint */
-  "rowFilter.matchy_event.event_groups": string;
-  /** @description event_registration */
-  "body.event_registration": definitions["event_registration"];
-  /** Format: bigint */
-  "rowFilter.event_registration.id": string;
+  "rowFilter.votes.id": string;
   /** Format: uuid */
-  "rowFilter.event_registration.event_id": string;
-  /** Format: uuid */
-  "rowFilter.event_registration.user_id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.event_registration.inserted_at": string;
+  "rowFilter.votes.user_id": string;
+  /** Format: bigint */
+  "rowFilter.votes.user_pair_id": string;
   /** Format: boolean */
-  "rowFilter.event_registration.in_group_a": string;
-  /** Format: boolean */
-  "rowFilter.event_registration.in_group_b": string;
-  /** @description event_group_pair */
-  "body.event_group_pair": definitions["event_group_pair"];
-  /** Format: bigint */
-  "rowFilter.event_group_pair.id": string;
-  /** Format: bigint */
-  "rowFilter.event_group_pair.group_a": string;
-  /** Format: bigint */
-  "rowFilter.event_group_pair.group_b": string;
+  "rowFilter.votes.vote": string;
   /** @description profiles */
   "body.profiles": definitions["profiles"];
   /** Format: uuid */
-  "rowFilter.profiles.id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.profiles.updated_at": string;
+  "rowFilter.profiles.user_id": string;
+  /** Format: character varying */
+  "rowFilter.profiles.full_name": string;
   /** Format: text */
-  "rowFilter.profiles.username": string;
-  /** Format: text */
-  "rowFilter.profiles.avatar_url": string;
-  /** Format: text */
-  "rowFilter.profiles.website": string;
-  /** @description event_group */
-  "body.event_group": definitions["event_group"];
+  "rowFilter.profiles.description": string;
+  /** Format: character varying */
+  "rowFilter.profiles.email": string;
+  /** @description due_notifications */
+  "body.due_notifications": definitions["due_notifications"];
   /** Format: bigint */
-  "rowFilter.event_group.id": string;
-  /** Format: text */
-  "rowFilter.event_group.title": string;
-  /** Format: text */
-  "rowFilter.event_group.description": string;
+  "rowFilter.due_notifications.id": string;
+  /** Format: character varying */
+  "rowFilter.due_notifications.content": string;
+  /** Format: character varying */
+  "rowFilter.due_notifications.subject": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.due_notifications.send_earliest_at": string;
+  /** Format: character varying */
+  "rowFilter.due_notifications.email": string;
+  /** @description event_rounds */
+  "body.event_rounds": definitions["event_rounds"];
+  /** Format: bigint */
+  "rowFilter.event_rounds.id": string;
+  /** Format: bigint */
+  "rowFilter.event_rounds.event_id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.event_rounds.break_start_timestamp": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.event_rounds.start_timestamp": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.event_rounds.end_timestamp": string;
+  /** @description notifications */
+  "body.notifications": definitions["notifications"];
+  /** Format: bigint */
+  "rowFilter.notifications.id": string;
+  /** Format: character varying */
+  "rowFilter.notifications.content": string;
+  /** Format: character varying */
+  "rowFilter.notifications.subject": string;
+  /**
+   * Format: timestamp with time zone
+   * @description The earliest time we may send the notification
+   */
+  "rowFilter.notifications.send_earliest_at": string;
+  /**
+   * Format: character varying
+   * @description The user's email
+   */
+  "rowFilter.notifications.email": string;
+  /** @description event_user_pairs */
+  "body.event_user_pairs": definitions["event_user_pairs"];
+  /** Format: bigint */
+  "rowFilter.event_user_pairs.id": string;
+  /** Format: bigint */
+  "rowFilter.event_user_pairs.event_round": string;
+  /** Format: uuid */
+  "rowFilter.event_user_pairs.main_user": string;
+  /** Format: uuid */
+  "rowFilter.event_user_pairs.other_user": string;
+  /** Format: boolean */
+  "rowFilter.event_user_pairs.match": string;
 }
 
 export interface operations {}
