@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -45,7 +45,7 @@
     "typescript": "^4.7.4",
     "unocss": "^0.45.6",
     "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.8",
+    "vite": "^3.0.9",
     "vue-tsc": "^0.40.1"
   }
 }
