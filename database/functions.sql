@@ -31,7 +31,10 @@ $$;
 create or replace procedure supabase_functions.handle_due_notifications()
 language plpgsql as
 $$
-declare notif_json varchar;
+declare 
+  notif_json varchar;
+  num_rows int;
+
 begin
   create local temp table temp_due_notifications (
     ID bigint primary key,
@@ -40,7 +43,13 @@ begin
     Subject text not null,
     Send_earliest_at timestamp with time zone
   );
-  insert into temp_due_notifications (ID, User_id, Content, Subject, Send_earliest_at) select id, user_id, content, subject, send_earliest_at from due_notifications; 
+  insert into temp_due_notifications (ID, User_id, Content, Subject, Send_earliest_at) select id, user_id, content, subject, send_earliest_at from due_notifications;
+  num_rows := (select count(n) from due_notifications as n);
+
+  if (num_rows = 0) then
+    return;
+  end if;
+  
   notif_json := (select json_agg(temp_due_notifications) from temp_due_notifications);
   
   perform http((
