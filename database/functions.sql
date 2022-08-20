@@ -26,3 +26,35 @@ $$
     insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, delay_for_sending_matches, is_ended)
         select auth.uid(), title, description, header_image, datetime, event_location, max_participants, pair.id, False, Null, False from pair
 $$;
+
+
+create or replace procedure supabase_functions.handle_due_notifications()
+language plpgsql as
+$$
+declare notif_json varchar;
+begin
+  create local temp table temp_due_notifications (
+    ID bigint primary key,
+    User_id uuid not null,
+    Content text not null,
+    Subject text not null,
+    Send_earliest_at timestamp with time zone
+  );
+  insert into temp_due_notifications (ID, User_id, Content, Subject, Send_earliest_at) select id, user_id, content, subject, send_earliest_at from due_notifications; 
+  notif_json := (select json_agg(temp_due_notifications) from temp_due_notifications);
+  
+  perform http((
+    'POST',
+    'https://ngryplxakzlojeqhdkse.functions.supabase.co/testFn',
+    ARRAY[
+        http_header(
+            'Authorization',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ncnlwbHhha3psb2plcWhka3NlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTgwOTg5MDksImV4cCI6MTk3MzY3NDkwOX0.D7r1RQLp1cwCwdgO318R0Tj7gteS9zcJBa1vdQQEUPI'
+        )
+    ],
+    'application/json',
+    notif_json
+  ));
+  delete from notifications where notifications.id in (select id from temp_due_notifications);
+end;
+$$
