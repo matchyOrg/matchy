@@ -1,16 +1,17 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "vite",
     "dev": "vite --open",
     "build": "run-p type-check build-only",
+    "deploy": "vite build --base=/matchy/ && node utils/publish.js",
     "preview": "vite preview --port 4173",
     "type-gen": "node utils/supabase-types.js",
     "test:unit": "vitest --environment jsdom",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
@@ -38,12 +39,13 @@
     "dotenv": "^16.0.1",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "gh-pages": "^4.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4",
     "unocss": "^0.45.6",
     "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.8",
+    "vite": "^3.0.9",
     "vue-tsc": "^0.40.1"
   }
 }
