@@ -7,7 +7,7 @@ import { supabase } from "@/services/supabase";
 import EventEditPage from "@/pages/EventEditPage.vue";
 
 const router = createRouter({
-  history: createWebHashHistory("import.meta.env.BASE_URL"),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
@@ -41,15 +41,27 @@ router.beforeEach((to, from, next) => {
   const loggedIn = supabase.auth.user();
 
   if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
-    console.warn("tried to access", to.fullPath, "but not logged in, forwarding to /login");
+    console.warn(
+      "tried to access",
+      to.fullPath,
+      "but not logged in, forwarding to /login"
+    );
     // showToast("Please log in first!");
     next({ path: "/login", query: { redirect: to.fullPath } });
     return;
   }
 
   const registered = useUserStore().isRegistered;
-  if (to.matched.some((record) => record.meta.requiresProfile) && loggedIn && !registered) {
-    console.warn("tried to access", to.fullPath, "but not registered, forwarding to /profile-edit");
+  if (
+    to.matched.some((record) => record.meta.requiresProfile) &&
+    loggedIn &&
+    !registered
+  ) {
+    console.warn(
+      "tried to access",
+      to.fullPath,
+      "but not registered, forwarding to /profile-edit"
+    );
     next({ path: "/profile-edit", query: { redirect: to.fullPath } });
     return;
   }
