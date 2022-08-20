@@ -2,17 +2,24 @@
   <van-form class="stacked-container nav-page" @submit="onSubmit.handler">
     <main>
       <div class="text-container">
-        <h3>{{ store.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}</h3>
+        <h3>
+          {{ store.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
+        </h3>
         <p style="color: var(--light-text)" v-if="!store.isRegistered">
           Enter your full name and a description below to continue.
         </p>
       </div>
 
       <van-cell-group inset>
-        <van-field v-model="formData.email" label="Email" placeholder="Login with email" :disabled="true" />
+        <van-field
+          v-model="formData.email"
+          label="Email"
+          placeholder="Login with email"
+          :disabled="true"
+        />
 
         <van-field
-          v-model="formData.username"
+          v-model="formData.fullName"
           label="Full Name"
           placeholder="Your full name"
           :disabled="loadingProfile.loading"
@@ -33,21 +40,36 @@
 
     <footer>
       <!-- submit button -->
-      <van-button round block type="primary" native-type="submit" :disabled="onSubmit.loading" :loading="onSubmit.loading">
+      <van-button
+        round
+        block
+        type="primary"
+        native-type="submit"
+        :disabled="onSubmit.loading"
+        :loading="onSubmit.loading"
+      >
         {{ store.isRegistered ? "submit" : "register" }}
       </van-button>
 
       <div class="whitespace-xtiny"></div>
 
       <!-- sign out button -->
-      <van-button v-if="!store.isRegistered" round block plain type="primary" @click="signOut">sign out</van-button>
+      <van-button
+        v-if="!store.isRegistered"
+        round
+        block
+        plain
+        type="primary"
+        @click="signOut"
+        >sign out</van-button
+      >
       <div class="whitespace-tiny" />
     </footer>
   </van-form>
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "../stores/user";
+import { useUserStore, type Profile } from "../stores/user";
 import { asyncLoading } from "../utils/loading";
 import { supabase } from "@/services/supabase";
 import router from "@/router";
@@ -59,18 +81,22 @@ const signOut = () => {
   router.push("/");
 };
 
-const formData = ref(store.emptyProfile());
+const formData = ref<Profile>({});
 
 const loadingProfile = asyncLoading(() =>
-  store.fetchProfile().then(() => {
-    formData.value.avatar_url = store.profile.avatar_url;
-    formData.value.email = store.profile.email;
-    formData.value.username = store.profile.username;
-    formData.value.description = store.profile.description;
-  })
+  store
+    .fetchProfile()
+    .then(() => {
+      formData.value.email = store.profile.email;
+      formData.value.fullName = store.profile.fullName;
+      formData.value.description = store.profile.description;
+    })
+    .catch((e) => {
+      console.log(e);
+    })
 );
 console.log("ProfileEditPage.vue: Calling fetchProfile()");
-loadingProfile.handler();
+loadingProfile.handler().catch((e) => console.log(e));
 
 const onSubmit = asyncLoading(async () => {
   try {
