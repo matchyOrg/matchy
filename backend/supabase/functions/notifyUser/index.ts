@@ -9,11 +9,32 @@
 
 import { serve } from 'https://deno.land/std@0.131.0/http/server.ts'
 import { SmtpClient } from 'https://deno.land/x/denomailer@0.12.0/mod.ts'
+import { createClient } from "https://esm.sh/@supabase/supabase-js@1.33.1";
+
 
 const client = new SmtpClient()
 
-serve(async (req) => {
-  try {
+
+serve(async (req: Request) => {
+
+    // check if request header "function-secret"'s content matches the one in the environment
+    const functionSecret = Deno.env.get('FUNCTION_SECRET')
+    const requestSecret = req.headers.get('function-secret')
+    if (functionSecret !== requestSecret) {
+      return new Response('Unauthorized: Wrong function-secret header!', { status: 401 })
+    }
+    const supabase = createClient(Deno.env.get("SUPABASE_URL") ?? "", Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "")
+    const { record } = await req.json()
+    const { user_id: uid, content, subject } = record
+     
+    const { data: user, error } = await supabase.auth.api.getUserById(uid)
+    
+    if (error != null) {
+      return new Response(error.message, { status: 500}) 
+    } else if (!user?.email) {
+      return new Response('User\'s email not found', { status: 404})
+    }
+
     // connect to SMTP server
     await client.connect({
       hostname: Deno.env.get('SMTP_HOSTNAME')!,
@@ -22,39 +43,17 @@ serve(async (req) => {
       password: Deno.env.get('SMTP_PASSWORD')!,
     })
 
-    // check if request header "function-secret"'s content matches the one in the environment
-    const functionSecret = Deno.env.get('FUNCTION_SECRET')
-    const requestSecret = req.headers.get('function-secret')
-    if (functionSecret !== requestSecret) {
-      return new Response('Unauthorized: Wrong function-secret header!', { status: 401 })
-    }
-      
-    // const body = await req.json()
-    // const { record } = body
-    // const content = Object.entries(record).reduce(
-    //   (acc, [key, value]) => acc + `${key}: ${value || 'NOT_PROVIDED'}\n`,
-    //   ''
-    // )
-
     await client.send({
       from: Deno.env.get('SMTP_FROM')!,
-      to: Deno.env.get('SMTP_TO')!,
-      subject: `Notification`,
-      content: `Yo heres a notification!`,
+      to: user.email,
+      subject,
+      content,
     })
 
     await client.close()
 
-  } catch (error: any) {
-    return new Response(error, { status: 500 })
-  }
-
   return new Response(
-    JSON.stringify({
-      done: true,
-    }),
-    {
-      headers: { 'Content-Type': 'application/json' },
-    }
+    JSON.stringify({ done: true }),
+    { headers: { 'Content-Type': 'application/json' }}
   )
 })
