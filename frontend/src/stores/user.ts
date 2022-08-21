@@ -22,10 +22,9 @@ export const useUserStore = defineStore("user", () => {
   const isRegistered = computed(() => !!profile.value.fullName); // check required attributes
 
   async function login(email: string) {
-    console.log(window.location.href);
     const result = await supabase.auth.signIn(
       { email },
-      { redirectTo: "http://127.0.0.1:5173" }
+      { redirectTo: window.location.href.split("#", 1)[0] }
     );
     user.value = result.user;
     return result;
