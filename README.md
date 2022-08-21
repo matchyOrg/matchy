@@ -24,13 +24,14 @@ After the event, each of the participants will give their cards to the host to p
 With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
 
 Let's do the math!  
-In a quite traditional settings, we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
+Let's assume that we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
 Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $n$ (40) cards, each with $\frac{n}{2}$ (20) reviews. 
 
-Now, when going through a single card, the host will check if the participant liked the other one. If yes, time to search for their card, and check if they also liked our participant. Then we need somewhere between $0$ and $\frac{n}{2}$ (20) card comparisons to determine the matches for a *single* person. Now you can manually note down all of the contact information of the matches, and send it to the lucky participant.
+Now, when going through a single card, the host will check if the participant liked the other one. If yes, time to search for their card, and check if they also liked our participant. Then we need somewhere between $0$ and $\frac{n}{2}$ (20) card comparisons to determine the matches for a *single* person. Now you can manually note down all of the contact information of that person's matches and send it to them.
 
-Repeat this for every single of the $n$ (40) participants, and you have at most $(n \cdot \frac{n}{2})$ (800) card comparisons to determine all the matches. <br>
-In a more average setting, where a participant just likes half of the people they date, the host has to do $400$ comparisons for just $40$ participants. This is time consuming to say the least.
+Repeat this for every single of the $n$ (40) participants, and you have at most $(n \cdot \frac{n}{2})$ (800) card comparisons to determine all the matches.
+
+Now assuming that we do this as efficient as possible by sending both matches their contact information at once so we don't check whether there was a match twice (once for each person by going through every single card individually) we still have $(\frac{n}{2})^2$ comparisions and in our example the host has to do $400$ comparisons for just $40$ participants. This is time consuming to say the least.
 
 *In short:* Matchy digitalizes the old school speed dating paperwork process and lets you focus on what matters most: making fun experiences and lasting relationships. 
 <br><br><br><br>
