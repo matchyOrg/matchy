@@ -1,5 +1,6 @@
 <template>
-  Page for creating/editing events. It'll edit an event if one is specified in the URL.
+  Page for creating/editing events. It'll edit an event if one is specified in
+  the URL.
 
   <EditEvent v-model="event" />
 </template>
@@ -12,8 +13,8 @@ import { Temporal } from "@js-temporal/polyfill";
 const event = ref<EditEventInfo>({
   title: "",
   description: "",
-  date_time: Temporal.Now.zonedDateTimeISO(),
-  event_location: "",
+  datetime: Temporal.Now.zonedDateTimeISO(),
+  location: "",
   max_participants: 20,
   uses_groups: true,
   event_groups: {
