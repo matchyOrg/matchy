@@ -2,8 +2,17 @@
   <van-form>
     <van-cell-group title="Event details">
       <van-field v-model="model.title" name="title" placeholder="Event Title" />
-      <van-field v-model="model.description" type="textarea" name="Description" placeholder="Event description" />
-      <van-field v-model="model.event_location" name="event-location" placeholder="Event Location" />
+      <van-field
+        v-model="model.description"
+        type="textarea"
+        name="Description"
+        placeholder="Event description"
+      />
+      <van-field
+        v-model="model.location"
+        name="event-location"
+        placeholder="Event Location"
+      />
       <van-field
         v-model="model.max_participants"
         type="number"
@@ -60,7 +69,11 @@
     </van-cell-group>
 
     <van-cell-group title="Group A" v-if="model.uses_groups">
-      <van-field v-model="model.event_groups.groupA.title" name="group-a-title" placeholder="Group A Name" />
+      <van-field
+        v-model="model.event_groups.groupA.title"
+        name="group-a-title"
+        placeholder="Group A Name"
+      />
       <van-field
         v-model="model.event_groups.groupA.description"
         type="textarea"
@@ -70,7 +83,11 @@
     </van-cell-group>
 
     <van-cell-group title="Group B" v-if="model.uses_groups">
-      <van-field v-model="model.event_groups.groupB.title" name="group-b-title" placeholder="Group B Name" />
+      <van-field
+        v-model="model.event_groups.groupB.title"
+        name="group-b-title"
+        placeholder="Group B Name"
+      />
       <van-field
         v-model="model.event_groups.groupB.description"
         type="textarea"
@@ -109,16 +126,20 @@ const showTimePicker = ref(false);
 // const currentDate = ref(["2021", "01", "01"]);
 // const currentTime = ref(["12", "00"]);
 
-console.log(model.value.date_time);
+console.log(model.value.datetime);
 
 const currentDate = computed<string[]>({
   get() {
-    const currentDate = model.value.date_time;
-    return [currentDate.year.toString(), currentDate.month.toString(), currentDate.day.toString()];
+    const currentDate = model.value.datetime;
+    return [
+      currentDate.year.toString(),
+      currentDate.month.toString(),
+      currentDate.day.toString(),
+    ];
   },
   set(newVal) {
-    const oldDate = model.value.date_time;
-    model.value.date_time = Temporal.ZonedDateTime.from({
+    const oldDate = model.value.datetime;
+    model.value.datetime = Temporal.ZonedDateTime.from({
       ...oldDate,
       year: Number.parseInt(newVal[0]),
       month: Number.parseInt(newVal[1]),
@@ -129,12 +150,12 @@ const currentDate = computed<string[]>({
 
 const currentTime = computed<string[]>({
   get() {
-    const currentDate = model.value.date_time;
+    const currentDate = model.value.datetime;
     return [currentDate.hour.toString(), currentDate.minute.toString()];
   },
   set(newVal) {
-    const oldDate = model.value.date_time;
-    model.value.date_time = Temporal.ZonedDateTime.from({
+    const oldDate = model.value.datetime;
+    model.value.datetime = Temporal.ZonedDateTime.from({
       ...oldDate,
       hour: Number.parseInt(newVal[0]),
       minute: Number.parseInt(newVal[1]),

@@ -8,7 +8,9 @@
   <div v-if="PageMode === 'eventVisitor'">
     <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
     <!--TODO: Forward to current event, if running -->
-    <router-link :to="''" v-else>Click here to go to your current event</router-link>
+    <router-link :to="''" v-else
+      >Click here to go to your current event</router-link
+    >
   </div>
 
   <!-- Organizer view -->

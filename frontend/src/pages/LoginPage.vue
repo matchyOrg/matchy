@@ -5,8 +5,16 @@
       <h3>🐱 matchy: paperless speed dating</h3>
 
       <!-- Introduction popup -->
-      <van-button class="explaination-button" @click="showPopup">Woah, so how does it work?</van-button>
-      <van-popup v-model:show="show" closeable round position="bottom" :style="{ height: '80vh' }">
+      <van-button class="explaination-button" @click="showPopup"
+        >Woah, so how does it work?</van-button
+      >
+      <van-popup
+        v-model:show="show"
+        closeable
+        round
+        position="bottom"
+        :style="{ height: '80vh' }"
+      >
         <LoginModal />
       </van-popup>
 
@@ -91,7 +99,9 @@ watch(
   () => userStore.isLoggedIn,
   (isLoggedIn) => {
     if (isLoggedIn) {
-      console.log("A login link was clicked in another window. Redirecting to '/'");
+      console.log(
+        "A login link was clicked in another window. Redirecting to '/'"
+      );
       router.push("/");
     }
   },

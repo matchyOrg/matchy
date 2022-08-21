@@ -1,10 +1,18 @@
 <template>
   <Transition name="slide-fade">
     <van-overlay :show="visible" @click="hideSideBar">
-      <div class="side-bar fixed top-12 bottom-0 z-10" @click="hideSideBar" v-if="visible">
+      <div
+        class="side-bar fixed top-12 bottom-0 z-10"
+        @click="hideSideBar"
+        v-if="visible"
+      >
         <van-sidebar v-model="active" @click.stop>
           <van-sidebar-item title="Home" @click="hideSideBar" to="/" />
-          <van-sidebar-item title="Profile" @click="hideSideBar" to="/profile-edit" />
+          <van-sidebar-item
+            title="Profile"
+            @click="hideSideBar"
+            to="/profile-edit"
+          />
           <van-sidebar-item
             title="Switch to visitor view"
             v-if="PageMode !== 'eventVisitor'"
@@ -15,11 +23,19 @@
             v-if="PageMode !== 'eventOrganizer'"
             @click="PageMode = 'eventOrganizer'"
           />
-          <van-sidebar-item title="Create event" v-if="PageMode === 'eventOrganizer'" />
+          <van-sidebar-item
+            title="Create event"
+            v-if="PageMode === 'eventOrganizer'"
+          />
           <van-sidebar-item title="Sign out" @click="signOut" />
           <van-sidebar-item>
             <template v-slot:title>
-              <a class="underline" href="https://github.com/sueszli/matchy" target="_blank" rel="noreferrer">
+              <a
+                class="underline"
+                href="https://github.com/sueszli/matchy"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Source Code <van-icon name="link-o"></van-icon>
               </a>
             </template>

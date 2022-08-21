@@ -1,4 +1,6 @@
-export const asyncLoading = <T extends (...args: any[]) => Promise<any>>(handler: T) => {
+export const asyncLoading = <T extends (...args: any[]) => Promise<any>>(
+  handler: T
+) => {
   const loading = ref(false);
   return reactive({
     loading: loading,

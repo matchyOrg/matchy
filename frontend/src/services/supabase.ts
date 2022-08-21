@@ -14,11 +14,16 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error("Missing VITE_SUPABASE_URL and/or VITE_SUPABASE_ANON_KEY, please set these in an .env file");
+  console.error(
+    "Missing VITE_SUPABASE_URL and/or VITE_SUPABASE_ANON_KEY, please set these in an .env file"
+  );
 }
 
 export type SafeSupabaseClient = {
-  from<T extends keyof definitions>(table: T): SupabaseQueryBuilder<definitions[T]>;
+  from<T extends keyof definitions>(
+    table: T
+  ): SupabaseQueryBuilder<definitions[T]>;
 };
 
-export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> =
+  createClient(supabaseUrl, supabaseAnonKey);
