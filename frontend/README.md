@@ -76,39 +76,32 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 
 ## Project Setup
-
 ```sh
 npm install
 ```
-<br>
 
 ### Re-generate Supabase Types
 [Read here about Supabase Typescript types](https://supabase.com/docs/guides/api/generating-types)
 ```sh
 npm run type-gen
 ```
-<br>
 
 ### Compile and Hot-Reload for Development
 ```sh
 npm run dev
 ```
-<br>
 
 ### Type-Check, Compile and Minify for Production
 ```sh
 npm run build
 ```
-<br>
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 ```sh
 npm run test:unit
 ```
-<br>
 
 ### Lint with [ESLint](https://eslint.org/)
-
 ```sh
 npm run lint
 ```
