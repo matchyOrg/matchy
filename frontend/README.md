@@ -17,11 +17,14 @@
   - [Type-Check, Compile and Minify for Production](#type-check-compile-and-minify-for-production)
   - [Run Unit Tests with Vitest](#run-unit-tests-with-vitest)
   - [Lint with ESLint](#lint-with-eslint)
-<br><br><br>
+<br><br><br><br>
+
 
 ## Prerequisites
 - [Node 16 or greater](https://nodejs.org/en/). Don't install Chocolatey.
 - A code editor (see below)
+<br><br><br><br>
+
 
 ## Setup
 1. Fork the repository
@@ -29,6 +32,8 @@
 3. Open the `frontend` folder in your IDE
 4. `npm install`
 5. `npm run dev`
+<br><br><br><br>
+
 
 ## Recommended Tooling
 I recommend using [Visual Studio Code](https://code.visualstudio.com/) with
@@ -46,6 +51,8 @@ I recommend using [Visual Studio Code](https://code.visualstudio.com/) with
 As for settings, I personally am a fan of those "inlay hints". <br>
 I also totally recommend using a decent browser such as Firefox or a Chromium browser with
 - [Vue Devtools](https://devtools.vuejs.org/) to get top-notch debugging support
+<br><br><br><br>
+
 
 ## Used Libraries
 The most important ones are
@@ -55,39 +62,50 @@ The most important ones are
 
 We are also using
 - [Vite](https://github.com/vuejs/vite) - a speedy Vue.js framework
+<br><br><br><br>
+
 
 ## Recommended IDE Setup
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+<br><br><br><br>
+
 
 ## Customize configuration
 See [Vite Configuration Reference](https://vitejs.dev/config/).
+<br><br><br><br>
+
 
 ## Project Setup
 
 ```sh
 npm install
 ```
+<br>
 
 ### Re-generate Supabase Types
 [Read here about Supabase Typescript types](https://supabase.com/docs/guides/api/generating-types)
 ```sh
 npm run type-gen
 ```
+<br>
 
 ### Compile and Hot-Reload for Development
 ```sh
 npm run dev
 ```
+<br>
 
 ### Type-Check, Compile and Minify for Production
 ```sh
 npm run build
 ```
+<br>
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 ```sh
 npm run test:unit
 ```
+<br>
 
 ### Lint with [ESLint](https://eslint.org/)
 
