@@ -13,17 +13,21 @@ To access all the relevant documents, resources and references for this project,
 - [Backend](#backend)
 <br><br><br><br>
 
+
 # Github
 
 Preferably, features are developed in another branch or fork. <br>
 After the feature is ready, a pull request to the master branch should be opened.
 <br><br><br><br>
 
+
 # Frontend
 
 [Check out the frontend project guide](./frontend/README.md)
+<br><br><br><br>
+
 
 # Backend
 
-As you probably noticed, we didn't write any backend and are using the BaaS called [supabase](https://supabase.com/).
-Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find out how to get started with vue and let me know what your email address is so I can give you access to our supabase workspace (haha that rhymes nicely).
+As you probably noticed, we didn't write any backend and are using the BaaS called [Supabase](https://supabase.com/).
+Check out [this sweet demo](https://supabase.com/docs/guides/with-vue-3) to find out how to get started with Vue and let me know what your email address is so I can give you access to our Supabase workspace (haha that rhymes nicely).
