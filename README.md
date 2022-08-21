@@ -8,6 +8,7 @@ This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/match
 
 
 ## How does conventional speed dating work?
+
 Here's a quick [video demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
 When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
@@ -19,16 +20,24 @@ After the event, each of the participants will give their cards to the host to p
 
 
 ## How are we improving it?
+
 With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
 
-Let's do the math! Assuming we have $n$ participants that we split in two groups, each of size $\frac{n}{2}$ then we need at least $(\frac{n}{2})^2$ and at most $(n \cdot \frac{n}{2})$ card comparisons to determine the matches for each person. <br>
-So even an optimal algorithm would require the host to do i.e. $400$ comparisons for just $40$ participants which is really time consuming.
+Let's do the math!  
+In a quite traditional settings, we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
+Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $n$ (40) cards, each with $\frac{n}{2}$ (20) reviews. 
+
+Now, when going through a single card, the host will check if the participant liked the other one. If yes, time to search for their card, and check if they also liked our participant. Then we need somewhere between $0$ and $\frac{n}{2}$ (20) card comparisons to determine the matches for a *single* person. Now you can manually note down all of the contact information of the matches, and send it to the lucky participant.
+
+Repeat this for every single of the $n$ (40) participants, and you have at most $(n \cdot \frac{n}{2})$ (800) card comparisons to determine all the matches. <br>
+In a more average setting, where a participant just likes half of the people they date, the host has to do $400$ comparisons for just $40$ participants. This is time consuming to say the least.
 
 *In short:* Matchy digitalizes the old school speed dating paperwork process and lets you focus on what matters most: making fun experiences and lasting relationships. 
 <br><br><br><br>
 
 
 ## Who is this for?
+
 The main goal of this app is to provide existing speed friending or dating organizations with a better alternative to pen and paper after some of them reached out to us - so we already know that there is a demand for it!
 
 Here are some selected non profits in Vienna, that we are aiming to help out:
@@ -42,6 +51,7 @@ But effectively anyone can use it to throw their own event!
 
 
 ## How can I join you guys and contribute?
+
 Joining the community doesn't require you to commit to anything / contribute anything. <br>
 You can just [join our wonderful discord server](https://discord.gg/tFf2RkTg) and just have a good time, meme around and get to know us. <br>
 Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
