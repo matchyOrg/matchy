@@ -8,31 +8,24 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 
-interface Profile {
+export interface Profile {
   email?: string; // derived from "user"
-  username?: string;
+  fullName?: string;
   description?: string;
-  avatar_url?: string;
 }
 
 export const useUserStore = defineStore("user", () => {
-  const emptyProfile = (): Profile => {
-    return {
-      email: undefined,
-      username: undefined,
-      description: undefined,
-      avatar_url: undefined,
-    };
-  };
-
   const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
-  const profile = ref<Profile>(emptyProfile()); // is based on "user" (see: App.vue)
-  const isRegistered = computed(() => !!profile.value.username); // check required attributes
+  const profile = ref<Profile>({}); // is based on "user" (see: App.vue)
+  const isRegistered = computed(() => !!profile.value.fullName); // check required attributes
 
   async function login(email: string) {
-    const result = await supabase.auth.signIn({ email: email });
+    const result = await supabase.auth.signIn(
+      { email },
+      { redirectTo: window.location.href.split("#", 1)[0] }
+    );
     user.value = result.user;
     return result;
   }
@@ -41,60 +34,32 @@ export const useUserStore = defineStore("user", () => {
     user.value = session?.user ?? null;
   });
 
-  /**
-   * CRUD OPERATIONS
-   */
-  const createEmptyProfile = async () => {
-    if (!user.value || !user.value.email) throw new Error("User not loaded");
-
-    console.log("user.ts: Creating profile");
-    const { error } = await supabase.from("profiles").insert({
-      id: user.value.id,
-      updated_at: new Date().toISOString(),
-      username: undefined,
-      description: undefined,
-      avatar_url: undefined,
-    });
-    if (error) throw error;
-  };
-
-  let firstAttempt = true;
   const fetchProfile = async () => {
     // Typescript doesn't have proper error handling
-    if (!user.value || !user.value.email)
-      throw new Error("user.ts: User not loaded");
+    if (!user.value) throw new Error("user.ts: User not loaded");
     console.log("user.ts: Fetching profile with email:", user.value.email);
 
     // this will still end up logging a red line in the console
     const { data, error } = await supabase
       .from("profiles")
-      .select(`username, description, avatar_url`)
-      .eq("id", user.value.id)
+      .select(`full_name, description, email`)
+      .eq("user_id", user.value.id)
       .maybeSingle();
     if (error) {
       throw error;
     }
     console.log("user.ts: Fetched:", data);
-    if (!data && firstAttempt) {
-      console.log("user.ts: Profile does not exist in database");
-      firstAttempt = false;
-      createEmptyProfile();
-      console.log("user.ts: Starting to fetch a second time");
-      fetchProfile();
-    }
+
     if (!data) {
-      console.error("Fetching profile failed after a second attempt");
-      return false;
+      throw new Error("Fetching profile failed.");
     }
 
     const completeData = {
-      email: user.value.email,
-      username: data.username,
+      email: data.email,
+      fullName: data.full_name,
       description: data.description,
-      avatar_url: data.avatar_url,
     };
     profile.value = completeData;
-    return true;
   };
 
   const updateProfile = async (data: Profile) => {
@@ -103,14 +68,12 @@ export const useUserStore = defineStore("user", () => {
       .from("profiles")
       .update(
         {
-          updated_at: new Date().toISOString(),
-          username: data.username,
+          full_name: data.fullName,
           description: data.description,
-          avatar_url: data.avatar_url,
         },
         { returning: "minimal" } // Don't return the value after inserting
       )
-      .match({ id: user.value.id });
+      .match({ user_id: user.value.id });
 
     if (error) throw error;
   };
@@ -119,19 +82,18 @@ export const useUserStore = defineStore("user", () => {
     isLoggedIn,
     (isLoggedIn) => {
       if (isLoggedIn) {
-        profile.value = emptyProfile();
+        profile.value = {};
 
         // TODO: That function is async, so there would be a theoretical bug when very quickly logging in and logging out.
         fetchProfile();
       } else {
-        profile.value = emptyProfile();
+        profile.value = {};
       }
     },
     { immediate: true }
   );
 
   return {
-    emptyProfile,
     user,
     login,
     isLoggedIn,
