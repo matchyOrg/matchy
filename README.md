@@ -31,7 +31,7 @@ Now, when going through a single card, the host will check if the participant li
 
 Repeat this for every single of the $n$ (40) participants, and you have at most $(n \cdot \frac{n}{2})$ (800) card comparisons to determine all the matches.
 
-Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $(\frac{n}{2})^2$ comparisions and in our example the host has to do $400$ comparisons for just $40$ participants. This is still time consuming to say the least.
+Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $(\frac{n}{2})^2$ comparisions - in our example this would mean the host has to do $400$ comparisons for just $40$ participants. This is still time consuming to say the least.
 
 *In short:* Matchy digitalizes the old school speed dating paperwork process and lets you focus on what matters most: making fun experiences and lasting relationships. 
 <br><br><br><br>
