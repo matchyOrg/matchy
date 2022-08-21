@@ -19,10 +19,10 @@ After the event, each of the participants will give their cards to the host to p
 
 
 ## How are we improving it?
-With our apps, the hosts no longer have to print any cards, use a clock to time or spend countless hours after the event determining matches.
+With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
 
-Let's do the math: Assuming we have $n$ participants that we split in two groups, each of size $\frac{n}{2}$ then you need at least $(\frac{n}{2})^2$ and at most $(n \cdot \frac{n}{2})$ card comparisons (ie. when you do it for each participant individually so you can immediately send them their contact data). <br>
-So even an optimal algorithm would require the host to do ie. $400$ comparisons for just $40$ participants and the overhead is a lot higher when working with paper cards instead of data structures.
+Let's do the math! Assuming we have $n$ participants that we split in two groups, each of size $\frac{n}{2}$ then we need at least $(\frac{n}{2})^2$ and at most $(n \cdot \frac{n}{2})$ card comparisons to determine the matches for each person. <br>
+So even an optimal algorithm would require the host to do i.e. $400$ comparisons for just $40$ participants which is really time consuming.
 
 *In short:* Matchy digitalizes the old school speed dating paperwork process and lets you focus on what matters most: making fun experiences and lasting relationships. 
 <br><br><br><br>
