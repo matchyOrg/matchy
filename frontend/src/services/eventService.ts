@@ -1,5 +1,5 @@
-import type { useUserStore } from "@/stores/user";
 import type { Temporal } from "@js-temporal/polyfill";
+import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
 
 export interface EditEventInfo {
@@ -21,13 +21,17 @@ export interface EditEventInfo {
   };
 }
 
-export function useEvents(userStore: ReturnType<typeof useUserStore>) {
+export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
+  // SELECT
+  // ...
+
+  // INSERT
   const createEvent = async (eventData: EditEventInfo) => {
-    if (!userStore.user) {
-      throw Error("User is not logged");
+    if (!authStore.user) {
+      throw Error("User is not logged in");
     }
     const { error } = await supabase.rpc("create_event_with_groups", {
-      organizer: userStore.user.id,
+      organizer: authStore.user.id,
       title: eventData.title,
       description: eventData.description,
       header_image: null,
@@ -43,7 +47,11 @@ export function useEvents(userStore: ReturnType<typeof useUserStore>) {
     if (error) throw error;
   };
 
-  // TODO: Update event
+  // UPDATE
+  // ...
+
+  // DELETE
+  // ...
 
   return {
     createEvent,

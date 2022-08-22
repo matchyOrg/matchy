@@ -4,6 +4,7 @@ import { useStorage } from "@vueuse/core";
 export const useCurrentEventStore = defineStore("current-event", () => {
   const eventId = useStorage("current-event-id", "");
   const hasEvent = computed(() => eventId.value !== "");
+
   return { hasEvent };
 });
 

@@ -7,13 +7,19 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']
+    EventEditPage: typeof import('./components/pages/EventEditPage.vue')['default']
+    EventPage: typeof import('./components/pages/EventPage.vue')['default']
+    HomePage: typeof import('./components/pages/HomePage.vue')['default']
     LoginModal: typeof import('./components/LoginModal.vue')['default']
+    LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
+    ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheNavBar: typeof import('./components/TheNavBar.vue')['default']
-    TheSideBar: typeof import('./components/TheSideBar.vue')['default']
+    TheNavBar: typeof import('./components/nav/TheNavBar.vue')['default']
+    TheSideBar: typeof import('./components/nav/TheSideBar.vue')['default']
     VanButton: typeof import('vant/es')['Button']
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanDatePicker: typeof import('vant/es')['DatePicker']

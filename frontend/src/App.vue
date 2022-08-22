@@ -1,6 +1,6 @@
 <template>
-  <!-- only show nav if logged in -->
-  <div v-if="userStore.user && userStore.isRegistered">
+  <!-- only show nav if logged in and registered -->
+  <div v-if="authStore.user && authStore.isRegistered">
     <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
     <TheSideBar
       :visible="sideBarVisible"
@@ -13,10 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stores/user";
+import { useAuthStore } from "@/stores/auth";
 
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-const userStore = useUserStore();
+// call listeners in authStore
+const authStore = useAuthStore();
 </script>
