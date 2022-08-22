@@ -12,13 +12,13 @@ import "./styles/colorPalette.css";
 import "./styles/containers.css";
 import "./styles/mobile.css";
 import "./styles/whitespaces.css";
-import "uno.css";
 
 // vant globals
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import "vant/es/notify/style";
 import "vant/es/image-preview/style";
+import { vuetify } from "@/plugins/vuetify";
 
 // Pass the plugin to your application's pinia plugin
 const pinia = createPinia();
@@ -37,5 +37,6 @@ const app = createApp(App);
 app.use(pinia);
 app.use(router);
 app.use(i18n);
+app.use(vuetify);
 
 app.mount("#app");

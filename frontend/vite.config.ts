@@ -8,13 +8,14 @@ import { VantResolver } from "unplugin-vue-components/resolvers";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import Unocss from "unocss/vite";
-import presetWind from "@unocss/preset-wind";
+import { visualizer } from "rollup-plugin-visualizer";
+import vuetify from "vite-plugin-vuetify";
 
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    vuetify({ autoImport: true }),
     AutoImport({
       // targets to transform
       include: [
@@ -44,7 +45,11 @@ export default defineConfig({
       dts: "src/auto-imports.d.ts",
     }),
     Components({ resolvers: [VantResolver()], dts: "src/components.d.ts" }),
-    Unocss({ presets: [presetWind()] }),
+    visualizer({
+      emitFile: true,
+      filename: "stats.html",
+      template: "sunburst",
+    }),
   ],
   resolve: {
     alias: {
