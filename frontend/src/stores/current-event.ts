@@ -1,7 +1,3 @@
-/**
- * This component contains things that doesn't belong in any other stores
- */
-
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 
