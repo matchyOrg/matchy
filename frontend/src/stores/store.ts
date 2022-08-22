@@ -1,5 +1,5 @@
 /**
- * This component contains things that doesn't belong in any other stores
+ * This component contains the necessary boilerplate and serves as a template / demo
  */
 
 import { acceptHMRUpdate, defineStore } from "pinia";
