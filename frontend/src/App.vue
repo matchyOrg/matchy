@@ -18,6 +18,7 @@ import { useAuthStore } from "@/stores/auth";
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-// call listeners in authStore
+// call listener in authStore
+console.log("App is mounted, calling useAuthStore()");
 const authStore = useAuthStore();
 </script>

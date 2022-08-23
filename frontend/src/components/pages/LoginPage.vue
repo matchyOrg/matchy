@@ -52,10 +52,10 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
-import { useSupabaseWrapper } from "@/services/supabase";
+import { useAuthService } from "@/services/supabase";
 const router = useRouter();
 const authStore = useAuthStore();
-const supabaseWrapper = useSupabaseWrapper();
+const authService = useAuthService();
 
 const email = ref("");
 const mailSent = ref(false);
@@ -64,10 +64,7 @@ const mailSent = ref(false);
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   try {
-    const { error } = await supabaseWrapper.login(email.value);
-    if (error) {
-      throw error;
-    }
+    await authService.login(email.value);
     showToast("Check your email for the login link!");
   } catch (error: any) {
     console.error(error);
@@ -75,14 +72,12 @@ const onSubmit = asyncLoading(async () => {
   }
 });
 
-// magic link clicked in another window
+// authStore.user listener (check if linked clicked in another window)
 watch(
   () => authStore.isLoggedIn,
   (isLoggedIn) => {
     if (isLoggedIn) {
-      console.log(
-        "A login link was clicked (possibly in another window). Redirecting to '/'"
-      );
+      console.log("A login link was clicked. Redirecting to '/'");
       router.push("/");
     }
   },
@@ -91,14 +86,6 @@ watch(
 </script>
 
 <style scoped>
-.explaination-button {
-  width: 100%;
-  border-style: none !important;
-  border-radius: 25px !important;
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 8px 8px 16px #bfbfbf, -8px -8px 16px #ffffff;
-}
-
 .mailSent {
   color: var(--light-text);
 }

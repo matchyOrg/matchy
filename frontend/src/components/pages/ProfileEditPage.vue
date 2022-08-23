@@ -60,7 +60,7 @@
         block
         plain
         type="primary"
-        @click="supabaseWrapper.logout()"
+        @click="authService.logout()"
         >sign out</van-button
       >
       <div class="whitespace-tiny" />
@@ -71,12 +71,12 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
-import { useSupabaseWrapper } from "@/services/supabase";
 import { showFailToast, showSuccessToast } from "vant";
 import { useProfileService, type Profile } from "@/services/profileService";
+import { useAuthService } from "@/services/supabase";
 const authStore = useAuthStore();
-const profileService = useProfileService(authStore);
-const supabaseWrapper = useSupabaseWrapper();
+const profileService = useProfileService();
+const authService = useAuthService();
 
 const formData = ref<Profile>({});
 
@@ -84,10 +84,11 @@ const formData = ref<Profile>({});
 const loadingProfile = asyncLoading(() =>
   profileService
     .readProfile()
-    .then(() => {
-      formData.value.email = authStore.profile.email;
-      formData.value.fullName = authStore.profile.fullName;
-      formData.value.description = authStore.profile.description;
+    .then((profile) => {
+      console.log("Called readProfile(), got:", profile);
+      formData.value.email = profile.email;
+      formData.value.fullName = profile.fullName;
+      formData.value.description = profile.description;
     })
     .catch((e) => {
       console.log(e);

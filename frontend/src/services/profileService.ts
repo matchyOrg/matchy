@@ -1,5 +1,5 @@
+import { useAuthStore } from '@/stores/auth';
 import { supabase } from "./supabase";
-import type { useAuthStore } from "@/stores/auth";
 
 export interface Profile {
   email?: string;
@@ -7,9 +7,13 @@ export interface Profile {
   description?: string;
 }
 
-export function useProfileService(authStore: ReturnType<typeof useAuthStore>) {
+export function useProfileService() {
+  const authStore = useAuthStore();
+
   // SELECT
   const readProfile = async () => {
+    console.log("Called useProfileService.readProfile()");
+
     if (!authStore.user) {
       throw Error("User is not logged in");
     }
@@ -30,14 +34,13 @@ export function useProfileService(authStore: ReturnType<typeof useAuthStore>) {
       fullName: data.full_name,
       description: data.description,
     };
-
-    // update store
-    authStore.updateProfileStore(retArg);
     return retArg;
   };
 
   // UPDATE
   const updateProfile = async (newProfile: Profile) => {
+    console.log("Called useProfileService.updateProfile()");
+
     if (!authStore.user) {
       throw Error("User is not logged in");
     }

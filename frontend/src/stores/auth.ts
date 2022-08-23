@@ -13,34 +13,35 @@ import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
 
 export const useAuthStore = defineStore("user", () => {
+  // user state
   const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
+  // user profile state
   const profile = ref<Profile>({});
   const isRegistered = computed(() => !!profile.value.fullName);
 
-  // auth listener: update user
-  supabase.auth.onAuthStateChange((_, session) => {
+  // authService session listener: update user and profile
+  // see: https://supabase.com/docs/reference/javascript/auth-onauthstatechange
+  const profileService = useProfileService();
+  supabase.auth.onAuthStateChange(async (event, session) => {
     user.value = session?.user ?? null;
+    profile.value = await profileService.readProfile();
+    console.log("Auth session changed on event:", event, session);
+    console.log("Updated user and profile:", user.value, profile.value);
   });
 
-  // auth listener: update profile
-  const profileService = useProfileService(useAuthStore());
-  watch(
-    isLoggedIn,
-    async (isLoggedIn) => {
-      if (isLoggedIn) {
-        // service also updates the store
-        await profileService.readProfile();
-      } else {
-        profile.value = {};
-      }
-    },
-    { immediate: true }
-  );
+  // user setter (only called by authService.login())
+  // Setter functions are necessary to track the state
+  const updateUserStore = async (newUser: User | null) => {
+    console.log("Called useAuthStore.updateUserStore()");
+    user.value = newUser;
+  };
 
-  // update profile - only called by profileService
+  // profile setter (only called by profileService.updateProfile())
+  // Setter functions are necessary to track the state
   const updateProfileStore = async (newProfile: Profile) => {
+    console.log("Called useAuthStore.updateProfileStore()");
     profile.value = newProfile;
   };
 
@@ -49,6 +50,7 @@ export const useAuthStore = defineStore("user", () => {
     isLoggedIn,
     profile,
     isRegistered,
+    updateUserStore,
     updateProfileStore,
 
     // TODO: Wrong API usage (relevant issue https://github.com/wobsoriano/pinia-shared-state/issues/14)

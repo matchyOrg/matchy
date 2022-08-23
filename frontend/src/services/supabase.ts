@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth';
 /**
  * This component creates a type-safe supabase client, acessible through 'supabase' in the project.
  *
@@ -9,7 +10,7 @@
 import router from "@/router";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/module/lib/SupabaseQueryBuilder";
-import type { definitions } from "./supabase-types";
+import type { definitions } from "../utils/supabase-types";
 
 // credentials
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -29,17 +30,24 @@ export type SafeSupabaseClient = {
 export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> =
   createClient(supabaseUrl, supabaseAnonKey);
 
-// wrapper functions
-export function useSupabaseWrapper() {
+// authService
+export function useAuthService() {
+  const authStore = useAuthStore();
+
+  // LOGIN
   const login = async (email: string) => {
+    console.log("Called useAuthService.login()");
+
     const result = await supabase.auth.signIn(
       { email },
       { redirectTo: window.location.href.split("#", 1)[0] } // works in dev and prod mode
     );
-    return result;
+    authStore.updateUserStore(result.user);
   };
 
+  // LOGOUT
   const logout = () => {
+    console.log("Called useAuthService.logout()");
     supabase.auth.signOut();
     router.push("/login");
   };
