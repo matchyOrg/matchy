@@ -25,10 +25,6 @@
     </main>
 
     <footer>
-      <div class="mailSent" v-if="mailSent">
-        <p>A mail was sent to you.</p>
-      </div>
-
       <!-- Email send button -->
       <div class="button-container">
         <van-button
@@ -50,11 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
 import { useAuthService } from "@/services/supabase";
-const router = useRouter();
-const authStore = useAuthStore();
 const authService = useAuthService();
 
 const email = ref("");
@@ -63,26 +56,9 @@ const mailSent = ref(false);
 // send magic link to user
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  try {
-    await authService.login(email.value);
-    showToast("Check your email for the login link!");
-  } catch (error: any) {
-    console.error(error);
-    alert(error.error_description || error.message);
-  }
+  await authService.login(email.value);
+  showToast("Check your email for the login link!");
 });
-
-// authStore.user listener (check if linked clicked in another window)
-watch(
-  () => authStore.isLoggedIn,
-  (isLoggedIn) => {
-    if (isLoggedIn) {
-      console.log("A login link was clicked. Redirecting to '/'");
-      router.push("/");
-    }
-  },
-  { immediate: true }
-);
 </script>
 
 <style scoped>

@@ -2,44 +2,41 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
+import router from "@/router";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
-  const user = ref<User | null>(supabase.auth.user());
+  const user = ref<User | null>(null);
   const isLoggedIn = computed(() => user.value !== null);
-  const setUserStore = async (newUser: User | null) => {
-    console.log("Called useAuthStore.updateUserStore()", newUser);
+
+  // user setter
+  async function setUserStore(newUser: User | null) {
+    console.warn("Updating user state", newUser);
     user.value = newUser;
-  };
+    if (newUser) {
+      const fetchedProfile = await useProfileService().readProfile();
+      setProfileStore(fetchedProfile);
+    }
+  }
 
   // user profile state (only update with setter)
   const profile = ref<Profile>({});
   const isRegistered = computed(() => !!profile.value.fullName);
-  const setProfileStore = async (newProfile: Profile) => {
-    console.log("Called useAuthStore.updateProfileStore()", newProfile);
+
+  // profile setter
+  async function setProfileStore(newProfile: Profile) {
+    console.warn("Updating profile state", newProfile);
     profile.value = newProfile;
-  };
+  }
 
   // on authState change, update everything
+  // called when user clicked magic link!
   // see: https://supabase.com/docs/reference/javascript/auth-onauthstatechange
   supabase.auth.onAuthStateChange(async (event, session) => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);
-    const profileService = useProfileService();
-    setProfileStore(await profileService.readProfile());
+    router.push("/");
   });
-
-  // on user change, update profile
-  // watch(
-  //   isLoggedIn,
-  //   async (isLoggedIn) => {
-  //     profile.value = {};
-  //     if (isLoggedIn) {
-  //       setProfileStore(await profileService.readProfile());
-  //     }
-  //   },
-  //   { immediate: true }
-  // );
 
   return {
     user,

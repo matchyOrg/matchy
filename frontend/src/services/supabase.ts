@@ -1,4 +1,3 @@
-import { useAuthStore } from '@/stores/auth';
 /**
  * This component creates a type-safe supabase client, acessible through 'supabase' in the project.
  *
@@ -32,28 +31,27 @@ export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> =
 
 // authService
 export function useAuthService() {
-  const authStore = useAuthStore();
-
   // LOGIN
-  const login = async (email: string) => {
+  // see auth.ts, onAuthStateChange() for steps, after magic link was clicked
+  async function login(email: string) {
     console.log("Called useAuthService.login()", email);
+    const redirectTo = window.location.href.split("#", 1)[0]; // works in dev and prod mode
 
-    // const result = await supabase.auth.signIn(
-    //   { email },
-    //   { redirectTo: window.location.href.split("#", 1)[0] } // works in dev and prod mode
-    // );
-
-    const result = await supabase.auth.signIn({ email });
-    router.push("/");
-    authStore.setUserStore(result.user);
-  };
+    try {
+      const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+      if (error) throw error;
+    } catch (error: any) {
+      console.error(error);
+      alert(error.error_description || error.message);
+    }
+  }
 
   // LOGOUT
-  const logout = () => {
+  async function logout() {
     console.log("Called useAuthService.logout()");
     supabase.auth.signOut();
     router.push("/login");
-  };
+  }
 
   return {
     login,

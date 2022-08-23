@@ -14,11 +14,12 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import { supabase } from "./services/supabase";
 
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-// call listener in authStore
-console.log("App is mounted, calling useAuthStore()");
+console.log("App is mounted");
 const authStore = useAuthStore();
+authStore.setUserStore(supabase.auth.user());
 </script>
