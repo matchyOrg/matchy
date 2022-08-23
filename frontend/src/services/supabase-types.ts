@@ -1054,6 +1054,30 @@ export interface paths {
       };
     };
   };
+  "/rpc/can_form_pair": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: bigint */
+            event_round: number;
+            /** Format: uuid */
+            main_user: string;
+            /** Format: uuid */
+            other_user: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {

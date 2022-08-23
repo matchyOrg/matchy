@@ -8,6 +8,8 @@ import fs from "fs";
 import path from "path";
 
 // eslint-disable-next-line no-undef
+const supabaseUrl = process.env.VITE_SUPABASE_URL + "/rest/v1/";
+// eslint-disable-next-line no-undef
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 const outputPath = "./src/services/supabase-types.ts";
 
@@ -18,7 +20,7 @@ if (!supabaseKey) {
 }
 
 async function loadTypes() {
-  const url = new URL("https://ngryplxakzlojeqhdkse.supabase.co/rest/v1/");
+  const url = new URL(supabaseUrl);
   url.searchParams.set("apikey", supabaseKey);
 
   const result = await openapiTS(url);
