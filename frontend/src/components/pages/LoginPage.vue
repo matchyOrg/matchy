@@ -43,6 +43,7 @@
       >
         <template v-slot:loader>
           <span>Logging in...</span>
+          <v-progress-circular indeterminate />
         </template>
         {{ !mailSent ? "send me an email" : "resend the email" }}
       </v-btn>
