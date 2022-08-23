@@ -23,7 +23,5 @@ import { supabase } from "./services/supabase";
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
 
-console.log("App is mounted");
 const authStore = useAuthStore();
-authStore.setUserStore(supabase.auth.user());
 </script>
