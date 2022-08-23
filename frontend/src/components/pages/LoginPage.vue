@@ -70,14 +70,6 @@ const onSubmit = asyncLoading(async () => {
 .full-height {
   min-height: 100vh;
 }
-.explaination-button {
-  width: 100%;
-  border-style: none !important;
-  border-radius: 25px !important;
-  background: linear-gradient(145deg, #ffffff, #e6e6e6);
-  box-shadow: 8px 8px 16px #bfbfbf, -8px -8px 16px #ffffff;
-}
-
 .mailSent {
   color: var(--light-text);
 }
