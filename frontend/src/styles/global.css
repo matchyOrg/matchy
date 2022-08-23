@@ -10,13 +10,17 @@
   --mobile-s: 320px; /* 2010-era devices like the iPhone 4 */
   --mobile-m: 375px; /* small modern devices */
   --mobile-l: 435px; /* average modern flagship phones */
+
+  /* vuetify breakpoints */
+  --material-xs: 600px;
+  --material-sm: 960px;
+  --material-md: 1264px;
+  --material-lg: 1904px;
+  --material-xl: 1904px;
 }
 
-/* check whether on desktop or touch-desktop  */
-/* see: https://habr.com/en/sandbox/163605/ */
-/* @media (pointer: fine), (pointer: none), ((pointer: fine) and (any-pointer: coarse))  {
-  ...
-} */
+/* check whether on desktop or touch-desktop   see: https://habr.com/en/sandbox/163605/ */
+/* @media (pointer: fine), (pointer: none), ((pointer: fine) and (any-pointer: coarse))  { ... } */
 
 /* emulate mobile view */
 html {
@@ -30,15 +34,4 @@ html {
 /* hide scrollbar */
 *::-webkit-scrollbar {
   display: none !important;
-}
-
-body {
-  --van-nav-bar-height: 3rem !important;
-  --van-sidebar-width: min(65vw, var(--mobile-l)) !important;
-  --van-overlay-background: rgba(0, 0, 0, 0.05) !important;
-}
-
-body {
-  padding: 0 var(--side-padding) 0 var(--side-padding);
-  background-color: #f7f8fa;
 }
