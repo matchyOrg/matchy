@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { supabase } from "./services/supabase";
 
 // Used to communicate betweeen TheNavBar and TheSideBar
 const sideBarVisible = ref(false);
