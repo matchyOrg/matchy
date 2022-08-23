@@ -46,9 +46,9 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
-import { useAuthService } from "@/services/supabase";
-const authService = useAuthService();
+const authStore = useAuthStore();
 
 const email = ref("");
 const mailSent = ref(false);
@@ -56,7 +56,7 @@ const mailSent = ref(false);
 // send magic link to user
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  await authService.login(email.value);
+  await authStore.login(email.value);
   showToast("Check your email for the login link!");
 });
 </script>

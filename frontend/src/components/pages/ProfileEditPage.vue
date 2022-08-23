@@ -60,7 +60,7 @@
         block
         plain
         type="primary"
-        @click="authService.logout()"
+        @click="logout"
         >sign out</van-button
       >
       <div class="whitespace-tiny" />
@@ -73,10 +73,9 @@ import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
 import { showFailToast, showSuccessToast } from "vant";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { useAuthService } from "@/services/supabase";
 const authStore = useAuthStore();
+const router = useRouter();
 const profileService = useProfileService();
-const authService = useAuthService();
 
 const formData = ref<Profile>({});
 
@@ -105,4 +104,9 @@ const onSubmit = asyncLoading(async () => {
     alert(error.error_description || error.message);
   }
 });
+
+function logout() {
+  authStore.logout();
+  router.push("/login");
+}
 </script>
