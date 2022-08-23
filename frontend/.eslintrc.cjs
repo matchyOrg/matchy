@@ -28,5 +28,9 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: ["components.d.ts", "auto-imports.d.ts"],
+  ignorePatterns: [
+    "components.d.ts",
+    "auto-imports.d.ts",
+    "src/services/supabase-types.ts",
+  ],
 };
