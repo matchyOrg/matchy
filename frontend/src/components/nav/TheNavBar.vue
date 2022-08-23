@@ -1,26 +1,14 @@
 <template>
-  <VanNavBar @click-left="openSideBar" @click-right="goToProfile" z-index="3">
-    <template #left>
-      <van-icon name="wap-nav" />
-    </template>
+  <v-app-bar app>
+    <v-app-bar-nav-icon @click="emits('toggleSideBar')"></v-app-bar-nav-icon>
     <!-- <template #right>
       <van-icon name="user-circle-o" />
     </template> -->
-  </VanNavBar>
+  </v-app-bar>
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
-
 const emits = defineEmits<{
   (e: "toggleSideBar"): void;
 }>();
-
-function openSideBar() {
-  emits("toggleSideBar");
-}
-
-function goToProfile() {
-  router.push("/profile-edit");
-}
 </script>
