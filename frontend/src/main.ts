@@ -25,6 +25,9 @@ const pinia = createPinia();
 const app = createApp(App);
 app.use(pinia);
 app.use(router);
+// TODO: vue-i18n and Vuetify need to be married
+// See https://next.vuetifyjs.com/en/features/internationalization/#vue-i18n
+// (scroll down/up to the relevant section ^)
 app.use(i18n);
 app.use(vuetify);
 
