@@ -12,12 +12,11 @@
       you focus on what matters most: making fun experiences and lasting
       relationships.
     </p>
-    <p class="content">
+    <p class="content mb-1">
       Replacing paper is no easy feat. But matchy is simple and accessible
       enough to be able to do so and compete with the status quo.
     </p>
 
-    <div class="whitespace-xxxtiny" />
     <p>
       Check <a href="https://www.example.com">this sweet demo video</a> out to
       figure out how it works.

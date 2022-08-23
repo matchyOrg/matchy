@@ -1,68 +1,68 @@
 <!-- The user is stuck on this page until there is a change in the "user store" -->
 <template>
-  <van-form class="stacked-container page" @submit="onSubmit.handler">
-    <main>
-      <h3>🐱 matchy: paperless speed dating</h3>
+  <v-container class="full-height" :style="{ position: 'relative' }">
+    <h3>🐱 matchy: paperless speed dating</h3>
 
-      <!-- Introduction popup -->
-      <van-button class="explaination-button" @click="showPopup"
-        >Woah, so how does it work?</van-button
-      >
-      <van-popup
-        v-model:show="show"
-        closeable
-        round
-        position="bottom"
-        :style="{ height: '80vh' }"
-      >
-        <LoginModal />
-      </van-popup>
+    <!-- Introduction popup -->
+    <van-button class="explaination-button mb-4" @click="showPopup"
+      >Woah, so how does it work?</van-button
+    >
+    <van-popup
+      v-model:show="show"
+      closeable
+      round
+      position="bottom"
+      :style="{ height: '80vh' }"
+    >
+      <LoginModal />
+    </van-popup>
 
-      <div class="whitespace-tiny" />
+    <p>Are you ready?</p>
+    <p class="mb-4">
+      You don't need a password to register or log in. <br />
+      Just enter your email address below:
+    </p>
 
-      <p>Are you ready?</p>
-      <p>
-        You don't need a password to register or log in. <br />
-        Just enter your email address below:
-      </p>
-
-      <div class="whitespace-tiny" />
-
-      <!-- Email field -->
-      <van-cell-group inset>
-        <van-field
-          v-model="email"
-          name="Email"
-          label="Email"
-          placeholder="geniusPinapple@mail.com"
-          :rules="[{ required: true, message: 'Email is required' }]"
-        />
-      </van-cell-group>
-    </main>
-
-    <footer>
+    <!-- Email field -->
+    <v-form v-model="valid">
+      <v-text-field
+        class="flex-grow-0"
+        filled
+        v-model="email"
+        name="Email"
+        label="Email"
+        placeholder="geniusPinapple@mail.com"
+        :rules="[(value) => !!value || 'required']"
+      ></v-text-field>
       <div class="mailSent" v-if="mailSent">
         <p>A mail was sent to you.</p>
       </div>
-
-      <!-- Email send button -->
-      <div class="button-container">
-        <van-button
-          round
-          block
-          type="primary"
-          native-type="submit"
-          :disabled="onSubmit.loading"
-          :loading="onSubmit.loading"
-          loading-text="Logging in..."
-        >
-          {{ !mailSent ? "send me an email" : "resend the email" }}
-        </van-button>
-      </div>
-
-      <div class="whitespace-tiny" />
-    </footer>
-  </van-form>
+    </v-form>
+    <div
+      class="d-flex"
+      :style="{
+        position: 'absolute',
+        bottom: '1rem',
+        width: '100%',
+      }"
+    >
+      <v-btn
+        class="mb-4 mx-auto"
+        rounded
+        size="x-large"
+        type="submit"
+        color="blue"
+        :disabled="onSubmit.loading"
+        :loading="onSubmit.loading"
+        @click="onSubmit.handler"
+      >
+        <template v-slot:loader>
+          <span>Logging in...</span>
+        </template>
+        {{ !mailSent ? "send me an email" : "resend the email" }}
+      </v-btn>
+    </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -72,6 +72,7 @@ import LoginModal from "../components/LoginModal.vue";
 const router = useRouter();
 const userStore = useUserStore();
 
+const valid = ref(false);
 // popup
 const show = ref(false);
 const showPopup = () => {
@@ -110,6 +111,9 @@ watch(
 </script>
 
 <style scoped>
+.full-height {
+  min-height: 100vh;
+}
 .explaination-button {
   width: 100%;
   border-style: none !important;
@@ -120,5 +124,44 @@ watch(
 
 .mailSent {
   color: var(--light-text);
+}
+
+.spin {
+  animation: loader 1s infinite;
+}
+
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
