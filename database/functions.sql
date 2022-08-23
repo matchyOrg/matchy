@@ -69,3 +69,31 @@ begin
   delete from notifications where notifications.id in (select id from temp_due_notifications);
 end;
 $$
+
+create or replace function can_form_pair(main_user uuid, other_user uuid, event_round bigint)
+returns bool
+language plpgsql
+security definer set search_path = 'public' as
+$$
+declare
+  main_user_group bigint;
+  main_user_registration bigint;
+  other_user_group bigint;
+  other_user_registration bigint;
+  event_id bigint;
+  event_group bigint;
+begin
+  select into event_id, event_group events.id, events.event_group_pair from events where events.id in (select event_id from event_rounds where event_rounds.id = event_round);
+  select into main_user_group, main_user_registration reg.group, reg.id from event_registrations as reg where reg.user_id = main_user and reg.event_id = event_id;
+  select into other_user_group, other_user_registration reg.group, reg.id from event_registrations as reg where reg.user_id = other_user and reg.event_id = event_id;
+
+  if (main_user_registration is null or other_user_registration is null) then -- on of the users is not registered
+    return false;
+  end if;
+
+  if (event_group is null) then -- both users are registered and the event doesn't use groups so they can't be in different groups
+    return true;
+  end if;
+  return main_user_group <> other_user_group;
+end;
+$$
