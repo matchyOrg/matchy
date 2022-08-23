@@ -3,9 +3,9 @@
     <main>
       <div class="text-container">
         <h3>
-          {{ store.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
+          {{ authStore.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
         </h3>
-        <p style="color: var(--light-text)" v-if="!store.isRegistered">
+        <p style="color: var(--light-text)" v-if="!authStore.isRegistered">
           Enter your full name and a description below to continue.
         </p>
       </div>
@@ -48,19 +48,19 @@
         :disabled="onSubmit.loading"
         :loading="onSubmit.loading"
       >
-        {{ store.isRegistered ? "submit" : "register" }}
+        {{ authStore.isRegistered ? "submit" : "register" }}
       </van-button>
 
       <div class="whitespace-xtiny"></div>
 
       <!-- sign out button -->
       <van-button
-        v-if="!store.isRegistered"
+        v-if="!authStore.isRegistered"
         round
         block
         plain
         type="primary"
-        @click="signOut"
+        @click="supabaseWrapper.logout()"
         >sign out</van-button
       >
       <div class="whitespace-tiny" />
@@ -69,40 +69,36 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore, type Profile } from "../stores/user";
-import { asyncLoading } from "../utils/loading";
-import { supabase } from "@/services/supabase";
-import router from "@/router";
+import { useAuthStore } from "@/stores/auth";
+import { asyncLoading } from "@/utils/loading";
+import { useSupabaseWrapper } from "@/services/supabase";
 import { showFailToast, showSuccessToast } from "vant";
-const store = useUserStore();
-
-const signOut = () => {
-  supabase.auth.signOut();
-  router.push("/");
-};
+import { useProfileService, type Profile } from "@/services/profileService";
+const authStore = useAuthStore();
+const profileService = useProfileService(authStore);
+const supabaseWrapper = useSupabaseWrapper();
 
 const formData = ref<Profile>({});
 
+// immediately call loadingProfile, update loading state
 const loadingProfile = asyncLoading(() =>
-  store
-    .fetchProfile()
+  profileService
+    .readProfile()
     .then(() => {
-      formData.value.email = store.profile.email;
-      formData.value.fullName = store.profile.fullName;
-      formData.value.description = store.profile.description;
+      formData.value.email = authStore.profile.email;
+      formData.value.fullName = authStore.profile.fullName;
+      formData.value.description = authStore.profile.description;
     })
     .catch((e) => {
       console.log(e);
     })
 );
-console.log("ProfileEditPage.vue: Calling fetchProfile()");
 loadingProfile.handler().catch((e) => console.log(e));
 
 const onSubmit = asyncLoading(async () => {
   try {
-    await store.updateProfile(formData.value);
+    await profileService.updateProfile(formData.value);
     showSuccessToast("Updated");
-    location.reload();
   } catch (error: any) {
     showFailToast("Error");
     console.error(error);

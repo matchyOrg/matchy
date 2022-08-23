@@ -99,7 +99,7 @@
   <div></div>
 </template>
 <script setup lang="ts">
-import type { EditEventInfo } from "@/services/events";
+import type { EditEventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 const props = defineProps<{
   modelValue: EditEventInfo;

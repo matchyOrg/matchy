@@ -3,30 +3,15 @@
   <v-container class="full-height" :style="{ position: 'relative' }">
     <h3>🐱 matchy: paperless speed dating</h3>
 
-    <!-- Introduction popup -->
-    <van-button class="explaination-button mb-4" @click="showPopup"
-      >Woah, so how does it work?</van-button
-    >
-    <van-popup
-      v-model:show="show"
-      closeable
-      round
-      position="bottom"
-      :style="{ height: '80vh' }"
-    >
-      <LoginModal />
-    </van-popup>
-
     <p>Are you ready?</p>
-    <p class="mb-4">
+    <p>
       You don't need a password to register or log in. <br />
       Just enter your email address below:
     </p>
 
     <!-- Email field -->
-    <v-form v-model="valid">
+    <v-form>
       <v-text-field
-        class="flex-grow-0"
         filled
         v-model="email"
         name="Email"
@@ -66,18 +51,12 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/stores/user";
-import { asyncLoading } from "../utils/loading";
-import LoginModal from "../components/LoginModal.vue";
+import { useAuthStore } from "@/stores/auth";
+import { asyncLoading } from "@/utils/loading";
+import { useSupabaseWrapper } from "@/services/supabase";
 const router = useRouter();
-const userStore = useUserStore();
-
-const valid = ref(false);
-// popup
-const show = ref(false);
-const showPopup = () => {
-  show.value = true;
-};
+const authStore = useAuthStore();
+const supabaseWrapper = useSupabaseWrapper();
 
 const email = ref("");
 const mailSent = ref(false);
@@ -86,8 +65,10 @@ const mailSent = ref(false);
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   try {
-    const { error } = await userStore.login(email.value);
-    if (error) throw error;
+    const { error } = await supabaseWrapper.login(email.value);
+    if (error) {
+      throw error;
+    }
     showToast("Check your email for the login link!");
   } catch (error: any) {
     console.error(error);
@@ -97,11 +78,11 @@ const onSubmit = asyncLoading(async () => {
 
 // magic link clicked in another window
 watch(
-  () => userStore.isLoggedIn,
+  () => authStore.isLoggedIn,
   (isLoggedIn) => {
     if (isLoggedIn) {
       console.log(
-        "A login link was clicked in another window. Redirecting to '/'"
+        "A login link was clicked (possibly in another window). Redirecting to '/'"
       );
       router.push("/");
     }

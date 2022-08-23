@@ -46,8 +46,5 @@ serve(async (req: Request) => {
     await client.close();
 
     // return response
-    return new Response(
-      JSON.stringify({ done: true }),
-      { headers: { 'Content-Type': 'application/json' }}
-    );
+    return new Response("done", { status: 200 });
 });

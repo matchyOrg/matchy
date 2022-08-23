@@ -15,17 +15,17 @@
           />
           <van-sidebar-item
             title="Switch to visitor view"
-            v-if="PageMode !== 'eventVisitor'"
-            @click="PageMode = 'eventVisitor'"
+            v-if="PageMode !== 'participant'"
+            @click="PageMode = 'participant'"
           />
           <van-sidebar-item
             title="Switch to organizer view"
-            v-if="PageMode !== 'eventOrganizer'"
-            @click="PageMode = 'eventOrganizer'"
+            v-if="PageMode !== 'organizer'"
+            @click="PageMode = 'organizer'"
           />
           <van-sidebar-item
             title="Create event"
-            v-if="PageMode === 'eventOrganizer'"
+            v-if="PageMode === 'organizer'"
           />
           <van-sidebar-item title="Sign out" @click="signOut" />
           <van-sidebar-item>
@@ -49,8 +49,8 @@
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
 import { PageMode } from "@/stores/page-mode";
-import { useUserStore } from "@/stores/user";
-const userStore = useUserStore();
+import { useAuthStore } from "@/stores/auth";
+const authStore = useAuthStore();
 const router = useRouter();
 
 const props = defineProps<{

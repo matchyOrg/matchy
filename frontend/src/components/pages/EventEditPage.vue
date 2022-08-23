@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import EditEvent from "@/components/EditEvent.vue";
-import type { EditEventInfo } from "@/services/events";
+import type { EditEventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 
 const event = ref<EditEventInfo>({

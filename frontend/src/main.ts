@@ -1,26 +1,26 @@
-// external imports
 import { createApp } from "vue";
-import { createPinia } from "pinia";
-import { PiniaSharedState } from "pinia-shared-state";
-
-// internal imports
 import App from "./App.vue";
 import router from "./router";
+
 import { i18n } from "./i18n";
-// styling
+
 import "./styles/colorPalette.css";
 import "./styles/containers.css";
-import "./styles/mobile.css";
+import "./styles/global.css";
 import "./styles/whitespaces.css";
 
-// vant globals
+// vant
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import "vant/es/notify/style";
 import "vant/es/image-preview/style";
+
+// vuetify
 import { vuetify } from "@/plugins/vuetify";
 
-// Pass the plugin to your application's pinia plugin
+// pinia
+import { createPinia } from "pinia";
+import { PiniaSharedState } from "pinia-shared-state";
 const pinia = createPinia();
 pinia.use(
   PiniaSharedState({

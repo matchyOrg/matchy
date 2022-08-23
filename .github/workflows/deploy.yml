@@ -19,8 +19,8 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.4.0
       with:
-        # Set always-auth in 
-        # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+        # Set always-auth in Version Spec of the version to use.
+        # Examples: 12.x, 10.15.1, >=10.15.0
         node-version: '>= 15.0.0'
     
     - name: Checkout 🛎️
