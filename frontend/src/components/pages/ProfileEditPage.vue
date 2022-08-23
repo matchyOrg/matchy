@@ -60,7 +60,7 @@
         block
         plain
         type="primary"
-        @click="supabaseWrapper.logout()"
+        @click="logout"
         >sign out</van-button
       >
       <div class="whitespace-tiny" />
@@ -71,12 +71,11 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
-import { useSupabaseWrapper } from "@/services/supabase";
 import { showFailToast, showSuccessToast } from "vant";
 import { useProfileService, type Profile } from "@/services/profileService";
 const authStore = useAuthStore();
-const profileService = useProfileService(authStore);
-const supabaseWrapper = useSupabaseWrapper();
+const router = useRouter();
+const profileService = useProfileService();
 
 const formData = ref<Profile>({});
 
@@ -84,10 +83,10 @@ const formData = ref<Profile>({});
 const loadingProfile = asyncLoading(() =>
   profileService
     .readProfile()
-    .then(() => {
-      formData.value.email = authStore.profile.email;
-      formData.value.fullName = authStore.profile.fullName;
-      formData.value.description = authStore.profile.description;
+    .then((profile) => {
+      formData.value.email = profile.email;
+      formData.value.fullName = profile.fullName;
+      formData.value.description = profile.description;
     })
     .catch((e) => {
       console.log(e);
@@ -105,4 +104,9 @@ const onSubmit = asyncLoading(async () => {
     alert(error.error_description || error.message);
   }
 });
+
+function logout() {
+  authStore.logout();
+  router.push("/login");
+}
 </script>

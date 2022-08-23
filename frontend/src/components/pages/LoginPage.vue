@@ -53,10 +53,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { asyncLoading } from "@/utils/loading";
-import { useSupabaseWrapper } from "@/services/supabase";
-const router = useRouter();
 const authStore = useAuthStore();
-const supabaseWrapper = useSupabaseWrapper();
 
 const email = ref("");
 const mailSent = ref(false);
@@ -64,31 +61,9 @@ const mailSent = ref(false);
 // send magic link to user
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  try {
-    const { error } = await supabaseWrapper.login(email.value);
-    if (error) {
-      throw error;
-    }
-    showToast("Check your email for the login link!");
-  } catch (error: any) {
-    console.error(error);
-    alert(error.error_description || error.message);
-  }
+  await authStore.login(email.value);
+  showToast("Check your email for the login link!");
 });
-
-// magic link clicked in another window
-watch(
-  () => authStore.isLoggedIn,
-  (isLoggedIn) => {
-    if (isLoggedIn) {
-      console.log(
-        "A login link was clicked (possibly in another window). Redirecting to '/'"
-      );
-      router.push("/");
-    }
-  },
-  { immediate: true }
-);
 </script>
 
 <style scoped>
@@ -105,44 +80,5 @@ watch(
 
 .mailSent {
   color: var(--light-text);
-}
-
-.spin {
-  animation: loader 1s infinite;
-}
-
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 </style>

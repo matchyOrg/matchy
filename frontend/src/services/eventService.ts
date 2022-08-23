@@ -26,7 +26,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // ...
 
   // INSERT
-  const createEvent = async (eventData: EditEventInfo) => {
+  async function createEvent(eventData: EditEventInfo) {
+    console.log("Called useEventService.createEvent()", eventData);
+
     if (!authStore.user) {
       throw Error("User is not logged in");
     }
@@ -45,7 +47,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     });
 
     if (error) throw error;
-  };
+  }
 
   // UPDATE
   // ...

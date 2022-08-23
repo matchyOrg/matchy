@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { useCurrentEventStore } from "@/stores/current-event";
-import { PageMode } from "@/stores/page-mode";
+import { useCurrentEventStore } from "@/stores/currentEvent";
+import { PageMode } from "@/stores/pageMode";
 import { useAuthStore } from "@/stores/auth";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();

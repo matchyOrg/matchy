@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: "/",
       component: HomePage,
-      meta: { requiresLogin: true, requiresRegistration: true },
+      meta: { requiresLogin: true, requiresCompletedProfile: true },
     },
     {
       path: "/login",
@@ -50,10 +50,10 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  // requiresRegistration
+  // requiresCompletedProfile
   const registered = useAuthStore().isRegistered;
   if (
-    to.matched.some((record) => record.meta.requiresRegistration) &&
+    to.matched.some((record) => record.meta.requiresCompletedProfile) &&
     loggedIn &&
     !registered
   ) {

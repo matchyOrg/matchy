@@ -20,7 +20,6 @@
     "@vueuse/core": "^9.1.0",
     "ky": "^0.31.1",
     "pinia": "^2.0.16",
-    "pinia-shared-state": "^0.2.8",
     "unplugin-auto-import": "^0.10.1",
     "vant": "^4.0.0-alpha.4",
     "vite-plugin-vuetify": "^1.0.0-alpha.14",

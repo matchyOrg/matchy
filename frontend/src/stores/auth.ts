@@ -1,63 +1,69 @@
-/**
- * On the insertion of every entry into the "user" table a trigger inserts an entry into the "profile" table
- * and copies the users ID and mail from the "user" table.
- *
- * Therefore the "profile" table inherits from the "user" table in the database:
- * - "user": Contains all of the users auth data (managed by supabase)
- * - "profile": Contains all of the users data (including the email and user ID from the "user" table)
- */
-
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
 
 export const useAuthStore = defineStore("user", () => {
-  const user = ref<User | null>(supabase.auth.user());
+  // user state (only update with setter)
+  const user = ref<User | null>(null);
   const isLoggedIn = computed(() => user.value !== null);
 
+  // user setter
+  async function setUserStore(newUser: User | null) {
+    console.warn("Updating user state", newUser);
+    user.value = newUser;
+    if (newUser) {
+      const fetchedProfile = await useProfileService().readProfile();
+      setProfileStore(fetchedProfile);
+    }
+  }
+
+  // user profile state (only update with setter)
   const profile = ref<Profile>({});
   const isRegistered = computed(() => !!profile.value.fullName);
 
-  // auth listener: update user
-  supabase.auth.onAuthStateChange((_, session) => {
-    user.value = session?.user ?? null;
+  // profile setter
+  async function setProfileStore(newProfile: Profile) {
+    console.warn("Updating profile state", newProfile);
+    profile.value = newProfile;
+  }
+
+  // on authState change, update everything
+  // called when user clicked magic link!
+  // see: https://supabase.com/docs/reference/javascript/auth-onauthstatechange
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log("Auth session changed", event, session);
+    setUserStore(session?.user ?? null);
   });
 
-  // auth listener: update profile
-  const profileService = useProfileService(useAuthStore());
-  watch(
-    isLoggedIn,
-    async (isLoggedIn) => {
-      if (isLoggedIn) {
-        // service also updates the store
-        await profileService.readProfile();
-      } else {
-        profile.value = {};
-      }
-    },
-    { immediate: true }
-  );
+  async function login(email: string) {
+    // TODO: Try out something like https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/components/AuthForm.vue#L42
+    // (Make sure to handle Vue's hash mode correctly)
+    const redirectTo = window.location.origin; // no idea if this is needed
 
-  // update profile - only called by profileService
-  const updateProfileStore = async (newProfile: Profile) => {
-    profile.value = newProfile;
-  };
+    try {
+      const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+      if (error) throw error;
+    } catch (error: any) {
+      console.error(error);
+      alert(error.error_description || error.message);
+    }
+  }
+
+  // LOGOUT
+  async function logout() {
+    supabase.auth.signOut();
+  }
 
   return {
     user,
     isLoggedIn,
     profile,
     isRegistered,
-    updateProfileStore,
-
-    // TODO: Wrong API usage (relevant issue https://github.com/wobsoriano/pinia-shared-state/issues/14)
-    // share with other tabs via pinia-shared-state:
-    // - see: https://github.com/wobsoriano/pinia-shared-state
-    // - see: https://www.npmjs.com/package/pinia-shared-state
-    share: {
-      enable: true,
-    },
+    setUserStore,
+    setProfileStore,
+    login,
+    logout,
   };
 });
 

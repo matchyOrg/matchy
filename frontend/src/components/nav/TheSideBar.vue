@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
-import { PageMode } from "@/stores/page-mode";
+import { PageMode } from "@/stores/pageMode";
 import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 const router = useRouter();

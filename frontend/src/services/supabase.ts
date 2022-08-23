@@ -6,7 +6,6 @@
  * - Supabase pull request: https://github.com/supabase/postgrest-js/pull/279
  */
 
-import router from "@/router";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/module/lib/SupabaseQueryBuilder";
 import type { definitions } from "./supabase-types";
@@ -28,24 +27,3 @@ export type SafeSupabaseClient = {
 };
 export const supabase: SafeSupabaseClient & Omit<SupabaseClient, "from"> =
   createClient(supabaseUrl, supabaseAnonKey);
-
-// wrapper functions
-export function useSupabaseWrapper() {
-  const login = async (email: string) => {
-    const result = await supabase.auth.signIn(
-      { email },
-      { redirectTo: window.location.href.split("#", 1)[0] } // works in dev and prod mode
-    );
-    return result;
-  };
-
-  const logout = () => {
-    supabase.auth.signOut();
-    router.push("/login");
-  };
-
-  return {
-    login,
-    logout,
-  };
-}
