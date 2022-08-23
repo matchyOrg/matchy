@@ -19,7 +19,7 @@ const router = createRouter({
       component: LoginPage,
     },
     {
-      path: "/profile-edit",
+      path: "/edit-profile",
       component: ProfileEditPage,
       meta: { requiresLogin: true },
     },
@@ -60,9 +60,9 @@ router.beforeEach((to, from, next) => {
     console.warn(
       "tried to access",
       to.fullPath,
-      "but not registered, forwarding to /profile-edit"
+      "but not registered, forwarding to /edit-profile"
     );
-    next({ path: "/profile-edit", query: { redirect: to.fullPath } });
+    next({ path: "/edit-profile", query: { redirect: to.fullPath } });
     return;
   }
   next();

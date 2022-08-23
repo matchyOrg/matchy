@@ -1,12 +1,10 @@
 <template>
-  <VanNavBar @click-left="openSideBar" @click-right="goToProfile" z-index="3">
-    <template #left>
-      <van-icon name="wap-nav" />
-    </template>
+  <v-app-bar app @click-right="goToProfile" z-index="3">
+    <v-app-bar-nav-icon @click="openSideBar"></v-app-bar-nav-icon>
     <!-- <template #right>
       <van-icon name="user-circle-o" />
     </template> -->
-  </VanNavBar>
+  </v-app-bar>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +19,6 @@ function openSideBar() {
 }
 
 function goToProfile() {
-  router.push("/profile-edit");
+  router.push("/edit-profile");
 }
 </script>

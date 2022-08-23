@@ -1,15 +1,19 @@
 <template>
   <!-- only show nav if logged in and registered -->
-  <div v-if="authStore.user && authStore.isRegistered">
-    <TheNavBar @toggle-side-bar="sideBarVisible = !sideBarVisible" />
+  <v-app>
+    <TheNavBar
+      v-if="authStore.user && authStore.isRegistered"
+      @toggle-side-bar="sideBarVisible = !sideBarVisible"
+    />
     <TheSideBar
+      v-if="authStore.user && authStore.isRegistered"
       :visible="sideBarVisible"
       @update:visible="(value) => (sideBarVisible = value)"
     />
-  </div>
-  <div class="px-4">
-    <RouterView />
-  </div>
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <script setup lang="ts">
