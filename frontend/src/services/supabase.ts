@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/auth';
 import router from "@/router";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/module/lib/SupabaseQueryBuilder";
-import type { definitions } from "../utils/supabase-types";
+import type { definitions } from "./supabase-types";
 
 // credentials
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -36,13 +36,16 @@ export function useAuthService() {
 
   // LOGIN
   const login = async (email: string) => {
-    console.log("Called useAuthService.login()");
+    console.log("Called useAuthService.login()", email);
 
-    const result = await supabase.auth.signIn(
-      { email },
-      { redirectTo: window.location.href.split("#", 1)[0] } // works in dev and prod mode
-    );
-    authStore.updateUserStore(result.user);
+    // const result = await supabase.auth.signIn(
+    //   { email },
+    //   { redirectTo: window.location.href.split("#", 1)[0] } // works in dev and prod mode
+    // );
+
+    const result = await supabase.auth.signIn({ email });
+    router.push("/");
+    authStore.setUserStore(result.user);
   };
 
   // LOGOUT

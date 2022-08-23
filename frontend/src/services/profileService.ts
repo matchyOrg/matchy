@@ -39,7 +39,7 @@ export function useProfileService() {
 
   // UPDATE
   const updateProfile = async (newProfile: Profile) => {
-    console.log("Called useProfileService.updateProfile()");
+    console.log("Called useProfileService.updateProfile()", newProfile);
 
     if (!authStore.user) {
       throw Error("User is not logged in");
@@ -69,7 +69,7 @@ export function useProfileService() {
     };
 
     // update store
-    authStore.updateProfileStore(retArg);
+    authStore.setProfileStore(retArg);
     return retArg;
   };
 

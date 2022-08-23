@@ -85,7 +85,6 @@ const loadingProfile = asyncLoading(() =>
   profileService
     .readProfile()
     .then((profile) => {
-      console.log("Called readProfile(), got:", profile);
       formData.value.email = profile.email;
       formData.value.fullName = profile.fullName;
       formData.value.description = profile.description;
