@@ -5,22 +5,79 @@ import router from "./router";
 import "./styles/containers.css";
 import "./styles/global.css";
 
-// vant
+/**
+ * Pinia
+ */
+import { createPinia } from "pinia";
+const pinia = createPinia();
+
+/**
+ * Vant
+ */
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import "vant/es/notify/style";
 import "vant/es/image-preview/style";
 
-// vuetify
-import { vuetify } from "@/plugins/vuetify";
+/**
+ * Toastification
+ */
+import Toast, { type PluginOptions } from "vue-toastification";
+import "vue-toastification/dist/index.css";
+const options: PluginOptions = {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 5,
+  newestOnTop: true,
+  filterBeforeCreate: (toast, toasts) => {
+    if (toasts.filter((t) => t.type === toast.type).length !== 0) {
+      // Returning false discards the toast
+      return false;
+    }
+    return toast;
+  },
+};
 
-// pinia
-import { createPinia } from "pinia";
-const pinia = createPinia();
+/**
+ * Vuetify
+ */
+import { createVuetify } from "vuetify";
+import "vuetify/styles";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import "@mdi/font/css/materialdesignicons.css";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
+// (see: https://github.com/vuetifyjs/vuetify/blob/next/packages/vuetify/src/locale/adapters/vue-i18n.ts)
+// import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
+// import { use18n } from "vue-i18n";
+// import { i18n } from "@/i18n/index";
+// TODO: the imports above throw annoying errors although they should work in theory
+
+const vuetify = createVuetify({
+  components,
+  directives,
+
+  // custom themes
+  // see: https://next.vuetifyjs.com/en/features/theme/#setup
+  // see: https://next.vuetifyjs.com/en/api/v-theme-provider/
+  theme: {
+    defaultTheme: "light",
+  },
+
+  // fonts, icons
+  icons: {
+    defaultSet: "mdi",
+    aliases,
+    sets: { mdi },
+  },
+
+  // i18n
+  // locale: createVueI18nAdapter({ i18n, useI18n }),
+});
 
 const app = createApp(App);
-app.use(pinia);
 app.use(router);
+app.use(pinia);
+app.use(Toast, options);
 app.use(vuetify);
 
 app.mount("#app");

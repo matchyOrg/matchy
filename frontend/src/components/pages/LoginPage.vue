@@ -7,7 +7,7 @@
       <!-- email field -->
       <div class="mx-9 mt-13">
         <p>No need for passwords.</p>
-        <p class="mb-8">Just enter your email below to register or log in:</p>
+        <p class="mb-8">Just enter your email below to register or log in.</p>
         <v-form>
           <v-text-field
             filled
@@ -25,7 +25,7 @@
       <!-- button -->
       <div class="d-flex">
         <v-btn
-          class="mb-15 mx-auto"
+          class="mx-auto"
           size="x-large"
           color="primary"
           variant="tonal"
@@ -51,13 +51,15 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { asyncLoading } from "@/utils/loading";
+import { asyncLoading } from "@/services/utils/loading";
+import { successToast } from "@/services/utils/toastNotification";
 const authStore = useAuthStore();
 
 const email = ref("");
 const mailSent = ref(false);
 
-// send magic link to user
+successToast("yo");
+
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   await authStore.login(email.value);
@@ -66,6 +68,9 @@ const onSubmit = asyncLoading(async () => {
 </script>
 
 <style scoped>
+footer {
+  margin-bottom: 15vh;
+}
 .button-content {
   font-size: 1.1rem;
 }

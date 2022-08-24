@@ -62,7 +62,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { asyncLoading } from "@/utils/loading";
+import { asyncLoading } from "@/services/utils/loading";
 import { useProfileService, type Profile } from "@/services/profileService";
 
 const authStore = useAuthStore();
