@@ -58,7 +58,7 @@ I also totally recommend using a decent browser such as Firefox or a Chromium br
 The most important ones are
 - [Typescript](https://www.typescriptlang.org/) - Typesafe Javascript
 - [Vue 3](https://github.com/vuejs/vue-next/) - Vue 3 with [the composition API](https://vuejs.org/guide/extras/composition-api-faq.html#what-is-composition-api)
-- Vant for our UI components *and for icons*
+- [Vuetify 3](https://next.vuetifyjs.com/en/getting-started/installation/) for our UI components *and for icons*
 
 We are also using
 - [Vite](https://github.com/vuejs/vite) - a speedy Vue.js framework
@@ -79,6 +79,19 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 ```
+<br><br><br><br>
+
+## Page Structure
+
+**Vuetify** wraps a lot of standard component to facilitate usage with the framework, therefore a couple of rules should be followed when creating pages:
+
+- The **main content** should be wrapped in ```<v-main>```. This gives it an offset to compensate for the Header.
+- Generally when **wrapping** many elements inside another element ```<v-container>``` should be used as a wrapper.
+- For **grid-layout** use ```<v-row>``` and ```<v-col>```.
+- **Footers** should use the ```<v-footer app>``` component with the _app_ prop set to true.
+  - **Do not abuse footers** for positioning. They are **semantic elements** that convey meaning.
+- Most common **style options** are available as **utility-classes**. Check Vuetify's [Styles and animations](https://next.vuetifyjs.com/en/styles/spacing/)
+
 
 ### Re-generate Supabase Types
 [Read here about Supabase Typescript types](https://supabase.com/docs/guides/api/generating-types)
