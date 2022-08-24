@@ -47,7 +47,7 @@
       service is just a proof of concept and is not intended for commercial use.
     </p>
     <p class="mt-5 mb-10">
-      By using this service you agree to the above terms above. If you have any
+      By using this service you agree to the terms above. If you have any
       concerns or questions, you can read through this project's
       <a class="text-grey" href="https://github.com/sueszli/matchy/"
         >code-base</a

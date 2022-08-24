@@ -7,7 +7,7 @@
       <span class="superText font-thin">pre-alpha</span>
     </div>
 
-    <div class="subText">paperless speed dating</div>
+    <div class="subText text-grey">paperless speed dating</div>
   </div>
 </template>
 
@@ -39,7 +39,6 @@
 .subText {
   font-size: 0.85rem;
   margin-top: -0.4rem;
-  color: var(--light-text);
   letter-spacing: 0.034rem;
 }
 </style>
