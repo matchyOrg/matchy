@@ -68,7 +68,7 @@ const onSubmit = asyncLoading(async () => {
   try {
     await authStore.login(email.value);
   } catch (e: any) {
-    if (e.status === 429) errorToast(e.message);
+    if (e.status === 429) errorToast(e);
     return;
   }
   successToast("Check your email for the login link!");
