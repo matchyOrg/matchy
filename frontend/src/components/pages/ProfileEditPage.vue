@@ -1,62 +1,74 @@
 <template>
-  <v-container class="ma-0 px-4 mt-8">
-    <h3 class="text-h4 font-weight-bold">
-      {{ authStore.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
-    </h3>
-    <p class="text-grey" v-if="!authStore.isRegistered">
-      Enter your full name and a description below to continue.
-    </p>
-    <v-form class="mt-12" v-model="valid">
-      <v-text-field
-        v-model="formData.email"
-        label="Email"
-        placeholder="Login with email"
-        :disabled="true"
-        variant="outlined"
-        prepend-icon="mdi-mail"
-      />
-      <v-text-field
-        v-model="formData.fullName"
-        label="Full Name"
-        placeholder="Your full name"
-        :disabled="loadingProfile.loading"
-        :rules="[(v) => !!v || 'Your full name is required']"
-        variant="outlined"
-        prepend-icon="mdi-account"
-      />
-      <v-textarea
-        v-model="formData.description"
-        label="Description"
-        placeholder="Tell us about yourself"
-        :disabled="loadingProfile.loading"
-        variant="outlined"
-      />
-    </v-form>
-  </v-container>
+  <div class="h-100 d-flex flex-column justify-space-between">
+    <main class="mx-9 mt-8">
+      <h6 class="text-h4 font-weight-bold">
+        {{ authStore.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
+      </h6>
+      <p class="text-grey" v-if="!authStore.isRegistered">
+        Enter your full name and a description below to continue.
+      </p>
+      <v-form class="mt-8" v-model="valid">
+        <v-text-field
+          v-model="formData.email"
+          label="Email"
+          placeholder="Login with email"
+          :disabled="true"
+          variant="outlined"
+          prepend-icon="mdi-mail"
+        />
+        <v-text-field
+          v-model="formData.fullName"
+          label="Full Name"
+          placeholder="Your full name"
+          :disabled="loadingProfile.loading"
+          :rules="[(v) => !!v || 'Your full name is required']"
+          variant="outlined"
+          prepend-icon="mdi-account"
+        />
+        <v-textarea
+          v-model="formData.description"
+          label="Description"
+          placeholder="Tell us about yourself"
+          :disabled="loadingProfile.loading"
+          variant="outlined"
+        />
+      </v-form>
+    </main>
 
-  <div class="d-flex flex-column align-center">
-    <v-btn
-      class="mb-4 d-block"
-      min-width="200"
-      variant="outlined"
-      color="primary"
-      type="submit"
-      @click="onSubmit.handler"
-      :disabled="onSubmit.loading || !valid"
-      :loading="onSubmit.loading"
-    >
-      {{ authStore.isRegistered ? "submit" : "register" }}
-    </v-btn>
+    <footer class="d-flex flex-column align-center">
+      <!-- update button -->
+      <v-btn
+        class="mx-auto"
+        size="x-large"
+        color="primary"
+        variant="tonal"
+        append-icon="mdi-email"
+        rounded="pill"
+        type="submit"
+        minWidth="20rem"
+        @click="onSubmit.handler"
+        :disabled="onSubmit.loading || !valid"
+        :loading="onSubmit.loading"
+      >
+        {{ authStore.isRegistered ? "submit" : "register" }}
+      </v-btn>
 
-    <!-- sign out button -->
-    <v-btn
-      class="d-block"
-      min-width="200"
-      variant="outlined"
-      color="secondary"
-      @click="logout"
-      >sign out</v-btn
-    >
+      <!-- sign out button -->
+      <!-- FLIP LOGIC AROUND! SHOW ONLY WHEN NOT REGISTERED -->
+      <v-btn
+        v-if="authStore.isRegistered"
+        class="mx-auto"
+        size="x-large"
+        color="secondary"
+        variant="tonal"
+        append-icon="mdi-email"
+        rounded="pill"
+        type="submit"
+        minWidth="20rem"
+        @click="logout"
+        >sign out</v-btn
+      >
+    </footer>
   </div>
 </template>
 

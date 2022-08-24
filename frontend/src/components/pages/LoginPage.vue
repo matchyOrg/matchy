@@ -7,8 +7,8 @@
       <!-- email field -->
       <div class="mx-9 mt-13">
         <p>No need for passwords.</p>
-        <p class="mb-8">Just enter your email below to register or log in.</p>
-        <v-form>
+        <p>Just enter your email below to register or log in.</p>
+        <v-form class="mt-8 mb-5">
           <v-text-field
             filled
             v-model="email"
@@ -19,11 +19,9 @@
           ></v-text-field>
         </v-form>
       </div>
-    </main>
 
-    <footer class="d-flex flex-column align-center">
       <!-- button -->
-      <div class="mb-9">
+      <div class="d-flex">
         <v-btn
           class="mx-auto"
           size="x-large"
@@ -45,11 +43,12 @@
           </span>
         </v-btn>
       </div>
+    </main>
 
+    <footer class="d-flex justify-center">
       <!-- other links -->
-      <div class="d-flex mb-2">
+      <div class="d-flex mb-4">
         <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
-
         <router-link to="/legal" class="mx-4 text-grey">
           legal notice
         </router-link>

@@ -27,7 +27,7 @@ body {
   max-width: var(--mobile-l);
 }
 
-/* borders for emulated mobile view */
+/* just for development, remove before deployment! */
 html {
   background-color: #f6f6f6;
 }

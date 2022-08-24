@@ -1,24 +1,26 @@
 <template>
-  <h2 class="mt-7 mx-5 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
+  <div class="mx-5">
+    <h2 class="mt-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
 
-  <!-- Visitor view -->
-  <div v-if="PageMode === 'participant'">
-    <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
-    <!--TODO: Forward to current event, if running -->
-    <router-link :to="''" v-else
-      >Click here to go to your current event</router-link
-    >
+    <!-- Participant view -->
+    <div v-if="PageMode === 'participant'">
+      <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
+
+      <!--TODO: Forward to current event, if running -->
+      <router-link :to="''" v-else
+        >Click here to go to your current event</router-link
+      >
+    </div>
+
+    <!-- Organizer view -->
+    <div v-if="PageMode === 'organizer'"></div>
   </div>
-
-  <!-- Organizer view -->
-  <div v-if="PageMode === 'organizer'"></div>
 </template>
 
 <script setup lang="ts">
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { PageMode } from "@/stores/pageMode";
 import { useAuthStore } from "@/stores/auth";
-
 const authStore = useAuthStore();
 const currentEventStore = useCurrentEventStore();
 
