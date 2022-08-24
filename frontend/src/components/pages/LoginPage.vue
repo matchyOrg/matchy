@@ -21,9 +21,9 @@
       </div>
     </main>
 
-    <footer class="mb-12">
+    <footer class="d-flex flex-column align-center">
       <!-- button -->
-      <div class="d-flex">
+      <div class="mb-11">
         <v-btn
           class="mx-auto"
           size="x-large"
@@ -32,7 +32,7 @@
           append-icon="mdi-email"
           rounded="pill"
           type="submit"
-          :style="{ width: '65%' }"
+          :style="{ minWidth: '19rem' }"
           :disabled="onSubmit.loading"
           :loading="onSubmit.loading"
           @click="onSubmit.handler"
@@ -44,6 +44,17 @@
             {{ !mailSent ? "send" : "resend" }}
           </span>
         </v-btn>
+      </div>
+
+      <!-- other links -->
+      <div class="d-flex mb-2">
+        <router-link to="/about" class="mx-4" style="color: var(--light-text)">
+          about us
+        </router-link>
+
+        <router-link to="/legal" class="mx-4" style="color: var(--light-text)">
+          legal notice
+        </router-link>
       </div>
     </footer>
   </div>

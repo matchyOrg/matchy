@@ -33,13 +33,13 @@
 }
 .superText {
   vertical-align: super;
-  color: #777;
+  color: var(--light-text);
 }
 
 .subText {
   font-size: 0.85rem;
   margin-top: -0.4rem;
-  color: #777;
+  color: var(--light-text);
   letter-spacing: 0.034rem;
 }
 </style>
