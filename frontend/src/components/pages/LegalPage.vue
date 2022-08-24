@@ -3,7 +3,9 @@
     <h2 class="my-5">⚖️ Legal notice</h2>
     <p>
       This software service falls under the
-      <a href="https://opensource.org/licenses/MIT">MIT licence</a>.
+      <a class="text-grey" href="https://opensource.org/licenses/MIT"
+        >MIT licence</a
+      >.
     </p>
     <p>
       The client does not store any personal data other than cookies necessary
@@ -13,9 +15,9 @@
 
     <p class="mt-5">
       The server handling the user data is hosted by
-      <a href="https://www.supabase.com/">Supabase</a> and does not store any
-      data other than those which were entered into the application by the user
-      themself.
+      <a class="text-grey" href="https://www.supabase.com/">Supabase</a> and
+      does not store any data other than those which were entered into the
+      application by the user themself.
     </p>
     <p>
       Therefore all legal documents that apply to Supabase also apply to this
@@ -23,12 +25,20 @@
     </p>
     <ul class="ml-5 mt-1">
       <li>
-        <a href="https://supabase.com/docs/company/terms">Terms of Service</a>
+        <a class="text-grey" href="https://supabase.com/docs/company/terms"
+          >Terms of Service</a
+        >
       </li>
       <li>
-        <a href="https://supabase.com/docs/company/privacy">Privacy Policy</a>
+        <a class="text-grey" href="https://supabase.com/docs/company/privacy"
+          >Privacy Policy</a
+        >
       </li>
-      <li><a href="https://security.supabase.com/">Trust Reports</a></li>
+      <li>
+        <a class="text-grey" href="https://security.supabase.com/"
+          >Trust Reports</a
+        >
+      </li>
     </ul>
 
     <p class="mt-5">
@@ -39,7 +49,9 @@
     <p class="mt-5 mb-10">
       By using this service you agree to the above terms above. If you have any
       concerns or questions, you can read through this project's
-      <a href="https://github.com/sueszli/matchy/">code-base</a>
+      <a class="text-grey" href="https://github.com/sueszli/matchy/"
+        >code-base</a
+      >
       (since it is open source) or contact the authors.
     </p>
   </div>

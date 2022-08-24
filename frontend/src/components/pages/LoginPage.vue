@@ -1,27 +1,29 @@
 <template>
-  <v-container class="h-100 d-flex flex-column">
-    <!-- logo -->
-    <Logo class="mt-3"></Logo>
+  <div class="h-100 d-flex flex-column justify-space-between">
+    <main>
+      <!-- logo -->
+      <Logo class="mt-3"></Logo>
 
-    <!-- email field -->
-    <div class="mx-9 mt-13">
-      <p>No need for passwords.</p>
-      <p class="mb-8">Just enter your email below to register or log in.</p>
-      <v-form>
-        <v-text-field
-          filled
-          v-model="email"
-          name="Email"
-          label="Email"
-          placeholder="geniusPinapple@mail.com"
-          :rules="[(value) => !!value || 'Required']"
-        ></v-text-field>
-      </v-form>
-    </div>
+      <!-- email field -->
+      <div class="mx-9 mt-13">
+        <p>No need for passwords.</p>
+        <p class="mb-8">Just enter your email below to register or log in.</p>
+        <v-form>
+          <v-text-field
+            filled
+            v-model="email"
+            name="Email"
+            label="Email"
+            placeholder="geniusPinapple@mail.com"
+            :rules="[(value) => !!value || 'Required']"
+          ></v-text-field>
+        </v-form>
+      </div>
+    </main>
 
     <footer class="d-flex flex-column align-center">
       <!-- button -->
-      <div class="mb-11">
+      <div class="mb-9">
         <v-btn
           class="mx-auto"
           size="x-large"
@@ -30,7 +32,7 @@
           append-icon="mdi-email"
           rounded="pill"
           type="submit"
-          min-width="65%"
+          minWidth="20rem"
           :disabled="onSubmit.loading"
           :loading="onSubmit.loading"
           @click="onSubmit.handler"
@@ -46,11 +48,9 @@
 
       <!-- other links -->
       <div class="d-flex mb-2">
-        <router-link to="/about" class="mx-4" style="color: var(--light-text)">
-          about us
-        </router-link>
+        <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
 
-        <router-link to="/legal" class="mx-4" style="color: var(--light-text)">
+        <router-link to="/legal" class="mx-4 text-grey">
           legal notice
         </router-link>
       </div>
