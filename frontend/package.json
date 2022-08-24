@@ -1,5 +1,7 @@
 {
   "name": "frontend",
+  "homepage": "https://github.com/sueszli/matchy#readme",
+  "license" : "MIT",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

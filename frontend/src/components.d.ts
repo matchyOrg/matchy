@@ -15,10 +15,11 @@ declare module '@vue/runtime-core' {
     LegalPage: typeof import('./components/pages/LegalPage.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
+    MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
     NavBar: typeof import('./components/nav/NavBar.vue')['default']
     ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SideBar: typeof import('./components/nav/SideBar.vue')['default']
+    SideBar: typeof import('./components/SideBar.vue')['default']
   }
 }

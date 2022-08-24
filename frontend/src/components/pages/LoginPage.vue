@@ -48,13 +48,8 @@
 
       <!-- other links -->
       <div class="d-flex mb-2">
-        <router-link to="/about" class="mx-4" style="color: var(--light-text)">
-          about us
-        </router-link>
-
-        <router-link to="/legal" class="mx-4" style="color: var(--light-text)">
-          legal notice
-        </router-link>
+        <router-link to="/about" class="mx-4">about us</router-link>
+        <router-link to="/about" class="mx-4">legal notice</router-link>
       </div>
     </footer>
   </div>
