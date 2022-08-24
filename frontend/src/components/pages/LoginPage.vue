@@ -19,13 +19,13 @@
       </v-form>
     </div>
 
-    <div class="d-flex mb-12 mt-auto">
+    <div class="d-flex mb-11 mt-auto">
       <v-btn
         class="mx-auto"
         size="x-large"
         color="primary"
         variant="tonal"
-        width="65%"
+        min-width="65%"
         append-icon="mdi-email"
         rounded
         type="submit"
@@ -42,6 +42,14 @@
       </v-btn>
     </div>
   </v-container>
+  <v-footer app>
+    <div class="d-flex mb-2">
+      <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
+      <router-link to="/legal" class="mx-4 text-grey">
+        legal notice
+      </router-link>
+    </div>
+  </v-footer>
 </template>
 
 <script setup lang="ts">

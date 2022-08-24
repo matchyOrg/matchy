@@ -27,15 +27,23 @@ body {
   max-width: var(--mobile-l);
 }
 
+:root {
+  --light-text: #777;
+}
+
 /* borders for emulated mobile view */
 html {
   background-color: #f6f6f6;
 }
 
-/* No background-color change for form fields in chrome after autofill */
+/* no background-color change for form fields in chrome after autofill */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
+}
+
+a {
+  color: var(--light-text);
 }
