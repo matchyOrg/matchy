@@ -19,32 +19,11 @@
   --material-xl: 1904px;
 }
 
-/* to check whether on desktop or touch-desktop - see: https://habr.com/en/sandbox/163605/ */
-/* @media (pointer: fine), (pointer: none), ((pointer: fine) and (any-pointer: coarse))  { ... } */
-
 html,
 body {
   margin: 0 auto;
   width: 100%;
   height: 100%;
+  /** Until we bother writing better desktop styles */
   max-width: var(--mobile-l);
-}
-
-/* ======================================== global styling ======================================== */
-/* hide scrollbar */
-*::-webkit-scrollbar {
-  display: none !important;
-}
-
-html {
-  background-color: #f6f6f6;
-}
-
-/* No background-color change for form fields in chrome */
-/* see: https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete%5D */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
 }

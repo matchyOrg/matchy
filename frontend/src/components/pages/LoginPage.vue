@@ -1,5 +1,5 @@
 <template>
-  <div class="main-footer-split-container">
+  <div class="h-100 d-flex flex-column justify-space-between">
     <main>
       <!-- logo -->
       <Logo class="mt-3"></Logo>
@@ -21,7 +21,7 @@
       </div>
     </main>
 
-    <footer>
+    <footer class="mb-12">
       <!-- button -->
       <div class="d-flex">
         <v-btn
@@ -40,7 +40,7 @@
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          <span class="button-content">
+          <span class="text-h6">
             {{ !mailSent ? "send" : "resend" }}
           </span>
         </v-btn>
@@ -66,12 +66,3 @@ const onSubmit = asyncLoading(async () => {
   showToast("Check your email for the login link!");
 });
 </script>
-
-<style scoped>
-footer {
-  margin-bottom: 15vh;
-}
-.button-content {
-  font-size: 1.1rem;
-}
-</style>

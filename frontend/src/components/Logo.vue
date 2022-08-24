@@ -12,6 +12,13 @@
 </template>
 
 <style scoped>
+.stacked-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
 .logo-wrapper {
   text-align: center;
 }

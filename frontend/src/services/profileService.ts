@@ -44,6 +44,7 @@ export function useProfileService() {
     if (!authStore.user || !authStore.user.email) {
       throw Error("User is not logged in");
     }
+    // TODO: Add a proper validation library like https://github.com/colinhacks/zod
     if (!newProfile.fullName) {
       throw Error("Argument object is missing 'fullName' attribute");
     }
