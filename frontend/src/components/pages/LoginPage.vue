@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column justify-space-between">
-    <main>
+    <v-main>
       <!-- logo -->
       <Logo class="mt-3"></Logo>
 
@@ -43,22 +43,21 @@
           </span>
         </v-btn>
       </div>
-    </main>
+    </v-main>
 
-    <footer class="d-flex justify-center">
+    <v-footer class="d-flex justify-center pb-4" app>
       <!-- other links -->
-      <div class="d-flex mb-4">
-        <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
-        <router-link to="/legal" class="mx-4 text-grey">
-          legal notice
-        </router-link>
-      </div>
-    </footer>
+      <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
+      <router-link to="/legal" class="mx-4 text-grey">
+        legal notice
+      </router-link>
+    </v-footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+
 const authStore = useAuthStore();
 
 const email = ref("");
@@ -66,7 +65,12 @@ const mailSent = ref(false);
 
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  await authStore.login(email.value);
+  try {
+    await authStore.login(email.value);
+  } catch (e: any) {
+    if (e.status === 429) errorToast(e.message);
+    return;
+  }
   successToast("Check your email for the login link!");
 });
 </script>

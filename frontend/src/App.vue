@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <!-- nav bar header -->
-    <v-app-bar app v-if="authStore.user && authStore.isRegistered">
+    <v-app-bar
+      app
+      :model-value="(authStore.user || false) && authStore.isRegistered"
+    >
       <v-app-bar-nav-icon
         @click="sideBarVisible = !sideBarVisible"
       ></v-app-bar-nav-icon>
@@ -15,9 +18,7 @@
     />
 
     <!-- content -->
-    <v-main>
-      <RouterView />
-    </v-main>
+    <RouterView />
   </v-app>
 </template>
 

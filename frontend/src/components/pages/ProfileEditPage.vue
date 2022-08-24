@@ -1,6 +1,6 @@
 <template>
   <div class="h-100 d-flex flex-column justify-space-between">
-    <main class="mx-9 mt-8">
+    <v-main class="mx-9 mt-8">
       <h6 class="text-h4 font-weight-bold">
         {{ authStore.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
       </h6>
@@ -33,12 +33,12 @@
           variant="outlined"
         />
       </v-form>
-    </main>
+    </v-main>
 
-    <footer class="d-flex flex-column align-center">
+    <div class="mt-auto mb-8 d-flex flex-column align-center">
       <!-- update button -->
       <v-btn
-        class="mx-auto"
+        class="mb-4"
         size="x-large"
         color="primary"
         variant="tonal"
@@ -57,7 +57,6 @@
       <!-- FLIP LOGIC AROUND! SHOW ONLY WHEN NOT REGISTERED -->
       <v-btn
         v-if="authStore.isRegistered"
-        class="mx-auto"
         size="x-large"
         color="secondary"
         variant="tonal"
@@ -68,7 +67,7 @@
         @click="logout"
         >sign out</v-btn
       >
-    </footer>
+    </div>
   </div>
 </template>
 
