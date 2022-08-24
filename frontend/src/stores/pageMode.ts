@@ -1,5 +1,6 @@
 import { useStorage } from "@vueuse/core";
 
-// current view
 export type PageModes = "participant" | "organizer";
+
+// current view
 export const PageMode = useStorage<PageModes>("page-mode", "participant");

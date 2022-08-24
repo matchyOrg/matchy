@@ -4,7 +4,6 @@ import router from "./router";
 
 import "./styles/containers.css";
 import "./styles/global.css";
-import "./styles/whitespaces.css";
 
 // vant
 import "vant/es/toast/style";

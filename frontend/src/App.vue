@@ -1,11 +1,11 @@
 <template>
-  <!-- only show nav if logged in and registered -->
   <v-app>
-    <TheNavBar
+    <!-- only show nav if logged in and registered -->
+    <NavBar
       v-if="authStore.user && authStore.isRegistered"
       @toggle-side-bar="sideBarVisible = !sideBarVisible"
     />
-    <TheSideBar
+    <SideBar
       v-if="authStore.user && authStore.isRegistered"
       :visible="sideBarVisible"
       @update:visible="(value) => (sideBarVisible = value)"
@@ -18,9 +18,8 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { useTheme } from "vuetify/lib/framework.mjs";
 
-// Used to communicate betweeen TheNavBar and TheSideBar
+// Used to communicate betweeen NavBar and SideBar
 const sideBarVisible = ref(false);
 
 const authStore = useAuthStore();

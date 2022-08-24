@@ -1,33 +1,38 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="logo">
-    <img src="../assets/logo.png" />
-    <span class="logo-topText">matchy</span>
-    <span class="logo-superText"> alpha</span>
-    <p class="logo-bottomText">paperless speed dating</p>
+  <div class="stacked-container">
+    <div class="logo-wrapper">
+      <span class="logo">🐱</span>
+      <span class="mainText mx-1">matchy</span>
+      <span class="superText font-thin">pre-alpha</span>
+    </div>
+
+    <div class="subText">paperless speed dating</div>
   </div>
 </template>
 
 <style scoped>
-.logo {
+.logo-wrapper {
   text-align: center;
 }
-.logo img {
-  height: 2.5rem;
-  transform: translate(-0.7rem, 1.6rem);
+.logo {
+  font-size: 1.5rem;
+  display: inline-block;
+  transform: translateY(0.3rem);
 }
-.logo-topText {
+.mainText {
   vertical-align: middle;
   font-size: 2rem;
-  font-weight: 500;
 }
-.logo-superText {
+.superText {
   vertical-align: super;
-  font-weight: 0;
-  color: var(--light-text);
+  color: #777;
 }
-.logo-bottomText {
-  margin-top: 0.1rem;
-  font-size: 0.64rem;
+
+.subText {
+  font-size: 0.85rem;
+  margin-top: -0.4rem;
+  color: #777;
+  letter-spacing: 0.034rem;
 }
 </style>

@@ -1,54 +1,52 @@
-<!-- The user is stuck on this page until there is a change in the "user store" -->
 <template>
-  <v-container class="full-height" :style="{ position: 'relative' }">
-    <h3>🐱 matchy: paperless speed dating</h3>
+  <div class="top-bottom-split-container">
+    <main>
+      <!-- logo -->
+      <Logo class="mt-3"></Logo>
 
-    <p>Are you ready?</p>
-    <p>
-      You don't need a password to register or log in. <br />
-      Just enter your email address below:
-    </p>
-
-    <!-- Email field -->
-    <v-form>
-      <v-text-field
-        filled
-        v-model="email"
-        name="Email"
-        label="Email"
-        placeholder="geniusPinapple@mail.com"
-        :rules="[(value) => !!value || 'required']"
-      ></v-text-field>
-      <div class="mailSent" v-if="mailSent">
-        <p>A mail was sent to you.</p>
+      <!-- email field -->
+      <div class="mx-9 mt-13">
+        <p>No need for passwords.</p>
+        <p class="mb-8">Just enter your email below to register or log in:</p>
+        <v-form>
+          <v-text-field
+            filled
+            v-model="email"
+            name="Email"
+            label="Email"
+            placeholder="geniusPinapple@mail.com"
+            :rules="[(value) => !!value || 'Required']"
+          ></v-text-field>
+        </v-form>
       </div>
-    </v-form>
-    <div
-      class="d-flex"
-      :style="{
-        position: 'absolute',
-        bottom: '1rem',
-        width: '100%',
-      }"
-    >
-      <v-btn
-        class="mb-4 mx-auto"
-        rounded
-        size="x-large"
-        type="submit"
-        color="blue"
-        :disabled="onSubmit.loading"
-        :loading="onSubmit.loading"
-        @click="onSubmit.handler"
-      >
-        <template v-slot:loader>
-          <span>Logging in...</span>
-          <v-progress-circular indeterminate />
-        </template>
-        {{ !mailSent ? "send me an email" : "resend the email" }}
-      </v-btn>
-    </div>
-  </v-container>
+    </main>
+
+    <footer>
+      <!-- button -->
+      <div class="d-flex">
+        <v-btn
+          class="mb-15 mx-auto"
+          size="x-large"
+          color="primary"
+          variant="tonal"
+          append-icon="mdi-email"
+          rounded="pill"
+          type="submit"
+          :style="{ width: '65%' }"
+          :disabled="onSubmit.loading"
+          :loading="onSubmit.loading"
+          @click="onSubmit.handler"
+        >
+          <template v-slot:loader>
+            <v-progress-circular indeterminate />
+          </template>
+          <span class="button-content">
+            {{ !mailSent ? "send" : "resend" }}
+          </span>
+        </v-btn>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -68,10 +66,7 @@ const onSubmit = asyncLoading(async () => {
 </script>
 
 <style scoped>
-.full-height {
-  min-height: 100vh;
-}
-.mailSent {
-  color: var(--light-text);
+.button-content {
+  font-size: 1.1rem;
 }
 </style>

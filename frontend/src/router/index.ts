@@ -37,6 +37,7 @@ const router = createRouter({
   ],
 });
 
+// Check requirements to enter a route
 router.beforeEach((to, from, next) => {
   // requiresLogin
   const loggedIn = supabase.auth.user();

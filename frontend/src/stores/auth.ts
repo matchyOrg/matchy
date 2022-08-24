@@ -37,12 +37,8 @@ export const useAuthStore = defineStore("user", () => {
   });
 
   async function login(email: string) {
-    // TODO: Try out something like https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/components/AuthForm.vue#L42
-    // (Make sure to handle Vue's hash mode correctly)
-    const redirectTo = window.location.origin; // no idea if this is needed
-
     try {
-      const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+      const { error } = await supabase.auth.signIn({ email });
       if (error) throw error;
     } catch (error: any) {
       console.error(error);

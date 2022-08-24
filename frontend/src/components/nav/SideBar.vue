@@ -38,7 +38,7 @@ import { supabase } from "@/services/supabase";
 import { PageMode } from "@/stores/pageMode";
 const router = useRouter();
 
-console.log(PageMode.value);
+// see: https://next.vuetifyjs.com/en/components/navigation-drawers/
 
 const props = defineProps<{
   visible: boolean;
