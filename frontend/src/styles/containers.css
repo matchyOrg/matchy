@@ -35,7 +35,7 @@
 /* ======================================== main-footer layout ======================================== */
 /* Splits page into 'main'-part and 'footer'-part to place the footer at the bottom of the viewport
    unless there is text to scroll */
-.top-bottom-split-container {
+.main-footer-split-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;

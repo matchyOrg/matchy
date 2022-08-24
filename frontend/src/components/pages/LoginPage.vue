@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bottom-split-container">
+  <div class="main-footer-split-container">
     <main>
       <!-- logo -->
       <Logo class="mt-3"></Logo>
