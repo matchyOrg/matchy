@@ -5,6 +5,7 @@ import LoginPage from "../components/pages/LoginPage.vue";
 import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
 import EventEditPage from "../components/pages/EventEditPage.vue";
+import EventCreatePage from "../components/pages/EventCreatePage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,10 @@ const router = createRouter({
       path: "/edit-profile",
       component: ProfileEditPage,
       meta: { requiresLogin: true },
+    },
+    {
+      path: "/create-event",
+      component: EventCreatePage,
     },
     {
       path: "/edit-event",

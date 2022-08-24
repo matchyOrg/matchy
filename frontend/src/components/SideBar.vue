@@ -9,6 +9,7 @@
       <h2>Menu</h2>
       <h6>What are you up to?</h6>
     </div>
+
     <v-list class="mt-1">
       <!-- edit profile -->
       <v-list-item to="/" prepend-icon="mdi-home">
@@ -31,6 +32,7 @@
       <!-- create event -->
       <v-list-item
         v-if="PageMode === 'organizer'"
+        to="/event-create"
         prepend-icon="mdi-calendar-multiple-check"
       >
         <v-list-item-title>Create Event</v-list-item-title>
