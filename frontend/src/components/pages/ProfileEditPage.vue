@@ -3,7 +3,7 @@
     <h3 class="text-h4 font-weight-bold">
       {{ authStore.isRegistered ? "Edit Profile" : "Welcome to Matchy!" }}
     </h3>
-    <p style="color: var(--light-text)" v-if="!authStore.isRegistered">
+    <p class="text-grey" v-if="!authStore.isRegistered">
       Enter your full name and a description below to continue.
     </p>
     <v-form class="mt-12" v-model="valid">
