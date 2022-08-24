@@ -31,9 +31,9 @@ Each participant speed-dates everyone from the other group and fills out their c
 >
 > Repeat this for every single of the $(n)$ 40 participants, and you have at most $(n \cdot \frac{n}{2})$ 800 card comparisons to determine all the matches.
 > 
-> Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $((\frac{n}{2})^2)$ comparisions - in our example this would mean the host has to do 400 comparisons for just 40 participants which is still very time consuming.
+> Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $((\frac{n}{2})^2)$ comparisons - in our example this would mean the host has to do 400 comparisons for just 40 participants which is still very time consuming.
 > 
-> But we also have the option to disable groups altogether which enables all participants to date eachother. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
+> But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
 
 *In short:* Matchy digitalizes the old school speed dating paperwork and lets you focus on what matters most: making fun experiences and lasting relationships. 
 <br><br><br><br>
