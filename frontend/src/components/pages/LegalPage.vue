@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-9 mt-2">
+  <v-main class="mx-9 mt-2">
     <h2 class="my-5">⚖️ Legal notice</h2>
     <p>
       This software service falls under the
@@ -54,5 +54,5 @@
       >
       (since it is open source) or contact the authors.
     </p>
-  </div>
+  </v-main>
 </template>

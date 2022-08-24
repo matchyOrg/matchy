@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5">
+  <v-main class="mx-5">
     <h2 class="mt-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
 
     <!-- Participant view -->
@@ -14,7 +14,7 @@
 
     <!-- Organizer view -->
     <div v-if="PageMode === 'organizer'"></div>
-  </div>
+  </v-main>
 </template>
 
 <script setup lang="ts">
