@@ -1,52 +1,47 @@
 <template>
-  <div class="h-100 d-flex flex-column justify-space-between">
-    <main>
-      <!-- logo -->
-      <Logo class="mt-3"></Logo>
+  <v-container class="h-100 d-flex flex-column">
+    <!-- logo -->
+    <Logo class="mt-3"></Logo>
 
-      <!-- email field -->
-      <div class="mx-9 mt-13">
-        <p>No need for passwords.</p>
-        <p class="mb-8">Just enter your email below to register or log in.</p>
-        <v-form>
-          <v-text-field
-            filled
-            v-model="email"
-            name="Email"
-            label="Email"
-            placeholder="geniusPinapple@mail.com"
-            :rules="[(value) => !!value || 'Required']"
-          ></v-text-field>
-        </v-form>
-      </div>
-    </main>
+    <!-- email field -->
+    <div class="mx-9 mt-13">
+      <p>No need for passwords.</p>
+      <p class="mb-8">Just enter your email below to register or log in.</p>
+      <v-form>
+        <v-text-field
+          filled
+          v-model="email"
+          name="Email"
+          label="Email"
+          placeholder="geniusPinapple@mail.com"
+          :rules="[(value) => !!value || 'Required']"
+        ></v-text-field>
+      </v-form>
+    </div>
 
-    <footer class="mb-12">
-      <!-- button -->
-      <div class="d-flex">
-        <v-btn
-          class="mx-auto"
-          size="x-large"
-          color="primary"
-          variant="tonal"
-          append-icon="mdi-email"
-          rounded="pill"
-          type="submit"
-          :style="{ width: '65%' }"
-          :disabled="onSubmit.loading"
-          :loading="onSubmit.loading"
-          @click="onSubmit.handler"
-        >
-          <template v-slot:loader>
-            <v-progress-circular indeterminate />
-          </template>
-          <span class="text-h6">
-            {{ !mailSent ? "send" : "resend" }}
-          </span>
-        </v-btn>
-      </div>
-    </footer>
-  </div>
+    <div class="d-flex mb-12 mt-auto">
+      <v-btn
+        class="mx-auto"
+        size="x-large"
+        color="primary"
+        variant="tonal"
+        width="65%"
+        append-icon="mdi-email"
+        rounded
+        type="submit"
+        :disabled="onSubmit.loading"
+        :loading="onSubmit.loading"
+        @click="onSubmit.handler"
+      >
+        <template v-slot:loader>
+          <v-progress-circular indeterminate />
+        </template>
+        <span class="text-h6">
+          {{ !mailSent ? "send" : "resend" }}
+        </span>
+      </v-btn>
+    </div>
+  </v-container>
 </template>
 
 <script setup lang="ts">
