@@ -1,4 +1,3 @@
-/* ======================================== emulate mobile view ======================================== */
 :root {
   /* bootstrap breakpoints */
   --breakpoint-small: 567px;
@@ -24,6 +23,19 @@ body {
   margin: 0 auto;
   width: 100%;
   height: 100%;
-  /** Until we bother writing better desktop styles */
+  /* emulated mobile view, until we bother writing better desktop styles */
   max-width: var(--mobile-l);
+}
+
+/* borders for emulated mobile view */
+html {
+  background-color: #f6f6f6;
+}
+
+/* No background-color change for form fields in chrome after autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }
