@@ -51,8 +51,6 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { asyncLoading } from "@/services/utils/loading";
-import { successToast } from "@/services/utils/toastNotification";
 const authStore = useAuthStore();
 
 const email = ref("");

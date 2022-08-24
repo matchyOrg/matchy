@@ -2,7 +2,7 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { errorToast } from "@/services/utils/toastNotification";
+import { errorToast } from "@/composables/toastNotification";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)

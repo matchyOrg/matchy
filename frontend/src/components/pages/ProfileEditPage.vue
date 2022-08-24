@@ -62,9 +62,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-import { asyncLoading } from "@/services/utils/loading";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { errorToast } from "@/services/utils/toastNotification";
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -83,8 +81,7 @@ const loadingProfile = asyncLoading(() =>
       formData.value.description = profile.description;
     })
     .catch((e) => {
-      errorToast("Loading profile failed");
-      console.log(e);
+      errorToast(e);
     })
 );
 loadingProfile.handler();
@@ -93,8 +90,7 @@ const onSubmit = asyncLoading(async () => {
   try {
     await profileService.updateProfile(formData.value);
   } catch (error: any) {
-    errorToast("Loading profile failed");
-    console.error(error);
+    errorToast(error);
   }
 });
 
