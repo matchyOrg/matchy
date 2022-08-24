@@ -2,12 +2,13 @@
   <v-navigation-drawer
     :model-value="visible"
     @update:model-value="(e) => emits('update:visible', e)"
-    class="deep-purple accent-4"
     app
   >
-    <div class="ma-4 mt-7">
-      <h2>Menu</h2>
-      <h6>What are you up to?</h6>
+    <div class="mx-4 mt-6 mb-0 pb-0">
+      <h2 class="font-weight-medium">Menu</h2>
+      <h5 class="mb-4 text-grey font-weight-medium" style="margin-top: -0.1rem">
+        current view: {{ PageMode }}
+      </h5>
     </div>
 
     <v-list class="mt-1">
@@ -24,6 +25,7 @@
       <!-- matches -->
       <v-list-item
         v-if="PageMode === 'participant'"
+        to="/matches"
         prepend-icon="mdi-cards-playing-heart-multiple"
       >
         <v-list-item-title>My Matches</v-list-item-title>
@@ -32,7 +34,7 @@
       <!-- create event -->
       <v-list-item
         v-if="PageMode === 'organizer'"
-        to="/event-create"
+        to="/create-event"
         prepend-icon="mdi-calendar-multiple-check"
       >
         <v-list-item-title>Create Event</v-list-item-title>

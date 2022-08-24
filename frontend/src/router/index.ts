@@ -6,18 +6,27 @@ import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
 import EventEditPage from "../components/pages/EventEditPage.vue";
 import EventCreatePage from "../components/pages/EventCreatePage.vue";
+import MatchesPage from "@/components/pages/MatchesPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/login",
+      component: LoginPage,
+    },
+    {
+      path: "/about",
+      component: () => import("../components/pages/AboutPage.vue"), // lazy-loading
+    },
+    {
+      path: "/legal",
+      component: () => import("../components/pages/LegalPage.vue"), // lazy-loading
+    },
+    {
       path: "/",
       component: HomePage,
       meta: { requiresLogin: true, requiresCompletedProfile: true },
-    },
-    {
-      path: "/login",
-      component: LoginPage,
     },
     {
       path: "/edit-profile",
@@ -27,18 +36,17 @@ const router = createRouter({
     {
       path: "/create-event",
       component: EventCreatePage,
+      meta: { requiresLogin: true, requiresCompletedProfile: true },
+    },
+    {
+      path: "/matches",
+      component: MatchesPage,
+      meta: { requiresLogin: true, requiresCompletedProfile: true },
     },
     {
       path: "/edit-event",
       component: EventEditPage,
-    },
-    {
-      path: "/about",
-      component: () => import("../components/pages/AboutPage.vue"), // lazy-loading
-    },
-    {
-      path: "/legal",
-      component: () => import("../components/pages/LegalPage.vue"), // lazy-loading
+      meta: { requiresLogin: true, requiresCompletedProfile: true },
     },
     // TODO: Better supabase callback handling https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/router.ts#L51
     // not sure if /callback is the correct route though ^
