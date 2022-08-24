@@ -12,7 +12,6 @@ declare module '@vue/runtime-core' {
     EventEditPage: typeof import('./components/pages/EventEditPage.vue')['default']
     EventPage: typeof import('./components/pages/EventPage.vue')['default']
     HomePage: typeof import('./components/pages/HomePage.vue')['default']
-    LoginModal: typeof import('./components/LoginModal.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
     NavBar: typeof import('./components/nav/NavBar.vue')['default']
@@ -20,7 +19,5 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./components/nav/SideBar.vue')['default']
-    TheNavBar: typeof import('./components/nav/TheNavBar.vue')['default']
-    TheSideBar: typeof import('./components/nav/TheSideBar.vue')['default']
   }
 }
