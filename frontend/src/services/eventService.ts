@@ -1,3 +1,5 @@
+import { successToast } from '@/services/utils/toastNotification';
+import { errorToast } from '@/services/utils/toastNotification';
 import type { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
@@ -30,6 +32,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     console.log("Called useEventService.createEvent()", eventData);
 
     if (!authStore.user) {
+      errorToast("Please log in first");
       throw Error("User is not logged in");
     }
     const { error } = await supabase.rpc("create_event_with_groups", {
@@ -47,6 +50,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     });
 
     if (error) throw error;
+    successToast("Creation of new event successful");
   }
 
   // UPDATE
