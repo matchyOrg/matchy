@@ -58,11 +58,9 @@ const authStore = useAuthStore();
 const email = ref("");
 const mailSent = ref(false);
 
-successToast("yo");
-
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
   await authStore.login(email.value);
-  showToast("Check your email for the login link!");
+  successToast("Check your email for the login link!");
 });
 </script>

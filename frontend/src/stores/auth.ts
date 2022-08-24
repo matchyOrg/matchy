@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
+import { errorToast } from "@/services/utils/toastNotification";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
@@ -28,21 +29,20 @@ export const useAuthStore = defineStore("user", () => {
     profile.value = newProfile;
   }
 
-  // on authState change, update everything
-  // called when user clicked magic link!
-  // see: https://supabase.com/docs/reference/javascript/auth-onauthstatechange
+  // on authState change, update everything (called when user clicked magic link)
   supabase.auth.onAuthStateChange(async (event, session) => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);
   });
 
+  // LOGIN
   async function login(email: string) {
     try {
       const { error } = await supabase.auth.signIn({ email });
       if (error) throw error;
     } catch (error: any) {
       console.error(error);
-      alert(error.error_description || error.message);
+      errorToast(error.error_description || error.message);
     }
   }
 

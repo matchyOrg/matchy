@@ -1,3 +1,4 @@
+import { errorToast, successToast } from "@/services/utils/toastNotification";
 import { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
 
@@ -15,6 +16,7 @@ export function useProfileService() {
     console.log("Called useProfileService.readProfile()");
 
     if (!authStore.user || !authStore.user.email) {
+      errorToast("Please log in first");
       throw Error("User is not logged in");
     }
 
@@ -27,7 +29,8 @@ export function useProfileService() {
       throw error;
     }
     if (!data) {
-      throw new Error("Fetching profile unsuccessful");
+      errorToast("Loading profile failed");
+      throw new Error("Fetching profile failed");
     }
     const retArg: Profile = {
       email: data.email,
@@ -42,10 +45,12 @@ export function useProfileService() {
     console.log("Called useProfileService.updateProfile()", newProfile);
 
     if (!authStore.user || !authStore.user.email) {
+      errorToast("Please log in first");
       throw Error("User is not logged in");
     }
     // TODO: Add a proper validation library like https://github.com/colinhacks/zod
     if (!newProfile.fullName) {
+      errorToast("Please register first");
       throw Error("Argument object is missing 'fullName' attribute");
     }
 
@@ -61,7 +66,8 @@ export function useProfileService() {
       throw error;
     }
     if (!data) {
-      throw Error("Update of profile unsuccessful");
+      errorToast("Update of profile failed");
+      throw Error("Update of profile failed");
     }
     const retArg: Profile = {
       email: data.email,
@@ -70,6 +76,7 @@ export function useProfileService() {
     };
 
     // update store
+    successToast("Update of profile successful");
     authStore.setProfileStore(retArg);
     return retArg;
   }

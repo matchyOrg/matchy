@@ -11,14 +11,6 @@ import { createPinia } from "pinia";
 const pinia = createPinia();
 
 /**
- * Vant
- */
-import "vant/es/toast/style";
-import "vant/es/dialog/style";
-import "vant/es/notify/style";
-import "vant/es/image-preview/style";
-
-/**
  * Toastification
  */
 import Toast, { type PluginOptions } from "vue-toastification";
@@ -29,7 +21,6 @@ const options: PluginOptions = {
   newestOnTop: true,
   filterBeforeCreate: (toast, toasts) => {
     if (toasts.filter((t) => t.type === toast.type).length !== 0) {
-      // Returning false discards the toast
       return false;
     }
     return toast;
@@ -54,22 +45,15 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 const vuetify = createVuetify({
   components,
   directives,
-
-  // custom themes
-  // see: https://next.vuetifyjs.com/en/features/theme/#setup
-  // see: https://next.vuetifyjs.com/en/api/v-theme-provider/
   theme: {
     defaultTheme: "light",
   },
-
-  // fonts, icons
   icons: {
     defaultSet: "mdi",
     aliases,
     sets: { mdi },
   },
 
-  // i18n
   // locale: createVueI18nAdapter({ i18n, useI18n }),
 });
 
