@@ -2,7 +2,6 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { errorToast } from "@/composables/toastNotification";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
@@ -49,9 +48,9 @@ export const useAuthStore = defineStore("user", () => {
   return {
     user,
     isLoggedIn,
+    setUserStore,
     profile,
     isRegistered,
-    setUserStore,
     setProfileStore,
     login,
     logout,
