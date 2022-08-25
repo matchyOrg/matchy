@@ -1,4 +1,6 @@
 <template>
+  <teleport to="#nav-title">Create Event</teleport>
+
   <v-main class="mx-9 d-flex flex-column">
     <v-form class="mt-8">
       <!-- title -->

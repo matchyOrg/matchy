@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    temporary
     :model-value="visible"
     @update:model-value="(e) => emits('update:visible', e)"
     app
