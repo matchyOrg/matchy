@@ -10,7 +10,7 @@ export const useAuthStore = defineStore("user", () => {
 
   // user setter
   async function setUserStore(newUser: User | null) {
-    console.warn("Updating user state", newUser);
+    console.log("Updating user state", newUser);
     user.value = newUser;
     if (newUser) {
       const fetchedProfile = await useProfileService().readProfile();
@@ -23,13 +23,13 @@ export const useAuthStore = defineStore("user", () => {
   const isRegistered = computed(() => !!profile.value.fullName);
 
   // profile setter
-  async function setProfileStore(newProfile: Profile) {
+  function setProfileStore(newProfile: Profile) {
     console.warn("Updating profile state", newProfile);
     profile.value = newProfile;
   }
 
   // on authState change, update everything (called when user clicked magic link)
-  supabase.auth.onAuthStateChange(async (event, session) => {
+  supabase.auth.onAuthStateChange((event, session) => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);
   });
@@ -41,8 +41,19 @@ export const useAuthStore = defineStore("user", () => {
   }
 
   // LOGOUT
-  async function logout() {
+  function logout() {
     supabase.auth.signOut();
+  }
+
+  async function deleteAccount() {
+    const { error } = await supabase.rpc("delete_user");
+    if (error) {
+      errorToast(error);
+      throw error;
+    }
+    // we have to call this otherwise the user is never updated
+    // but it throws an error because the user does not exist anymore 😂
+    logout();
   }
 
   return {
@@ -54,6 +65,7 @@ export const useAuthStore = defineStore("user", () => {
     setProfileStore,
     login,
     logout,
+    deleteAccount
   };
 });
 

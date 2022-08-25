@@ -1,3 +1,6 @@
 <template>
-  <h1>Matches</h1>
+  <teleport to="#nav-title">Matches</teleport>
+  <v-main>
+    <v-container> Your matches here. </v-container>
+  </v-main>
 </template>
