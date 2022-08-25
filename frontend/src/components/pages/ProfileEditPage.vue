@@ -40,15 +40,16 @@
         <v-btn
           class="mb-4"
           size="x-large"
-          color="primary"
+          color="green"
           variant="tonal"
+          append-icon="mdi-account-arrow-left"
           rounded="pill"
           type="submit"
           minWidth="20rem"
           :disabled="onSubmit.loading || !valid"
           :loading="onSubmit.loading"
         >
-          {{ authStore.isRegistered ? "SUBMIT" : "REGISTER" }}
+          {{ authStore.isRegistered ? "UPDATE ACCOUNT" : "REGISTER" }}
         </v-btn>
 
         <!-- sign out button -->
@@ -63,9 +64,48 @@
           @click="logout"
           >sign out
         </v-btn>
+
+        <!-- sign delete -->
+        <v-btn
+          size="x-large"
+          color="error"
+          variant="tonal"
+          append-icon="mdi-account-off"
+          rounded="pill"
+          minWidth="20rem"
+          @click="deleteDialog = true"
+          >DELETE ACCOUNT
+        </v-btn>
       </div>
     </v-form>
   </v-main>
+
+  <!-- dialog for account deletion -->
+  <v-dialog class="dialog" v-model="deleteDialog">
+    <v-card>
+      <v-card-title class="text-h6">Delete account</v-card-title>
+      <v-card-text
+        >Are you sure you want to delete your account? This action is
+        irreversible.
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" text @click="deleteDialog = false">
+          KEEP
+        </v-btn>
+        <v-btn
+          color="red darken-1"
+          text
+          @click="
+            deleteDialog = false;
+            deleteProfile;
+          "
+        >
+          DELETE
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup lang="ts">
@@ -78,6 +118,7 @@ const profileService = useProfileService();
 
 const formData = ref<Profile>({});
 const valid = ref(false);
+const deleteDialog = ref(false);
 
 // immediately call loadingProfile, update loading state
 const loadingProfile = asyncLoading(() =>
@@ -98,7 +139,6 @@ const onSubmit = asyncLoading(async () => {
   try {
     await profileService.updateProfile(formData.value);
     successToast("Updated profile successfully");
-    // TODO: Redirect to home page
   } catch (error: any) {
     errorToast(error);
   }
@@ -107,5 +147,14 @@ const onSubmit = asyncLoading(async () => {
 function logout() {
   authStore.logout();
   router.push("/login");
+}
+
+function deleteProfile() {
+  try {
+    // await profileService.deleteProfile();
+    // successToast("Deleted profile successfully");
+  } catch (error: any) {
+    errorToast(error);
+  }
 }
 </script>
