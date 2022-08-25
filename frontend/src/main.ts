@@ -32,8 +32,6 @@ const options: PluginOptions = {
  */
 import { createVuetify } from "vuetify";
 import "vuetify/styles";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
 import "@mdi/font/css/materialdesignicons.css";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 // (see: https://github.com/vuetifyjs/vuetify/blob/next/packages/vuetify/src/locale/adapters/vue-i18n.ts)
@@ -43,8 +41,6 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 // TODO: the imports above throw annoying errors although they should work in theory
 
 const vuetify = createVuetify({
-  components,
-  directives,
   theme: {
     defaultTheme: "light",
   },

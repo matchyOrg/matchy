@@ -9,7 +9,7 @@ import { version } from "@/../package.json";
       <span class="superText font-thin">{{ version }}</span>
     </div>
 
-    <div class="subText">paperless speed dating</div>
+    <div class="subText text-grey">paperless speed dating</div>
   </div>
 </template>
 
@@ -41,7 +41,6 @@ import { version } from "@/../package.json";
 .subText {
   font-size: 0.85rem;
   margin-top: -0.4rem;
-  color: var(--light-text);
   letter-spacing: 0.034rem;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div class="h-100 d-flex flex-column justify-space-between">
-    <main>
+    <v-main>
       <!-- logo -->
       <SiteLogo class="mt-3"></SiteLogo>
 
       <!-- email field -->
       <div class="mx-9 mt-13">
         <p>No need for passwords.</p>
-        <p class="mb-8">Just enter your email below to register or log in.</p>
-        <v-form>
+        <p>Just enter your email below to register or log in.</p>
+        <v-form class="mt-8 mb-5">
           <v-text-field
             filled
             v-model="email"
@@ -19,11 +19,9 @@
           ></v-text-field>
         </v-form>
       </div>
-    </main>
 
-    <footer class="d-flex flex-column align-center">
       <!-- button -->
-      <div class="mb-11">
+      <div class="d-flex">
         <v-btn
           class="mx-auto"
           size="x-large"
@@ -32,7 +30,7 @@
           append-icon="mdi-email"
           rounded="pill"
           type="submit"
-          :style="{ minWidth: '19rem' }"
+          minWidth="20rem"
           :disabled="onSubmit.loading"
           :loading="onSubmit.loading"
           @click="onSubmit.handler"
@@ -45,23 +43,21 @@
           </span>
         </v-btn>
       </div>
+    </v-main>
 
+    <v-footer class="d-flex justify-center pb-4" app>
       <!-- other links -->
-      <div class="d-flex mb-2">
-        <router-link to="/about" class="mx-4" style="color: var(--light-text)">
-          about us
-        </router-link>
-
-        <router-link to="/legal" class="mx-4" style="color: var(--light-text)">
-          legal notice
-        </router-link>
-      </div>
-    </footer>
+      <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
+      <router-link to="/legal" class="mx-4 text-grey">
+        legal notice
+      </router-link>
+    </v-footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+
 const authStore = useAuthStore();
 const router = useRouter();
 
