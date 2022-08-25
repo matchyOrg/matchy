@@ -14,12 +14,14 @@ declare module '@vue/runtime-core' {
     EventPage: typeof import('./components/pages/EventPage.vue')['default']
     HomePage: typeof import('./components/pages/HomePage.vue')['default']
     LegalPage: typeof import('./components/pages/LegalPage.vue')['default']
+    LoginCallbackPage: typeof import('./components/pages/LoginCallbackPage.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
-    Logo: typeof import('./components/Logo.vue')['default']
+    Logo: typeof import("./components/Logo.vue")["default"]
     MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
     ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./components/SideBar.vue')['default']
+    SiteLogo: typeof import('./components/SiteLogo.vue')['default']
   }
 }

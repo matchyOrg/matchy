@@ -44,13 +44,11 @@ export function useProfileService() {
     console.log("Called useProfileService.updateProfile()", newProfile);
 
     if (!authStore.user || !authStore.user.email) {
-      errorToast("Please log in first");
-      throw Error("User is not logged in");
+      throw Error("Please log in first");
     }
     // TODO: Add a proper validation library like https://github.com/colinhacks/zod
     if (!newProfile.fullName) {
-      errorToast("Please register first");
-      throw Error("Argument object is missing 'fullName' attribute");
+      throw Error("Please register first");
     }
 
     const { data, error } = await supabase
@@ -65,19 +63,17 @@ export function useProfileService() {
       throw error;
     }
     if (!data) {
-      errorToast("Update of profile failed");
       throw Error("Update of profile failed");
     }
-    const retArg: Profile = {
+    const updatedProfile: Profile = {
       email: data.email,
       fullName: data.full_name,
       description: data.description,
     };
 
     // update store
-    successToast("Update of profile successful");
-    authStore.setProfileStore(retArg);
-    return retArg;
+    authStore.setProfileStore(updatedProfile);
+    return updatedProfile;
   }
 
   return {

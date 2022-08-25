@@ -30,7 +30,7 @@ export function warningToast(msg: string) {
 export async function errorToast(error: any) {
   console.error(error, { error });
   const message = await getErrorMessage(error);
-  toast.error(error, toastOptions);
+  toast.error(message, toastOptions);
   return message;
 }
 

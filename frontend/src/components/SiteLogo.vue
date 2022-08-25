@@ -1,10 +1,12 @@
-<!-- eslint-disable vue/multi-word-component-names -->
+<script setup lang="ts">
+import { version } from "@/../package.json";
+</script>
 <template>
   <div class="stacked-container">
     <div class="logo-wrapper">
       <span class="logo">🐱</span>
       <span class="mainText mx-1">matchy</span>
-      <span class="superText font-thin">pre-alpha</span>
+      <span class="superText font-thin">{{ version }}</span>
     </div>
 
     <div class="subText text-grey">paperless speed dating</div>

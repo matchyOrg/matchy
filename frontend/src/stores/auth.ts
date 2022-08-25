@@ -36,14 +36,9 @@ export const useAuthStore = defineStore("user", () => {
   });
 
   // LOGIN
-  async function login(email: string) {
-    try {
-      const { error } = await supabase.auth.signIn({ email });
-      if (error) throw error;
-    } catch (error: any) {
-      console.error(error);
-      errorToast(error.error_description || error.message);
-    }
+  async function login(email: string, redirectTo: string) {
+    const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+    if (error) throw error;
   }
 
   // LOGOUT
