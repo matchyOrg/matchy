@@ -57,7 +57,6 @@
         <!-- sign out button -->
         <v-btn
           v-if="!authStore.isRegistered"
-          class="mb-4"
           size="x-large"
           color="secondary"
           variant="tonal"
@@ -70,8 +69,6 @@
 
         <!-- sign delete -->
         <v-btn
-          v-if="authStore.isRegistered"
-          id="delete-button"
           size="x-large"
           color="error"
           variant="tonal"
@@ -80,41 +77,37 @@
           minWidth="20rem"
           @click="deleteDialog = true"
           >DELETE ACCOUNT
-          <v-dialog class="dialog" v-model="deleteDialog">
-            <v-card>
-              <v-card-title class="text-h6">Delete account</v-card-title>
-              <v-card-text
-                >Are you sure you want to delete your account? This action is
-                irreversible.
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="green darken-1"
-                  text
-                  @click="deleteDialog = false"
-                >
-                  KEEP
-                </v-btn>
-                <v-btn
-                  color="red darken-1"
-                  text
-                  @click="
-                    deleteDialog = false;
-                    deleteProfile();
-                  "
-                >
-                  DELETE
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
         </v-btn>
       </div>
     </v-form>
   </v-main>
 
   <!-- dialog for account deletion -->
+  <v-dialog class="dialog" v-model="deleteDialog">
+    <v-card>
+      <v-card-title class="text-h6">Delete account</v-card-title>
+      <v-card-text
+        >Are you sure you want to delete your account? This action is
+        irreversible.
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" text @click="deleteDialog = false">
+          KEEP
+        </v-btn>
+        <v-btn
+          color="red darken-1"
+          text
+          @click="
+            deleteDialog = false;
+            deleteProfile;
+          "
+        >
+          DELETE
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup lang="ts">
@@ -158,15 +151,12 @@ function logout() {
   router.push("/login");
 }
 
-async function deleteProfile() {
-  await authStore.deleteAccount();
-  successToast("Deleted profile successfully");
-  router.push("/login");
+function deleteProfile() {
+  try {
+    // await profileService.deleteProfile();
+    // successToast("Deleted profile successfully");
+  } catch (error: any) {
+    errorToast(error);
+  }
 }
 </script>
-
-<style>
-#delete-button >>> * {
-  --v-scrollbar-offset: 0px;
-}
-</style>
