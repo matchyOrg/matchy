@@ -24,5 +24,6 @@ import { useAuthStore } from "@/stores/auth";
 
 const sideBarVisible = ref(false);
 
+// update auth state on app load
 const authStore = useAuthStore();
 </script>

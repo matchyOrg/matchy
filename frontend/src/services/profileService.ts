@@ -76,6 +76,9 @@ export function useProfileService() {
     return updatedProfile;
   }
 
+  // DELETE
+  // ...
+
   return {
     readProfile,
     updateProfile,
