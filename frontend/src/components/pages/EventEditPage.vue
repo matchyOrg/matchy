@@ -1,6 +1,11 @@
 <template>
-  Page for creating/editing events. It'll edit an event if one is specified in
-  the URL.
+  <teleport to="#nav-title">Edit Event</teleport>
+  <v-main>
+    <v-container>
+      Page for creating/editing events. It'll edit an event if one is specified
+      in the URL.
+    </v-container>
+  </v-main>
 
   <EditEvent v-model="event" />
 </template>

@@ -1,5 +1,6 @@
 <template>
+  <teleport to="#nav-title">Create Event</teleport>
   <v-main>
-    <h1>Event create page</h1>
+    <v-container> Create Event Page goes here. </v-container>
   </v-main>
 </template>

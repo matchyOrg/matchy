@@ -8,7 +8,11 @@
       <div class="mx-9 mt-13">
         <p>No need for passwords.</p>
         <p>Just enter your email below to register or log in.</p>
-        <v-form class="mt-8 mb-5">
+        <v-form
+          class="mt-8 mb-5"
+          :model-value="hasEmail"
+          @submit.prevent="onSubmit.handler"
+        >
           <v-text-field
             filled
             v-model="email"
@@ -31,7 +35,7 @@
           rounded="pill"
           type="submit"
           minWidth="20rem"
-          :disabled="onSubmit.loading"
+          :disabled="onSubmit.loading || !hasEmail"
           :loading="onSubmit.loading"
           @click="onSubmit.handler"
         >
@@ -62,6 +66,13 @@ const authStore = useAuthStore();
 
 const email = ref("");
 const mailSent = ref(false);
+
+const hasEmail = computed(
+  () =>
+    email.value.match(
+      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+    ) !== null
+);
 
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;

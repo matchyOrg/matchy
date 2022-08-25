@@ -24,13 +24,13 @@ export const useAuthStore = defineStore("user", () => {
   const isRegistered = computed(() => !!profile.value.fullName);
 
   // profile setter
-  async function setProfileStore(newProfile: Profile) {
+  function setProfileStore(newProfile: Profile) {
     console.warn("Updating profile state", newProfile);
     profile.value = newProfile;
   }
 
   // on authState change, update everything (called when user clicked magic link)
-  supabase.auth.onAuthStateChange(async (event, session) => {
+  supabase.auth.onAuthStateChange((event, session) => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);
   });
@@ -47,7 +47,7 @@ export const useAuthStore = defineStore("user", () => {
   }
 
   // LOGOUT
-  async function logout() {
+  function logout() {
     supabase.auth.signOut();
   }
 

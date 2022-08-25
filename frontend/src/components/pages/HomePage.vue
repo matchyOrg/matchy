@@ -1,4 +1,5 @@
 <template>
+  <teleport to="#nav-title">🐱 Matchy</teleport>
   <v-main class="mx-5">
     <h2 class="mt-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
 

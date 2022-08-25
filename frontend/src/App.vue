@@ -5,6 +5,7 @@
       <v-app-bar-nav-icon
         @click="sideBarVisible = !sideBarVisible"
       ></v-app-bar-nav-icon>
+      <v-app-bar-title id="nav-title"></v-app-bar-title>
     </v-app-bar>
 
     <!-- side bar -->
