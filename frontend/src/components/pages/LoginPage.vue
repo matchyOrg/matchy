@@ -73,7 +73,7 @@ const onSubmit = asyncLoading(async () => {
     new URL(
       router.resolve("/callback").href,
       new URL(import.meta.env.BASE_URL, window.location.origin)
-    ) + "?";
+    ) + "#";
   console.log("Will redirect to", redirectTo);
   try {
     await authStore.login(email.value, redirectTo);
