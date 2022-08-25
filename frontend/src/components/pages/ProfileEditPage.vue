@@ -9,31 +9,33 @@
     </div>
 
     <v-form class="mt-8" v-model="valid" @submit.prevent="onSubmit.handler">
-      <!-- text input fields -->
-      <div>
-        <v-text-field
-          v-model="formData.email"
-          label="Email"
-          :disabled="true"
-          prepend-icon="mdi-email"
-        />
-        <v-text-field
-          v-model="formData.fullName"
-          label="Full Name"
-          placeholder="Your full name"
-          :disabled="loadingProfile.loading"
-          :rules="[(v) => !!v || 'Your full name is required']"
-          prepend-icon="mdi-account"
-        />
-        <v-textarea
-          class="mt-3"
-          v-model="formData.description"
-          label="Description"
-          placeholder="Tell us about yourself: This is what your matches will see in addition to your email."
-          :disabled="loadingProfile.loading"
-          variant="outlined"
-        />
-      </div>
+      <!-- email -->
+      <v-text-field
+        v-model="formData.email"
+        label="Email"
+        :disabled="true"
+        prepend-icon="mdi-email"
+      />
+
+      <!-- full name -->
+      <v-text-field
+        v-model="formData.fullName"
+        label="Full Name"
+        placeholder="Your full name"
+        :disabled="loadingProfile.loading"
+        :rules="[(v) => !!v || 'Your full name is required']"
+        prepend-icon="mdi-account"
+      />
+
+      <!-- description -->
+      <v-textarea
+        class="mt-3"
+        v-model="formData.description"
+        label="Description"
+        placeholder="Tell us about yourself: This is what your matches will see in addition to your email."
+        :disabled="loadingProfile.loading"
+        variant="outlined"
+      />
 
       <div class="d-flex flex-column align-center mt-8">
         <!-- update button -->
