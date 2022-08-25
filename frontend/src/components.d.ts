@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     EventPage: typeof import('./components/pages/EventPage.vue')['default']
     HomePage: typeof import('./components/pages/HomePage.vue')['default']
     LegalPage: typeof import('./components/pages/LegalPage.vue')['default']
+    LoginCallbackPage: typeof import('./components/pages/LoginCallbackPage.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     Logo: typeof import('./components/Logo.vue')['default']
     NavBar: typeof import('./components/nav/NavBar.vue')['default']
@@ -20,5 +21,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./components/nav/SideBar.vue')['default']
+    SiteLogo: typeof import('./components/SiteLogo.vue')['default']
   }
 }

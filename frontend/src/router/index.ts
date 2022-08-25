@@ -5,6 +5,7 @@ import LoginPage from "../components/pages/LoginPage.vue";
 import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
 import EventEditPage from "../components/pages/EventEditPage.vue";
+import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -35,8 +36,13 @@ const router = createRouter({
       path: "/legal",
       component: () => import("../components/pages/LegalPage.vue"), // lazy-loading
     },
+
     // TODO: Better supabase callback handling https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/router.ts#L51
     // not sure if /callback is the correct route though ^
+    {
+      path: "/callback",
+      component: LoginCallbackPage,
+    },
   ],
 });
 

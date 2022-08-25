@@ -2,7 +2,7 @@
   <div class="h-100 d-flex flex-column justify-space-between">
     <main>
       <!-- logo -->
-      <Logo class="mt-3"></Logo>
+      <SiteLogo class="mt-3"></SiteLogo>
 
       <!-- email field -->
       <div class="mx-9 mt-13">
@@ -63,13 +63,27 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
+const router = useRouter();
+
+// TODO: If we're signed in, we should get yeeted away from the login page or at least see a message.
 
 const email = ref("");
 const mailSent = ref(false);
 
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  await authStore.login(email.value);
-  successToast("Check your email for the login link!");
+  // TODO: This doesn't work yet, especially the hash in the URL is troublesome
+  const redirectTo =
+    new URL(
+      router.resolve("/callback").href,
+      new URL(import.meta.env.BASE_URL, window.location.origin)
+    ) + "?";
+  console.log("Will redirect to", redirectTo);
+  try {
+    await authStore.login(email.value, redirectTo);
+    successToast("Check your email for the login link!");
+  } catch (e) {
+    errorToast(e);
+  }
 });
 </script>
