@@ -8,6 +8,7 @@ import EventEditPage from "../components/pages/EventEditPage.vue";
 import EventCreatePage from "../components/pages/EventCreatePage.vue";
 import MatchesPage from "@/components/pages/MatchesPage.vue";
 import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
+import EventPage from "@/components/pages/EventPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -48,6 +49,10 @@ const router = createRouter({
       path: "/edit-event",
       component: EventEditPage,
       meta: { requiresLogin: true, requiresCompletedProfile: true },
+    },
+    {
+      path: "/events/:id",
+      component: EventPage,
     },
 
     // TODO: Better supabase callback handling https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/router.ts#L51

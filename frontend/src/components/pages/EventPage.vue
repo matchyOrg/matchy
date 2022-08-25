@@ -6,3 +6,14 @@
     <li>in "organizer mode": edit button and extra info</li>
   </ul>
 </template>
+
+<script setup lang="ts">
+import { useEventService } from "@/services/eventService";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
+const eventService = useEventService(authStore);
+
+const events = await eventService.fetchEvents();
+console.log(events);
+</script>

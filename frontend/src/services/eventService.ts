@@ -1,6 +1,27 @@
-import type { Temporal } from "@js-temporal/polyfill";
+import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
+
+export interface EventInfo {
+  title: string;
+  description: string;
+  header_image?: string;
+  datetime: Temporal.ZonedDateTime;
+  location: string;
+  max_participants: number;
+  event_groups?: {
+    groupA: {
+      title: string;
+      description: string;
+    };
+    groupB: {
+      title: string;
+      description: string;
+    };
+  };
+  is_ended: boolean;
+  is_cancelled: boolean;
+}
 
 export interface EditEventInfo {
   title: string;
@@ -22,6 +43,28 @@ export interface EditEventInfo {
 }
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
+  async function fetchEvents(): Promise<EventInfo[]> {
+    const { data: events, error } = await supabase
+      .from("events")
+      .select(
+        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pairs"
+      );
+    if (error) {
+      errorToast(error);
+      throw error;
+    }
+    if (!events) {
+      errorToast("Failed to fetch events");
+      throw new Error("Failed to fetch events");
+    }
+    // datetime is sent as string, need to parse it to Temporal ZonedDateTime datatype
+    const parsedEvents = events.map((e) => ({
+      ...e,
+      datetime: Temporal.ZonedDateTime.from(e.datetime),
+    }));
+
+    return parsedEvents;
+  }
   // SELECT
   // ...
 
@@ -59,5 +102,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
   return {
     createEvent,
+    fetchEvents,
   };
 }
