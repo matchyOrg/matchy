@@ -112,9 +112,22 @@ const onShare = async () => {
     text: shareText,
   };
   try {
-    await navigator.share(shareData);
+    if (typeof navigator?.share === "function") {
+      await navigator.share(shareData);
+    } else if (typeof navigator?.clipboard.writeText === "function") {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        successToast(
+          "We couldn't share the event directly, but copied the link to your clipboard"
+        );
+      } catch (e) {
+        errorToast(
+          "Oops, looks like we couldn't copy this link to your clipboard"
+        );
+      }
+    }
   } catch (e) {
-    errorToast("Oops, looks like we can't this link right now");
+    errorToast("Oops, looks like we can't share this link right now");
   }
 };
 
