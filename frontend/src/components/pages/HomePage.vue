@@ -14,7 +14,9 @@
     </div>
 
     <!-- Organizer view -->
-    <div v-if="PageMode === 'organizer'"></div>
+    <div v-if="PageMode === 'organizer'">
+      <p>Create events by ...</p>
+    </div>
   </v-main>
 </template>
 

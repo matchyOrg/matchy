@@ -1,4 +1,5 @@
 <template>
+  <teleport to="#nav-title">Edit Account</teleport>
   <v-main class="mx-8 d-flex flex-column">
     <!-- welcome message on registration -->
     <div class="mt-8" v-if="!authStore.isRegistered">

@@ -20,7 +20,7 @@
 
       <!-- edit profile -->
       <v-list-item to="/edit-profile" prepend-icon="mdi-account">
-        <v-list-item-title>Profile</v-list-item-title>
+        <v-list-item-title>Account</v-list-item-title>
       </v-list-item>
 
       <!-- matches -->
@@ -29,7 +29,7 @@
         to="/matches"
         prepend-icon="mdi-cards-playing-heart-multiple"
       >
-        <v-list-item-title>My Matches</v-list-item-title>
+        <v-list-item-title>Matches</v-list-item-title>
       </v-list-item>
 
       <!-- create event -->
