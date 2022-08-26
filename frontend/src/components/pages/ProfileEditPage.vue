@@ -162,9 +162,3 @@ async function deleteProfile() {
   router.push("/login");
 }
 </script>
-
-<style>
-#delete-button >>> * {
-  --v-scrollbar-offset: 0px;
-}
-</style>
