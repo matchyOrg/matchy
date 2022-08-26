@@ -14,37 +14,36 @@
       >
         <v-text-field
           filled
+          type="email"
           v-model="email"
           name="Email"
           label="Email"
           placeholder="geniusPinapple@mail.com"
           :rules="[(value) => !!value || 'Required']"
         ></v-text-field>
-      </v-form>
-    </div>
 
-    <!-- button -->
-    <div class="d-flex">
-      <v-btn
-        class="mx-auto"
-        size="x-large"
-        color="primary"
-        variant="tonal"
-        append-icon="mdi-email"
-        rounded="pill"
-        type="submit"
-        minWidth="20rem"
-        :disabled="onSubmit.loading || !hasEmail"
-        :loading="onSubmit.loading"
-        @click="onSubmit.handler"
-      >
-        <template v-slot:loader>
-          <v-progress-circular indeterminate />
-        </template>
-        <span class="text-h6">
-          {{ !mailSent ? "SEND" : "RESEND" }}
-        </span>
-      </v-btn>
+        <div class="d-flex">
+          <v-btn
+            class="mx-auto"
+            size="x-large"
+            color="primary"
+            variant="tonal"
+            append-icon="mdi-email"
+            rounded="pill"
+            type="submit"
+            minWidth="20rem"
+            :disabled="onSubmit.loading || !hasEmail"
+            :loading="onSubmit.loading"
+          >
+            <template v-slot:loader>
+              <v-progress-circular indeterminate />
+            </template>
+            <span class="text-h6">
+              {{ !mailSent ? "SEND" : "RESEND" }}
+            </span>
+          </v-btn>
+        </div>
+      </v-form>
     </div>
   </v-main>
 
@@ -61,6 +60,7 @@ import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 const router = useRouter();
 
+// TODO: Wait for user to definitely be loaded. Otherwise we basically have a race condition here.
 // leave page if already logged in
 if (authStore.isLoggedIn) {
   router.push("/");
@@ -69,16 +69,11 @@ if (authStore.isLoggedIn) {
 const email = ref("");
 const mailSent = ref(false);
 
-const hasEmail = computed(
-  () =>
-    email.value.match(
-      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-    ) !== null
-);
+const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 
 const onSubmit = asyncLoading(async () => {
   mailSent.value = true;
-  // TODO: This doesn't work yet, especially the hash in the URL is troublesome
+  // TODO: This is still flawed, especially the hash in the URL is troublesome
   const redirectTo =
     new URL(
       router.resolve("/callback").href,
