@@ -62,7 +62,11 @@
           >There are 2 types of participants in this event:</span
         >
       </div>
-      <v-btn class="d-block mx-auto mt-8 mb-1 font-weight-bold" height="52">
+      <v-btn
+        class="d-block mx-auto mt-8 mb-1 font-weight-bold"
+        height="52"
+        @click="onShare"
+      >
         <v-icon class="mr-2" size="large">mdi-share-variant</v-icon>
         Share this event
       </v-btn>
@@ -87,6 +91,32 @@ const router = useRouter();
 
 const matchyEvent = ref<EventInfo>();
 const loadingEvent = ref(true);
+
+const onShare = async () => {
+  // i don't know what to call this
+  // const pronoun = authStore.isRegistered ? PageMode.value === 'organizer' && authStore.user?.id === matchyEvent.value?.organizer ? "their" :
+  let shareText;
+  if (!authStore.isRegistered) {
+    shareText = `Join the event "${matchyEvent.value?.title} on Matchy 🐱"`;
+  } else if (
+    PageMode.value === "organizer" &&
+    matchyEvent.value?.organizer === authStore.user?.id
+  ) {
+    shareText = `${authStore.profile.fullName} invited you to their event "${matchyEvent.value?.title}"`;
+  } else {
+    shareText = `${authStore.profile.fullName} invited you to the event "${matchyEvent.value?.title}"`;
+  }
+  const shareData = {
+    url: window.location.href,
+    title: "Invitation to " + matchyEvent.value?.title,
+    text: shareText,
+  };
+  try {
+    await navigator.share(shareData);
+  } catch (e) {
+    errorToast("Oops, looks like we can't this link right now");
+  }
+};
 
 watch(
   () => route.params.id,
