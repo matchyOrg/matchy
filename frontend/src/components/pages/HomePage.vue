@@ -25,8 +25,5 @@ import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 const currentEventStore = useCurrentEventStore();
 
-const firstName = authStore.profile.fullName?.split(" ")[0];
-
-// TODO: Handle the error login case
-// http://127.0.0.1:5173/#/error=unauthorized_client&error_code=401&error_description=Email+link+is+invalid+or+has+expired
+const firstName = computed(() => authStore.profile.fullName?.split(" ")[0]);
 </script>
