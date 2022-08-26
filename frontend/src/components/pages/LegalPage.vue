@@ -1,7 +1,7 @@
 <template>
   <v-main class="mx-9 mt-2">
-    <h2 class="my-5">⚖️ Legal notice</h2>
-    <p>
+    <h2 class="mt-5">⚖️ Legal Notice</h2>
+    <p class="mt-5">
       This software service falls under the
       <a class="text-grey" href="https://opensource.org/licenses/MIT"
         >MIT licence</a
@@ -52,7 +52,7 @@
       <a class="text-grey" href="https://github.com/sueszli/matchy/"
         >code-base</a
       >
-      (since it is open source) or contact the authors.
+      (since it is open source) or contact the authors directly.
     </p>
   </v-main>
 </template>
