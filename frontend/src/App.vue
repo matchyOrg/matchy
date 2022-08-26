@@ -7,6 +7,8 @@
         @click="sideBarVisible = !sideBarVisible"
       ></v-app-bar-nav-icon>
       <v-app-bar-title id="nav-title"></v-app-bar-title>
+      <v-spacer />
+      <div class="mr-4" id="nav-right"></div>
     </v-app-bar>
     <!-- side bar -->
     <SideBar
