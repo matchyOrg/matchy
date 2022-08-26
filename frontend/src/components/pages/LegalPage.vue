@@ -1,7 +1,10 @@
 <template>
-  <v-main class="mx-9 mt-2">
-    <h2 class="mt-5">⚖️ Legal Notice</h2>
-    <p class="mt-5">
+  <teleport to="#nav-title">⚖️ Legal Notice</teleport>
+  <v-main class="mx-9 mt-5">
+    <div v-if="!authStore.isLoggedIn">
+      <h2 class="my-5">⚖️ Legal Notice</h2>
+    </div>
+    <p>
       This software service falls under the
       <a class="text-grey" href="https://opensource.org/licenses/MIT"
         >MIT licence</a
@@ -56,3 +59,7 @@
     </p>
   </v-main>
 </template>
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+const authStore = useAuthStore();
+</script>
