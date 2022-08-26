@@ -30,6 +30,7 @@ export interface EventInfo {
 export interface EditEventInfo {
   title: string;
   description: string;
+  header_image?: string;
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;
@@ -109,21 +110,36 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       errorToast("Please log in first");
       throw Error("User is not logged in");
     }
-    const { error } = await supabase.rpc("create_event_with_groups", {
-      organizer: authStore.user.id,
-      title: eventData.title,
-      description: eventData.description,
-      header_image: null,
-      datetime: eventData.datetime,
-      location: eventData.location,
-      max_participants: eventData.max_participants,
-      groupATitle: eventData.event_groups.groupA.title,
-      groupADescription: eventData.event_groups.groupA.description,
-      groupBTitle: eventData.event_groups.groupB.title,
-      groupBDescription: eventData.event_groups.groupB.description,
-    });
+    let creationError;
+    if (eventData.uses_groups) {
+      if (!eventData.event_groups)
+        throw Error(
+          "Event is indicated to use groups, but no groups were provided"
+        );
+      const { error } = await supabase.rpc("create_event_with_groups", {
+        organizer: authStore.user.id,
+        title: eventData.title,
+        description: eventData.description,
+        header_image: null,
+        datetime: eventData.datetime,
+        location: eventData.location,
+        max_participants: eventData.max_participants,
+        groupATitle: eventData.event_groups.groupA.title,
+        groupADescription: eventData.event_groups.groupA.description,
+        groupBTitle: eventData.event_groups.groupB.title,
+        groupBDescription: eventData.event_groups.groupB.description,
+      });
+      creationError = error;
+    } else {
+      const { error } = await supabase.from("events").insert({
+        ...eventData,
+        datetime: eventData.datetime.toString(),
+        event_group_pair: undefined,
+      });
+      creationError = error;
+    }
 
-    if (error) throw error;
+    if (creationError) throw creationError;
     successToast("Creation of new event successful");
   }
 

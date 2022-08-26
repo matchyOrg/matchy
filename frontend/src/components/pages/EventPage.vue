@@ -1,6 +1,6 @@
 <template>
   <teleport to="#nav-right">
-    <v-icon v-if="authStore.user?.id == matchyEvent?.organizer"
+    <v-icon v-if="authStore.user?.id == matchyEvent?.organizer" @click="onEdit"
       >mdi-pencil</v-icon
     >
   </teleport>
@@ -129,6 +129,10 @@ const onShare = async () => {
   } catch (e) {
     errorToast("Oops, looks like we can't share this link right now");
   }
+};
+
+const onEdit = () => {
+  router.push("/edit-event/" + route.params.id);
 };
 
 watch(

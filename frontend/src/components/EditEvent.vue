@@ -1,102 +1,98 @@
 <template>
-  <van-form>
-    <van-cell-group title="Event details">
-      <van-field v-model="model.title" name="title" placeholder="Event Title" />
-      <van-field
-        v-model="model.description"
-        type="textarea"
-        name="Description"
-        placeholder="Event description"
-      />
-      <van-field
-        v-model="model.location"
-        name="event-location"
-        placeholder="Event Location"
-      />
-      <van-field
-        v-model="model.max_participants"
-        type="number"
-        min="2"
-        name="max-participants"
-        placeholder="Maximum number of participants"
-      />
+  <v-form>
+    <v-card
+      class="header-container mb-8"
+      width="100%"
+      height="200"
+      elevation="0"
+      color="#E0E0E0"
+    >
+      <v-img :src="model.header_image" v-if="model.header_image" />
+      <v-card-title class="header-text text-white">{{
+        model.header_image ? "Add a header image" : "Edit header image"
+      }}</v-card-title>
+    </v-card>
+    <v-text-field
+      v-model="model.title"
+      label="Title"
+      name="title"
+      placeholder="Event Title"
+    />
+    <v-textarea
+      v-model="model.description"
+      label="Description"
+      name="Description"
+      placeholder="Event description"
+    />
+    <v-text-field
+      v-model="model.location"
+      label="Location"
+      name="event-location"
+      placeholder="Event Location"
+    />
+    <v-text-field
+      v-model="model.max_participants"
+      type="number"
+      min="2"
+      label="Max participants"
+      name="max-participants"
+      placeholder="Maximum number of participants"
+    />
 
-      <van-field name="uses-groups" label="Uses Groups?">
-        <template #input>
-          <van-switch v-model="model.uses_groups" size="20" />
-        </template>
-      </van-field>
+    <v-row>
+      <v-col cols="6">
+        <v-text-field
+          v-model="displayedDate"
+          is-link
+          readonly
+          name="datePicker"
+          label="Date Picker"
+          placeholder="Select date"
+          @click="showDatePicker = true"
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-text-field
+          v-model="displayedTime"
+          is-link
+          readonly
+          name="datePicker"
+          label="Date Picker"
+          placeholder="Select date"
+          @click="showTimePicker = true"
+        />
+      </v-col>
+    </v-row>
 
-      <!-- <van-field
-        v-model="displayedDate"
-        is-link
-        readonly
-        name="datePicker"
-        label="Date Picker"
-        placeholder="Select date"
-        @click="showPicker = true"
-      />
-      <van-popup v-model:show="showPicker" position="bottom">
-        <van-date-picker @cancel="showPicker = false" />
-      </van-popup> -->
+    <v-switch v-model="model.uses_groups" size="20" />
 
-      <van-field
-        v-model="displayedDate"
-        is-link
-        readonly
-        name="datePicker"
-        label="Date Picker"
-        placeholder="Select date"
-        @click="showDatePicker = true"
-      />
-
-      <van-popup v-model:show="showDatePicker" round :style="{ height: '30%' }">
-        <van-date-picker v-model="currentDate" title="Choose Date" />
-      </van-popup>
-
-      <van-field
-        v-model="displayedTime"
-        is-link
-        readonly
-        name="datePicker"
-        label="Date Picker"
-        placeholder="Select date"
-        @click="showTimePicker = true"
-      />
-      <van-popup v-model:show="showTimePicker" round :style="{ height: '30%' }">
-        <van-time-picker v-model="currentTime" title="Choose Time" />
-      </van-popup>
-    </van-cell-group>
-
-    <van-cell-group title="Group A" v-if="model.uses_groups">
-      <van-field
-        v-model="model.event_groups.groupA.title"
-        name="group-a-title"
-        placeholder="Group A Name"
-      />
-      <van-field
-        v-model="model.event_groups.groupA.description"
-        type="textarea"
-        name="group-a-description"
-        placeholder="Group A description"
-      />
-    </van-cell-group>
-
-    <van-cell-group title="Group B" v-if="model.uses_groups">
-      <van-field
-        v-model="model.event_groups.groupB.title"
-        name="group-b-title"
-        placeholder="Group B Name"
-      />
-      <van-field
-        v-model="model.event_groups.groupB.description"
-        type="textarea"
-        name="group-b-description"
-        placeholder="Group B description"
-      />
-    </van-cell-group>
-  </van-form>
-  <div></div>
+    <v-row v-if="model.uses_groups">
+      <v-col cols="6">
+        <v-text-field
+          v-model="model.event_groups!.groupA.title"
+          name="group-a-title"
+          placeholder="Group A Name"
+        />
+        <v-textarea
+          v-model="model.event_groups!.groupA.description"
+          name="group-a-description"
+          placeholder="Group A description"
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-text-field
+          v-model="model.event_groups.groupB.title"
+          name="group-b-title"
+          placeholder="Group B Name"
+        />
+        <v-textarea
+          v-model="model.event_groups.groupB.description"
+          name="group-b-description"
+          placeholder="Group B description"
+        />
+      </v-col>
+    </v-row>
+  </v-form>
 </template>
 <script setup lang="ts">
 import type { EditEventInfo } from "@/services/eventService";
@@ -175,3 +171,16 @@ const displayedTime = computed(() => {
 
 const dateTime = ref("");
 </script>
+
+<style>
+.header-container {
+  position: relative;
+}
+
+.header-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+</style>
