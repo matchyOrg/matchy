@@ -4,5 +4,9 @@
       "rowsPerPageText": "Items per page:",
       "pageText": "{0}-{1} of {2}"
     }
+  },
+  "pageMode": {
+    "organizer": "organizer",
+    "participant": "participant"
   }
 }
