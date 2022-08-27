@@ -1,7 +1,7 @@
 import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
-import { timestamptzToTemporalZonedDateTime } from "./utils/datetime";
+import { dateXHoursAgo, timestamptzToTemporalZonedDateTime } from "./utils/datetime";
 
 // TODO: Combine EventInfo and EditEventInfo with Partials
 export interface EventInfo {
@@ -50,14 +50,17 @@ export interface EditEventInfo {
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function fetchEvents(): Promise<EventInfo[]> {
+    const anHourAgo = dateXHoursAgo(1);
+
     const { data: events, error } = await supabase
       .from("events")
       .select(
         "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair"
       )
-      .order("datetime", { ascending: true })
       .not("is_cancelled", "eq", true)
-      .not("is_ended", "eq", true);
+      .not("is_ended", "eq", true)
+      .gt("datetime", anHourAgo.toInstant().toString())
+      .order("datetime", { ascending: true });
 
     if (error) {
       errorToast(error);
@@ -77,6 +80,33 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }));
 
     return parsedEvents;
+  }
+
+  async function fetchUserEvents(): Promise<EventInfo[]> {
+    const anHourAgo = dateXHoursAgo(1);
+
+    const { data: events, error } = await supabase
+      .from("events")
+      .select(
+        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair, event_registrations!inner(*)"
+      )
+      .eq("event_registrations.user_id", authStore.user?.id)
+      .not("is_cancelled", "eq", true)
+      .not("is_ended", "eq", true)
+      .gt("datetime", anHourAgo.toInstant().toString())
+      .order("datetime", { ascending: true });
+
+    if (error) {
+      errorToast(error);
+      throw error;
+    }
+
+    if (events === null) throw new Error("Could not load user's events");
+
+    return events?.map((e) => ({
+      ...e,
+      datetime: timestamptzToTemporalZonedDateTime(e.datetime),
+    }));
   }
 
   async function fetchEventById(eventId: number): Promise<EventInfo> {
@@ -154,5 +184,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     createEvent,
     fetchEvents,
     fetchEventById,
+    fetchUserEvents,
   };
 }
