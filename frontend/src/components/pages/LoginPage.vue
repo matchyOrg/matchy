@@ -60,7 +60,6 @@ import { useAuthStore } from "@/stores/auth";
 const authStore = useAuthStore();
 const router = useRouter();
 
-// TODO: Wait for user to definitely be loaded. Otherwise we basically have a race condition here.
 // leave page if already logged in
 if (authStore.isLoggedIn) {
   router.push("/");

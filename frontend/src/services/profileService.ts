@@ -10,6 +10,7 @@ export interface Profile {
 export function useProfileService() {
   const authStore = useAuthStore();
 
+  // TODO: Refactor readProfile and updateProfile to take a profile oject instead of reading it from the store
   // SELECT
   async function readProfile() {
     console.log("Called useProfileService.readProfile()");
