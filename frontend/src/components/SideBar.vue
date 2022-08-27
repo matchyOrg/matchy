@@ -8,7 +8,7 @@
     <div class="mx-4 mt-6 mb-0 pb-0">
       <h2 class="font-weight-medium">Menu</h2>
       <h5 class="mb-4 text-grey font-weight-medium" style="margin-top: -0.1rem">
-        current view: {{ PageMode }}
+        current view: {{ t("pageMode." + PageMode) }}
       </h5>
     </div>
 
@@ -46,29 +46,13 @@
       <!-- switch to organizer view -->
       <div class="mx-2">
         <v-btn
-          v-if="PageMode === 'participant'"
-          @click="PageMode = 'organizer'"
+          @click="PageMode = getNextPageMode(PageMode)"
           variant="flat"
           block
           color="grey-lighten-2"
         >
           <span style="font-size: 0.8rem; color: #616161">
-            show organizer view
-          </span>
-        </v-btn>
-      </div>
-
-      <!-- switch to participant view -->
-      <div class="mx-2">
-        <v-btn
-          v-if="PageMode === 'organizer'"
-          @click="PageMode = 'participant'"
-          variant="flat"
-          block
-          color="grey-lighten-2"
-        >
-          <span style="font-size: 0.8rem; color: #616161">
-            show participant view
+            show {{ t("pageMode." + getNextPageMode(PageMode)) }} view
           </span>
         </v-btn>
       </div>
@@ -85,7 +69,8 @@
 
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
-import { PageMode } from "@/stores/pageMode";
+import { PageMode, getNextPageMode } from "@/stores/pageMode";
+import { useI18n } from "vue-i18n";
 const router = useRouter();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -97,9 +82,7 @@ const emits = defineEmits<{
   (e: "update:visible", value: boolean): void;
 }>();
 
-const close = () => {
-  emits("update:visible", false);
-};
+const { t } = useI18n();
 
 function signOut() {
   supabase.auth.signOut();

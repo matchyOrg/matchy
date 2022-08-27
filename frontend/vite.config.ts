@@ -7,10 +7,14 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { visualizer } from "rollup-plugin-visualizer";
 import vuetify from "vite-plugin-vuetify";
+import vueI18n from "@intlify/vite-plugin-vue-i18n";
 
 export default defineConfig({
   plugins: [
     vue(),
+    vueI18n({
+      include: "./src/locales/**",
+    }),
     vueJsx(),
     vuetify({ autoImport: true }),
     AutoImport({
