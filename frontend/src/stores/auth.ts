@@ -5,7 +5,7 @@ import { useProfileService, type Profile } from "@/services/profileService";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
-  const user = ref<User | null>(null);
+  const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
   // user setter

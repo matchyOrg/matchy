@@ -79,6 +79,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // requiresCompletedProfile
+  // TODO: We have a race condition here, because isRegistered isn't set at the beginning. It's basically async.
   const registered = useAuthStore().isRegistered;
   if (
     to.matched.some((record) => record.meta.requiresCompletedProfile) &&
