@@ -2,7 +2,8 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "vue.vscode-typescript-vue-plugin",
-    "Vue.volar"
+    "vue.volar",
+    "lokalise.i18n-ally"
   ],
   "unwantedRecommendations": []
 }
