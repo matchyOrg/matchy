@@ -11,15 +11,15 @@
       color="#E0E0E0"
     >
       <v-img :src="headerImageSrc" v-if="hasHeaderImage" />
+      <v-card-title class="header-text absolute text-white">{{
+        model.header_image ? "Add a header image" : "Edit header image"
+      }}</v-card-title>
       <v-file-input
         hide-details
-        class="file-input bottom opacity-0 h-48"
+        class="file-input absolute opacity-0 h-48"
         accept="image/*"
         v-model="headerImage"
       />
-      <v-card-title class="header-text bottom text-white">{{
-        model.header_image ? "Add a header image" : "Edit header image"
-      }}</v-card-title>
     </v-card>
     <v-text-field
       v-model="model.title"
@@ -214,21 +214,16 @@ const displayedTime = computed(() => {
 <style>
 .header-container {
   position: relative;
-  z-index: 50;
 }
 
-.bottom {
+.absolute {
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
 }
 
 .header-text {
   background: rgba(0, 0, 0, 0.2);
-}
-
-.file-input {
-  z-index: 49;
 }
 
 .file-input:active + .header-text {
