@@ -145,7 +145,9 @@ const headerImageSrc = computed(() => {
     // convert image file to image src
     return URL.createObjectURL(headerImage.value[0]);
   } else {
-    import.meta.env.VITE_SUPABASE_STORAGE_URL + model.value.header_image;
+    import.meta.env.VITE_SUPABASE_STORAGE_URL +
+      "event-image-headers/" +
+      model.value.header_image;
   }
 });
 

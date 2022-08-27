@@ -9,20 +9,23 @@
       <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
       <skeleton-loader v-else width="200" height="32" />
       <v-card
-        class="mt-4 mb-3 pa-4 font-weight-bold"
+        class="mt-4 mb-3 font-weight-bold"
         width="100%"
         height="200"
         color="#E0E0E0"
         elevation="0"
-        >Replace this with an actual placeholder in case no thumbnail is
-        available
+      >
         <v-img
           cover
-          class="mb-3"
           width="100%"
           v-if="matchyEvent?.header_image"
-          :src="matchyEvent?.header_image"
-      /></v-card>
+          :src="imageHeaderSrc"
+        />
+        <span v-else class="pa-4">
+          Replace this with an actual placeholder in case no thumbnail is
+          available
+        </span>
+      </v-card>
 
       <div class="mb-3 d-flex align-center">
         <v-icon class="mr-4" size="small" color="grey-darken-2"
@@ -36,9 +39,9 @@
           >mdi-calendar</v-icon
         >
         <span v-if="!loadingEvent">
-          {{ matchyEvent?.datetime.day }}/{{ matchyEvent?.datetime.month }}/{{
-            matchyEvent?.datetime.year
-          }}
+          {{ matchyEvent?.datetime.day }}/{{
+            String(matchyEvent?.datetime.month).padStart(2, "0")
+          }}/{{ matchyEvent?.datetime.year }}
         </span>
         <skeleton-loader v-else width="200" />
       </div>
@@ -47,8 +50,8 @@
           >mdi-clock</v-icon
         >
         <span v-if="!loadingEvent"
-          >{{ matchyEvent?.datetime.hour }}:{{
-            matchyEvent?.datetime.minute
+          >{{ String(matchyEvent?.datetime.hour).padStart(2, "0") }}:{{
+            String(matchyEvent?.datetime.minute).padStart(2, "0")
           }}</span
         >
         <skeleton-loader v-else width="200" />
@@ -91,6 +94,13 @@ const router = useRouter();
 
 const matchyEvent = ref<EventInfo>();
 const loadingEvent = ref(true);
+
+const imageHeaderSrc = computed(
+  () =>
+    import.meta.env.VITE_SUPABASE_STORAGE_URL +
+    "event-header-images/" +
+    matchyEvent.value?.header_image
+);
 
 const onShare = async () => {
   // i don't know what to call this
