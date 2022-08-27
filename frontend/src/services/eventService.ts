@@ -31,6 +31,7 @@ export interface EditEventInfo {
   title: string;
   description: string;
   header_image?: string;
+  header_image_file?: File;
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;

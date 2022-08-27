@@ -1,5 +1,8 @@
 <template>
   <v-form>
+    <div class="text-right">
+      <span class="text-red" @click="removeImage">Remove Image</span>
+    </div>
     <v-card
       class="header-container mb-8"
       width="100%"
@@ -7,10 +10,16 @@
       elevation="0"
       color="#E0E0E0"
     >
-      <v-img :src="model.header_image" v-if="model.header_image" />
-      <v-card-title class="header-text text-white">{{
+      <v-img :src="headerImageSrc" v-if="hasHeaderImage" />
+      <v-card-title class="header-text absolute text-white">{{
         model.header_image ? "Add a header image" : "Edit header image"
       }}</v-card-title>
+      <v-file-input
+        hide-details
+        class="file-input absolute opacity-0 h-48"
+        accept="image/*"
+        v-model="headerImage"
+      />
     </v-card>
     <v-text-field
       v-model="model.title"
@@ -64,7 +73,7 @@
       </v-col>
     </v-row>
 
-    <v-switch v-model="model.uses_groups" size="20" />
+    <v-switch v-model="model.uses_groups" size="20" color="primary" />
 
     <v-row v-if="model.uses_groups">
       <v-col cols="6">
@@ -114,7 +123,7 @@ const model = computed<EditEventInfo>({
   },
 });
 
-const showPicker = ref(false);
+// const showPicker = ref(false);
 
 const showDatePicker = ref(false);
 const showTimePicker = ref(false);
@@ -122,7 +131,39 @@ const showTimePicker = ref(false);
 // const currentDate = ref(["2021", "01", "01"]);
 // const currentTime = ref(["12", "00"]);
 
-console.log(model.value.datetime);
+// the new image, file input only accept file-arrays
+const headerImage = ref<File[]>([]);
+
+// there exists a header image if either one was provided in the beginning
+// or one was uploaded
+const hasHeaderImage = computed(
+  () => !!headerImage.value[0] || !!model.value.header_image
+);
+
+const headerImageSrc = computed(() => {
+  if (headerImage.value[0]) {
+    // convert image file to image src
+    return URL.createObjectURL(headerImage.value[0]);
+  } else {
+    import.meta.env.VITE_SUPABASE_STORAGE_URL +
+      "event-image-headers/" +
+      model.value.header_image;
+  }
+});
+
+watch(
+  () => headerImage.value,
+  () => (model.value.header_image_file = headerImage.value[0])
+);
+
+const removeImage = () => {
+  model.value.header_image = undefined;
+  headerImage.value = [];
+  if (headerImageSrc.value) {
+    // if the url does not exist nothing happens
+    URL.revokeObjectURL(headerImageSrc.value);
+  }
+};
 
 const currentDate = computed<string[]>({
   get() {
@@ -169,7 +210,7 @@ const displayedTime = computed(() => {
   return `${vals[0]}:${vals[1]}`;
 });
 
-const dateTime = ref("");
+// const dateTime = ref("");
 </script>
 
 <style>
@@ -177,10 +218,25 @@ const dateTime = ref("");
   position: relative;
 }
 
-.header-text {
+.absolute {
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
+}
+
+.header-text {
   background: rgba(0, 0, 0, 0.2);
+}
+
+.file-input:active + .header-text {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.h-48 {
+  height: 48px;
 }
 </style>
