@@ -1,0 +1,8 @@
+{
+  "$vuetify": {
+    "dataIterator": {
+      "rowsPerPageText": "Elemente per Seite:",
+      "pageText": "{0}-{1} {2}"
+    }
+  }
+}

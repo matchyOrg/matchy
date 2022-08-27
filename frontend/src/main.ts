@@ -19,13 +19,28 @@ const options: PluginOptions = {
   transition: "Vue-Toastification__bounce",
   maxToasts: 5,
   newestOnTop: true,
-  filterBeforeCreate: (toast, toasts) => {
+  // I'm not sure if surpressing toasts is what we want
+  /*filterBeforeCreate: (toast, toasts) => {
     if (toasts.filter((t) => t.type === toast.type).length !== 0) {
       return false;
     }
     return toast;
-  },
+  },*/
 };
+
+// for integration with vuetify see: https://next.vuetifyjs.com/en/features/internationalization/
+import { createI18n, useI18n } from "vue-i18n";
+import en from "./locales/en.json";
+import de from "./locales/de.json";
+const i18n = createI18n({
+  legacy: false,
+  locale: (navigator.language || "en").slice(0, 2),
+  fallbackLocale: "en",
+  messages: {
+    en,
+    de,
+  },
+});
 
 /**
  * Vuetify
@@ -34,11 +49,10 @@ import { createVuetify } from "vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
-// (see: https://github.com/vuetifyjs/vuetify/blob/next/packages/vuetify/src/locale/adapters/vue-i18n.ts)
-// import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
-// import { use18n } from "vue-i18n";
-// import { i18n } from "@/i18n/index";
-// TODO: the imports above throw annoying errors although they should work in theory
+// TODO: Remove the ts-ignore once this gets fixed https://github.com/vuetifyjs/vuetify/issues/15699
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
 
 const vuetify = createVuetify({
   theme: {
@@ -49,13 +63,13 @@ const vuetify = createVuetify({
     aliases,
     sets: { mdi },
   },
-
-  // locale: createVueI18nAdapter({ i18n, useI18n }),
+  locale: createVueI18nAdapter({ i18n, useI18n }),
 });
 
 const app = createApp(App);
 app.use(router);
 app.use(pinia);
+app.use(i18n);
 app.use(Toast, options);
 app.use(vuetify);
 
