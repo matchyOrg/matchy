@@ -7,6 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+__unconfig_vite.config.ts
+vite.config.ts.*
+
 node_modules
 .DS_Store
 dist
