@@ -151,6 +151,7 @@ watch(
     if (isNaN(+route.params.id)) {
       errorToast("Uh oh, looks like that is not a valid event id");
       router.back();
+      return;
     }
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
@@ -162,6 +163,6 @@ watch(
     }
     loadingEvent.value = false;
   },
-  { immediate: true }
+  { immediate: true, flush: "post" }
 );
 </script>
