@@ -13,6 +13,34 @@
       height="200"
       cover
     />
+    <div class="info my-2 mx-4" v-if="showInfo">
+      <div class="mb-3 d-flex align-center">
+        <v-icon class="mr-4" size="small" color="grey-darken-2"
+          >mdi-marker</v-icon
+        >
+        <span>{{ matchyEvent?.location }}</span>
+      </div>
+      <div class="mb-4 d-flex align-center">
+        <v-icon class="mr-4" size="small" color="grey-darken-2"
+          >mdi-calendar</v-icon
+        >
+        <span>
+          {{ matchyEvent?.datetime.day }}/{{
+            String(matchyEvent?.datetime.month).padStart(2, "0")
+          }}/{{ matchyEvent?.datetime.year }}
+        </span>
+      </div>
+      <div class="mb-4 d-flex align-center">
+        <v-icon class="mr-4" size="small" color="grey-darken-2"
+          >mdi-clock</v-icon
+        >
+        <span
+          >{{ String(matchyEvent?.datetime.hour).padStart(2, "0") }}:{{
+            String(matchyEvent?.datetime.minute).padStart(2, "0")
+          }}</span
+        >
+      </div>
+    </div>
     <slot />
   </v-card>
 </template>
@@ -21,8 +49,13 @@
 import type { EventInfo } from "@/services/eventService";
 
 const props = withDefaults(
-  defineProps<{ matchyEvent: EventInfo; showImage?: boolean; to?: string }>(),
-  { showImage: false }
+  defineProps<{
+    matchyEvent: EventInfo;
+    showImage?: boolean;
+    showInfo?: boolean;
+    to?: string;
+  }>(),
+  { showImage: false, showInfo: false }
 );
 
 const headerImageSrc = computed(
@@ -35,6 +68,6 @@ const headerImageSrc = computed(
 
 <style>
 .event-title {
-    line-height: 20px !important;
+  line-height: 20px !important;
 }
 </style>
