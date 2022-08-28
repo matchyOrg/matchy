@@ -34,7 +34,6 @@
           v-for="(e, i) in futureEvents"
           :key="i"
           :matchy-event="e"
-          show-image
           show-info
           :to="'/events/' + e.id"
           @share="share(e)"
@@ -73,7 +72,7 @@ const futureEvents = ref<EventInfo[]>([]);
 
 onMounted(async () => {
   const events = await eventService.fetchUserEvents();
-  console.log(events);
+
   // events that have started at most 30 minutes ago or will start in 30 minutes at the earlist
   currentEvents.value = events.filter((e) => {
     const diff = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).since(
@@ -81,7 +80,6 @@ onMounted(async () => {
     );
     return diff.abs().total({ unit: "hour" }) <= 1;
   });
-  console.log(currentEvents.value);
 
   // all other events
   // this is inefficient, but people probably won't be registered for many events anyways
@@ -89,15 +87,12 @@ onMounted(async () => {
   futureEvents.value = events.filter((e) =>
     currentEvents.value.every((ce) => ce.id !== e.id)
   );
-  console.log(futureEvents.value);
-
-  // events.value = e;
 });
 
 const share = async (e: EventInfo) =>
   await shareEvent(e, PageMode.value, authStore);
 
-const confirmPresence = (_e: Event) => {
+const confirmPresence = () => {
   console.log("Don't care, didn't ask");
 };
 </script>
