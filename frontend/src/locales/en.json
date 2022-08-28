@@ -127,5 +127,12 @@
     "profile": "Profile",
     "sign-out": "sign out",
     "switch-view": "Show {role} view"
+  },
+  "utils": {
+    "share-event": {
+      "clipboard-error": "Oops, looks like we couldn't copy this link to your clipboard",
+      "copy-success": "We couldn't share the event directly, but copied the link to your clipboard",
+      "share-error": "Oops, looks like we can't share this link right now"
+    }
   }
 }

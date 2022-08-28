@@ -127,5 +127,12 @@
     "profile": "Profil",
     "sign-out": "ausloggen",
     "switch-view": "{role}-Ansicht"
+  },
+  "utils": {
+    "share-event": {
+      "clipboard-error": "Oops, sieht so aus als konnten wir den Link nicht in dein Clipboard kopieren",
+      "copy-success": "Der Link konnte nicht direkt geteilt werden, aber wir haben den Link in dein Clipboard kopiert",
+      "share-error": "Oops, wir konnten den Link leider nicht teilen"
+    }
   }
 }
