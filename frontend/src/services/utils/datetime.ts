@@ -7,3 +7,9 @@ export function timestamptzToTemporalZonedDateTime(
     Temporal.Now.timeZone()
   );
 }
+
+export function dateXHoursAgo(x: number) {
+  return Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).subtract(
+    new Temporal.Duration(0, 0, 0, 0, x)
+  );
+}

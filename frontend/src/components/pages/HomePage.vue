@@ -5,7 +5,40 @@
 
     <!-- Participant view -->
     <div v-if="PageMode === 'participant'">
-      <p v-if="!currentEventStore.hasEvent">Sign up for an event by ...</p>
+      <div v-if="!currentEventStore.hasEvent">
+        <div
+          v-if="currentEvents.length > 0"
+          class="text-h6 font-weight-bold mb-4"
+        >
+          Confirm your presence
+        </div>
+        <event-list-item
+          class="mb-4"
+          v-for="(e, i) in currentEvents"
+          :key="i"
+          :matchy-event="e"
+          show-image
+          :to="'/events/' + e.id"
+          @share="share(e)"
+        >
+          <v-card-actions class="d-flex justify-center">
+            <v-btn color="primary" @click.prevent="confirmPresence"
+              >I'm here</v-btn
+            >
+          </v-card-actions>
+        </event-list-item>
+        <v-spacer />
+        <div class="text-h6 font-weight-bold mb-4">Your planned events</div>
+        <event-list-item
+          class="mb-4"
+          v-for="(e, i) in futureEvents"
+          :key="i"
+          :matchy-event="e"
+          show-info
+          :to="'/events/' + e.id"
+          @share="share(e)"
+        />
+      </div>
 
       <!--TODO: Forward to current event, if running -->
       <router-link :to="''" v-else
@@ -24,8 +57,42 @@
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { PageMode } from "@/stores/pageMode";
 import { useAuthStore } from "@/stores/auth";
+import { useEventService, type EventInfo } from "@/services/eventService";
+import { Temporal } from "@js-temporal/polyfill";
+import { shareEvent } from "@/services/utils/share";
 const authStore = useAuthStore();
 const currentEventStore = useCurrentEventStore();
 
 const firstName = computed(() => authStore.profile.fullName?.split(" ")[0]);
+
+const eventService = useEventService(authStore);
+
+const currentEvents = ref<EventInfo[]>([]);
+const futureEvents = ref<EventInfo[]>([]);
+
+onMounted(async () => {
+  const events = await eventService.fetchUserEvents();
+
+  // events that have started at most 30 minutes ago or will start in 30 minutes at the earlist
+  currentEvents.value = events.filter((e) => {
+    const diff = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).since(
+      e.datetime
+    );
+    return diff.abs().total({ unit: "hour" }) <= 1;
+  });
+
+  // all other events
+  // this is inefficient, but people probably won't be registered for many events anyways
+  // and very unlikely to more than 1 at the same time
+  futureEvents.value = events.filter((e) =>
+    currentEvents.value.every((ce) => ce.id !== e.id)
+  );
+});
+
+const share = async (e: EventInfo) =>
+  await shareEvent(e, PageMode.value, authStore);
+
+const confirmPresence = () => {
+  console.log("Don't care, didn't ask");
+};
 </script>
