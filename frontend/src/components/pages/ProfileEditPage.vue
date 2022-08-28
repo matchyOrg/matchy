@@ -1,12 +1,13 @@
 <template>
-  <teleport to="#nav-title">Edit Account</teleport>
+  <teleport to="#nav-title">{{ t("pages.profile.title") }}</teleport>
   <v-main class="mx-8 d-flex flex-column">
     <!-- welcome message on registration -->
     <div class="mt-8" v-if="!authStore.isRegistered">
       <h1 class="font-weight-regular">
-        Welcome to <span style="color: #b39ddb">matchy</span>.
+        {{ t("pages.profile.welcome") }}
+        <span style="color: #b39ddb">matchy</span>.
       </h1>
-      <p class="text-grey">Let's get to know you a bit better.</p>
+      <p class="text-grey">{{ t("pages.profile.welcome-subtitle") }}</p>
     </div>
 
     <v-form class="mt-8" v-model="valid" @submit.prevent="onSubmit.handler">
@@ -50,7 +51,11 @@
           :disabled="onSubmit.loading || !valid"
           :loading="onSubmit.loading"
         >
-          {{ authStore.isRegistered ? "UPDATE ACCOUNT" : "REGISTER" }}
+          {{
+            authStore.isRegistered
+              ? t("pages.profile.update-button-text")
+              : t("pages.profile.register-button-text")
+          }}
         </v-btn>
 
         <!-- sign out button -->
@@ -64,7 +69,7 @@
           rounded="pill"
           minWidth="20rem"
           @click="logout"
-          >sign out
+          >{{ t("pages.profile.sign-out-button-text") }}
         </v-btn>
 
         <!-- sign delete -->
@@ -78,13 +83,12 @@
           rounded="pill"
           minWidth="20rem"
           @click="deleteDialog = true"
-          >DELETE ACCOUNT
+          >t('pages.profile.delete-button-text')
           <v-dialog class="dialog" v-model="deleteDialog">
             <v-card>
               <v-card-title class="text-h6">Delete account</v-card-title>
-              <v-card-text
-                >Are you sure you want to delete your account? This action is
-                irreversible.
+              <v-card-text>
+                {{ t("pages.profile.delete-dialog-text") }}
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -93,7 +97,7 @@
                   text
                   @click="deleteDialog = false"
                 >
-                  KEEP
+                  {{ t("pages.profile.delete-dialog-keep") }}
                 </v-btn>
                 <v-btn
                   color="red darken-1"
@@ -103,7 +107,7 @@
                     deleteProfile();
                   "
                 >
-                  DELETE
+                  {{ t("pages.profile.delete-dialog-delete") }}
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -119,6 +123,9 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import { useProfileService, type Profile } from "@/services/profileService";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -146,7 +153,7 @@ loadingProfile.handler();
 const onSubmit = asyncLoading(async () => {
   try {
     await profileService.updateProfile(formData.value);
-    successToast("Updated profile successfully");
+    successToast(t("pages.profile.update-success"));
   } catch (error: any) {
     errorToast(error);
   }
@@ -159,7 +166,7 @@ function logout() {
 
 async function deleteProfile() {
   await authStore.deleteAccount();
-  successToast("Deleted profile successfully");
+  successToast(t("pages.profile.delete-success"));
   router.push("/login");
 }
 </script>

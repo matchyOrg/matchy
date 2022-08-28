@@ -1,8 +1,8 @@
 {
   "$vuetify": {
     "dataIterator": {
-      "rowsPerPageText": "Items per page:",
-      "pageText": "{0}-{1} of {2}"
+      "pageText": "{0}-{1} of {2}",
+      "rowsPerPageText": "Items per page:"
     }
   },
   "pageMode": {
@@ -18,6 +18,20 @@
       "password-text": "No need for passwords.",
       "resend-button-text": "RESEND",
       "send-button-text": "SEND"
+    },
+    "profile": {
+      "delete-button-text": "DELETE PROFILE",
+      "delete-dialog-delete": "DELETE",
+      "delete-dialog-keep": "KEEP",
+      "delete-dialog-text": "Are you sure you want to delete your profile? This action is irreversible.",
+      "delete-success": "Deleted profile successfully",
+      "register-button-text": "REGISTER",
+      "sign-out-button-text": "sign out",
+      "title": "Edit Profile",
+      "update-button-text": "UPDATE PROFILE",
+      "update-success": "Updated profile successfully!",
+      "welcome": "Welcome to",
+      "welcome-subtitle": "Let's get to know you a bit better."
     }
   }
 }
