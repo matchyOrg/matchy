@@ -1,10 +1,10 @@
 <template>
   <v-card :to="to" elevation="4">
     <v-card-title
-      class="event-title d-flex justify-space-between py-4 pr-4 text-body-2 font-weight-bold"
+      class="event-title d-flex justify-space-between align-center py-4 pr-4 text-body-1 font-weight-bold"
     >
       <span class="d-block mr-4 text-wrap">{{ matchyEvent.title }}</span>
-      <v-icon> mdi-share-variant </v-icon>
+      <v-btn variant="text" icon="mdi-share-variant" @click.prevent="share" />
     </v-card-title>
     <v-img
       v-if="matchyEvent.header_image && showImage"
@@ -57,6 +57,12 @@ const props = withDefaults(
   }>(),
   { showImage: false, showInfo: false }
 );
+
+const emits = defineEmits<{
+  (e: "share"): void;
+}>();
+
+const share = () => emits("share");
 
 const headerImageSrc = computed(
   () =>
