@@ -8,5 +8,16 @@
   "pageMode": {
     "organizer": "organizer",
     "participant": "participant"
+  },
+  "pages": {
+    "login": {
+      "check-mail": "Check your email for the login link!",
+      "enter-email-text": "Just enter your email below to register or log in.",
+      "footer-about-us": "about us",
+      "footer-legal-notice": "legal notice",
+      "password-text": "No need for passwords.",
+      "resend-button-text": "RESEND",
+      "send-button-text": "SEND"
+    }
   }
 }

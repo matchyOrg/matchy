@@ -1,12 +1,23 @@
 {
   "$vuetify": {
     "dataIterator": {
-      "rowsPerPageText": "Elemente per Seite:",
-      "pageText": "{0}-{1} {2}"
+      "pageText": "{0}-{1} {2}",
+      "rowsPerPageText": "Elemente pro Seite:"
     }
   },
   "pageMode": {
     "organizer": "organizer",
     "participant": "participant"
+  },
+  "pages": {
+    "login": {
+      "check-mail": "Wir haben dir eine Email geschickt!",
+      "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
+      "footer-about-us": "über uns",
+      "footer-legal-notice": "impressum",
+      "password-text": "Ganz ohne Passwort.",
+      "resend-button-text": "ERNEUT SENDEN",
+      "send-button-text": "SENDEN"
+    }
   }
 }
