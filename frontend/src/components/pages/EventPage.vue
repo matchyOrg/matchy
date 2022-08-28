@@ -118,14 +118,14 @@ watch(
   () => route.params.id,
   async () => {
     if (isNaN(+route.params.id)) {
-      errorToast(t("pages.events.invalid-id"));
+      errorToast(t("shared.events.invalid-id"));
       router.back();
       return;
     }
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
     } catch (e) {
-      errorToast(t("pages.events.event-load-error"));
+      errorToast(t("shared.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;

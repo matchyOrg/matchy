@@ -45,10 +45,11 @@
       "github-plug": "Schaut bei unserer {0} vorbei, schaut euch den Source-Code an und lernt uns, unsere Philosophien und unsere Ziele kennen.",
       "title": "🌱 Über uns"
     },
+    "event-edit": {
+      "title": "Event bearbeiten"
+    },
     "events": {
-      "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
-      "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "share-button-text": "Teile dieses Event",
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
@@ -85,6 +86,12 @@
       "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."
+    }
+  },
+  "shared": {
+    "events": {
+      "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
+      "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren"
     }
   },
   "sidebar": {
