@@ -5,6 +5,31 @@
       "rowsPerPageText": "Elemente pro Seite:"
     }
   },
+  "components": {
+    "edit-event": {
+      "add-image": "Titelbild hinzufügen",
+      "date-label": "Datum",
+      "date-placeholder": "Wähle ein Datum",
+      "description-input": "Beschreibung",
+      "description-placeholder": "Eventbeschreibung",
+      "edit-image": "Titelbild ändern",
+      "group-a-description-label": "Beschreibung Gruppe A",
+      "group-a-description-placeholder": "Beschreibe Gruppe A",
+      "group-a-name": "Name Gruppe A",
+      "group-b-description-label": "Beschreibung Gruppe B",
+      "group-b-description-placeholder": "Beschreibe Gruppe B",
+      "group-b-name": "Name Gruppe B",
+      "location-input": "Standort",
+      "location-placeholder": "Eventstandort",
+      "max-participants": "Max Teilnehmer",
+      "max-participants-placeholder": "Maximale Anzahl an Teilnehmern",
+      "remove-image": "Bild entfernen",
+      "time-label": "Zeit",
+      "time-placeholder": "Wähle eine Zeit",
+      "title-input": "Titel",
+      "title-placeholder": "Eventtitel"
+    }
+  },
   "pageMode": {
     "organizer": "Organisierer",
     "participant": "Teilnehmer"

@@ -5,6 +5,31 @@
       "rowsPerPageText": "Items per page:"
     }
   },
+  "components": {
+    "edit-event": {
+      "add-image": "Add a header image",
+      "date-label": "Date",
+      "date-placeholder": "Select date",
+      "description-input": "Description",
+      "description-placeholder": "Event description",
+      "edit-image": "Edit header image",
+      "group-a-description-label": "Group A description",
+      "group-a-description-placeholder": "Describe Group A",
+      "group-a-name": "Group A Name",
+      "group-b-description-label": "Group B Description",
+      "group-b-description-placeholder": "Describe Group B",
+      "group-b-name": "Group B Name",
+      "location-input": "Location",
+      "location-placeholder": "Event Location",
+      "max-participants": "Max participants",
+      "max-participants-placeholder": "Maximum number of participants",
+      "remove-image": "Remove Image",
+      "time-label": "Time",
+      "time-placeholder": "Select time",
+      "title-input": "Title",
+      "title-placeholder": "Event Title"
+    }
+  },
   "pageMode": {
     "organizer": "organizer",
     "participant": "participant"
