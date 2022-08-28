@@ -21,17 +21,17 @@
         />
         <v-text-field
           v-model="formData.fullName"
-          label="Full Name"
-          placeholder="Your full name"
+          :label="t('pages.profile.full-name-label')"
+          :placeholder="t('pages.profile.full-name-placeholder')"
           :disabled="loadingProfile.loading"
-          :rules="[(v) => !!v || 'Your full name is required']"
+          :rules="[(v) => !!v || t('pages.profile.full-name-required')]"
           prepend-icon="mdi-account"
         />
         <v-textarea
           class="mt-3"
           v-model="formData.description"
-          label="Description"
-          placeholder="Tell us about yourself: This is what your matches will see in addition to your email."
+          :label="t('pages.profile.description-label')"
+          :placeholder="t('pages.profile.description-placeholder')"
           :disabled="loadingProfile.loading"
           variant="outlined"
         />
@@ -83,7 +83,7 @@
           rounded="pill"
           minWidth="20rem"
           @click="deleteDialog = true"
-          >t('pages.profile.delete-button-text')
+          >{{ t("pages.profile.delete-button-text") }}
           <v-dialog class="dialog" v-model="deleteDialog">
             <v-card>
               <v-card-title class="text-h6">Delete account</v-card-title>
