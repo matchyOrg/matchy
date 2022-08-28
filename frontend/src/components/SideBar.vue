@@ -89,10 +89,7 @@ const emits = defineEmits<{
   (e: "update:visible", value: boolean): void;
 }>();
 
-const { t, locale } = useI18n();
-
-locale.value = "de";
-
+const { t } = useI18n();
 function signOut() {
   supabase.auth.signOut();
   router.push("/");
