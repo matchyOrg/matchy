@@ -86,6 +86,7 @@
 import { type EventInfo, useEventService } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
 import { PageMode } from "@/stores/pageMode";
+import { shareEvent } from "@/services/utils/share";
 
 const authStore = useAuthStore();
 const eventService = useEventService(authStore);
@@ -103,43 +104,11 @@ const imageHeaderSrc = computed(
 );
 
 const onShare = async () => {
-  // i don't know what to call this
-  // const pronoun = authStore.isRegistered ? PageMode.value === 'organizer' && authStore.user?.id === matchyEvent.value?.organizer ? "their" :
-  let shareText;
-  if (!authStore.isRegistered) {
-    shareText = `Join the event "${matchyEvent.value?.title} on Matchy 🐱"`;
-  } else if (
-    PageMode.value === "organizer" &&
-    matchyEvent.value?.organizer === authStore.user?.id
-  ) {
-    shareText = `${authStore.profile.fullName} invited you to their event "${matchyEvent.value?.title}"`;
-  } else {
-    shareText = `${authStore.profile.fullName} invited you to the event "${matchyEvent.value?.title}"`;
+  if (!matchyEvent.value) {
+    throw new Error("Event shared before loaded");
   }
-  const shareData = {
-    url: window.location.href,
-    title: "Invitation to " + matchyEvent.value?.title,
-    text: shareText,
-  };
-  try {
-    if (typeof navigator?.share === "function") {
-      await navigator.share(shareData);
-    } else if (typeof navigator?.clipboard.writeText === "function") {
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        successToast(
-          "We couldn't share the event directly, but copied the link to your clipboard"
-        );
-      } catch (e) {
-        errorToast(
-          "Oops, looks like we couldn't copy this link to your clipboard"
-        );
-      }
-    }
-  } catch (e) {
-    errorToast("Oops, looks like we can't share this link right now");
-  }
-};
+  await shareEvent(matchyEvent.value, PageMode.value, authStore);
+}
 
 const onEdit = () => {
   router.push("/edit-event/" + route.params.id);
