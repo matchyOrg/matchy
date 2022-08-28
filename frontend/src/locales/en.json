@@ -51,5 +51,14 @@
       "welcome": "Welcome to",
       "welcome-subtitle": "Let's get to know you a bit better."
     }
+  },
+  "sidebar": {
+    "create-event": "Create Event",
+    "current-view": "Current view",
+    "matches": "Matches",
+    "menu-title": "Menu",
+    "profile": "Profile",
+    "sign-out": "sign out",
+    "switch-view": "Show {role} view"
   }
 }

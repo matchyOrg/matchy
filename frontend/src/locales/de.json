@@ -6,8 +6,8 @@
     }
   },
   "pageMode": {
-    "organizer": "organizer",
-    "participant": "participant"
+    "organizer": "Organisierer",
+    "participant": "Teilnehmer"
   },
   "pages": {
     "events": {
@@ -51,5 +51,14 @@
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."
     }
+  },
+  "sidebar": {
+    "create-event": "Event erstellen",
+    "current-view": "Ansicht",
+    "matches": "Matches",
+    "menu-title": "Menü",
+    "profile": "Profil",
+    "sign-out": "ausloggen",
+    "switch-view": "{role}-Ansicht"
   }
 }
