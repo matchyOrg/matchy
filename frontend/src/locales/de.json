@@ -18,6 +18,11 @@
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
+    "home": {
+      "confirm-presence-action": "Ich bin da",
+      "confirm-presence-header": "Bestätige dass du da bist",
+      "future-events-header": "Deine geplanten Events"
+    },
     "login": {
       "check-mail": "Wir haben dir eine Email geschickt!",
       "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",

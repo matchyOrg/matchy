@@ -18,6 +18,11 @@
       "share-hint-organizer": "Invite participants by sharing this link with them",
       "share-hint-participant": "Share this invite link with friends!"
     },
+    "home": {
+      "confirm-presence-action": "I'm here",
+      "confirm-presence-header": "Confirm you're here",
+      "future-events-header": "Your planned events"
+    },
     "login": {
       "check-mail": "Check your email for the login link!",
       "enter-email-text": "Just enter your email below to register or log in.",
