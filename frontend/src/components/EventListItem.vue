@@ -1,9 +1,9 @@
 <template>
-  <v-card :to="to">
+  <v-card :to="to" elevation="4">
     <v-card-title
-      class="d-flex justify-space-between py-4 pr-4 text-subtitle-1 font-weight-bold"
+      class="event-title d-flex justify-space-between py-4 pr-4 text-body-2 font-weight-bold"
     >
-      <span>{{ matchyEvent.title }}</span>
+      <span class="d-block mr-4 text-wrap">{{ matchyEvent.title }}</span>
       <v-icon> mdi-share-variant </v-icon>
     </v-card-title>
     <v-img
@@ -32,3 +32,9 @@ const headerImageSrc = computed(
     props.matchyEvent.header_image
 );
 </script>
+
+<style>
+.event-title {
+    line-height: 20px !important;
+}
+</style>
