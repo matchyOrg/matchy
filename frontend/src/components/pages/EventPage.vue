@@ -108,7 +108,7 @@ const onShare = async () => {
     throw new Error("Event shared before loaded");
   }
   await shareEvent(matchyEvent.value, PageMode.value, authStore);
-}
+};
 
 const onEdit = () => {
   router.push("/edit-event/" + route.params.id);
