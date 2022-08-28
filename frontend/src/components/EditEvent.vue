@@ -1,7 +1,9 @@
 <template>
   <v-form>
     <div class="text-right">
-      <span class="text-red" @click="removeImage">Remove Image</span>
+      <span class="text-red" @click="removeImage">{{
+        t("components.edit-event.remove-image")
+      }}</span>
     </div>
     <v-card
       class="header-container mb-8"
@@ -12,7 +14,9 @@
     >
       <v-img :src="headerImageSrc" v-if="hasHeaderImage" />
       <v-card-title class="header-text absolute text-white">{{
-        model.header_image ? "Add a header image" : "Edit header image"
+        model.header_image
+          ? t("components.edit-event.add-image")
+          : t("components.edit-event.edit-image")
       }}</v-card-title>
       <v-file-input
         hide-details
@@ -23,29 +27,29 @@
     </v-card>
     <v-text-field
       v-model="model.title"
-      label="Title"
+      :label="t('components.edit-event.title-input')"
       name="title"
-      placeholder="Event Title"
+      :placeholder="t('components.edit-event.title-placeholder')"
     />
     <v-textarea
       v-model="model.description"
-      label="Description"
-      name="Description"
-      placeholder="Event description"
+      :label="t('components.edit-event.description-input')"
+      name="description"
+      :placeholder="t('components.edit-event.description-placeholder')"
     />
     <v-text-field
       v-model="model.location"
-      label="Location"
+      :label="t('components.edit-event.location-input')"
       name="event-location"
-      placeholder="Event Location"
+      :placeholder="t('components.edit-event.location-placeholder')"
     />
     <v-text-field
       v-model="model.max_participants"
       type="number"
       min="2"
-      label="Max participants"
+      :label="t('components.edit-event.max-participants')"
       name="max-participants"
-      placeholder="Maximum number of participants"
+      :placeholder="t('components.edit-event.max-participants-placeholder')"
     />
 
     <v-row>
@@ -55,8 +59,8 @@
           is-link
           readonly
           name="datePicker"
-          label="Date Picker"
-          placeholder="Select date"
+          :label="t('components.edit-event.date-label')"
+          :placeholder="t('components.edit-event.date-placeholder')"
           @click="showDatePicker = true"
         />
       </v-col>
@@ -66,8 +70,8 @@
           is-link
           readonly
           name="datePicker"
-          label="Date Picker"
-          placeholder="Select date"
+          :label="t('components.edit-event.time-label')"
+          :placeholder="t('components.edit-event.time-placeholder')"
           @click="showTimePicker = true"
         />
       </v-col>
@@ -79,25 +83,33 @@
       <v-col cols="6">
         <v-text-field
           v-model="model.event_groups!.groupA.title"
+          :label="t('components.edit-event.group-a-name')"
           name="group-a-title"
-          placeholder="Group A Name"
+          :placeholder="t('components.edit-event.group-a-name')"
         />
         <v-textarea
           v-model="model.event_groups!.groupA.description"
           name="group-a-description"
-          placeholder="Group A description"
+          :label="t('components.edit-event.group-a-description-label')"
+          :placeholder="
+            t('components.edit-event.group-a-description-placeholder')
+          "
         />
       </v-col>
       <v-col cols="6">
         <v-text-field
           v-model="model.event_groups.groupB.title"
           name="group-b-title"
-          placeholder="Group B Name"
+          :label="t('components.edit-event.group-b-name')"
+          :placeholder="t('components.edit-event.group-b-name')"
         />
         <v-textarea
           v-model="model.event_groups.groupB.description"
           name="group-b-description"
-          placeholder="Group B description"
+          :label="t('components.edit-event.group-b-description-label')"
+          :placeholder="
+            t('components.edit-event.group-b-description-placeholder')
+          "
         />
       </v-col>
     </v-row>
@@ -106,6 +118,11 @@
 <script setup lang="ts">
 import type { EditEventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n();
+locale.value = "de";
+
 const props = defineProps<{
   modelValue: EditEventInfo;
 }>();

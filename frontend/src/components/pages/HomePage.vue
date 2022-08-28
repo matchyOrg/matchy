@@ -10,7 +10,7 @@
           v-if="currentEvents.length > 0"
           class="text-h6 font-weight-bold mb-4"
         >
-          Confirm your presence
+          {{ t("pages.home.confirm-presence-header") }}
         </div>
         <event-list-item
           class="mb-4"
@@ -22,13 +22,15 @@
           @share="share(e)"
         >
           <v-card-actions class="d-flex justify-center">
-            <v-btn color="primary" @click.prevent="confirmPresence"
-              >I'm here</v-btn
-            >
+            <v-btn color="primary" @click.prevent="confirmPresence">{{
+              t("pages.home.confirm-presence-action")
+            }}</v-btn>
           </v-card-actions>
         </event-list-item>
         <v-spacer />
-        <div class="text-h6 font-weight-bold mb-4">Your planned events</div>
+        <div class="text-h6 font-weight-bold mb-4">
+          {{ t("pages.home.future-events-header") }}
+        </div>
         <event-list-item
           class="mb-4"
           v-for="(e, i) in futureEvents"
@@ -60,6 +62,9 @@ import { useAuthStore } from "@/stores/auth";
 import { useEventService, type EventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 import { shareEvent } from "@/services/utils/share";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 const authStore = useAuthStore();
 const currentEventStore = useCurrentEventStore();
 

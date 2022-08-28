@@ -1,5 +1,5 @@
 <template>
-  <teleport to="#nav-title">Edit Event</teleport>
+  <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
     <v-container>
       <EditEvent v-if="matchyEvent" v-model="matchyEvent" />
@@ -11,6 +11,9 @@
 import EditEvent from "@/components/EditEvent.vue";
 import { useEventService, type EditEventInfo } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const route = useRoute();
 const router = useRouter();
@@ -23,7 +26,7 @@ watch(
   () => route.params.id,
   async () => {
     if (isNaN(+route.params.id)) {
-      errorToast("Uh oh, looks like that is not a valid event id");
+      errorToast(t("shared.events.invalid-id"));
       router.back();
     }
     try {
@@ -37,9 +40,7 @@ watch(
         },
       };
     } catch (e) {
-      errorToast(
-        "The event could not be loaded... Going back to previous page."
-      );
+      errorToast(t("shared.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;

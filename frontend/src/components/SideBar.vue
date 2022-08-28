@@ -6,11 +6,12 @@
     app
   >
     <div class="mx-4 mt-6 mb-0 pb-0">
-      <h2 class="font-weight-medium">Menu</h2>
+      <h2 class="font-weight-medium">{{ t("sidebar.menu-title") }}</h2>
       <h5 class="mb-4 text-grey font-weight-medium" style="margin-top: -0.1rem">
-        current view: {{ t("pageMode." + PageMode) }}
+        {{ t("sidebar.current-view") }}: {{ t("pageMode." + PageMode) }}
       </h5>
     </div>
+    <v-divider />
 
     <v-list class="mt-1">
       <!-- edit profile -->
@@ -20,7 +21,7 @@
 
       <!-- edit profile -->
       <v-list-item to="/edit-profile" prepend-icon="mdi-account">
-        <v-list-item-title>Account</v-list-item-title>
+        <v-list-item-title>{{ t("sidebar.profile") }}</v-list-item-title>
       </v-list-item>
 
       <!-- matches -->
@@ -29,7 +30,7 @@
         to="/matches"
         prepend-icon="mdi-cards-playing-heart-multiple"
       >
-        <v-list-item-title>Matches</v-list-item-title>
+        <v-list-item-title>{{ t("sidebar.matches") }}</v-list-item-title>
       </v-list-item>
 
       <!-- create event -->
@@ -38,7 +39,7 @@
         to="/create-event"
         prepend-icon="mdi-calendar-multiple-check"
       >
-        <v-list-item-title>Create Event</v-list-item-title>
+        <v-list-item-title>{{ t("sidebar.create-event") }}</v-list-item-title>
       </v-list-item>
     </v-list>
 
@@ -52,7 +53,11 @@
           color="grey-lighten-2"
         >
           <span style="font-size: 0.8rem; color: #616161">
-            show {{ t("pageMode." + getNextPageMode(PageMode)) }} view
+            {{
+              t("sidebar.switch-view", {
+                role: t("pageMode." + getNextPageMode(PageMode)),
+              })
+            }}
           </span>
         </v-btn>
       </div>
@@ -60,7 +65,9 @@
       <!-- sign out -->
       <div class="mx-2 mb-4 mt-4">
         <v-btn variant="flat" block @click="signOut" color="grey">
-          <span style="font-size: 0.8rem; color: #fafafa"> sign out </span>
+          <span style="font-size: 0.8rem; color: #fafafa">
+            {{ t("sidebar.sign-out") }}
+          </span>
         </v-btn>
       </div>
     </template>
@@ -83,7 +90,6 @@ const emits = defineEmits<{
 }>();
 
 const { t } = useI18n();
-
 function signOut() {
   supabase.auth.signOut();
   router.push("/");

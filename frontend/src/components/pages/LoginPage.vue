@@ -5,8 +5,8 @@
 
     <!-- email field -->
     <div class="mx-9 mt-13">
-      <p>No need for passwords.</p>
-      <p>Just enter your email below to register or log in.</p>
+      <p>{{ t("pages.login.password-text") }}</p>
+      <p>{{ t("pages.login.enter-email-text") }}</p>
       <v-form
         class="mt-8 mb-5"
         :model-value="hasEmail"
@@ -39,7 +39,11 @@
               <v-progress-circular indeterminate />
             </template>
             <span class="text-h6">
-              {{ !mailSent ? "SEND" : "RESEND" }}
+              {{
+                !mailSent
+                  ? t("pages.login.send-button-text")
+                  : t("pages.login.resend-button-text")
+              }}
             </span>
           </v-btn>
         </div>
@@ -49,13 +53,20 @@
 
   <v-footer class="d-flex justify-center pb-4" absolute app>
     <!-- other links -->
-    <router-link to="/about" class="mx-4 text-grey"> about us </router-link>
-    <router-link to="/legal" class="mx-4 text-grey"> legal notice </router-link>
+    <router-link to="/about" class="mx-4 text-grey">
+      {{ t("pages.login.footer-about-us") }}
+    </router-link>
+    <router-link to="/legal" class="mx-4 text-grey">
+      {{ t("pages.login.footer-legal-notice") }}
+    </router-link>
   </v-footer>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const authStore = useAuthStore();
 const router = useRouter();
@@ -71,7 +82,6 @@ const mailSent = ref(false);
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 
 const onSubmit = asyncLoading(async () => {
-  mailSent.value = true;
   // TODO: This is still flawed, especially the hash in the URL is troublesome
   const redirectTo =
     new URL(
@@ -81,7 +91,9 @@ const onSubmit = asyncLoading(async () => {
   console.log("Will redirect to", redirectTo);
   try {
     await authStore.login(email.value, redirectTo);
-    successToast("Check your email for the login link!");
+    mailSent.value = true;
+
+    successToast(t("pages.login.check-mail"));
   } catch (e) {
     errorToast(e);
   }

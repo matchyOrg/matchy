@@ -1,12 +1,138 @@
 {
   "$vuetify": {
     "dataIterator": {
-      "rowsPerPageText": "Elemente per Seite:",
-      "pageText": "{0}-{1} {2}"
+      "pageText": "{0}-{1} {2}",
+      "rowsPerPageText": "Elemente pro Seite:"
+    }
+  },
+  "components": {
+    "edit-event": {
+      "add-image": "Titelbild hinzufügen",
+      "date-label": "Datum",
+      "date-placeholder": "Wähle ein Datum",
+      "description-input": "Beschreibung",
+      "description-placeholder": "Eventbeschreibung",
+      "edit-image": "Titelbild ändern",
+      "group-a-description-label": "Beschreibung Gruppe A",
+      "group-a-description-placeholder": "Beschreibe Gruppe A",
+      "group-a-name": "Name Gruppe A",
+      "group-b-description-label": "Beschreibung Gruppe B",
+      "group-b-description-placeholder": "Beschreibe Gruppe B",
+      "group-b-name": "Name Gruppe B",
+      "location-input": "Standort",
+      "location-placeholder": "Eventstandort",
+      "max-participants": "Max Teilnehmer",
+      "max-participants-placeholder": "Maximale Anzahl an Teilnehmern",
+      "remove-image": "Bild entfernen",
+      "time-label": "Zeit",
+      "time-placeholder": "Wähle eine Zeit",
+      "title-input": "Titel",
+      "title-placeholder": "Eventtitel"
     }
   },
   "pageMode": {
-    "organizer": "organizer",
-    "participant": "participant"
+    "organizer": "Organisierer",
+    "participant": "Teilnehmer"
+  },
+  "pages": {
+    "about": {
+      "community": {
+        "p1": "Das Entwickeln wäre jedoch ohne die Hilfe unserer Freunde und der Matchy Community nicht möglich. Das wertvolle Feedback hilft uns Matchy immer weiter zu verbessern und motiviert uns am Ball zu bleiben. ",
+        "p2": "Wir hoffen, dass dieses Projekt dir Freude bringt und dir hilft fröhliche Erinnerungen und langanhaltende Beziehungen aufzubauen.",
+        "title": "🧑‍🤝‍🧑 Die Community"
+      },
+      "devs": {
+        "daniel": {
+          "p1": "Daniel ist der \"Rapid Prototyper\" im Team mit der meisten Erfahrung in der Software-Industrie. Er entwickelt essentielle Feature zuverlässig und mit großer Acht auf Qualität.",
+          "title": "Der Rapid Prototyper."
+        },
+        "description": "Das Entwicklerteam umfasst momentan die folgenden Contributor:",
+        "marco": {
+          "p1": "Marco hat die Verantwortung übernommen die Applikationsarchitektur zu entwerfen und hat fast das gesamte Backend (inklusive Postgres Datenbank, Postgres Cronjobs, Edge Functions, RPCs, Input validation und Security Policies) implementiert.",
+          "p2": "Er entwarf ebenfalls viele Diagramme, die zum Verständnis der Echtzeitprozesse, auf denen diese Applikation basiert, beigetragen haben. Marco ist verantwortlich für die Implementierung großer Teile des Frontends und verbesserte die Leistung und Sicherheit dieser Applikation enorm.",
+          "title": "Der Architekt."
+        },
+        "stefan": {
+          "p1": "Stefan ist der kundigste Frontend-Entwickler im Team. Er hat persönlich jeden einzelnen Beitrag überprüft und uns geholfen ein besseres Verständnis für fortgeschrittene Vue.js-Konzepze zu gewinnen.",
+          "p2": "Er entschied welche Technologien im Frontend zum Einsatz kamen und übernahm das Aufsetzen des Frontends mit allen notwendigen Technologien. Stefan fand immer die elegantesten und effizientesten Lösungen für unsere UI/UX Probleme.",
+          "p3": "Er ist im Team bekannt als \"Frontend Sensei\", weil er sehr geduldig mit Neuankömmlingen ist und ihnen alles beigebracht hat, was sie über Vue.js und das Frontend-Eco-System wissen müssen. ",
+          "title": "Der Frontend Sensei."
+        },
+        "title": "Die Devs",
+        "yahya": {
+          "p1": "Diese App war ursprünglich seine Idee und ist der zweite Versuch basierend auf einer vorherigen Iteration namens {0}.",
+          "p2": "Nachdem er die nötigen Eigenschaften dieser Iteration definiert und die Mockups designt hat, sammelte Yahya alle seine Freund zu einem Team zusammen und startete das Projekt.",
+          "p3": "Er behielt stets das Gesamtbild im Blick, indem er in allen Aspekten der Applikation mitwirkte und das Projekt effektiv verwaltete.",
+          "title": "Der Kickstarter."
+        }
+      },
+      "github-page": "Github Seite",
+      "github-plug": "Schaut bei unserer {0} vorbei, schaut euch den Source-Code an und lernt uns, unsere Philosophien und unsere Ziele kennen.",
+      "title": "🌱 Über uns"
+    },
+    "event-edit": {
+      "title": "Event bearbeiten"
+    },
+    "events": {
+      "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
+      "share-button-text": "Teile dieses Event",
+      "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
+      "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
+    },
+    "home": {
+      "confirm-presence-action": "Ich bin da",
+      "confirm-presence-header": "Bestätige dass du da bist",
+      "future-events-header": "Deine geplanten Events"
+    },
+    "login": {
+      "check-mail": "Wir haben dir eine Email geschickt!",
+      "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
+      "footer-about-us": "über uns",
+      "footer-legal-notice": "impressum",
+      "password-text": "Ganz ohne Passwort.",
+      "resend-button-text": "ERNEUT SENDEN",
+      "send-button-text": "SENDEN"
+    },
+    "profile": {
+      "delete-button-text": "PROFIL LÖSCHEN",
+      "delete-dialog-delete": "LÖSCHEN",
+      "delete-dialog-keep": "BEHALTEN",
+      "delete-dialog-text": "Bist du sicher dass du dein Profil löschen willst? Diese Aktion kann nicht rückgängig gemacht werden.",
+      "delete-success": "Dein Profil wurde erfolgreich gelöscht",
+      "description-label": "Beschreibung",
+      "description-placeholder": "Erzähl über dich: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
+      "full-name-label": "Vollständiger Name",
+      "full-name-placeholder": "Dein vollständiger Name",
+      "full-name-required": "Dein vollständiger ist erforderlich",
+      "register-button-text": "REGISTRIEREN",
+      "sign-out-button-text": "ausloggen",
+      "title": "Profil bearbeiten",
+      "update-button-text": "ÄNDERUNGEN SPEICHERN",
+      "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
+      "welcome": "Willkommen bei",
+      "welcome-subtitle": "Erzähl' uns was über dich."
+    }
+  },
+  "shared": {
+    "events": {
+      "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
+      "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren"
+    }
+  },
+  "sidebar": {
+    "create-event": "Event erstellen",
+    "current-view": "Ansicht",
+    "matches": "Matches",
+    "menu-title": "Menü",
+    "profile": "Profil",
+    "sign-out": "ausloggen",
+    "switch-view": "{role}-Ansicht"
+  },
+  "utils": {
+    "share-event": {
+      "clipboard-error": "Oops, sieht so aus als konnten wir den Link nicht in dein Clipboard kopieren",
+      "copy-success": "Der Link konnte nicht direkt geteilt werden, aber wir haben den Link in dein Clipboard kopiert",
+      "share-error": "Oops, wir konnten den Link leider nicht teilen"
+    }
   }
 }

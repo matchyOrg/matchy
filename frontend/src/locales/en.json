@@ -1,12 +1,138 @@
 {
   "$vuetify": {
     "dataIterator": {
-      "rowsPerPageText": "Items per page:",
-      "pageText": "{0}-{1} of {2}"
+      "pageText": "{0}-{1} of {2}",
+      "rowsPerPageText": "Items per page:"
+    }
+  },
+  "components": {
+    "edit-event": {
+      "add-image": "Add a header image",
+      "date-label": "Date",
+      "date-placeholder": "Select date",
+      "description-input": "Description",
+      "description-placeholder": "Event description",
+      "edit-image": "Edit header image",
+      "group-a-description-label": "Group A description",
+      "group-a-description-placeholder": "Describe Group A",
+      "group-a-name": "Group A Name",
+      "group-b-description-label": "Group B Description",
+      "group-b-description-placeholder": "Describe Group B",
+      "group-b-name": "Group B Name",
+      "location-input": "Location",
+      "location-placeholder": "Event Location",
+      "max-participants": "Max participants",
+      "max-participants-placeholder": "Maximum number of participants",
+      "remove-image": "Remove Image",
+      "time-label": "Time",
+      "time-placeholder": "Select time",
+      "title-input": "Title",
+      "title-placeholder": "Event Title"
     }
   },
   "pageMode": {
     "organizer": "organizer",
     "participant": "participant"
+  },
+  "pages": {
+    "about": {
+      "community": {
+        "p1": "But the development itself wouldn't be possible without the great help of our friends and the Matchy community, consistently giving us valuable feedback on how to improve and motivating us to stay on track.",
+        "p2": "We really hope that this project brings you joy and helps you make fun memories and lasting relationships.",
+        "title": "🧑‍🤝‍🧑 The Community"
+      },
+      "devs": {
+        "daniel": {
+          "p1": "Daniel is the rapid prototyper in the team with the most experience in the software industry. He developed essential features reliably with a high quality.",
+          "title": "The Rapid Prototyper."
+        },
+        "description": "The development team is currently composed of the following main contributors:",
+        "marco": {
+          "p1": "Marco took the responsibility of designing the application architecture and implementing the backend almost entirely by himself (Postgres database, Postgres CRON jobs, API via Supabase, Lambda functions, RPCs, user input validation ...).",
+          "p2": "He also created many useful diagrams that helped us understand the real time processes that this application is built on, implemented huge chunks of the frontend and improved the overall performance and security of this application greatly.",
+          "title": "The Architect."
+        },
+        "stefan": {
+          "p1": "Stefan is the most knowledgeable frontend developer in the team. He reviewed every single of our pull requests and helped us get a better understanding of advanced Vue.js concepts.",
+          "p2": "He decided which technologies to use for the frontend, set up all necessary dependencies and always found the most elegant and efficient solutions to UI / UX problems.",
+          "p3": "He is the teams frontend Sensei because he was really patient with newcomers and taught them everything they needed to know about Vue.js.",
+          "title": "The Frontend Sensei."
+        },
+        "title": "The Devs",
+        "yahya": {
+          "p1": "This app was initially his idea and his second attempt based on a previous iteration called {0}.",
+          "p2": "After defining the necessary features for this iteration and designing the mockups, Yahya gathered all his friends to team up and kick off.",
+          "p3": "He kept the bigger picture at all times by contributing to all aspects of the application and managed the project effectively.",
+          "title": "The Kickstarter."
+        }
+      },
+      "github-page": "Github page",
+      "github-plug": "Check the out this project's {0} to see the source-code and find out who we are, what we're all about and what we are aiming to achieve.",
+      "title": "🌱 About Us"
+    },
+    "event-edit": {
+      "title": "Edit Event"
+    },
+    "events": {
+      "groups-text": "There are 2 types of participants in this event",
+      "share-button-text": "Share this event",
+      "share-hint-organizer": "Invite participants by sharing this link with them",
+      "share-hint-participant": "Share this invite link with friends!"
+    },
+    "home": {
+      "confirm-presence-action": "I'm here",
+      "confirm-presence-header": "Confirm you're here",
+      "future-events-header": "Your planned events"
+    },
+    "login": {
+      "check-mail": "Check your email for the login link!",
+      "enter-email-text": "Just enter your email below to register or log in.",
+      "footer-about-us": "about us",
+      "footer-legal-notice": "legal notice",
+      "password-text": "No need for passwords.",
+      "resend-button-text": "RESEND",
+      "send-button-text": "SEND"
+    },
+    "profile": {
+      "delete-button-text": "DELETE PROFILE",
+      "delete-dialog-delete": "DELETE",
+      "delete-dialog-keep": "KEEP",
+      "delete-dialog-text": "Are you sure you want to delete your profile? This action is irreversible.",
+      "delete-success": "Deleted profile successfully",
+      "description-label": "Description",
+      "description-placeholder": "Tell us about yourself: This is what your matches will see in addition to your email.",
+      "full-name-label": "Full Name",
+      "full-name-placeholder": "Your full name",
+      "full-name-required": "Your full name is required",
+      "register-button-text": "REGISTER",
+      "sign-out-button-text": "sign out",
+      "title": "Edit Profile",
+      "update-button-text": "UPDATE PROFILE",
+      "update-success": "Updated profile successfully!",
+      "welcome": "Welcome to",
+      "welcome-subtitle": "Let's get to know you a bit better."
+    }
+  },
+  "shared": {
+    "events": {
+      "event-load-error": "The event could not be loaded... Going back to previous page.",
+      "invalid-id": "Uh oh, looks like this event does not exist"
+    }
+  },
+  "sidebar": {
+    "create-event": "Create Event",
+    "current-view": "Current view",
+    "matches": "Matches",
+    "menu-title": "Menu",
+    "profile": "Profile",
+    "sign-out": "sign out",
+    "switch-view": "Show {role} view"
+  },
+  "utils": {
+    "share-event": {
+      "clipboard-error": "Oops, looks like we couldn't copy this link to your clipboard",
+      "copy-success": "We couldn't share the event directly, but copied the link to your clipboard",
+      "share-error": "Oops, looks like we can't share this link right now"
+    }
   }
 }
