@@ -61,9 +61,7 @@
       <skeleton-loader v-else width="100%" :num-rows="2" />
       <v-divider class="mt-4" />
       <div v-if="matchyEvent?.event_groups">
-        <span class="d-block mb-4"
-          >There are 2 types of participants in this event:</span
-        >
+        <span class="d-block mb-4">{{ t("pages.events.groups-text") }}:</span>
       </div>
       <v-btn
         class="d-block mx-auto mt-8 mb-1 font-weight-bold"
@@ -71,12 +69,12 @@
         @click="onShare"
       >
         <v-icon class="mr-2" size="large">mdi-share-variant</v-icon>
-        Share this event
+        {{ t("pages.events.share-button-text") }}
       </v-btn>
       <span class="d-block text-center text-grey text-caption">{{
         PageMode === "organizer"
-          ? "Invite participants by sharing this link with them"
-          : "Share this invite link with friends!"
+          ? t("pages.events.share-hint-organizer")
+          : t("pages.events.share-hint-participant")
       }}</span>
     </v-container>
   </v-main>
@@ -87,7 +85,9 @@ import { type EventInfo, useEventService } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
 import { PageMode } from "@/stores/pageMode";
 import { shareEvent } from "@/services/utils/share";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const authStore = useAuthStore();
 const eventService = useEventService(authStore);
 const route = useRoute();
@@ -118,16 +118,14 @@ watch(
   () => route.params.id,
   async () => {
     if (isNaN(+route.params.id)) {
-      errorToast("Uh oh, looks like that is not a valid event id");
+      errorToast(t("pages.events.invalid-id"));
       router.back();
       return;
     }
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
     } catch (e) {
-      errorToast(
-        "The event could not be loaded... Going back to previous page."
-      );
+      errorToast(t("pages.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;
