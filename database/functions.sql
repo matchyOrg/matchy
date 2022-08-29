@@ -3,9 +3,9 @@
 create or replace function public.create_event_with_groups(
     title text,
     description text,
-    header_image uuid,
+    header_image text,
     datetime timestamp with time zone,
-    event_location text,
+    location text,
     max_participants integer,
     "groupATitle" text,
     "groupADescription" text,
@@ -15,16 +15,16 @@ create or replace function public.create_event_with_groups(
     returns void language sql as
 $$
     with groupA as (
-        insert into event_groups (title, description) values ("groupATitle", "groupADescription") returning id
+        insert into event_groups (title, description, creator) values ("groupATitle", "groupADescription", auth.uid()) returning id
     ),
     groupB as (
-        insert into event_groups (title, description) values ("groupBTitle", "groupBDescription") returning id
+        insert into event_groups (title, description, creator) values ("groupBTitle", "groupBDescription", auth.uid()) returning id
     ),
     pair as (
         insert into event_group_pairs (group_a, group_b) select groupA.id, groupB.id from groupA, groupB returning id
     )
     insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, delay_for_sending_matches, is_ended)
-        select auth.uid(), title, description, header_image, datetime, event_location, max_participants, pair.id, False, Null, False from pair
+        select auth.uid(), title, description, header_image, datetime, location, max_participants, pair.id, False, Null, False from pair
 $$;
 
 
