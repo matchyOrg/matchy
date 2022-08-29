@@ -120,8 +120,7 @@ import type { EditEventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 import { useI18n } from "vue-i18n";
 
-const { t, locale } = useI18n();
-locale.value = "de";
+const { t } = useI18n();
 
 const props = defineProps<{
   modelValue: EditEventInfo;
