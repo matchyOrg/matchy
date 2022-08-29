@@ -39,6 +39,16 @@ export interface EditEventInfo
   event_groups: GroupPair;
 }
 
+export interface EventRegistration {
+  id: number;
+  user_id: string;
+  event_id: number;
+  group_id?: number;
+  present: boolean;
+}
+
+export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
+
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function fetchEvents(): Promise<EventInfo[]> {
     const anHourAgo = dateXHoursAgo(1);
@@ -194,10 +204,40 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // DELETE
   // ...
 
+  async function registerForEvent(
+    eventId: number,
+    groupId?: number
+  ): Promise<void> {
+    if (!authStore.user?.id) throw new Error("User not logged in");
+
+    const { error } = await supabase.from("event_registrations").insert({
+      user_id: authStore.user.id,
+      event_id: eventId,
+      group_id: groupId,
+    });
+
+    if (error) throw error;
+  }
+
+  async function isRegisteredForEvent(eventId: number): Promise<boolean> {
+    if (!authStore.user?.id) return false;
+
+    const { error, count } = await supabase
+      .from("event_registrations")
+      .select("id", { count: "exact", head: true })
+      .eq("event_id", eventId)
+      .eq("user_id", authStore.user?.id);
+
+    if (error) throw error;
+    return count != 0;
+  }
+
   return {
     createEvent,
     fetchEvents,
     fetchEventById,
     fetchUserEvents,
+    isRegisteredForEvent,
+    registerForEvent,
   };
 }

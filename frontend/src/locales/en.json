@@ -80,7 +80,11 @@
       "title": "Edit Event"
     },
     "events": {
+      "already-registered": "You are registered",
       "groups-text": "There are 2 types of participants in this event",
+      "login-register": "Log in or register to participate",
+      "register-button-text": "I'll be there",
+      "register-without-group-success": "You were registered for the event",
       "share-button-text": "Share this event",
       "share-hint-organizer": "Invite participants by sharing this link with them",
       "share-hint-participant": "Share this invite link with friends!"

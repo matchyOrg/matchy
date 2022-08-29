@@ -1,6 +1,10 @@
 <template>
   <teleport to="#nav-right">
-    <v-icon v-if="authStore.user?.id == matchyEvent?.organizer" @click="onEdit"
+    <v-icon
+      v-if="
+        PageMode === 'organizer' && authStore.user?.id == matchyEvent?.organizer
+      "
+      @click="onEdit"
       >mdi-pencil</v-icon
     >
   </teleport>
@@ -9,7 +13,7 @@
       <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
       <skeleton-loader v-else width="200" height="32" />
       <v-card
-        class="mt-4 mb-3 font-weight-bold"
+        class="mb-3 font-weight-bold"
         width="100%"
         height="200"
         color="#E0E0E0"
@@ -56,12 +60,24 @@
         >
         <skeleton-loader v-else width="200" />
       </div>
-      <p v-if="!loadingEvent" class="my-8">{{ matchyEvent?.description }}</p>
+      <p v-if="!loadingEvent" class="mt-8">{{ matchyEvent?.description }}</p>
 
       <skeleton-loader v-else width="100%" :num-rows="2" />
-      <v-divider class="mt-4" />
+      <v-divider class="my-4" />
       <div v-if="matchyEvent?.event_groups">
         <span class="d-block mb-4">{{ t("pages.events.groups-text") }}:</span>
+        <span class="d-block font-weight-bold">{{
+          matchyEvent.event_groups.groupA.title
+        }}</span>
+        <span class="d-block pl-4 mb-4">{{
+          matchyEvent.event_groups.groupA.description
+        }}</span>
+        <span class="d-block font-weight-bold">{{
+          matchyEvent.event_groups.groupB.title
+        }}</span>
+        <span class="d-block pl-4 mb-4">{{
+          matchyEvent.event_groups.groupB.description
+        }}</span>
       </div>
       <v-btn
         class="d-block mx-auto mt-8 mb-1 font-weight-bold"
@@ -76,6 +92,29 @@
           ? t("pages.events.share-hint-organizer")
           : t("pages.events.share-hint-participant")
       }}</span>
+      <div class="d-flex justify-center mt-8" v-if="PageMode === 'participant'">
+        <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
+        <span v-else-if="isRegisteredForEvent" class="d-block">
+          <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
+          {{ t("pages.events.already-registered") }}
+        </span>
+        <v-btn
+          v-else-if="!authStore.isLoggedIn"
+          variant="text"
+          color="primary"
+          @click="router.push('/login?redirect=/events/' + matchyEvent?.id)"
+          >{{ t("pages.events.login-register") }}</v-btn
+        >
+        <v-btn
+          v-else-if="
+            authStore.user?.id && authStore.user.id !== matchyEvent?.organizer
+          "
+          variant="text"
+          color="primary"
+          @click="registerForEventWithoutGroup"
+          >{{ t("pages.events.register-button-text") }}</v-btn
+        >
+      </div>
     </v-container>
   </v-main>
 </template>
@@ -95,6 +134,8 @@ const router = useRouter();
 
 const matchyEvent = ref<EventInfo>();
 const loadingEvent = ref(true);
+const loadingRegisteredStatus = ref(true);
+const isRegisteredForEvent = ref<boolean>();
 
 const imageHeaderSrc = computed(
   () =>
@@ -112,9 +153,18 @@ const onEdit = () => {
   router.push("/edit-event/" + route.params.id);
 };
 
+const registerForEventWithoutGroup = async () => {
+  if (!matchyEvent.value) return;
+  await eventService.registerForEvent(matchyEvent.value.id);
+  successToast(t("pages.events.register-without-group-success"));
+  isRegisteredForEvent.value = true;
+};
+
 watch(
   () => route.params.id,
   async () => {
+    loadingEvent.value = true;
+    loadingRegisteredStatus.value = true;
     if (isNaN(+route.params.id)) {
       errorToast(t("shared.events.invalid-id"));
       router.back();
@@ -127,6 +177,14 @@ watch(
       router.back();
     }
     loadingEvent.value = false;
+    try {
+      isRegisteredForEvent.value = await eventService.isRegisteredForEvent(
+        +route.params.id
+      );
+    } catch (e) {
+      console.log(e);
+    }
+    loadingRegisteredStatus.value = false;
   },
   { immediate: true, flush: "post" }
 );
