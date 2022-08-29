@@ -186,7 +186,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }
 
     if (creationError) throw creationError;
-    successToast("Creation of new event successful");
   }
 
   // UPDATE
