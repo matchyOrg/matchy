@@ -70,6 +70,12 @@
       "github-plug": "Check the out this project's {0} to see the source-code and find out who we are, what we're all about and what we are aiming to achieve.",
       "title": "🌱 About Us"
     },
+    "event-create": {
+      "error": "There was an error creating the event",
+      "submit": "Submit",
+      "success": "Creation of new event successful",
+      "title": "Create Event"
+    },
     "event-edit": {
       "title": "Edit Event"
     },

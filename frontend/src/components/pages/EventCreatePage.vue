@@ -1,15 +1,30 @@
 <template>
-  <teleport to="#nav-title">Create Event</teleport>
+  <teleport to="#nav-title">{{ t("pages.event-create.title") }}</teleport>
   <v-main>
     <v-container>
       <edit-event v-model="matchyEvent" />
+      <v-btn @click="submit">{{ t("pages.event-create.submit") }}</v-btn>
     </v-container>
   </v-main>
 </template>
 
 <script lang="ts" setup>
-import type { EditEventInfo } from "@/services/eventService";
+import { useEventService, type EditEventInfo } from "@/services/eventService";
+import { useAuthStore } from "@/stores/auth";
 import { Temporal } from "@js-temporal/polyfill";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+const eventService = useEventService(useAuthStore());
+
+const submit = async () => {
+  try {
+    await eventService.createEvent(matchyEvent);
+  } catch (_e) {
+    errorToast(t("pages.event-create.error"));
+  }
+  successToast(t("pages.event-create.success"));
+};
 
 const matchyEvent = reactive({
   title: "",
