@@ -98,9 +98,7 @@ const loadingEvent = ref(true);
 
 const imageHeaderSrc = computed(
   () =>
-    import.meta.env.VITE_SUPABASE_STORAGE_URL +
-    "event-header-images/" +
-    matchyEvent.value?.header_image
+    import.meta.env.VITE_SUPABASE_STORAGE_URL + matchyEvent.value?.header_image
 );
 
 const onShare = async () => {
