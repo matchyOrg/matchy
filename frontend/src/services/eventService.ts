@@ -1,9 +1,22 @@
 import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
-import { dateXHoursAgo, timestamptzToTemporalZonedDateTime } from "./utils/datetime";
+import {
+  dateXHoursAgo,
+  timestamptzToTemporalZonedDateTime,
+} from "./utils/datetime";
 
-// TODO: Combine EventInfo and EditEventInfo with Partials
+export interface GroupPair {
+  groupA: {
+    title: string;
+    description: string;
+  };
+  groupB: {
+    title: string;
+    description: string;
+  };
+}
+
 export interface EventInfo {
   id: number;
   organizer: string;
@@ -13,39 +26,16 @@ export interface EventInfo {
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;
-  event_groups?: {
-    groupA: {
-      title: string;
-      description: string;
-    };
-    groupB: {
-      title: string;
-      description: string;
-    };
-  };
+  event_groups?: GroupPair
   is_ended: boolean;
   is_cancelled: boolean;
 }
 
-export interface EditEventInfo {
-  title: string;
-  description: string;
-  header_image?: string;
-  header_image_file?: File;
-  datetime: Temporal.ZonedDateTime;
-  location: string;
-  max_participants: number;
+export interface EditEventInfo
+  extends Omit<EventInfo, "id" | "organizer" | "is_ended" | "is_cancelled"> {
+  headerImageFile?: File;
   uses_groups: boolean;
-  event_groups: {
-    groupA: {
-      title: string;
-      description: string;
-    };
-    groupB: {
-      title: string;
-      description: string;
-    };
-  };
+  event_groups: GroupPair;
 }
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
@@ -55,7 +45,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair"
+        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -88,8 +78,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair, event_registrations!inner(*)"
+        "*, event_group_pair:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description)), event_registrations!inner(*)"
       )
+      // TODO: remove once we find a way to correctly type this
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: with the inner join this is valid
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -112,7 +105,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function fetchEventById(eventId: number): Promise<EventInfo> {
     const { data, error } = await supabase
       .from("events")
-      .select("*")
+      .select(
+        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+      )
       .eq("id", eventId)
       .maybeSingle();
 

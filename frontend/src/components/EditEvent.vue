@@ -170,7 +170,7 @@ const headerImageSrc = computed(() => {
 
 watch(
   () => headerImage.value,
-  () => (model.value.header_image_file = headerImage.value[0])
+  () => (model.value.headerImageFile = headerImage.value[0])
 );
 
 const removeImage = () => {
