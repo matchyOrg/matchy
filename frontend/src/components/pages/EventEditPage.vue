@@ -28,6 +28,7 @@ watch(
     if (isNaN(+route.params.id)) {
       errorToast(t("shared.events.invalid-id"));
       router.back();
+      return;
     }
     try {
       const data = await eventService.fetchEventById(+route.params.id);
@@ -40,11 +41,12 @@ watch(
         },
       };
     } catch (e) {
+      console.log(e);
       errorToast(t("shared.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;
   },
-  { immediate: true }
+  { immediate: true, flush: "post" }
 );
 </script>

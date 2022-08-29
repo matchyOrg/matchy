@@ -66,9 +66,7 @@ const share = () => emits("share");
 
 const headerImageSrc = computed(
   () =>
-    import.meta.env.VITE_SUPABASE_STORAGE_URL +
-    "event-header-images/" +
-    props.matchyEvent.header_image
+    import.meta.env.VITE_SUPABASE_STORAGE_URL + props.matchyEvent.header_image
 );
 </script>
 

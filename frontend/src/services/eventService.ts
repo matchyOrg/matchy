@@ -1,9 +1,23 @@
 import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
-import { dateXHoursAgo, timestamptzToTemporalZonedDateTime } from "./utils/datetime";
+import {
+  dateXHoursAgo,
+  timestamptzToTemporalZonedDateTime,
+} from "./utils/datetime";
+import { nanoid } from "nanoid";
 
-// TODO: Combine EventInfo and EditEventInfo with Partials
+export interface GroupPair {
+  groupA: {
+    title: string;
+    description: string;
+  };
+  groupB: {
+    title: string;
+    description: string;
+  };
+}
+
 export interface EventInfo {
   id: number;
   organizer: string;
@@ -13,39 +27,16 @@ export interface EventInfo {
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;
-  event_groups?: {
-    groupA: {
-      title: string;
-      description: string;
-    };
-    groupB: {
-      title: string;
-      description: string;
-    };
-  };
+  event_groups?: GroupPair;
   is_ended: boolean;
   is_cancelled: boolean;
 }
 
-export interface EditEventInfo {
-  title: string;
-  description: string;
-  header_image?: string;
-  header_image_file?: File;
-  datetime: Temporal.ZonedDateTime;
-  location: string;
-  max_participants: number;
+export interface EditEventInfo
+  extends Omit<EventInfo, "id" | "organizer" | "is_ended" | "is_cancelled"> {
+  headerImageFile?: File;
   uses_groups: boolean;
-  event_groups: {
-    groupA: {
-      title: string;
-      description: string;
-    };
-    groupB: {
-      title: string;
-      description: string;
-    };
-  };
+  event_groups: GroupPair;
 }
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
@@ -55,7 +46,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair"
+        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -88,8 +79,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "id, organizer, title, description, datetime, location, max_participants, header_image, is_ended, is_cancelled, event_group_pair, event_registrations!inner(*)"
+        "*, event_group_pair:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description)), event_registrations!inner(*)"
       )
+      // TODO: remove once we find a way to correctly type this
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: with the inner join this is valid
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -112,7 +106,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function fetchEventById(eventId: number): Promise<EventInfo> {
     const { data, error } = await supabase
       .from("events")
-      .select("*")
+      .select(
+        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+      )
       .eq("id", eventId)
       .maybeSingle();
 
@@ -141,6 +137,26 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       errorToast("Please log in first");
       throw Error("User is not logged in");
     }
+
+    // the user has selected a new image header
+    if (eventData.headerImageFile) {
+      // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
+      // easily replaceable should we ever need to
+      const fileName = nanoid();
+      const { data, error } = await supabase.storage
+        .from("event-header-images")
+        .upload(fileName, eventData.headerImageFile, {
+          contentType: "image/png",
+        });
+
+      if (error) throw error;
+      if (!data || !data.Key) {
+        throw new Error("Received no data after uploading image");
+      }
+      // set the new image path
+      eventData.header_image = data.Key;
+    }
+
     let creationError;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
@@ -148,11 +164,10 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
           "Event is indicated to use groups, but no groups were provided"
         );
       const { error } = await supabase.rpc("create_event_with_groups", {
-        organizer: authStore.user.id,
         title: eventData.title,
         description: eventData.description,
-        header_image: null,
-        datetime: eventData.datetime,
+        header_image: eventData.header_image,
+        datetime: eventData.datetime.toInstant().toString(),
         location: eventData.location,
         max_participants: eventData.max_participants,
         groupATitle: eventData.event_groups.groupA.title,
@@ -171,7 +186,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }
 
     if (creationError) throw creationError;
-    successToast("Creation of new event successful");
   }
 
   // UPDATE

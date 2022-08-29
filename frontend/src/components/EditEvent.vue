@@ -120,8 +120,7 @@ import type { EditEventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 import { useI18n } from "vue-i18n";
 
-const { t, locale } = useI18n();
-locale.value = "de";
+const { t } = useI18n();
 
 const props = defineProps<{
   modelValue: EditEventInfo;
@@ -170,7 +169,7 @@ const headerImageSrc = computed(() => {
 
 watch(
   () => headerImage.value,
-  () => (model.value.header_image_file = headerImage.value[0])
+  () => (model.value.headerImageFile = headerImage.value[0])
 );
 
 const removeImage = () => {
