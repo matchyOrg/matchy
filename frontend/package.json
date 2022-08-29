@@ -20,6 +20,7 @@
     "@js-temporal/polyfill": "^0.4.2",
     "@supabase/supabase-js": "^1.35.6",
     "@vueuse/core": "^9.1.1",
+    "nanoid": "^4.0.0",
     "pinia": "^2.0.21",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.2",

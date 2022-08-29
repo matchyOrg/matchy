@@ -5,6 +5,7 @@ import {
   dateXHoursAgo,
   timestamptzToTemporalZonedDateTime,
 } from "./utils/datetime";
+import { nanoid } from "nanoid";
 
 export interface GroupPair {
   groupA: {
@@ -26,7 +27,7 @@ export interface EventInfo {
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;
-  event_groups?: GroupPair
+  event_groups?: GroupPair;
   is_ended: boolean;
   is_cancelled: boolean;
 }
@@ -136,6 +137,26 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       errorToast("Please log in first");
       throw Error("User is not logged in");
     }
+
+    // the user has selected a new image header
+    if (eventData.headerImageFile) {
+      // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
+      // easily replaceable should we ever need to
+      const fileName = nanoid();
+      const { data, error } = await supabase.storage
+        .from("event-header-images")
+        .upload(fileName, eventData.headerImageFile, {
+          contentType: "image/png",
+        });
+
+      if (error) throw error;
+      if (!data || !data.Key) {
+        throw new Error("Received no data after uploading image");
+      }
+      // set the new image path
+      eventData.header_image = data.Key;
+    }
+
     let creationError;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
@@ -143,11 +164,10 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
           "Event is indicated to use groups, but no groups were provided"
         );
       const { error } = await supabase.rpc("create_event_with_groups", {
-        organizer: authStore.user.id,
         title: eventData.title,
         description: eventData.description,
-        header_image: null,
-        datetime: eventData.datetime,
+        header_image: eventData.header_image,
+        datetime: eventData.datetime.toInstant().toString(),
         location: eventData.location,
         max_participants: eventData.max_participants,
         groupATitle: eventData.event_groups.groupA.title,
