@@ -41,3 +41,20 @@ create trigger on_vote_insert_inject_user_id
 create trigger on_registration_insert_inject_user_id
     before insert on public.event_registrations
     execute procedure public.inject_user_id();
+
+
+create or replace function check_user_does_not_have_pairing_in_round()
+returns trigger
+language plpgsql as
+$$
+begin
+  if exists (select from event_user_pairs where event_round = new.event_round and (auth.uid() = new.main_user or auth.uid() = new.other_user)) then
+    raise exception 'user already has a pairing this round';
+  end if;
+  return new;
+end;
+$$
+
+
+create trigger one_pair_per_round before insert on event_group_pairs for each row
+execute procedure check_user_does_not_have_pairing_in_round();
