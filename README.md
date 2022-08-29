@@ -56,7 +56,7 @@ But effectively anyone can use it to throw their own event!
 ## How can I join you guys and contribute?
 
 Joining the community doesn't require you to commit to anything / contribute anything. <br>
-You can just [join our wonderful discord server](https://discord.gg/tFf2RkTg) and just have a good time, meme around and get to know us. <br>
+You can just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) and just have a good time, meme around and get to know us. <br>
 Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
 There are so many ways you could contribute! You don't even necessarily have to code to be part of our team. <br>
 Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
