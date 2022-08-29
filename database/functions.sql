@@ -97,3 +97,13 @@ begin
   return main_user_group <> other_user_group;
 end;
 $$
+
+-- removes all header images that are not used as header images for events
+create or replace procedure private.remove_unused_header_images()
+language sql as
+$$
+  delete from storage.objects
+    where bucket_id = 'event-header-images'
+    and name <> '.emptyFolderPlaceholder'
+    and name not in (select trim(leading 'event-header-images/' from header_image)  from events where header_image is not null);
+$$
