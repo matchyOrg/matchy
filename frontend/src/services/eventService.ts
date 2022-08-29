@@ -7,15 +7,15 @@ import {
 } from "./utils/datetime";
 import { nanoid } from "nanoid";
 
+export interface Group {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export interface GroupPair {
-  groupA: {
-    title: string;
-    description: string;
-  };
-  groupB: {
-    title: string;
-    description: string;
-  };
+  groupA: Group;
+  groupB: Group;
 }
 
 export interface EventInfo {

@@ -84,6 +84,8 @@
       "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
       "login-register": "Log dich ein oder registriere dich",
       "register-button-text": "Ich bin dabei",
+      "register-modal-text": "Bitte wähle die Gruppe in der du am Event teilnehmen willst.",
+      "register-modal-title": "Wähle eine Gruppe",
       "register-without-group-success": "Du hast dich für das Event registriert",
       "share-button-text": "Teile dieses Event",
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",

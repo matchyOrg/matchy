@@ -111,16 +111,47 @@
           "
           variant="text"
           color="primary"
-          @click="registerForEventWithoutGroup"
-          >{{ t("pages.events.register-button-text") }}</v-btn
-        >
+          @click="startRegister"
+          >{{ t("pages.events.register-button-text") }}
+          <v-dialog v-model="showRegisterModal">
+            <v-card>
+              <v-card-title class="text-h6">{{
+                t("pages.events.register-modal-title")
+              }}</v-card-title>
+              <v-card-text>
+                {{ t("pages.events.register-modal-text") }}
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  variant="text"
+                  @click="registerForEvent(matchyEvent?.event_groups?.groupB)"
+                >
+                  {{ matchyEvent?.event_groups?.groupA.title }}
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  variant="text"
+                  @click="registerForEvent(matchyEvent?.event_groups?.groupB)"
+                >
+                  {{ matchyEvent?.event_groups?.groupB.title }}
+                </v-btn>
+              </v-card-actions>
+            </v-card></v-dialog
+          >
+        </v-btn>
       </div>
     </v-container>
   </v-main>
 </template>
 
 <script setup lang="ts">
-import { type EventInfo, useEventService } from "@/services/eventService";
+import {
+  type EventInfo,
+  type Group,
+  useEventService,
+} from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
 import { PageMode } from "@/stores/pageMode";
 import { shareEvent } from "@/services/utils/share";
@@ -136,6 +167,8 @@ const matchyEvent = ref<EventInfo>();
 const loadingEvent = ref(true);
 const loadingRegisteredStatus = ref(true);
 const isRegisteredForEvent = ref<boolean>();
+
+const showRegisterModal = ref(false);
 
 const imageHeaderSrc = computed(
   () =>
@@ -153,10 +186,21 @@ const onEdit = () => {
   router.push("/edit-event/" + route.params.id);
 };
 
-const registerForEventWithoutGroup = async () => {
+// entry-point for both registrations
+const startRegister = async () => {
+  // if the event uses groups we show a modal for the user to pick one
+  if (matchyEvent.value?.event_groups) {
+    showRegisterModal.value = true;
+    return;
+  }
+  await registerForEvent();
+};
+
+const registerForEvent = async (group?: Group) => {
   if (!matchyEvent.value) return;
-  await eventService.registerForEvent(matchyEvent.value.id);
+  await eventService.registerForEvent(matchyEvent.value.id, group?.id);
   successToast(t("pages.events.register-without-group-success"));
+  showRegisterModal.value = false;
   isRegisteredForEvent.value = true;
 };
 
