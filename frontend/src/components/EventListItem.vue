@@ -1,7 +1,7 @@
 <template>
   <v-card :to="to" elevation="4">
     <v-card-title
-      class="event-title d-flex justify-space-between align-center py-4 pr-4 text-body-1 font-weight-bold"
+      class="event-title d-flex justify-space-between align-center py-0 pr-4 text-body-1 font-weight-bold"
     >
       <span class="d-block mr-4 text-wrap">{{ matchyEvent.title }}</span>
       <v-btn variant="text" icon="mdi-share-variant" @click.prevent="share" />

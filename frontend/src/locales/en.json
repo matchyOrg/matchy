@@ -94,7 +94,9 @@
     "home": {
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
-      "future-events-header": "Your planned events"
+      "future-events-header": "Your planned events",
+      "no-event-cta": "Check out events",
+      "no-events": "You aren't registered for any events"
     },
     "login": {
       "check-mail": "Check your email for the login link!",

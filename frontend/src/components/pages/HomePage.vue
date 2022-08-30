@@ -1,7 +1,7 @@
 <template>
   <teleport to="#nav-title">🐱 Matchy</teleport>
   <v-main class="mx-5">
-    <h2 class="mt-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
+    <h2 class="my-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
 
     <!-- Participant view -->
     <div v-if="PageMode === 'participant'">
@@ -21,10 +21,13 @@
           :to="'/events/' + e.id"
           @share="share(e)"
         >
-          <v-card-actions class="d-flex justify-center">
-            <v-btn color="primary" @click.prevent="confirmPresence">{{
-              t("pages.home.confirm-presence-action")
-            }}</v-btn>
+          <v-card-actions class="d-flex justify-center mh-0">
+            <v-btn
+              color="primary"
+              size="small"
+              @click.prevent="confirmPresence"
+              >{{ t("pages.home.confirm-presence-action") }}</v-btn
+            >
           </v-card-actions>
         </event-list-item>
         <v-spacer />
@@ -40,6 +43,12 @@
           :to="'/events/' + e.id"
           @share="share(e)"
         />
+        <div class="text-center text-grey">
+          {{ t("pages.home.no-events") }}
+          <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
+            t("pages.home.no-event-cta")
+          }}</v-btn>
+        </div>
       </div>
 
       <!--TODO: Forward to current event, if running -->
@@ -101,3 +110,9 @@ const confirmPresence = () => {
   console.log("Don't care, didn't ask");
 };
 </script>
+
+<style>
+.mh-0 {
+  min-height: 0;
+}
+</style>
