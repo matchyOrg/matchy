@@ -136,7 +136,7 @@ type InputField = keyof Omit<EditEventInfo, "headerImageFile" | "uses_groups">;
 const props = withDefaults(
   defineProps<{
     modelValue: EditEventInfo;
-    excludeFields: InputField[];
+    excludeFields?: InputField[];
   }>(),
   { excludeFields: () => [] }
 );
