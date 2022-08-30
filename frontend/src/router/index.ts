@@ -9,6 +9,7 @@ import EventCreatePage from "../components/pages/EventCreatePage.vue";
 import MatchesPage from "@/components/pages/MatchesPage.vue";
 import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 import EventPage from "@/components/pages/EventPage.vue";
+import EventSearchPage from "@/components/pages/EventSearchPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -51,6 +52,10 @@ const router = createRouter({
       meta: { requiresLogin: true, requiresCompletedProfile: true },
     },
     {
+      path: "/events",
+      component: EventSearchPage,
+    },
+    {
       path: "/events/:id",
       component: EventPage,
     },
@@ -65,7 +70,7 @@ const router = createRouter({
 });
 
 // Check requirements to enter a route
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   // requiresLogin
   const loggedIn = supabase.auth.user();
   if (to.matched.some((record) => record.meta.requiresLogin) && !loggedIn) {

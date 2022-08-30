@@ -34,16 +34,18 @@
         <div class="text-h6 font-weight-bold mb-4">
           {{ t("pages.home.future-events-header") }}
         </div>
-        <event-list-item
-          class="mb-4"
-          v-for="(e, i) in futureEvents"
-          :key="i"
-          :matchy-event="e"
-          show-info
-          :to="'/events/' + e.id"
-          @share="share(e)"
-        />
-        <div class="text-center text-grey">
+        <template v-if="futureEvents.length > 0">
+          <event-list-item
+            class="mb-4"
+            v-for="(e, i) in futureEvents"
+            :key="i"
+            :matchy-event="e"
+            show-info
+            :to="'/events/' + e.id"
+            @share="share(e)"
+          />
+        </template>
+        <div v-else class="text-center text-grey">
           {{ t("pages.home.no-events") }}
           <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
             t("pages.home.no-event-cta")
