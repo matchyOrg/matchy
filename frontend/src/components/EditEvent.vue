@@ -1,11 +1,12 @@
 <template>
   <v-form>
-    <div class="text-right">
+    <div class="text-right" v-if="!excludeFields.includes('header_image')">
       <span class="text-red" @click="removeImage">{{
         t("components.edit-event.remove-image")
       }}</span>
     </div>
     <v-card
+      v-if="!excludeFields.includes('header_image')"
       class="header-container mb-8"
       width="100%"
       height="200"
@@ -27,32 +28,35 @@
     </v-card>
     <v-text-field
       v-model="model.title"
+      v-if="!excludeFields.includes('title')"
       :label="t('components.edit-event.title-input')"
       name="title"
       :placeholder="t('components.edit-event.title-placeholder')"
     />
     <v-textarea
       v-model="model.description"
+      v-if="!excludeFields.includes('description')"
       :label="t('components.edit-event.description-input')"
       name="description"
       :placeholder="t('components.edit-event.description-placeholder')"
     />
     <v-text-field
       v-model="model.location"
+      v-if="!excludeFields.includes('location')"
       :label="t('components.edit-event.location-input')"
       name="event-location"
       :placeholder="t('components.edit-event.location-placeholder')"
     />
     <v-text-field
       v-model="model.max_participants"
+      v-if="!excludeFields.includes('max_participants')"
       type="number"
       min="2"
       :label="t('components.edit-event.max-participants')"
       name="max-participants"
       :placeholder="t('components.edit-event.max-participants-placeholder')"
     />
-
-    <v-row>
+    <v-row v-if="!excludeFields.includes('datetime')">
       <v-col cols="6">
         <v-text-field
           v-model="displayedDate"
@@ -77,9 +81,14 @@
       </v-col>
     </v-row>
 
-    <v-switch v-model="model.uses_groups" size="20" color="primary" />
+    <v-switch
+      v-model="model.uses_groups"
+      v-if="!excludeFields.includes('event_groups')"
+      size="20"
+      color="primary"
+    />
 
-    <v-row v-if="model.uses_groups">
+    <v-row v-if="model.uses_groups && !excludeFields.includes('event_groups')">
       <v-col cols="6">
         <v-text-field
           v-model="model.event_groups!.groupA.title"
@@ -122,9 +131,15 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
-const props = defineProps<{
-  modelValue: EditEventInfo;
-}>();
+type InputField = keyof Omit<EditEventInfo, "headerImageFile" | "uses_groups">;
+
+const props = withDefaults(
+  defineProps<{
+    modelValue: EditEventInfo;
+    excludeFields: InputField[];
+  }>(),
+  { excludeFields: () => [] }
+);
 
 const emits = defineEmits<{
   (e: "update:modelValue", value: EditEventInfo): void;
