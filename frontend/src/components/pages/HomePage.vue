@@ -113,7 +113,7 @@ const confirmPresence = () => {
 };
 </script>
 
-<style>
+<style scoped>
 .mh-0 {
   min-height: 0;
 }

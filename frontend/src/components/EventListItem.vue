@@ -70,7 +70,7 @@ const headerImageSrc = computed(
 );
 </script>
 
-<style>
+<style scoped>
 .event-title {
   line-height: 20px !important;
 }

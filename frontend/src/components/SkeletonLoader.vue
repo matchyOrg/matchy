@@ -27,7 +27,7 @@ const style = reactive({
 });
 </script>
 
-<style>
+<style scoped>
 .skeleton-loader {
   width: 200px;
   height: 16px;
