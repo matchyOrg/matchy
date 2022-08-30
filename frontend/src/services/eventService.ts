@@ -7,15 +7,15 @@ import {
 } from "./utils/datetime";
 import { nanoid } from "nanoid";
 
+export interface Group {
+  id?: number;
+  title: string;
+  description: string;
+}
+
 export interface GroupPair {
-  groupA: {
-    title: string;
-    description: string;
-  };
-  groupB: {
-    title: string;
-    description: string;
-  };
+  groupA: Group;
+  groupB: Group;
 }
 
 export interface EventInfo {
@@ -39,6 +39,16 @@ export interface EditEventInfo
   event_groups: GroupPair;
 }
 
+export interface EventRegistration {
+  id: number;
+  user_id: string;
+  event_id: number;
+  group_id?: number;
+  present: boolean;
+}
+
+export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
+
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function fetchEvents(): Promise<EventInfo[]> {
     const anHourAgo = dateXHoursAgo(1);
@@ -46,7 +56,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -79,7 +89,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "*, event_group_pair:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description)), event_registrations!inner(*)"
+        "*, event_group_pair:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description)), event_registrations!inner(*)"
       )
       // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -107,7 +117,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data, error } = await supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
       )
       .eq("id", eventId)
       .maybeSingle();
@@ -194,10 +204,40 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // DELETE
   // ...
 
+  async function registerForEvent(
+    eventId: number,
+    groupId?: number
+  ): Promise<void> {
+    if (!authStore.user?.id) throw new Error("User not logged in");
+
+    const { error } = await supabase.from("event_registrations").insert({
+      user_id: authStore.user.id,
+      event_id: eventId,
+      group_id: groupId,
+    });
+
+    if (error) throw error;
+  }
+
+  async function isRegisteredForEvent(eventId: number): Promise<boolean> {
+    if (!authStore.user?.id) return false;
+
+    const { error, count } = await supabase
+      .from("event_registrations")
+      .select("id", { count: "exact", head: true })
+      .eq("event_id", eventId)
+      .eq("user_id", authStore.user?.id);
+
+    if (error) throw error;
+    return count != 0;
+  }
+
   return {
     createEvent,
     fetchEvents,
     fetchEventById,
     fetchUserEvents,
+    isRegisteredForEvent,
+    registerForEvent,
   };
 }

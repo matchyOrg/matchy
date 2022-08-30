@@ -80,7 +80,13 @@
       "title": "Edit Event"
     },
     "events": {
+      "already-registered": "You are registered",
       "groups-text": "There are 2 types of participants in this event",
+      "login-register": "Log in or register to participate",
+      "register-button-text": "I'll be there",
+      "register-modal-text": "Please select the group you would like to participate in in the event.",
+      "register-modal-title": "Select your group",
+      "register-without-group-success": "You were registered for the event",
       "share-button-text": "Share this event",
       "share-hint-organizer": "Invite participants by sharing this link with them",
       "share-hint-participant": "Share this invite link with friends!"
@@ -88,7 +94,9 @@
     "home": {
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
-      "future-events-header": "Your planned events"
+      "future-events-header": "Your planned events",
+      "no-event-cta": "Check out events",
+      "no-events": "You aren't registered for any events"
     },
     "login": {
       "check-mail": "Check your email for the login link!",

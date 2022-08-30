@@ -80,7 +80,13 @@
       "title": "Event bearbeiten"
     },
     "events": {
+      "already-registered": "Du nimmst teil",
       "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
+      "login-register": "Log dich ein oder registriere dich",
+      "register-button-text": "Ich bin dabei",
+      "register-modal-text": "Bitte wähle die Gruppe in der du am Event teilnehmen willst.",
+      "register-modal-title": "Wähle eine Gruppe",
+      "register-without-group-success": "Du hast dich für das Event registriert",
       "share-button-text": "Teile dieses Event",
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
@@ -88,7 +94,9 @@
     "home": {
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
-      "future-events-header": "Deine geplanten Events"
+      "future-events-header": "Deine geplanten Events",
+      "no-event-cta": "Zu den Events",
+      "no-events": "Du bist bei keinem Event registriert"
     },
     "login": {
       "check-mail": "Wir haben dir eine Email geschickt!",

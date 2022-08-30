@@ -229,7 +229,7 @@ const displayedTime = computed(() => {
 // const dateTime = ref("");
 </script>
 
-<style>
+<style scoped>
 .header-container {
   position: relative;
 }

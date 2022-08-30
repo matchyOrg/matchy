@@ -56,5 +56,5 @@ end;
 $$
 
 
-create trigger one_pair_per_round before insert on event_group_pairs for each row
+create trigger one_pair_per_round before insert on event_user_pairs for each row
 execute procedure check_user_does_not_have_pairing_in_round();
