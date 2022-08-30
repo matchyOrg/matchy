@@ -20,12 +20,11 @@ const eventService = useEventService(useAuthStore());
 const submit = async () => {
   try {
     await eventService.createEvent(matchyEvent);
+    successToast(t("pages.event-create.success"));
   } catch (_e) {
     console.log(_e);
     errorToast(t("pages.event-create.error"));
-    return;
   }
-  successToast(t("pages.event-create.success"));
 };
 
 const matchyEvent = reactive({
