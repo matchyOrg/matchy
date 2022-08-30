@@ -21,7 +21,9 @@ const submit = async () => {
   try {
     await eventService.createEvent(matchyEvent);
   } catch (_e) {
+    console.log(_e);
     errorToast(t("pages.event-create.error"));
+    return;
   }
   successToast(t("pages.event-create.success"));
 };
