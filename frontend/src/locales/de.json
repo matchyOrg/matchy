@@ -95,8 +95,8 @@
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
       "future-events-header": "Deine geplanten Events",
-      "no-event-cta": "",
-      "no-events": ""
+      "no-event-cta": "Zu den Events",
+      "no-events": "Du bist bei keinem Event registriert"
     },
     "login": {
       "check-mail": "Wir haben dir eine Email geschickt!",
