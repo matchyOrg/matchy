@@ -56,7 +56,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
@@ -89,7 +89,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data: events, error } = await supabase
       .from("events")
       .select(
-        "*, event_group_pair:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description)), event_registrations!inner(*)"
+        "*, event_group_pair:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description)), event_registrations!inner(*)"
       )
       // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -117,7 +117,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     const { data, error } = await supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(title, description), groupB:group_b(title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
       )
       .eq("id", eventId)
       .maybeSingle();
