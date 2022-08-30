@@ -2,7 +2,11 @@
   <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
     <v-container>
-      <EditEvent v-if="matchyEvent" v-model="matchyEvent" />
+      <EditEvent
+        v-if="matchyEvent"
+        v-model="matchyEvent"
+        :exclude-fields="['event_groups']"
+      />
     </v-container>
   </v-main>
 </template>
