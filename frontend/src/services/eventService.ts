@@ -8,7 +8,7 @@ import {
 import { nanoid } from "nanoid";
 
 export interface Group {
-  id: number;
+  id?: number;
   title: string;
   description: string;
 }
