@@ -187,9 +187,23 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       });
       creationError = error;
     } else {
+      const {
+        title,
+        description,
+        header_image,
+        datetime,
+        location,
+        max_participants
+      } = eventData;
       const { error } = await supabase.from("events").insert({
-        ...eventData,
-        datetime: eventData.datetime.toString(),
+
+        title,
+        description,
+        header_image,
+        location,
+        max_participants,
+        organizer: authStore.user.id,
+        datetime: datetime.toInstant().toString(),
         event_group_pair: undefined,
       });
       creationError = error;
