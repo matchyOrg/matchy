@@ -92,11 +92,15 @@
       "share-hint-participant": "Share this invite link with friends!"
     },
     "home": {
+      "active-event": "Your active event",
+      "active-event-action": "To Dashboard",
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
       "future-events-header": "Your planned events",
       "no-event-cta": "Check out events",
-      "no-events": "You aren't registered for any events"
+      "no-events": "You aren't registered for any events",
+      "no-org-events": "You aren't organizing any events",
+      "no-org-events-cta": "Create an Event"
     },
     "login": {
       "check-mail": "Check your email for the login link!",

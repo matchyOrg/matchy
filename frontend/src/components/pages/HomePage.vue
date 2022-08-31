@@ -52,16 +52,61 @@
           }}</v-btn>
         </div>
       </div>
-
-      <!--TODO: Forward to current event, if running -->
-      <router-link :to="''" v-else
-        >Click here to go to your current event</router-link
-      >
     </div>
-
-    <!-- Organizer view -->
-    <div v-if="PageMode === 'organizer'">
-      <p>Create events by ...</p>
+    <div v-else-if="PageMode === 'organizer'">
+      <div>
+        <div
+          v-if="currentEvents.length > 0"
+          class="text-h6 font-weight-bold mb-4"
+        >
+          {{ t("pages.home.active-event") }}
+        </div>
+        <event-list-item
+          class="mb-4"
+          v-for="(e, i) in currentEvents"
+          :key="i"
+          :matchy-event="e"
+          show-image
+          :to="'/events/' + e.id"
+          :pulse="e.id == +currentEventStore.getCurrentId()"
+          @share="share(e)"
+        >
+          <v-card-actions class="d-flex justify-center mh-0">
+            <v-btn
+              color="primary"
+              size="small"
+              @click.prevent="activateEvent(e.id)"
+              >{{ t("pages.home.active-event-action") }}</v-btn
+            >
+          </v-card-actions>
+        </event-list-item>
+        <v-spacer />
+        <div class="text-h6 font-weight-bold mb-4">
+          {{ t("pages.home.future-events-header") }}
+        </div>
+        <template v-if="futureEvents.length > 0">
+          <event-list-item
+            class="mb-4"
+            v-for="(e, i) in futureEvents"
+            :key="i"
+            :matchy-event="e"
+            show-info
+            :to="'/events/' + e.id"
+            @share="share(e)"
+          />
+        </template>
+        <div v-else class="text-center text-grey">
+          {{ t("pages.home.no-org-events") }}
+          <v-btn
+            color="primary"
+            variant="text"
+            class="mx-auto"
+            to="/create-event"
+          >
+            {{ t("pages.home.no-org-events-cta") }}
+          </v-btn>
+        </div>
+      </div>
     </div>
   </v-main>
 </template>
@@ -74,6 +119,8 @@ import { useEventService, type EventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 import { shareEvent } from "@/services/utils/share";
 import { useI18n } from "vue-i18n";
+import router from "@/router";
+import { isValidCurrentEvent } from "@/stores/utils/currentEventUtil";
 
 const { t } = useI18n();
 const authStore = useAuthStore();
@@ -86,11 +133,24 @@ const eventService = useEventService(authStore);
 const currentEvents = ref<EventInfo[]>([]);
 const futureEvents = ref<EventInfo[]>([]);
 
-onMounted(async () => {
-  const events = await eventService.fetchUserEvents();
+let participantEvents: EventInfo[];
+let organizerEvents: EventInfo[];
 
+const fetchEvents = async () => {
+  let allEvents;
+  if (PageMode.value === "participant") {
+    // prevent refetching
+    participantEvents =
+      participantEvents ?? (await eventService.fetchUserEvents());
+    allEvents = participantEvents;
+  } else {
+    // prevent refetching
+    organizerEvents =
+      organizerEvents ?? (await eventService.fetchOrganizerEvents());
+    allEvents = organizerEvents;
+  }
   // events that have started at most 30 minutes ago or will start in 30 minutes at the earlist
-  currentEvents.value = events.filter((e) => {
+  currentEvents.value = allEvents.filter((e) => {
     const diff = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).since(
       e.datetime
     );
@@ -100,16 +160,27 @@ onMounted(async () => {
   // all other events
   // this is inefficient, but people probably won't be registered for many events anyways
   // and very unlikely to more than 1 at the same time
-  futureEvents.value = events.filter((e) =>
+  futureEvents.value = allEvents.filter((e) =>
     currentEvents.value.every((ce) => ce.id !== e.id)
   );
-});
+};
+
+watch(() => PageMode.value, fetchEvents, { immediate: true });
 
 const share = async (e: EventInfo) =>
   await shareEvent(e, PageMode.value, authStore);
 
 const confirmPresence = () => {
   console.log("Don't care, didn't ask");
+};
+
+const activateEvent = async (id: number) => {
+  if (await isValidCurrentEvent(id, PageMode.value, authStore)) {
+    currentEventStore.setCurrentId(id);
+    router.push("/events/" + id + "/dashboard");
+  } else {
+    errorToast("This event isn't ready yet...");
+  }
 };
 </script>
 
