@@ -21,3 +21,5 @@ add constraint title_max_length check (length(title) < 50);
 
 alter table event_groups
 add constraint description_max_length check (length(title) < 250);
+
+alter table events add constraint cannot_end_unstarted_event check(is_started = true or is_ended = false);
