@@ -101,13 +101,40 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .order("datetime", { ascending: true });
 
     if (error) {
-      errorToast(error);
       throw error;
     }
 
     if (events === null) throw new Error("Could not load user's events");
 
     return events?.map((e) => ({
+      ...e,
+      datetime: timestamptzToTemporalZonedDateTime(e.datetime),
+    }));
+  }
+
+  async function fetchOrganizerEvents(): Promise<EventInfo[]> {
+    if (!authStore.user)
+      throw new Error("User must be logged to fetch their events");
+    const anHourAgo = dateXHoursAgo(1);
+
+    const { data: events, error } = await supabase
+      .from("events")
+      .select(
+        "*, event_group_pair:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
+      )
+      .eq("organizer", authStore.user.id)
+      .not("is_cancelled", "eq", true)
+      .not("is_ended", "eq", true)
+      .gt("datetime", anHourAgo.toInstant().toString())
+      .order("datetime", { ascending: true });
+
+    if (error) {
+      throw error;
+    }
+
+    if (events === null) throw new Error("Could not load user's events");
+
+    return events.map((e) => ({
       ...e,
       datetime: timestamptzToTemporalZonedDateTime(e.datetime),
     }));
@@ -193,10 +220,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         header_image,
         datetime,
         location,
-        max_participants
+        max_participants,
       } = eventData;
       const { error } = await supabase.from("events").insert({
-
         title,
         description,
         header_image,
@@ -253,5 +279,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     fetchUserEvents,
     isRegisteredForEvent,
     registerForEvent,
+    fetchOrganizerEvents,
   };
 }
