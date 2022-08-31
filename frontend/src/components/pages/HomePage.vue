@@ -5,107 +5,103 @@
 
     <!-- Participant view -->
     <div v-if="PageMode === 'participant'">
-      <div v-if="!currentEventStore.hasEvent">
-        <div
-          v-if="currentEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
-        >
-          {{ t("pages.home.confirm-presence-header") }}
-        </div>
+      <div
+        v-if="currentEvents.length > 0"
+        class="text-h6 font-weight-bold mb-4"
+      >
+        {{ t("pages.home.confirm-presence-header") }}
+      </div>
+      <event-list-item
+        class="mb-4"
+        v-for="(e, i) in currentEvents"
+        :key="i"
+        :matchy-event="e"
+        show-image
+        :to="'/events/' + e.id"
+        @share="share(e)"
+      >
+        <v-card-actions class="d-flex justify-center mh-0">
+          <v-btn
+            color="primary"
+            size="small"
+            @click.prevent="confirmPresence"
+            >{{ t("pages.home.confirm-presence-action") }}</v-btn
+          >
+        </v-card-actions>
+      </event-list-item>
+      <v-spacer />
+      <div class="text-h6 font-weight-bold mb-4">
+        {{ t("pages.home.future-events-header") }}
+      </div>
+      <template v-if="futureEvents.length > 0">
         <event-list-item
           class="mb-4"
-          v-for="(e, i) in currentEvents"
+          v-for="(e, i) in futureEvents"
           :key="i"
           :matchy-event="e"
-          show-image
+          show-info
           :to="'/events/' + e.id"
           @share="share(e)"
-        >
-          <v-card-actions class="d-flex justify-center mh-0">
-            <v-btn
-              color="primary"
-              size="small"
-              @click.prevent="confirmPresence"
-              >{{ t("pages.home.confirm-presence-action") }}</v-btn
-            >
-          </v-card-actions>
-        </event-list-item>
-        <v-spacer />
-        <div class="text-h6 font-weight-bold mb-4">
-          {{ t("pages.home.future-events-header") }}
-        </div>
-        <template v-if="futureEvents.length > 0">
-          <event-list-item
-            class="mb-4"
-            v-for="(e, i) in futureEvents"
-            :key="i"
-            :matchy-event="e"
-            show-info
-            :to="'/events/' + e.id"
-            @share="share(e)"
-          />
-        </template>
-        <div v-else class="text-center text-grey">
-          {{ t("pages.home.no-events") }}
-          <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
-            t("pages.home.no-event-cta")
-          }}</v-btn>
-        </div>
+        />
+      </template>
+      <div v-else class="text-center text-grey">
+        {{ t("pages.home.no-events") }}
+        <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
+          t("pages.home.no-event-cta")
+        }}</v-btn>
       </div>
     </div>
     <div v-else-if="PageMode === 'organizer'">
-      <div>
-        <div
-          v-if="currentEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
-        >
-          {{ t("pages.home.active-event") }}
-        </div>
-        <event-list-item
-          class="mb-4"
-          v-for="(e, i) in currentEvents"
-          :key="i"
-          :matchy-event="e"
-          show-image
-          :to="'/events/' + e.id"
-          :pulse="e.id == +currentEventStore.getCurrentId()"
-          @share="share(e)"
-        >
-          <v-card-actions class="d-flex justify-center mh-0">
-            <v-btn
-              color="primary"
-              size="small"
-              @click.prevent="activateEvent(e.id)"
-              >{{ t("pages.home.active-event-action") }}</v-btn
-            >
-          </v-card-actions>
-        </event-list-item>
-        <v-spacer />
-        <div class="text-h6 font-weight-bold mb-4">
-          {{ t("pages.home.future-events-header") }}
-        </div>
-        <template v-if="futureEvents.length > 0">
-          <event-list-item
-            class="mb-4"
-            v-for="(e, i) in futureEvents"
-            :key="i"
-            :matchy-event="e"
-            show-info
-            :to="'/events/' + e.id"
-            @share="share(e)"
-          />
-        </template>
-        <div v-else class="text-center text-grey">
-          {{ t("pages.home.no-org-events") }}
+      <div
+        v-if="currentEvents.length > 0"
+        class="text-h6 font-weight-bold mb-4"
+      >
+        {{ t("pages.home.active-event") }}
+      </div>
+      <event-list-item
+        class="mb-4"
+        v-for="(e, i) in currentEvents"
+        :key="i"
+        :matchy-event="e"
+        show-image
+        :to="'/events/' + e.id"
+        :pulse="e.id == +currentEventStore.getCurrentId()"
+        @share="share(e)"
+      >
+        <v-card-actions class="d-flex justify-center mh-0">
           <v-btn
             color="primary"
-            variant="text"
-            class="mx-auto"
-            to="/create-event"
+            size="small"
+            @click.prevent="activateEvent(e.id)"
+            >{{ t("pages.home.active-event-action") }}</v-btn
           >
-            {{ t("pages.home.no-org-events-cta") }}
-          </v-btn>
-        </div>
+        </v-card-actions>
+      </event-list-item>
+      <v-spacer />
+      <div class="text-h6 font-weight-bold mb-4">
+        {{ t("pages.home.future-events-header") }}
+      </div>
+      <template v-if="futureEvents.length > 0">
+        <event-list-item
+          class="mb-4"
+          v-for="(e, i) in futureEvents"
+          :key="i"
+          :matchy-event="e"
+          show-info
+          :to="'/events/' + e.id"
+          @share="share(e)"
+        />
+      </template>
+      <div v-else class="text-center text-grey">
+        {{ t("pages.home.no-org-events") }}
+        <v-btn
+          color="primary"
+          variant="text"
+          class="mx-auto"
+          to="/create-event"
+        >
+          {{ t("pages.home.no-org-events-cta") }}
+        </v-btn>
       </div>
     </div>
   </v-main>
