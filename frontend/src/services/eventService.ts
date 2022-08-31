@@ -207,7 +207,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       const { error } = await supabase.rpc("create_event_with_groups", {
         title: eventData.title,
         description: eventData.description,
-        header_image: eventData.header_image,
+        header_image: eventData.header_image ?? null,
         datetime: eventData.datetime.toInstant().toString(),
         location: eventData.location,
         max_participants: eventData.max_participants,
