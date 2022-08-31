@@ -2,10 +2,18 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
-  const eventId = useStorage("current-event-id", "");
-  const hasEvent = computed(() => eventId.value !== "");
+  const currentEventId = useStorage("current-event-id", "");
+  const hasEvent = computed(() => currentEventId.value !== "");
 
-  return { hasEvent };
+  function getCurrentId() {
+    return currentEventId;
+  }
+
+  function setCurrentId(id: number) {
+    currentEventId.value = id.toString();
+  }
+
+  return { hasEvent, getCurrentId, setCurrentId };
 });
 
 if (import.meta.hot) {
