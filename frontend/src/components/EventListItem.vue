@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="to" elevation="4">
+  <v-card :class="{ pulse }" :to="to" elevation="4">
     <v-card-title
       class="event-title d-flex justify-space-between align-center py-0 pr-4 text-body-1 font-weight-bold"
     >
@@ -54,8 +54,9 @@ const props = withDefaults(
     showImage?: boolean;
     showInfo?: boolean;
     to?: string;
+    pulse?: boolean;
   }>(),
-  { showImage: false, showInfo: false }
+  { showImage: false, showInfo: false, pulse: false }
 );
 
 const emits = defineEmits<{
@@ -73,5 +74,46 @@ const headerImageSrc = computed(
 <style scoped>
 .event-title {
   line-height: 20px !important;
+}
+
+.pulse {
+  position: relative;
+}
+.pulse:after,
+.pulse:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 25px;
+  width: 25px;
+  transform-origin: 0% 0%;
+  transform: scale(0) translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #2196f3;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0) translate(-50%, -50%);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(20) translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: scale(20) translate(-50%, -50%);
+  }
+}
+
+.pulse::before {
+  animation: 4s ease-out infinite pulse;
+}
+
+.pulse::after {
+  animation: 4s ease-out 1s infinite pulse;
 }
 </style>
