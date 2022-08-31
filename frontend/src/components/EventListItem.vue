@@ -96,7 +96,7 @@ const headerImageSrc = computed(
 
 @keyframes pulse {
   0% {
-    opacity: 0.5;
+    opacity: 0.2;
     transform: scale(0) translate(-50%, -50%);
   }
   50% {
