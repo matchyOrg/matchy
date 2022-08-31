@@ -6,7 +6,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
   const hasEvent = computed(() => currentEventId.value !== "");
 
   function getCurrentId() {
-    return currentEventId;
+    return currentEventId.value;
   }
 
   function setCurrentId(id: number) {
