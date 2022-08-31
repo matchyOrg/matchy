@@ -30,10 +30,14 @@ export interface EventInfo {
   event_groups?: GroupPair;
   is_ended: boolean;
   is_cancelled: boolean;
+  is_started: boolean;
 }
 
 export interface EditEventInfo
-  extends Omit<EventInfo, "id" | "organizer" | "is_ended" | "is_cancelled"> {
+  extends Omit<
+    EventInfo,
+    "id" | "organizer" | "is_ended" | "is_cancelled" | "is_started"
+  > {
   headerImageFile?: File;
   uses_groups: boolean;
   event_groups: GroupPair;
