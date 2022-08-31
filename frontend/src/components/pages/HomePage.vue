@@ -72,7 +72,7 @@
           <v-btn
             color="primary"
             size="small"
-            @click.prevent="activateEvent(e.id)"
+            :to="'/events/' + e.id + '/dashboard'"
             >{{ t("pages.home.active-event-action") }}</v-btn
           >
         </v-card-actions>
@@ -168,15 +168,6 @@ const share = async (e: EventInfo) =>
 
 const confirmPresence = () => {
   console.log("Don't care, didn't ask");
-};
-
-const activateEvent = async (id: number) => {
-  if (await isValidCurrentEvent(id, PageMode.value, authStore)) {
-    currentEventStore.setCurrentId(id);
-    router.push("/events/" + id + "/dashboard");
-  } else {
-    errorToast("This event isn't ready yet...");
-  }
 };
 </script>
 

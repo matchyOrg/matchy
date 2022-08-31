@@ -1,5 +1,5 @@
 <template>
-  <v-card :class="{ pulse }" :to="to" elevation="4">
+  <v-card :to="to" :class="{ pulse }" elevation="4">
     <v-card-title
       class="event-title d-flex justify-space-between align-center py-0 pr-4 text-body-1 font-weight-bold"
     >
