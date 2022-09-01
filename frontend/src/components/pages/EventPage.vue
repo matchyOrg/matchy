@@ -126,7 +126,7 @@
                 <v-btn
                   color="primary"
                   variant="text"
-                  @click="registerForEvent(matchyEvent?.event_groups?.groupB)"
+                  @click="registerForEvent(matchyEvent?.event_groups?.groupA)"
                 >
                   {{ matchyEvent?.event_groups?.groupA.title }}
                 </v-btn>
