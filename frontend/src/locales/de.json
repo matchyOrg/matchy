@@ -134,7 +134,8 @@
   "shared": {
     "events": {
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
-      "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren"
+      "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
+      "no-description": ""
     }
   },
   "sidebar": {

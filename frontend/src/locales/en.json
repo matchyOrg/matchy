@@ -134,7 +134,8 @@
   "shared": {
     "events": {
       "event-load-error": "The event could not be loaded... Going back to previous page.",
-      "invalid-id": "Uh oh, looks like this event does not exist"
+      "invalid-id": "Uh oh, looks like this event does not exist",
+      "no-description": "No description."
     }
   },
   "sidebar": {

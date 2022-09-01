@@ -69,14 +69,24 @@
         <span class="d-block font-weight-bold">{{
           matchyEvent.event_groups.groupA.title
         }}</span>
-        <span class="d-block pl-4 mb-4">{{
-          matchyEvent.event_groups.groupA.description
+        <span
+          class="d-block pl-4 mb-4"
+          v-if="matchyEvent.event_groups.groupA.description"
+          >{{ matchyEvent.event_groups.groupA.description }}</span
+        >
+        <span class="d-block pl-4 mb-4 text-grey" v-else>{{
+          t("shared.events.no-description")
         }}</span>
         <span class="d-block font-weight-bold">{{
           matchyEvent.event_groups.groupB.title
         }}</span>
-        <span class="d-block pl-4 mb-4">{{
-          matchyEvent.event_groups.groupB.description
+        <span
+          class="d-block pl-4 mb-4"
+          v-if="matchyEvent.event_groups.groupB.description"
+          >{{ matchyEvent.event_groups.groupB.description }}</span
+        >
+        <span class="d-block pl-4 mb-4 text-grey" v-else>{{
+          t("shared.events.no-description")
         }}</span>
       </div>
       <v-btn
@@ -219,6 +229,7 @@ watch(
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
     } catch (e) {
+      console.log(e);
       errorToast(t("shared.events.event-load-error"));
       router.back();
     }
