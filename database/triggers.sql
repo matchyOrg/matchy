@@ -74,3 +74,31 @@ $$
 create trigger prevent_group_pair_modification 
 before update on events 
 for each row execute function private.cannot_change_events_group();
+
+
+-- check that the max number of event_registrations is not reached
+-- for total registration on events that do not use groups, per group otherwise
+-- triggers acquire locks so there shouldn't be issues with concurrency
+create or replace function private.limit_event_registrations()
+returns trigger
+language plpgsql security definer set search_path = 'public' as
+$$
+  declare
+    registration_count integer;
+    max_users integer;
+    uses_groups boolean;
+  begin
+    uses_groups := (select event_group_pair from events where events.id = new.event_id) is not null;
+    if (uses_groups) then
+      registration_count := (select count(*) from event_registrations where event_registrations.event_id = new.event_id and event_registrations.group_id = new.group_id);
+      max_users := (select max_participants / 2 from events where events.id = new.event_id);
+    else
+      registration_count := (select count(*) from event_registrations where new.event_id = event_registrations.event_id);
+      max_users := (select max_participants from events where events.id = new.event_id);
+    end if;
+    if (max_users = registration_count) then
+        raise exception 'cannot register for this events, because the maximum number of participants for the event or the group has been reached';
+      end if;
+    return new;
+  end;
+$$
