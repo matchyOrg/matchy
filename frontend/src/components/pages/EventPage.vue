@@ -88,11 +88,13 @@
         {{ t("pages.events.share-button-text") }}
       </v-btn>
       <span class="d-block text-center text-grey text-caption">{{
-        PageMode === "organizer"
+        PageMode === "organizer" &&
+        authStore.user &&
+        authStore.user.id === matchyEvent?.organizer
           ? t("pages.events.share-hint-organizer")
           : t("pages.events.share-hint-participant")
       }}</span>
-      <div class="d-flex justify-center mt-8" v-if="PageMode === 'participant'">
+      <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
