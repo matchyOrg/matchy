@@ -31,35 +31,11 @@
         </span>
       </v-card>
 
-      <div class="mb-3 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-marker</v-icon
-        >
-        <span v-if="!loadingEvent">{{ matchyEvent?.location }}</span>
-        <skeleton-loader v-else width="200" />
-      </div>
-      <div class="mb-4 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-calendar</v-icon
-        >
-        <span v-if="!loadingEvent">
-          {{ matchyEvent?.datetime.day }}/{{
-            String(matchyEvent?.datetime.month).padStart(2, "0")
-          }}/{{ matchyEvent?.datetime.year }}
-        </span>
-        <skeleton-loader v-else width="200" />
-      </div>
-      <div class="mb-4 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-clock</v-icon
-        >
-        <span v-if="!loadingEvent"
-          >{{ String(matchyEvent?.datetime.hour).padStart(2, "0") }}:{{
-            String(matchyEvent?.datetime.minute).padStart(2, "0")
-          }}</span
-        >
-        <skeleton-loader v-else width="200" />
-      </div>
+      <event-info
+        :loading="loadingEvent"
+        :location="matchyEvent?.location"
+        :datetime="matchyEvent?.datetime"
+      />
       <p v-if="!loadingEvent" class="mt-8">{{ matchyEvent?.description }}</p>
 
       <skeleton-loader v-else width="100%" :num-rows="2" />

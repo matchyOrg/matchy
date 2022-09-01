@@ -14,32 +14,11 @@
       cover
     />
     <div class="info my-2 mx-4" v-if="showInfo">
-      <div class="mb-3 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-marker</v-icon
-        >
-        <span>{{ matchyEvent?.location }}</span>
-      </div>
-      <div class="mb-4 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-calendar</v-icon
-        >
-        <span>
-          {{ matchyEvent?.datetime.day }}/{{
-            String(matchyEvent?.datetime.month).padStart(2, "0")
-          }}/{{ matchyEvent?.datetime.year }}
-        </span>
-      </div>
-      <div class="mb-4 d-flex align-center">
-        <v-icon class="mr-4" size="small" color="grey-darken-2"
-          >mdi-clock</v-icon
-        >
-        <span
-          >{{ String(matchyEvent?.datetime.hour).padStart(2, "0") }}:{{
-            String(matchyEvent?.datetime.minute).padStart(2, "0")
-          }}</span
-        >
-      </div>
+      <event-info
+        :loading="false"
+        :location="matchyEvent.location"
+        :datetime="matchyEvent.datetime"
+      />
     </div>
     <slot />
   </v-card>
