@@ -20,6 +20,7 @@ export interface paths {
           organizer?: parameters["rowFilter.events.organizer"];
           title?: parameters["rowFilter.events.title"];
           description?: parameters["rowFilter.events.description"];
+          /** The path to the header image */
           header_image?: parameters["rowFilter.events.header_image"];
           location?: parameters["rowFilter.events.location"];
           max_participants?: parameters["rowFilter.events.max_participants"];
@@ -28,6 +29,7 @@ export interface paths {
           delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
+          is_started?: parameters["rowFilter.events.is_started"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -82,6 +84,7 @@ export interface paths {
           organizer?: parameters["rowFilter.events.organizer"];
           title?: parameters["rowFilter.events.title"];
           description?: parameters["rowFilter.events.description"];
+          /** The path to the header image */
           header_image?: parameters["rowFilter.events.header_image"];
           location?: parameters["rowFilter.events.location"];
           max_participants?: parameters["rowFilter.events.max_participants"];
@@ -90,6 +93,7 @@ export interface paths {
           delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
+          is_started?: parameters["rowFilter.events.is_started"];
         };
         header: {
           /** Preference */
@@ -108,6 +112,7 @@ export interface paths {
           organizer?: parameters["rowFilter.events.organizer"];
           title?: parameters["rowFilter.events.title"];
           description?: parameters["rowFilter.events.description"];
+          /** The path to the header image */
           header_image?: parameters["rowFilter.events.header_image"];
           location?: parameters["rowFilter.events.location"];
           max_participants?: parameters["rowFilter.events.max_participants"];
@@ -116,6 +121,7 @@ export interface paths {
           delay_for_sending_matches?: parameters["rowFilter.events.delay_for_sending_matches"];
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
+          is_started?: parameters["rowFilter.events.is_started"];
         };
         body: {
           /** events */
@@ -1019,29 +1025,44 @@ export interface paths {
       parameters: {
         body: {
           args: {
-            /** Format: uuid */
-            organizer: string;
             /** Format: text */
             groupBTitle: string;
             /** Format: integer */
             max_participants: number;
             /** Format: text */
             groupADescription: string;
-            /** Format: uuid */
+            /** Format: text */
             header_image: string;
             /** Format: text */
             groupBDescription: string;
             /** Format: text */
             description: string;
             /** Format: text */
+            location: string;
+            /** Format: text */
             title: string;
             /** Format: timestamp with time zone */
             datetime: string;
             /** Format: text */
             groupATitle: string;
-            /** Format: text */
-            event_location: string;
           };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
+  "/rpc/delete_user": {
+    post: {
+      parameters: {
+        body: {
+          args: { [key: string]: unknown };
         };
         header: {
           /** Preference */
@@ -1089,13 +1110,20 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     organizer: string;
     /** Format: text */
     title: string;
     /** Format: text */
     description: string;
-    /** Format: uuid */
+    /**
+     * Format: text
+     * @description The path to the header image
+     */
     header_image?: string;
     /** Format: character varying */
     location: string;
@@ -1121,6 +1149,11 @@ export interface definitions {
      * @default false
      */
     is_ended: boolean;
+    /**
+     * Format: boolean
+     * @default false
+     */
+    is_started: boolean;
   };
   /** @description Attribute of event: 2 groups */
   event_group_pairs: {
@@ -1157,7 +1190,11 @@ export interface definitions {
      * This is a Foreign Key to `events.id`.<fk table='events' column='id'/>
      */
     event_id: number;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     user_id: string;
     /**
      * Format: bigint
@@ -1194,7 +1231,11 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     user_id: string;
     /**
      * Format: bigint
@@ -1352,7 +1393,10 @@ export interface parameters {
   "rowFilter.events.title": string;
   /** Format: text */
   "rowFilter.events.description": string;
-  /** Format: uuid */
+  /**
+   * Format: text
+   * @description The path to the header image
+   */
   "rowFilter.events.header_image": string;
   /** Format: character varying */
   "rowFilter.events.location": string;
@@ -1368,6 +1412,8 @@ export interface parameters {
   "rowFilter.events.datetime": string;
   /** Format: boolean */
   "rowFilter.events.is_ended": string;
+  /** Format: boolean */
+  "rowFilter.events.is_started": string;
   /** @description event_group_pairs */
   "body.event_group_pairs": definitions["event_group_pairs"];
   /** Format: bigint */

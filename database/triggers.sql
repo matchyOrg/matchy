@@ -43,7 +43,7 @@ create trigger on_registration_insert_inject_user_id
     execute procedure public.inject_user_id();
 
 
-create or replace function check_user_does_not_have_pairing_in_round()
+create or replace function private.check_user_does_not_have_pairing_in_round()
 returns trigger
 language plpgsql as
 $$
@@ -58,3 +58,19 @@ $$
 
 create trigger one_pair_per_round before insert on event_user_pairs for each row
 execute procedure check_user_does_not_have_pairing_in_round();
+
+create or replace function private.cannot_change_events_group()
+returns trigger
+language plpgsql as
+$$
+begin
+  if (new.event_group_pair <> old.event_group_pair) then
+    raise exception 'cannot modify event_group_pair of existing event';
+  end if;
+  return new;
+end;
+$$
+
+create trigger prevent_group_pair_modification 
+before update on events 
+for each row execute function private.cannot_change_events_group();

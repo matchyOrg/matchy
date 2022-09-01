@@ -92,11 +92,15 @@
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
     "home": {
+      "active-event": "",
+      "active-event-action": "",
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
       "future-events-header": "Deine geplanten Events",
       "no-event-cta": "Zu den Events",
-      "no-events": "Du bist bei keinem Event registriert"
+      "no-events": "Du bist bei keinem Event registriert",
+      "no-org-events": "",
+      "no-org-events-cta": ""
     },
     "login": {
       "check-mail": "Wir haben dir eine Email geschickt!",

@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']
     EventCreatePage: typeof import('./components/pages/EventCreatePage.vue')['default']
+    EventDashboard: typeof import('./components/pages/EventDashboard.vue')['default']
     EventEditPage: typeof import('./components/pages/EventEditPage.vue')['default']
     EventListItem: typeof import('./components/EventListItem.vue')['default']
     EventPage: typeof import('./components/pages/EventPage.vue')['default']
