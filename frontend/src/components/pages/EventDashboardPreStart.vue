@@ -3,7 +3,9 @@
     <template v-if="!matchyEvent">
       <div class="h-100 w-100 d-flex flex-column justify-center align-center">
         <v-progress-circular indeterminate />
-        <span class="text-grey">Loading the event...</span>
+        <span class="text-grey">{{
+          t("pages.dashboard.prepare.loading-text")
+        }}</span>
       </div>
     </template>
     <v-container v-else>
@@ -19,7 +21,9 @@
               v-if="groupACounts !== undefined"
               >{{ groupACounts.total }} / {{ totalRegisteredCount }}</span
             >
-            <span class="d-block mb-4 text-body-2 text-grey">Registered</span>
+            <span class="d-block mb-4 text-body-2 text-grey">{{
+              t("pages.dashboard.prepare.registered")
+            }}</span>
             <span
               class="d-block px-2 text-h5 font-weight-bold"
               v-if="groupACounts !== undefined"
@@ -28,7 +32,9 @@
             <span class="d-block pa-2" v-else>
               <v-progress-circular indeterminate />
             </span>
-            <span class="d-block text-body-2 text-grey">Present</span>
+            <span class="d-block text-body-2 text-grey">{{
+              t("pages.dashboard.prepare.present")
+            }}</span>
           </v-sheet>
         </v-col>
         <v-col cols="6" class="text-center">
@@ -41,7 +47,9 @@
               v-if="groupBCounts !== undefined"
               >{{ groupBCounts.total }} / {{ totalRegisteredCount }}</span
             >
-            <span class="d-block mb-4 text-body-2 text-grey">Registered</span>
+            <span class="d-block mb-4 text-body-2 text-grey">{{
+              t("pages.dashboard.prepare.registered")
+            }}</span>
             <span
               class="d-block text-h5 font-weight-bold"
               v-if="groupBCounts !== undefined"
@@ -50,7 +58,9 @@
             <span class="d-block pa-2" v-else>
               <v-progress-circular indeterminate />
             </span>
-            <span class="d-block text-body-2 text-grey">Present</span>
+            <span class="d-block text-body-2 text-grey">{{
+              t("pages.dashboard.prepare.present")
+            }}</span>
           </v-sheet>
         </v-col>
       </v-row>
@@ -64,7 +74,9 @@
           <span class="d-block pa-2" v-else>
             <v-progress-circular indeterminate />
           </span>
-          <span class="d-block px-2">Present</span>
+          <span class="d-block px-2">{{
+            t("pages.dashboard.prepare.present")
+          }}</span>
         </div>
         <div class="text-center">
           <span
@@ -75,22 +87,24 @@
           <span class="d-block pa-2" v-else>
             <v-progress-circular indeterminate />
           </span>
-          <span class="d-block px-2">Registered</span>
+          <span class="d-block px-2">{{
+            t("pages.dashboard.prepare.registered")
+          }}</span>
         </div>
       </v-sheet>
       <v-btn class="d-block mx-auto" @click="showStartModal = true">
-        Start Event
+        {{ t("pages.dashboard.prepare.start-event") }}
         <v-dialog v-model="showStartModal">
           <v-card>
             <v-card-text>
-              Are you sure you want to start the event?
+              {{ t("pages.dashboard.prepare.start-modal-text") }}
             </v-card-text>
             <v-card-actions>
               <v-btn color="red" variant="text" @click="showStartModal = false">
-                Cancel
+                {{ t("pages.dashboard.prepare.start-modal-cancel") }}
               </v-btn>
               <v-btn color="primary" variant="text" @click="startEvent">
-                Start
+                {{ t("pages.dashboard.prepare.start-modal-confirm") }}
               </v-btn>
             </v-card-actions>
           </v-card></v-dialog

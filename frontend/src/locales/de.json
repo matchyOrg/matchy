@@ -74,6 +74,15 @@
       "ongoing": {
         "round": "Runde",
         "start-round": "Runde starten"
+      },
+      "prepare": {
+        "loading-text": "Event wird geladen...",
+        "present": "Präsent",
+        "registered": "Registriert",
+        "start-event": "Event starten",
+        "start-modal-cancel": "Abbrechen",
+        "start-modal-confirm": "Start",
+        "start-modal-text": "Bist du sicher, dass du das Event starten willst?"
       }
     },
     "event-create": {
