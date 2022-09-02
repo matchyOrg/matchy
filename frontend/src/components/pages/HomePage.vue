@@ -72,7 +72,11 @@
           <v-btn
             color="primary"
             size="small"
-            :to="'/events/' + e.id + '/dashboard'"
+            :to="
+              e.id == +currentEventStore.getCurrentId()
+                ? '/events/' + e.id + '/dashboard/ongoing'
+                : '/events/' + e.id + '/dashboard/prepare'
+            "
             >{{ t("pages.home.active-event-action") }}</v-btn
           >
         </v-card-actions>

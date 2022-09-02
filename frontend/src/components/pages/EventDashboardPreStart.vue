@@ -78,6 +78,24 @@
           <span class="d-block px-2">Registered</span>
         </div>
       </v-sheet>
+      <v-btn class="d-block mx-auto" @click="showStartModal = true">
+        Start Event
+        <v-dialog v-model="showStartModal">
+          <v-card>
+            <v-card-text>
+              Are you sure you want to start the event?
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="red" variant="text" @click="showStartModal = false">
+                Cancel
+              </v-btn>
+              <v-btn color="primary" variant="text" @click="startEvent">
+                Start
+              </v-btn>
+            </v-card-actions>
+          </v-card></v-dialog
+        >
+      </v-btn>
     </v-container>
   </v-main>
 </template>
@@ -91,15 +109,17 @@ import {
 } from "@/services/eventService";
 import { supabase } from "@/services/supabase";
 import { useAuthStore } from "@/stores/auth";
-import { number } from "@intlify/core-base";
+import { useCurrentEventStore } from "@/stores/currentEvent";
 import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 const eventService = useEventService(authStore);
+const currentEvent = useCurrentEventStore();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 const matchyEvent = ref<EventInfo | null>(null);
+
 const totalRegisteredCount = ref<number>();
 const totalPresentCount = ref<number>();
 
@@ -129,6 +149,21 @@ const splitByGroup = async (
   groupBCounts.value = groupB;
 };
 
+const showStartModal = ref(false);
+const startEvent = async () => {
+  if (!matchyEvent.value) return;
+  const { error } = await supabase
+    .from("events")
+    .update({ is_started: true })
+    .match({ id: matchyEvent.value.id });
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+  currentEvent.setCurrentId(matchyEvent.value.id);
+  router.push("/events/" + matchyEvent.value.id + "/dashboard/ongoing");
+};
+
 onMounted(async () => {
   const idString = route.params.id;
   if (isNaN(+idString)) {
@@ -141,7 +176,7 @@ onMounted(async () => {
     errorToast("Only the organizer can access this page");
     router.push("/");
   }
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("event_registrations")
     .select("group_id, present")
     .eq("event_id", matchyEvent.value.id);

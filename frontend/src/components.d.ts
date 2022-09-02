@@ -8,9 +8,12 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
+    Countdown: typeof import('./components/Countdown.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']
     EventCreatePage: typeof import('./components/pages/EventCreatePage.vue')['default']
     EventDashboard: typeof import('./components/pages/EventDashboard.vue')['default']
+    EventDashboardOngoing: typeof import('./components/pages/EventDashboardOngoing.vue')['default']
+    EventDashboardPreStart: typeof import('./components/pages/EventDashboardPreStart.vue')['default']
     EventEditPage: typeof import('./components/pages/EventEditPage.vue')['default']
     EventInfo: typeof import('./components/EventInfo.vue')['default']
     EventListItem: typeof import('./components/EventListItem.vue')['default']
@@ -27,5 +30,6 @@ declare module '@vue/runtime-core' {
     SideBar: typeof import('./components/SideBar.vue')['default']
     SiteLogo: typeof import('./components/SiteLogo.vue')['default']
     SkeletonLoader: typeof import('./components/SkeletonLoader.vue')['default']
+    TimeDisplay: typeof import('./components/TimeDisplay.vue')['default']
   }
 }
