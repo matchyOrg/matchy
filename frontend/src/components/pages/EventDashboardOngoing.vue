@@ -2,7 +2,7 @@
   <v-main>
     <v-container>
       <div class="bg-grey mb-6" :style="{ height: '100px' }"></div>
-      <div class="text-h6 mb-2">Round 1</div>
+      <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
       <div class="d-flex justify-center mb-4">
         <time-display :model-value="time" :max="timeSaved" />
       </div>
@@ -18,13 +18,17 @@
         class="d-block mx-auto"
         @click="startRound"
         :disabled="roundOngoing"
-        >Start round</v-btn
+        >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
       >
     </v-container>
   </v-main>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+
 const second = 1000;
 const minute = 60 * second;
 const hour = 60 * minute;
