@@ -115,8 +115,6 @@ import { useEventService, type EventInfo } from "@/services/eventService";
 import { Temporal } from "@js-temporal/polyfill";
 import { shareEvent } from "@/services/utils/share";
 import { useI18n } from "vue-i18n";
-import router from "@/router";
-import { isValidCurrentEvent } from "@/stores/utils/currentEventUtil";
 
 const { t } = useI18n();
 const authStore = useAuthStore();

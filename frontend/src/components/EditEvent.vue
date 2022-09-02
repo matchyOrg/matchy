@@ -59,7 +59,7 @@
     <v-row v-if="!excludeFields.includes('datetime')">
       <v-col cols="6">
         <v-text-field
-          v-model="displayedDate"
+          :model-value="displayedDate"
           is-link
           readonly
           name="datePicker"
@@ -67,10 +67,15 @@
           :placeholder="t('components.edit-event.date-placeholder')"
           @click="showDatePicker = true"
         />
+        <v-dialog v-model="showDatePicker">
+          <v-card class="pa-8"
+            ><input type="date" v-model="currentDate"
+          /></v-card>
+        </v-dialog>
       </v-col>
       <v-col cols="6">
         <v-text-field
-          v-model="displayedTime"
+          :model-value="displayedTime"
           is-link
           readonly
           name="datePicker"
@@ -78,6 +83,11 @@
           :placeholder="t('components.edit-event.time-placeholder')"
           @click="showTimePicker = true"
         />
+        <v-dialog v-model="showTimePicker">
+          <v-card class="pa-8"
+            ><input type="time" v-model="currentTime"
+          /></v-card>
+        </v-dialog>
       </v-col>
     </v-row>
 
@@ -196,49 +206,60 @@ const removeImage = () => {
   }
 };
 
-const currentDate = computed<string[]>({
+const currentDate = computed<string>({
   get() {
     const currentDate = model.value.datetime;
-    return [
-      currentDate.year.toString(),
-      currentDate.month.toString(),
-      currentDate.day.toString(),
-    ];
+    return (
+      currentDate.year.toString() +
+      "-" +
+      zeroPad(currentDate.month) +
+      "-" +
+      zeroPad(currentDate.day)
+    );
   },
   set(newVal) {
     const oldDate = model.value.datetime;
+    const [year, month, day] = newVal.split("-");
     model.value.datetime = Temporal.ZonedDateTime.from({
-      ...oldDate,
-      year: Number.parseInt(newVal[0]),
-      month: Number.parseInt(newVal[1]),
-      day: Number.parseInt(newVal[2]),
+      timeZone: oldDate.timeZone,
+      hour: oldDate.hour,
+      minute: oldDate.minute,
+      year: Number.parseInt(year),
+      month: Number.parseInt(month),
+      day: Number.parseInt(day),
     });
   },
 });
 
-const currentTime = computed<string[]>({
+const currentTime = computed<string>({
   get() {
     const currentDate = model.value.datetime;
-    return [currentDate.hour.toString(), currentDate.minute.toString()];
+    return zeroPad(currentDate.hour) + ":" + zeroPad(currentDate.minute);
   },
   set(newVal) {
     const oldDate = model.value.datetime;
+    const [hour, minute] = newVal.split(":");
     model.value.datetime = Temporal.ZonedDateTime.from({
-      ...oldDate,
-      hour: Number.parseInt(newVal[0]),
-      minute: Number.parseInt(newVal[1]),
+      timeZone: oldDate.timeZone,
+      hour: Number.parseInt(hour),
+      minute: Number.parseInt(minute),
+      year: oldDate.year,
+      month: oldDate.month,
+      day: oldDate.day,
     });
   },
 });
+
+const zeroPad = (s: any) => String(s).padStart(2, "0");
 
 const displayedDate = computed(() => {
-  const vals = currentDate.value;
-  return `${vals[0]}-${vals[1]}-${vals[2]}`;
+  const [year, month, day] = currentDate.value.split("-");
+  return `${zeroPad(year)}-${zeroPad(month)}-${zeroPad(day)}`;
 });
 
 const displayedTime = computed(() => {
-  const vals = currentTime.value;
-  return `${vals[0]}:${vals[1]}`;
+  const [hour, minute] = currentTime.value.split(":");
+  return `${zeroPad(hour)}:${zeroPad(minute)}`;
 });
 
 // const dateTime = ref("");
