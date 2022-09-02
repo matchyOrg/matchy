@@ -70,6 +70,7 @@ const router = createRouter({
     {
       path: "/events/:id",
       component: EventPage,
+      name: "event-detail",
     },
 
     // TODO: Better supabase callback handling https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/router.ts#L51
