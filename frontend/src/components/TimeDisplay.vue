@@ -37,7 +37,7 @@ const props = withDefaults(
 
 const displayTime = computed(() => {
   const minutes = Math.floor(props.modelValue / (60 * 1000));
-  const seconds = Math.ceil((props.modelValue % (60 * 1000)) / 1000);
+  const seconds = Math.floor((props.modelValue % (60 * 1000)) / 1000);
   return (
     String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0")
   );
