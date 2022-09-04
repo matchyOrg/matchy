@@ -10,7 +10,7 @@ import MatchesPage from "@/components/pages/MatchesPage.vue";
 import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 import EventPage from "@/components/pages/EventPage.vue";
 import EventSearchPage from "@/components/pages/EventSearchPage.vue";
-import EventDashboardOngoing from "@/components/pages/EventDashboardOngoing.vue";
+import EventDashboard from "@/components/pages/EventDashboard.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -58,7 +58,7 @@ const router = createRouter({
     },
     {
       path: "/events/:id/dashboard",
-      component: EventDashboardOngoing,
+      component: EventDashboard,
       name: "dashboard",
       meta: { requiresLogin: true },
     },
