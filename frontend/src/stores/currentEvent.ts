@@ -47,7 +47,34 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     return data[0];
   }
 
-  return { hasEvent, getCurrentId, setCurrentId, startEvent, startNewRound };
+  /**
+   * Gets the current event's ongoing round if it exists else null
+   *
+   * @returns The current ongoing round or null
+   */
+  async function getCurrentRound(): Promise<
+    definitions["event_rounds"] | null
+  > {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const { data, error } = await supabase
+      .from("event_rounds")
+      .select("*")
+      .gte("end_timestamp", now.toInstant().toString())
+      .limit(1)
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+
+  return {
+    hasEvent,
+    getCurrentId,
+    setCurrentId,
+    startEvent,
+    startNewRound,
+    getCurrentRound,
+  };
 });
 
 if (import.meta.hot) {
