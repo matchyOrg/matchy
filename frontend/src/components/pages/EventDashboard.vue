@@ -7,7 +7,7 @@
         <time-display
           :loading="startingRound"
           :model-value="time"
-          :max="actualDuration"
+          :max="setDuration"
         />
       </div>
       <v-slider
@@ -29,6 +29,7 @@
 </template>
 
 <script lang="ts" setup>
+import type { definitions } from "@/services/supabase-types";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
 import { useI18n } from "vue-i18n";
@@ -46,7 +47,6 @@ const startingRound = ref(false);
 const countingInterval = ref<ReturnType<typeof setInterval>>();
 
 const setDuration = ref(minute);
-const actualDuration = ref(minute);
 
 const timeInput = computed<number>({
   get() {
@@ -58,20 +58,8 @@ const timeInput = computed<number>({
   },
 });
 
-const startRound = async () => {
-  roundOngoing.value = true;
-  // make sure there's only ever 1 interval at a time
-  clearInterval(countingInterval.value);
-  startingRound.value = true;
-  const round = await currentEvent.startNewRound(setDuration.value);
-  const start = Temporal.Now.zonedDateTimeISO();
-  const end = Temporal.Instant.from(round.end_timestamp).toZonedDateTimeISO(
-    Temporal.Now.timeZone()
-  );
-  const diff = end.since(start);
-  actualDuration.value = diff.total({ unit: "milliseconds" });
-  time.value = actualDuration.value;
-  countingInterval.value = setInterval(() => {
+const startCountdown = () =>
+  setInterval(() => {
     time.value = Math.max(time.value - 1000, 0);
     if (time.value === 0) {
       roundOngoing.value = false;
@@ -79,6 +67,49 @@ const startRound = async () => {
       time.value = setDuration.value;
     }
   }, 1000);
+
+const setupTimer = (round: definitions["event_rounds"]) => {
+  const roundStart = Temporal.Instant.from(
+    round.start_timestamp
+  ).toZonedDateTimeISO(Temporal.Now.timeZone());
+  const roundEnd = Temporal.Instant.from(
+    round.end_timestamp
+  ).toZonedDateTimeISO(Temporal.Now.timeZone());
+  const now = Temporal.Now.zonedDateTimeISO();
+  const roundDuration = roundEnd.since(roundStart);
+  const remainingTime = now.until(roundEnd);
+  setDuration.value = roundDuration.total({ unit: "milliseconds" });
+  time.value = remainingTime.total({ unit: "milliseconds" });
+  // make sure there's only ever 1 interval at a time
+  clearInterval(countingInterval.value);
+  countingInterval.value = startCountdown();
+};
+
+const startRound = async () => {
+  roundOngoing.value = true;
+  startingRound.value = true;
+  const round = await currentEvent.startNewRound(setDuration.value);
+  setupTimer(round);
   startingRound.value = false;
 };
+
+onMounted(async () => {
+  roundOngoing.value = true;
+  startingRound.value = true;
+  let currentRound;
+  try {
+    currentRound = await currentEvent.getCurrentRound();
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+    return;
+  }
+  if (currentRound === null) {
+    roundOngoing.value = false;
+    startingRound.value = false;
+    return;
+  }
+  setupTimer(currentRound);
+  startingRound.value = false;
+});
 </script>
