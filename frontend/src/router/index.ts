@@ -59,6 +59,7 @@ const router = createRouter({
     {
       path: "/events/:id/dashboard",
       component: EventDashboardOngoing,
+      name: "dashboard",
       meta: { requiresLogin: true },
     },
     {
