@@ -201,16 +201,13 @@ const showStartModal = ref(false);
 
 const startEvent = async () => {
   if (!matchyEvent.value) return;
-  const { error } = await supabase
-    .from("events")
-    .update({ is_started: true })
-    .match({ id: matchyEvent.value.id });
-  if (error) {
-    console.log(error);
-    throw error;
+  try {
+    await currentEvent.startEvent(matchyEvent.value.id);
+    router.push({ name: "dashboard", params: { id: matchyEvent.value.id } });
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
   }
-  currentEvent.setCurrentId(matchyEvent.value.id);
-  router.push("/events/" + matchyEvent.value.id + "/dashboard/ongoing");
 };
 
 const imageHeaderSrc = computed(

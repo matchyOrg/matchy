@@ -178,8 +178,13 @@ const confirmPresence = () => {
 };
 
 const startEvent = async (id: number) => {
-  currentEventStore.setCurrentId(id);
-  router.push("/events/" + id + "/dashboard");
+  try {
+    await currentEventStore.startEvent(id);
+    router.push("/events/" + id + "/dashboard");
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
 };
 </script>
 
