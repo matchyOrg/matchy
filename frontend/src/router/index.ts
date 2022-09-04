@@ -10,7 +10,6 @@ import MatchesPage from "@/components/pages/MatchesPage.vue";
 import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 import EventPage from "@/components/pages/EventPage.vue";
 import EventSearchPage from "@/components/pages/EventSearchPage.vue";
-import EventDashboardPreStart from "@/components/pages/EventDashboardPreStart.vue";
 import EventDashboardOngoing from "@/components/pages/EventDashboardOngoing.vue";
 
 const router = createRouter({
@@ -58,12 +57,7 @@ const router = createRouter({
       component: EventSearchPage,
     },
     {
-      path: "/events/:id/dashboard/prepare",
-      component: EventDashboardPreStart,
-      meta: { requiresLogin: true },
-    },
-    {
-      path: "/events/:id/dashboard/ongoing",
+      path: "/events/:id/dashboard",
       component: EventDashboardOngoing,
       meta: { requiresLogin: true },
     },
