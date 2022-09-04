@@ -6,7 +6,10 @@
     :model-value="(modelValue / max) * 100"
   >
     <div class="d-flex flex-column align-center pt-4">
-      <span :class="'text-black d-block ' + textClass">{{ displayTime }}</span>
+      <v-progress-circular v-if="loading" indeterminate class="d-block" />
+      <span v-else :class="'text-black d-block ' + textClass">{{
+        displayTime
+      }}</span>
       <span class="text-grey d-block">min. left</span>
     </div>
   </v-progress-circular>
@@ -17,12 +20,19 @@ const props = withDefaults(
   defineProps<{
     modelValue: number;
     max: number;
+    loading?: boolean;
     size?: string;
     width?: string;
     color?: string;
     textClass?: string;
   }>(),
-  { size: "180", width: "12", color: "primary", textClass: "text-h4" }
+  {
+    loading: false,
+    size: "180",
+    width: "12",
+    color: "primary",
+    textClass: "text-h4",
+  }
 );
 
 const displayTime = computed(() => {
