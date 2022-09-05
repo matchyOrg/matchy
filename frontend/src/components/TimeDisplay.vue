@@ -18,12 +18,40 @@
 <script lang="ts" setup>
 const props = withDefaults(
   defineProps<{
+    /**
+     * The time to show in milliseconds.
+     * @model
+     */
     modelValue: number;
+    /**
+     * The maximum time that may be displayed in milliseconds.
+     * Used as a reference for progress.
+     */
     max: number;
+    /**
+     * Controls whether a loading state should be display.
+     * @defaultValue false
+     */
     loading?: boolean;
+    /**
+     * The size in pixels.
+     * @defaultValue "180"
+     */
     size?: string;
+    /**
+     * The width of the progress bar in pixels.
+     * @defaultValue "12"
+     */
     width?: string;
+    /**
+     * The color of the progress bar.
+     * @defaultValue "primary"
+     */
     color?: string;
+    /**
+     * Class string to use for the main text element.
+     * @defaultValue "text-h4"
+     */
     textClass?: string;
   }>(),
   {
