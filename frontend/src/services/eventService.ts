@@ -171,7 +171,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // ...
 
   // INSERT
-  async function createEvent(eventData: EditEventInfo) {
+  async function createEvent(eventData: EditEventInfo): Promise<number> {
     console.log("Called useEventService.createEvent()", eventData);
 
     if (!authStore.user) {
@@ -199,12 +199,13 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }
 
     let creationError;
+    let id;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
         throw Error(
           "Event is indicated to use groups, but no groups were provided"
         );
-      const { error } = await supabase.rpc("create_event_with_groups", {
+      const { error, data } = await supabase.rpc("create_event_with_groups", {
         title: eventData.title,
         description: eventData.description,
         header_image: eventData.header_image ?? null,
@@ -217,6 +218,10 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         groupBDescription: eventData.event_groups.groupB.description,
       });
       creationError = error;
+      // TODO: remove once we find a way to correctly type this
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: supabase typing is wrong, this returns a number (the id)
+      id = data as number;
     } else {
       const {
         title,
@@ -226,7 +231,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         location,
         max_participants,
       } = eventData;
-      const { error } = await supabase.from("events").insert({
+      const { error, data } = await supabase.from("events").insert({
         title,
         description,
         header_image,
@@ -237,9 +242,12 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         event_group_pair: undefined,
       });
       creationError = error;
+      if (!data) throw new Error("Event was not returned upon creation");
+      id = data[0].id;
     }
 
     if (creationError) throw creationError;
+    return id;
   }
 
   // UPDATE

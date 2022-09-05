@@ -1,12 +1,6 @@
 <template>
   <teleport to="#nav-right">
-    <v-icon
-      v-if="
-        PageMode === 'organizer' && authStore.user?.id == matchyEvent?.organizer
-      "
-      @click="onEdit"
-      >mdi-pencil</v-icon
-    >
+    <v-icon v-if="isOrganizer" @click="onEdit">mdi-pencil</v-icon>
   </teleport>
   <v-main>
     <v-container>
@@ -80,6 +74,14 @@
           ? t("pages.events.share-hint-organizer")
           : t("pages.events.share-hint-participant")
       }}</span>
+      <registration-overview
+        v-if="isOrganizer"
+        :event_groups="matchyEvent?.event_groups"
+        :group-a-counts="groupACounts"
+        :group-b-counts="groupBCounts"
+        :total-present-count="totalPresentCount"
+        :total-registered-count="totalRegisteredCount"
+      />
       <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">
@@ -94,9 +96,7 @@
           >{{ t("pages.events.login-register") }}</v-btn
         >
         <v-btn
-          v-else-if="
-            authStore.user?.id && authStore.user.id !== matchyEvent?.organizer
-          "
+          v-else-if="!isOrganizer"
           variant="text"
           color="primary"
           @click="startRegister"
@@ -129,6 +129,28 @@
             </v-card></v-dialog
           >
         </v-btn>
+        <v-btn v-else class="d-block mx-auto" @click="showStartModal = true">
+          {{ t("pages.dashboard.prepare.start-event") }}
+          <v-dialog v-model="showStartModal">
+            <v-card>
+              <v-card-text>
+                {{ t("pages.dashboard.prepare.start-modal-text") }}
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  color="red"
+                  variant="text"
+                  @click="showStartModal = false"
+                >
+                  {{ t("pages.dashboard.prepare.start-modal-cancel") }}
+                </v-btn>
+                <v-btn color="primary" variant="text" @click="startEvent">
+                  {{ t("pages.dashboard.prepare.start-modal-confirm") }}
+                </v-btn>
+              </v-card-actions>
+            </v-card></v-dialog
+          >
+        </v-btn>
       </div>
     </v-container>
   </v-main>
@@ -139,15 +161,25 @@ import {
   type EventInfo,
   type Group,
   useEventService,
+  type EventRegistration,
+  type GroupPair,
 } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
 import { PageMode } from "@/stores/pageMode";
 import { shareEvent } from "@/services/utils/share";
 import { useI18n } from "vue-i18n";
+import { supabase } from "@/services/supabase";
+import { useCurrentEventStore } from "@/stores/currentEvent";
+
+interface GroupCount {
+  total: number;
+  present: number;
+}
 
 const { t } = useI18n();
 const authStore = useAuthStore();
 const eventService = useEventService(authStore);
+const currentEvent = useCurrentEventStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -155,8 +187,28 @@ const matchyEvent = ref<EventInfo>();
 const loadingEvent = ref(true);
 const loadingRegisteredStatus = ref(true);
 const isRegisteredForEvent = ref<boolean>();
+const isOrganizer = computed(
+  () => authStore.user && authStore.user.id == matchyEvent?.value?.organizer
+);
+
+const totalRegisteredCount = ref<number>();
+const totalPresentCount = ref<number>();
+const groupACounts = ref<GroupCount>();
+const groupBCounts = ref<GroupCount>();
 
 const showRegisterModal = ref(false);
+const showStartModal = ref(false);
+
+const startEvent = async () => {
+  if (!matchyEvent.value) return;
+  try {
+    await currentEvent.startEvent(matchyEvent.value.id);
+    router.push({ name: "dashboard", params: { id: matchyEvent.value.id } });
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
+};
 
 const imageHeaderSrc = computed(
   () =>
@@ -192,6 +244,25 @@ const registerForEvent = async (group?: Group) => {
   isRegisteredForEvent.value = true;
 };
 
+const splitByGroup = async (
+  registrations: EventRegistration[],
+  groups: GroupPair
+) => {
+  const groupA = { total: 0, present: 0 };
+  const groupB = { total: 0, present: 0 };
+  registrations.forEach((reg) => {
+    if (reg.group_id === groups.groupA.id) {
+      groupA.total += 1;
+      groupA.present += +reg.present;
+    } else {
+      groupB.total += 1;
+      groupB.present += +reg.present;
+    }
+  });
+  groupACounts.value = groupA;
+  groupBCounts.value = groupB;
+};
+
 watch(
   () => route.params.id,
   async () => {
@@ -218,6 +289,21 @@ watch(
       console.log(e);
     }
     loadingRegisteredStatus.value = false;
+    if (matchyEvent.value?.organizer !== authStore.user?.id) {
+      return;
+    }
+    const { data } = await supabase
+      .from("event_registrations")
+      .select("group_id, present")
+      .eq("event_id", matchyEvent.value?.id);
+    if (data === null) {
+      errorToast("There was a problem loading the registrations");
+      return;
+    }
+    totalRegisteredCount.value = data.length;
+    totalPresentCount.value = data.filter((reg) => reg.present).length;
+    if (matchyEvent.value?.event_groups)
+      splitByGroup(data, matchyEvent.value.event_groups);
   },
   { immediate: true, flush: "post" }
 );

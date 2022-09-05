@@ -1,157 +1,63 @@
 <template>
   <v-main>
-    <template v-if="!matchyEvent">
-      <div class="h-100 w-100 d-flex flex-column justify-center align-center">
-        <v-progress-circular indeterminate />
-        <span class="text-grey">Loading the event...</span>
+    <v-container>
+      <div class="bg-grey mb-6" :style="{ height: '100px' }"></div>
+      <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
+      <div class="d-flex justify-center mb-4">
+        <time-display :model-value="time" :max="timeSaved" />
       </div>
-    </template>
-    <v-container v-else>
-      <h2 class="mb-6">{{ matchyEvent.title }}</h2>
-      <v-row v-if="matchyEvent.event_groups">
-        <v-col cols="6" class="rounded-lg text-center">
-          <v-sheet class="rounded-lg py-4" color="grey-lighten-5">
-            <span class="d-block mb-4 font-weight-bold">{{
-              matchyEvent.event_groups.groupA.title
-            }}</span>
-            <span
-              class="d-block px-2 text-h5 font-weight-bold"
-              v-if="groupACounts !== undefined"
-              >{{ groupACounts.total }} / {{ totalRegisteredCount }}</span
-            >
-            <span class="d-block mb-4 text-body-2 text-grey">Registered</span>
-            <span
-              class="d-block px-2 text-h5 font-weight-bold"
-              v-if="groupACounts !== undefined"
-              >{{ groupACounts.present }} / {{ groupACounts.total }}</span
-            >
-            <span class="d-block pa-2" v-else>
-              <v-progress-circular indeterminate />
-            </span>
-            <span class="d-block text-body-2 text-grey">Present</span>
-          </v-sheet>
-        </v-col>
-        <v-col cols="6" class="text-center">
-          <v-sheet class="rounded-lg py-4" color="grey-lighten-5">
-            <span class="d-block mb-4 font-weight-bold">{{
-              matchyEvent.event_groups.groupB.title
-            }}</span>
-            <span
-              class="d-block text-h5 font-weight-bold"
-              v-if="groupBCounts !== undefined"
-              >{{ groupBCounts.total }} / {{ totalRegisteredCount }}</span
-            >
-            <span class="d-block mb-4 text-body-2 text-grey">Registered</span>
-            <span
-              class="d-block text-h5 font-weight-bold"
-              v-if="groupBCounts !== undefined"
-              >{{ groupBCounts.present }} / {{ groupBCounts.total }}</span
-            >
-            <span class="d-block pa-2" v-else>
-              <v-progress-circular indeterminate />
-            </span>
-            <span class="d-block text-body-2 text-grey">Present</span>
-          </v-sheet>
-        </v-col>
-      </v-row>
-      <v-sheet v-else class="pa-4 d-flex align-center justify-space-around">
-        <div class="text-center">
-          <span
-            class="d-block px-2 text-h5 font-weight-bold"
-            v-if="totalPresentCount !== undefined"
-            >{{ totalPresentCount }}</span
-          >
-          <span class="d-block pa-2" v-else>
-            <v-progress-circular indeterminate />
-          </span>
-          <span class="d-block px-2">Present</span>
-        </div>
-        <div class="text-center">
-          <span
-            class="d-block px-2 text-h5 font-weight-bold"
-            v-if="totalRegisteredCount !== undefined"
-            >{{ totalRegisteredCount }}</span
-          >
-          <span class="d-block pa-2" v-else>
-            <v-progress-circular indeterminate />
-          </span>
-          <span class="d-block px-2">Registered</span>
-        </div>
-      </v-sheet>
+      <v-slider
+        v-model="timeInput"
+        type="number"
+        :min="minute"
+        :max="hour / 3"
+        :step="minute / 2"
+        :disabled="roundOngoing"
+      />
+      <v-btn
+        class="d-block mx-auto"
+        @click="startRound"
+        :disabled="roundOngoing"
+        >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
+      >
     </v-container>
   </v-main>
 </template>
 
 <script lang="ts" setup>
-import {
-  useEventService,
-  type EventInfo,
-  type EventRegistration,
-  type GroupPair,
-} from "@/services/eventService";
-import { supabase } from "@/services/supabase";
-import { useAuthStore } from "@/stores/auth";
-import { number } from "@intlify/core-base";
 import { useI18n } from "vue-i18n";
 
-const authStore = useAuthStore();
-const eventService = useEventService(authStore);
-const route = useRoute();
-const router = useRouter();
 const { t } = useI18n();
-const matchyEvent = ref<EventInfo | null>(null);
-const totalRegisteredCount = ref<number>();
-const totalPresentCount = ref<number>();
 
-interface GroupCount {
-  total: number;
-  present: number;
-}
-const groupACounts = ref<GroupCount>();
-const groupBCounts = ref<GroupCount>();
+const second = 1000;
+const minute = 60 * second;
+const hour = 60 * minute;
+const time = ref(minute);
 
-const splitByGroup = async (
-  registrations: EventRegistration[],
-  groups: GroupPair
-) => {
-  const groupA = { total: 0, present: 0 };
-  const groupB = { total: 0, present: 0 };
-  registrations.forEach((reg) => {
-    if (reg.group_id === groups.groupA.id) {
-      groupA.total += 1;
-      groupA.present += +reg.present;
-    } else {
-      groupB.total += 1;
-      groupB.present += +reg.present;
-    }
-  });
-  groupACounts.value = groupA;
-  groupBCounts.value = groupB;
-};
+const roundOngoing = ref(false);
+const countingInterval = ref<ReturnType<typeof setInterval>>();
 
-onMounted(async () => {
-  const idString = route.params.id;
-  if (isNaN(+idString)) {
-    errorToast(t("shared.events.invalid-id"));
-    router.push("/");
-    return;
-  }
-  matchyEvent.value = await eventService.fetchEventById(+idString);
-  if (matchyEvent.value.organizer !== authStore.user?.id) {
-    errorToast("Only the organizer can access this page");
-    router.push("/");
-  }
-  const { data, error } = await supabase
-    .from("event_registrations")
-    .select("group_id, present")
-    .eq("event_id", matchyEvent.value.id);
-  if (data === null) {
-    errorToast("There was a problem loading the registrations");
-    return;
-  }
-  totalRegisteredCount.value = data.length;
-  totalPresentCount.value = data.filter((reg) => reg.present).length;
-  if (matchyEvent.value.event_groups)
-    splitByGroup(data, matchyEvent.value.event_groups);
+const timeSaved = ref(minute);
+const timeInput = computed<number>({
+  get() {
+    return timeSaved.value;
+  },
+  set(newVal) {
+    time.value = newVal;
+    timeSaved.value = newVal;
+  },
 });
+
+const startRound = () => {
+  roundOngoing.value = true;
+  // make sure there's only ever 1 interval at a time
+  clearInterval(countingInterval.value);
+  countingInterval.value = setInterval(() => {
+    time.value = Math.max(time.value - 1000, 0);
+    if (time.value === 0) {
+      roundOngoing.value = false;
+      clearInterval(countingInterval.value);
+    }
+  }, 1000);
+};
 </script>

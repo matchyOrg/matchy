@@ -70,10 +70,18 @@
       >
         <v-card-actions class="d-flex justify-center mh-0">
           <v-btn
+            v-if="e.id == +currentEventStore.getCurrentId()"
+            :to="'/events/' + e.id + '/dashboard'"
             color="primary"
             size="small"
-            :to="'/events/' + e.id + '/dashboard'"
             >{{ t("pages.home.active-event-action") }}</v-btn
+          >
+          <v-btn
+            v-else
+            color="primary"
+            size="small"
+            @click.prevent="startEvent(e.id)"
+            >Start Event</v-btn
           >
         </v-card-actions>
       </event-list-item>
@@ -119,6 +127,7 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const authStore = useAuthStore();
 const currentEventStore = useCurrentEventStore();
+const router = useRouter();
 
 const firstName = computed(() => authStore.profile.fullName?.split(" ")[0]);
 
@@ -166,6 +175,16 @@ const share = async (e: EventInfo) =>
 
 const confirmPresence = () => {
   console.log("Don't care, didn't ask");
+};
+
+const startEvent = async (id: number) => {
+  try {
+    await currentEventStore.startEvent(id);
+    router.push("/events/" + id + "/dashboard");
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
 };
 </script>
 

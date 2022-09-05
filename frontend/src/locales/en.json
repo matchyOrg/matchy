@@ -70,6 +70,21 @@
       "github-plug": "Check the out this project's {0} to see the source-code and find out who we are, what we're all about and what we are aiming to achieve.",
       "title": "🌱 About Us"
     },
+    "dashboard": {
+      "ongoing": {
+        "round": "Round",
+        "start-round": "Start round"
+      },
+      "prepare": {
+        "loading-text": "Loading the event...",
+        "present": "Present",
+        "registered": "Registered",
+        "start-event": "Start Event",
+        "start-modal-cancel": "Cancel",
+        "start-modal-confirm": "Start",
+        "start-modal-text": "Are you sure you want to start the event?"
+      }
+    },
     "event-create": {
       "error": "There was an error creating the event",
       "submit": "Submit",

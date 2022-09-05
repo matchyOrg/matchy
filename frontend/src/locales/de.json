@@ -70,6 +70,21 @@
       "github-plug": "Schaut bei unserer {0} vorbei, schaut euch den Source-Code an und lernt uns, unsere Philosophien und unsere Ziele kennen.",
       "title": "🌱 Über uns"
     },
+    "dashboard": {
+      "ongoing": {
+        "round": "Runde",
+        "start-round": "Runde starten"
+      },
+      "prepare": {
+        "loading-text": "Event wird geladen...",
+        "present": "Präsent",
+        "registered": "Registriert",
+        "start-event": "Event starten",
+        "start-modal-cancel": "Abbrechen",
+        "start-modal-confirm": "Start",
+        "start-modal-text": "Bist du sicher, dass du das Event starten willst?"
+      }
+    },
     "event-create": {
       "error": "Das Event konnte nicht erstellt werden",
       "submit": "Fertig",
@@ -92,15 +107,15 @@
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
     "home": {
-      "active-event": "",
-      "active-event-action": "",
+      "active-event": "Jetzt gerade",
+      "active-event-action": "Zum Dashboard",
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
       "future-events-header": "Deine geplanten Events",
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",
-      "no-org-events": "",
-      "no-org-events-cta": ""
+      "no-org-events": "Du hast keine bevorstehenden Events",
+      "no-org-events-cta": "Erstelle ein Event"
     },
     "login": {
       "check-mail": "Wir haben dir eine Email geschickt!",
@@ -135,7 +150,7 @@
     "events": {
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
-      "no-description": ""
+      "no-description": "Keine Beschreibung."
     }
   },
   "sidebar": {

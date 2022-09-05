@@ -16,11 +16,13 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const eventService = useEventService(useAuthStore());
+const router = useRouter();
 
 const submit = async () => {
   try {
-    await eventService.createEvent(matchyEvent);
+    const id = await eventService.createEvent(matchyEvent);
     successToast(t("pages.event-create.success"));
+    router.push({ name: "event-detail", params: { id } });
   } catch (_e) {
     console.log(_e);
     errorToast(t("pages.event-create.error"));
