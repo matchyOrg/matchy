@@ -1,6 +1,8 @@
 Howdy friend! <br>
 In this open source project, we're making speed dating paperless! 💌
 
+Speed dating doesn't happen online like you're probably used to. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date.
+
 > Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made or give it a star.
 
 This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
@@ -8,7 +10,6 @@ This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/match
 
 
 ## How does conventional speed dating work?
-
 Here's a quick [video demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
 When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
