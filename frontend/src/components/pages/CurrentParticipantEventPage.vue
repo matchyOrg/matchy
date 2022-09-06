@@ -150,11 +150,18 @@ const setupTimer = (round: definitions["event_rounds"]) => {
   countingInterval.value = startCountdown();
 };
 
-const vote = (match: boolean) => {
-  hasVoted.value = true;
-  // clear round specific variables
-  currentPairId.value = undefined;
-  currentRoundId.value = undefined;
+const vote = async (match: boolean) => {
+  if (!currentPairId.value) return;
+  try {
+    await currentEvent.vote(currentPairId.value, match);
+    hasVoted.value = true;
+    // clear round specific variables
+    currentPairId.value = undefined;
+    currentRoundId.value = undefined;
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
 };
 
 const createPair = async () => {
