@@ -12,7 +12,11 @@
           >Please wait for the organizer to start the event</span
         >
       </div>
-      <div v-else>Current Round ID: {{ currentRoundId }}</div>
+      <div class="h-100 d-flex justify-center align-center" v-if="eventEnded">
+        <span class="d-block">That's all volks!</span>
+      </div>
+      <div v-else-if="roundOngoing">Current Round ID: {{ currentRoundId }}</div>
+      <div v-else>Waiting for new round...</div>
     </v-container>
   </v-main>
 </template>
@@ -30,6 +34,8 @@ const roundSubscription = ref<RealtimeSubscription>();
 const pairSubscription = ref<RealtimeSubscription>();
 
 const eventStarted = ref(false);
+const eventEnded = ref(false);
+const roundOngoing = ref(false);
 const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
@@ -42,6 +48,7 @@ watch(
         // round of some other event we do not care about
         if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
         currentRoundId.value = payload.new.id;
+        roundOngoing.value = true;
       })
       .subscribe();
     console.log("round subscription activated");
@@ -69,6 +76,7 @@ onMounted(async () => {
     .from<any>("events:id=eq." + eventId)
     .on("UPDATE", (payload) => {
       if (payload.new.is_started) eventStarted.value = true;
+      if (payload.new.is_ended) eventEnded.value = true;
     })
     .subscribe();
   const event = await currentEvent.getCurrentEvent();
@@ -84,6 +92,7 @@ onMounted(async () => {
     const ongoingRound = await currentEvent.getCurrentRound();
     if (ongoingRound !== null) {
       currentRoundId.value = ongoingRound.id;
+      roundOngoing.value = true;
     }
   }
 });
