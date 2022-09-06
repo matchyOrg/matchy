@@ -131,6 +131,7 @@ watch(
         if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
         currentRoundId.value = payload.new.id;
         roundOngoing.value = true;
+        setupTimer(payload.new);
       })
       .subscribe();
     console.log("round subscription activated");
