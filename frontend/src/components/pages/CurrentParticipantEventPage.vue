@@ -42,6 +42,7 @@ watch(
         currentRoundId.value = payload.new.id;
       })
       .subscribe();
+    console.log("round subscription activated");
   }
 );
 
@@ -80,5 +81,6 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   eventSubscription.value?.unsubscribe();
+  roundSubscription.value?.unsubscribe();
 });
 </script>
