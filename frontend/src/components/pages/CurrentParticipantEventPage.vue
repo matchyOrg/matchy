@@ -25,6 +25,9 @@
         <span class="d-block mb-4 text-body-2"
           >Use the Qr-Scanner below or type their id in the textbox</span
         >
+        <span class="d-block mb-4 text-body-2"
+          >{{ displayTime }} minutes left</span
+        >
         <div
           :style="{ width: '250px', height: '250px' }"
           class="bg-grey mx-auto"
@@ -45,7 +48,9 @@
 <script lang="ts" setup>
 import router from "@/router";
 import { supabase } from "@/services/supabase";
+import type { definitions } from "@/services/supabase-types";
 import { useCurrentEventStore } from "@/stores/currentEvent";
+import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
 
 const currentEvent = useCurrentEventStore();
@@ -61,6 +66,49 @@ const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
 const otherUser = ref("");
+
+const roundTime = ref<number>();
+const roundDuration = ref<number>();
+const countingInterval = ref<number>();
+
+const displayTime = computed(() => {
+  if (!roundTime.value) return "00:00";
+  const minutes = Math.floor(roundTime.value / (60 * 1000));
+  const seconds = Math.floor((roundTime.value % (60 * 1000)) / 1000);
+  return (
+    String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0")
+  );
+});
+
+const startCountdown = () =>
+  setInterval(() => {
+    if (!roundTime.value) {
+      clearInterval(countingInterval.value);
+      return;
+    }
+    roundTime.value = Math.max(roundTime.value - 1000, 0);
+    if (roundTime.value === 0) {
+      roundOngoing.value = false;
+      clearInterval(countingInterval.value);
+    }
+  }, 1000);
+
+const setupTimer = (round: definitions["event_rounds"]) => {
+  const roundStart = Temporal.Instant.from(
+    round.start_timestamp
+  ).toZonedDateTimeISO(Temporal.Now.timeZone());
+  const roundEnd = Temporal.Instant.from(
+    round.end_timestamp
+  ).toZonedDateTimeISO(Temporal.Now.timeZone());
+  const now = Temporal.Now.zonedDateTimeISO();
+  const duration = roundEnd.since(roundStart);
+  const remainingTime = now.until(roundEnd);
+  roundDuration.value = duration.total({ unit: "milliseconds" });
+  roundTime.value = remainingTime.total({ unit: "milliseconds" });
+  // make sure there's only ever 1 interval at a time
+  clearInterval(countingInterval.value);
+  countingInterval.value = startCountdown();
+};
 
 const createPair = async () => {
   if (!currentRoundId.value) return;
@@ -127,6 +175,7 @@ onMounted(async () => {
     if (ongoingRound !== null) {
       currentRoundId.value = ongoingRound.id;
       roundOngoing.value = true;
+      setupTimer(ongoingRound);
     }
   }
 });
