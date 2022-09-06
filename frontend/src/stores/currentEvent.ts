@@ -15,8 +15,8 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     return currentEventId.value;
   }
 
-  function setCurrentId(id: number) {
-    currentEventId.value = id.toString();
+  function setCurrentId(id: number | null) {
+    currentEventId.value = id?.toString();
   }
 
   async function getCurrentEvent(): Promise<EventInfo | null> {
@@ -47,6 +47,16 @@ export const useCurrentEventStore = defineStore("current-event", () => {
       throw error;
     }
     setCurrentId(id);
+  }
+
+  async function endCurrentEvent() {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const { error } = await supabase
+      .from("events")
+      .update({ is_ended: true })
+      .match({ id: currentEventId.value });
+    if (error) throw error;
+    setCurrentId(null);
   }
 
   async function confirmPresence(id: number) {
@@ -199,6 +209,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     getCurrentPair,
     vote,
     getCurrentRoundInfo,
+    endCurrentEvent,
   };
 });
 
