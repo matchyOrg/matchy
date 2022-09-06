@@ -224,6 +224,11 @@ onMounted(async () => {
     if (ongoingRound !== null) {
       currentRoundId.value = ongoingRound.id;
       roundOngoing.value = true;
+      const currentPair = await currentEvent.getCurrentPair();
+      console.log(currentPair);
+      if (currentPair !== null) {
+        currentPairId.value = currentPair.id;
+      }
       setupTimer(ongoingRound);
     }
   }

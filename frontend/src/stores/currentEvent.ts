@@ -113,6 +113,34 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     if (error) throw error;
   }
 
+  async function getCurrentPair(): Promise<
+    definitions["event_user_pairs"] | null
+  > {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const authStore = useAuthStore();
+    if (!authStore.user)
+      throw new Error("User must be logged in to confirm presence");
+    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+
+    const { data, error } = await supabase
+      .from("event_user_pairs")
+      .select("*, event_rounds!inner(event_id, end_timestamp)")
+      // TODO: remove once we find a way to correctly type this
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: valid because of foreign key
+      .eq("event_rounds.event_id", currentEventId.value)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: valid because of foreign key
+      .gte("event_rounds.end_timestamp", now.toInstant().toString())
+      .limit(1)
+      .or(
+        `main_user.eq.${authStore.user?.id},other_user.eq.${authStore.user?.id}`
+      )
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+
   return {
     hasEvent,
     getCurrentId,
@@ -123,6 +151,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     getCurrentEvent,
     confirmPresence,
     createPair,
+    getCurrentPair,
   };
 });
 
