@@ -40,6 +40,42 @@
           </template>
         </v-text-field>
       </div>
+      <div
+        class="h-75 d-flex justify-center align-center"
+        v-else-if="roundOngoing"
+      >
+        <time-display
+          v-if="roundDuration && roundTime"
+          :max="roundDuration"
+          :model-value="roundTime"
+        />
+      </div>
+      <div
+        class="h-75 d-flex justify-center align-center"
+        v-else-if="!hasVoted"
+      >
+        <div class="pt-6">
+          <span class="d-block text-h4 pl-4">Did you like them?</span>
+          <span class="d-block pl-4 mb-12 text-grey-darken-1"
+            >Your partner will not see your decision immediately</span
+          >
+          <div class="d-flex justify-space-between px-6 bg-grey-lighten-3">
+            <v-btn
+              size="x-large"
+              variant="text"
+              icon="mdi-thumb-down"
+              @click="vote(false)"
+            ></v-btn>
+            <v-btn
+              size="x-large"
+              variant="text"
+              icon="mdi-thumb-up"
+              color="primary"
+              @click="vote(true)"
+            ></v-btn>
+          </div>
+        </div>
+      </div>
       <div v-else>Waiting for new round...</div>
     </v-container>
   </v-main>
@@ -62,6 +98,7 @@ const pairSubscription = ref<RealtimeSubscription>();
 const eventStarted = ref(false);
 const eventEnded = ref(false);
 const roundOngoing = ref(false);
+const hasVoted = ref(false);
 const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
@@ -105,9 +142,19 @@ const setupTimer = (round: definitions["event_rounds"]) => {
   const remainingTime = now.until(roundEnd);
   roundDuration.value = duration.total({ unit: "milliseconds" });
   roundTime.value = remainingTime.total({ unit: "milliseconds" });
+  console.log("duration", roundDuration.value);
+  console.log("time", roundTime.value);
+
   // make sure there's only ever 1 interval at a time
   clearInterval(countingInterval.value);
   countingInterval.value = startCountdown();
+};
+
+const vote = (match: boolean) => {
+  hasVoted.value = true;
+  // clear round specific variables
+  currentPairId.value = undefined;
+  currentRoundId.value = undefined;
 };
 
 const createPair = async () => {
@@ -129,9 +176,10 @@ watch(
       .on("INSERT", (payload) => {
         // round of some other event we do not care about
         if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
+        setupTimer(payload.new);
         currentRoundId.value = payload.new.id;
         roundOngoing.value = true;
-        setupTimer(payload.new);
+        hasVoted.value = false;
       })
       .subscribe();
     console.log("round subscription activated");
