@@ -27,9 +27,11 @@ const currentEvent = useCurrentEventStore();
 
 const eventSubscription = ref<RealtimeSubscription>();
 const roundSubscription = ref<RealtimeSubscription>();
+const pairSubscription = ref<RealtimeSubscription>();
 
 const eventStarted = ref(false);
 const currentRoundId = ref<number>();
+const currentPairId = ref<number>();
 
 watch(
   () => eventStarted.value,
@@ -43,6 +45,13 @@ watch(
       })
       .subscribe();
     console.log("round subscription activated");
+    pairSubscription.value = supabase
+      .from("event_user_pairs")
+      .on("INSERT", (payload) => {
+        currentPairId.value = payload.new.id;
+      })
+      .subscribe();
+    console.log("pair subscription activiated");
   }
 );
 
@@ -82,5 +91,6 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   eventSubscription.value?.unsubscribe();
   roundSubscription.value?.unsubscribe();
+  pairSubscription.value?.unsubscribe();
 });
 </script>
