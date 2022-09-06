@@ -102,6 +102,17 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     return data;
   }
 
+  async function createPair(otherUser: string, eventRound: number) {
+    const authStore = useAuthStore();
+    if (!authStore.user) throw new Error("User is not logged in");
+    const { error } = await supabase.from("event_user_pairs").insert({
+      event_round: eventRound,
+      main_user: authStore.user.id,
+      other_user: otherUser,
+    });
+    if (error) throw error;
+  }
+
   return {
     hasEvent,
     getCurrentId,
@@ -111,6 +122,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     getCurrentRound,
     getCurrentEvent,
     confirmPresence,
+    createPair,
   };
 });
 
