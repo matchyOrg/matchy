@@ -3,6 +3,7 @@ import { useStorage } from "@vueuse/core";
 import { supabase } from "@/services/supabase";
 import { Temporal } from "@js-temporal/polyfill";
 import type { definitions } from "@/services/supabase-types";
+import { useAuthStore } from "./auth";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
   const currentEventId = useStorage("current-event-id", "");
@@ -25,6 +26,19 @@ export const useCurrentEventStore = defineStore("current-event", () => {
       console.log(error);
       throw error;
     }
+    setCurrentId(id);
+  }
+
+  async function confirmPresence(id: number) {
+    const authStore = useAuthStore();
+    if (!authStore.user)
+      throw new Error("User must be logged in to confirm presence");
+    // event_id, user_id pair uniquely identifies a registration
+    const { error } = await supabase
+      .from("event_registrations")
+      .update({ present: true })
+      .match({ event_id: id, user_id: authStore.user.id });
+    if (error) throw error;
     setCurrentId(id);
   }
 
@@ -60,6 +74,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     const { data, error } = await supabase
       .from("event_rounds")
       .select("*")
+      .eq("event_id", currentEventId.value)
       .gte("end_timestamp", now.toInstant().toString())
       .limit(1)
       .maybeSingle();
@@ -74,6 +89,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     startEvent,
     startNewRound,
     getCurrentRound,
+    confirmPresence,
   };
 });
 
