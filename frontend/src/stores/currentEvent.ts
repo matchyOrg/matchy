@@ -151,6 +151,41 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     if (error) throw error;
   }
 
+  async function getCurrentRoundInfo(): Promise<
+    | (definitions["event_rounds"] & {
+        pairId: number | null;
+        hasVoted: boolean;
+      })
+    | null
+  > {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const authStore = useAuthStore();
+    if (!authStore.user) return null;
+    // types are completely useless here...
+    const { data, error } = await supabase
+      .from<any>("event_rounds")
+      .select(
+        `*, pair:event_user_pairs(id, votes(vote)).or=(main_user.eq.${authStore.user.id},other_user.eq.${authStore.user.id})`
+      )
+      .eq("event_id", currentEventId.value)
+      .order("start_timestamp", { ascending: false })
+      .limit(1)
+      .single();
+    if (error) throw error;
+    const { pair } = data;
+    const pairId = pair.length === 0 ? null : pair[0].id;
+    const hasVoted = pairId !== null && pair[0].votes.length !== 0;
+    return {
+      id: data.id,
+      event_id: data.event_id,
+      start_timestamp: data.start_timestamp,
+      end_timestamp: data.end_timestamp,
+      pairId,
+      hasVoted,
+    };
+  }
+
   return {
     hasEvent,
     getCurrentId,
@@ -163,6 +198,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     createPair,
     getCurrentPair,
     vote,
+    getCurrentRoundInfo,
   };
 });
 
