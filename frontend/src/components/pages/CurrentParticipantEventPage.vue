@@ -12,7 +12,7 @@
           >Please wait for the organizer to start the event</span
         >
       </div>
-      <div v-else>Event started</div>
+      <div v-else>Current Round ID: {{ currentRoundId }}</div>
     </v-container>
   </v-main>
 </template>
@@ -26,8 +26,24 @@ import type { RealtimeSubscription } from "@supabase/realtime-js";
 const currentEvent = useCurrentEventStore();
 
 const eventSubscription = ref<RealtimeSubscription>();
+const roundSubscription = ref<RealtimeSubscription>();
 
 const eventStarted = ref(false);
+const currentRoundId = ref<number>();
+
+watch(
+  () => eventStarted.value,
+  () => {
+    roundSubscription.value = supabase
+      .from("event_rounds")
+      .on("INSERT", (payload) => {
+        // round of some other event we do not care about
+        if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
+        currentRoundId.value = payload.new.id;
+      })
+      .subscribe();
+  }
+);
 
 onMounted(async () => {
   if (!currentEvent.hasEvent) {
@@ -55,6 +71,10 @@ onMounted(async () => {
   }
   if (event.is_started) {
     eventStarted.value = true;
+    const ongoingRound = await currentEvent.getCurrentRound();
+    if (ongoingRound !== null) {
+      currentRoundId.value = ongoingRound.id;
+    }
   }
 });
 
