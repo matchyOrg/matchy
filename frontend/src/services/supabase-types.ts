@@ -723,7 +723,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.event_rounds.id"];
           event_id?: parameters["rowFilter.event_rounds.event_id"];
-          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
           start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
           end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
           /** Filtering Columns */
@@ -778,7 +777,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.event_rounds.id"];
           event_id?: parameters["rowFilter.event_rounds.event_id"];
-          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
           start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
           end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
         };
@@ -797,7 +795,6 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.event_rounds.id"];
           event_id?: parameters["rowFilter.event_rounds.event_id"];
-          break_start_timestamp?: parameters["rowFilter.event_rounds.break_start_timestamp"];
           start_timestamp?: parameters["rowFilter.event_rounds.start_timestamp"];
           end_timestamp?: parameters["rowFilter.event_rounds.end_timestamp"];
         };
@@ -1115,7 +1112,7 @@ export interface definitions {
      * @description Note:
      * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
      */
-    organizer: string;
+    organizer?: string;
     /** Format: text */
     title: string;
     /** Format: text */
@@ -1216,7 +1213,11 @@ export interface definitions {
      * This is a Primary Key.<pk/>
      */
     id: number;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     creator: string;
     /** Format: character varying */
     title: string;
@@ -1292,8 +1293,6 @@ export interface definitions {
      */
     event_id: number;
     /** Format: timestamp with time zone */
-    break_start_timestamp: string;
-    /** Format: timestamp with time zone */
     start_timestamp: string;
     /** Format: timestamp with time zone */
     end_timestamp: string;
@@ -1341,9 +1340,17 @@ export interface definitions {
      * This is a Foreign Key to `event_rounds.id`.<fk table='event_rounds' column='id'/>
      */
     event_round: number;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     main_user: string;
-    /** Format: uuid */
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `profiles.user_id`.<fk table='profiles' column='user_id'/>
+     */
     other_user: string;
     /** Format: boolean */
     match?: boolean;
@@ -1482,8 +1489,6 @@ export interface parameters {
   "rowFilter.event_rounds.id": string;
   /** Format: bigint */
   "rowFilter.event_rounds.event_id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.event_rounds.break_start_timestamp": string;
   /** Format: timestamp with time zone */
   "rowFilter.event_rounds.start_timestamp": string;
   /** Format: timestamp with time zone */
