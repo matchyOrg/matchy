@@ -20,7 +20,7 @@ export interface GroupPair {
 
 export interface EventInfo {
   id: number;
-  organizer: string;
+  organizer?: string;
   title: string;
   description: string;
   header_image?: string;
