@@ -5,35 +5,38 @@
         class="h-75 d-flex flex-column justify-center align-center"
         v-if="eventEnded"
       >
-        <span class="d-block text-h4 font-weight-bold">That's all volks!</span>
-        <span class="d-block"
-          >This event is now over, thanks for being here!</span
-        >
-        <v-btn class="mt-16" color="primary" to="/" variant="text"
-          >To Homepage</v-btn
-        >
+        <span class="d-block text-h4 font-weight-bold">{{
+          t("pages.participant-event.ended-title")
+        }}</span>
+        <span class="d-block">{{
+          t("pages.participant-event.ended-subtitle")
+        }}</span>
+        <v-btn class="mt-16" color="primary" to="/" variant="text">{{
+          t("pages.participant-event.ended-button-link")
+        }}</v-btn>
       </div>
       <div
         v-else-if="!eventStarted"
         class="h-50 d-flex flex-column align center justify-center pl-2"
       >
-        <span class="d-flex font-weight-medium text-h6"
-          >The event hasn't started yet...</span
-        >
-        <span class="d-block text-subtitle-2"
-          >Please wait for the organizer to start the event</span
-        >
+        <span class="d-flex font-weight-medium text-h6">{{
+          t("pages.participant-event.not-started-title")
+        }}</span>
+        <span class="d-block text-subtitle-2">{{
+          t("pages.participant-event.not-started-subtitle")
+        }}</span>
       </div>
 
       <div v-else-if="roundOngoing && !currentPairId">
         <span class="d-block text-body-1 font-weight-bold"
-          >Let's find you a partner for this round!
+          >{{ t("pages.participant-event.searching-title") }}
         </span>
+        <span class="d-block mb-4 text-body-2">{{
+          t("pages.participant-event.searching-subtitle")
+        }}</span>
         <span class="d-block mb-4 text-body-2"
-          >Use the Qr-Scanner below or type their id in the textbox</span
-        >
-        <span class="d-block mb-4 text-body-2"
-          >{{ displayTime }} minutes left</span
+          >{{ displayTime }}
+          {{ t("pages.participant-event.searching-minutes-left") }}</span
         >
         <div
           :style="{ width: '250px', height: '250px' }"
@@ -43,7 +46,9 @@
         </div>
         <v-text-field v-model="otherUser" label="ID (optional)">
           <template v-slot:append>
-            <v-btn @click="createPair" color="secondary">Pair</v-btn>
+            <v-btn @click="createPair" color="secondary">{{
+              t("pages.participant-event.searching-manual-pair-button")
+            }}</v-btn>
           </template>
         </v-text-field>
       </div>
@@ -51,9 +56,9 @@
         class="h-75 d-flex flex-column justify-center align-center"
         v-else-if="roundOngoing"
       >
-        <span class="d-block text-h5 font-weight-bold mb-10"
-          >Have fun, you two!</span
-        >
+        <span class="d-block text-h5 font-weight-bold mb-10">{{
+          t("pages.participant-event.ongoing-title")
+        }}</span>
         <time-display
           v-if="roundDuration && roundTime"
           :max="roundDuration"
@@ -65,10 +70,12 @@
         v-else-if="!hasVoted && currentPairId"
       >
         <div class="pt-6">
-          <span class="d-block text-h4 pl-4">Did you like them?</span>
-          <span class="d-block pl-4 mb-12 text-grey-darken-1"
-            >Your partner will not see your decision immediately</span
-          >
+          <span class="d-block text-h4 pl-4">{{
+            t("pages.participant-event.vote-title")
+          }}</span>
+          <span class="d-block pl-4 mb-12 text-grey-darken-1">{{
+            t("pages.participant-event.vote-subtitle")
+          }}</span>
           <div class="d-flex justify-space-between px-6 bg-grey-lighten-3">
             <v-btn
               size="x-large"
@@ -87,9 +94,9 @@
         </div>
       </div>
       <div v-else class="h-75 d-flex flex-column justify-center align-center">
-        <span class="d-block text-h5 font-weight-bold mb-4"
-          >Waiting for new round</span
-        >
+        <span class="d-block text-h5 font-weight-bold mb-4">{{
+          t("pages.participant-event.waiting-title")
+        }}</span>
         <v-progress-circular class="text-h3" indeterminate size="100"
           >🐱</v-progress-circular
         >
@@ -105,8 +112,10 @@ import type { definitions } from "@/services/supabase-types";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
+import { useI18n } from "vue-i18n";
 
 const currentEvent = useCurrentEventStore();
+const { t } = useI18n();
 
 const eventSubscription = ref<RealtimeSubscription>();
 const roundSubscription = ref<RealtimeSubscription>();
