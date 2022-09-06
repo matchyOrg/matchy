@@ -4,6 +4,8 @@ import { supabase } from "@/services/supabase";
 import { Temporal } from "@js-temporal/polyfill";
 import type { definitions } from "@/services/supabase-types";
 import { useAuthStore } from "./auth";
+import type { EventInfo } from "@/services/eventService";
+import { timestamptzToTemporalZonedDateTime } from "@/services/utils/datetime";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
   const currentEventId = useStorage("current-event-id", "");
@@ -15,6 +17,24 @@ export const useCurrentEventStore = defineStore("current-event", () => {
 
   function setCurrentId(id: number) {
     currentEventId.value = id.toString();
+  }
+
+  async function getCurrentEvent(): Promise<EventInfo | null> {
+    if (!hasEvent) return null;
+    const { data: eventData, error } = await supabase
+      .from("events")
+      .select("*")
+      .eq("id", currentEventId.value)
+      .maybeSingle();
+    if (error) throw error;
+    if (eventData === null) {
+      throw new Error("No data was returned");
+    }
+    const event = {
+      ...eventData,
+      datetime: timestamptzToTemporalZonedDateTime(eventData.datetime),
+    };
+    return event;
   }
 
   async function startEvent(id: number) {
@@ -89,6 +109,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     startEvent,
     startNewRound,
     getCurrentRound,
+    getCurrentEvent,
     confirmPresence,
   };
 });
