@@ -1,8 +1,17 @@
 <template>
   <v-main>
     <v-container class="h-100 pt-12">
-      <div class="h-100 d-flex justify-center align-center" v-if="eventEnded">
-        <span class="d-block">That's all volks!</span>
+      <div
+        class="h-75 d-flex flex-column justify-center align-center"
+        v-if="eventEnded"
+      >
+        <span class="d-block text-h4 font-weight-bold">That's all volks!</span>
+        <span class="d-block"
+          >This event is now over, thanks for being here!</span
+        >
+        <v-btn class="mt-16" color="primary" to="/" variant="text"
+          >To Homepage</v-btn
+        >
       </div>
       <div
         v-else-if="!eventStarted"
