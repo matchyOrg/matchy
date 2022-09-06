@@ -1,8 +1,11 @@
 <template>
   <v-main>
     <v-container class="h-100 pt-12">
+      <div class="h-100 d-flex justify-center align-center" v-if="eventEnded">
+        <span class="d-block">That's all volks!</span>
+      </div>
       <div
-        v-if="!eventStarted"
+        v-else-if="!eventStarted"
         class="h-50 d-flex flex-column align center justify-center pl-2"
       >
         <span class="d-flex font-weight-medium text-h6"
@@ -12,12 +15,7 @@
           >Please wait for the organizer to start the event</span
         >
       </div>
-      <div
-        class="h-100 d-flex justify-center align-center"
-        v-else-if="eventEnded"
-      >
-        <span class="d-block">That's all volks!</span>
-      </div>
+
       <div v-else-if="roundOngoing && !currentPairId">
         <span class="d-block text-body-1 font-weight-bold"
           >Let's find you a partner for this round!
@@ -52,7 +50,7 @@
       </div>
       <div
         class="h-75 d-flex justify-center align-center"
-        v-else-if="!hasVoted"
+        v-else-if="!hasVoted && currentPairId"
       >
         <div class="pt-6">
           <span class="d-block text-h4 pl-4">Did you like them?</span>
@@ -217,27 +215,36 @@ onMounted(async () => {
       if (payload.new.is_ended) eventEnded.value = true;
     })
     .subscribe();
-  const event = await currentEvent.getCurrentEvent();
-  if (event === null) {
-    errorToast(
-      "This event does not exist or you have not confirmed you're present"
-    );
-    router.push("/");
-    return;
-  }
-  if (event.is_started) {
-    eventStarted.value = true;
-    const ongoingRound = await currentEvent.getCurrentRound();
-    if (ongoingRound !== null) {
-      currentRoundId.value = ongoingRound.id;
-      roundOngoing.value = true;
-      const currentPair = await currentEvent.getCurrentPair();
-      console.log(currentPair);
-      if (currentPair !== null) {
-        currentPairId.value = currentPair.id;
-      }
-      setupTimer(ongoingRound);
+  try {
+    const event = await currentEvent.getCurrentEvent();
+    if (event === null) {
+      errorToast(
+        "This event does not exist or you have not confirmed you're present"
+      );
+      router.push("/");
+      return;
     }
+    if (event.is_started) {
+      eventStarted.value = true;
+      const currentRound = await currentEvent.getCurrentRoundInfo();
+      if (currentRound !== null) {
+        currentRoundId.value = currentRound.id;
+        // end_timestamp is in future
+        const hasNotEnded =
+          Temporal.Instant.from(currentRound.end_timestamp).since(
+            Temporal.Now.instant()
+          ).sign > 0;
+        roundOngoing.value = hasNotEnded;
+        if (hasNotEnded) {
+          currentPairId.value = currentRound.pairId ?? undefined;
+          hasVoted.value = currentRound.hasVoted;
+          currentRoundId.value = currentRound.id;
+        }
+        setupTimer(currentRound);
+      }
+    }
+  } catch (e) {
+    console.log(e);
   }
 });
 
