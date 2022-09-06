@@ -141,6 +141,16 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     return data;
   }
 
+  async function vote(pairId: number, like: boolean) {
+    const authStore = useAuthStore();
+    if (!authStore.user)
+      throw new Error("User must be logged in to confirm presence");
+    const { error } = await supabase
+      .from("votes")
+      .insert({ user_id: authStore.user.id, user_pair_id: pairId, vote: like });
+    if (error) throw error;
+  }
+
   return {
     hasEvent,
     getCurrentId,
@@ -152,6 +162,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     confirmPresence,
     createPair,
     getCurrentPair,
+    vote,
   };
 });
 
