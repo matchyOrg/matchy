@@ -48,9 +48,12 @@
         </v-text-field>
       </div>
       <div
-        class="h-75 d-flex justify-center align-center"
+        class="h-75 d-flex flex-column justify-center align-center"
         v-else-if="roundOngoing"
       >
+        <span class="d-block text-h5 font-weight-bold mb-10"
+          >Have fun, you two!</span
+        >
         <time-display
           v-if="roundDuration && roundTime"
           :max="roundDuration"
@@ -83,7 +86,14 @@
           </div>
         </div>
       </div>
-      <div v-else>Waiting for new round...</div>
+      <div v-else class="h-75 d-flex flex-column justify-center align-center">
+        <span class="d-block text-h5 font-weight-bold mb-4"
+          >Waiting for new round</span
+        >
+        <v-progress-circular class="text-h3" indeterminate size="100"
+          >🐱</v-progress-circular
+        >
+      </div>
     </v-container>
   </v-main>
 </template>
@@ -193,6 +203,8 @@ watch(
         setupTimer(payload.new);
         currentRoundId.value = payload.new.id;
         roundOngoing.value = true;
+        // clear pairId of last round
+        currentPairId.value = undefined;
         hasVoted.value = false;
       })
       .subscribe();
