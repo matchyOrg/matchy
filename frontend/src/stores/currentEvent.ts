@@ -1,6 +1,8 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { supabase } from "@/services/supabase";
+import { Temporal } from "@js-temporal/polyfill";
+import type { definitions } from "@/services/supabase-types";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
   const currentEventId = useStorage("current-event-id", "");
@@ -26,7 +28,53 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     setCurrentId(id);
   }
 
-  return { hasEvent, getCurrentId, setCurrentId, startEvent };
+  async function startNewRound(
+    duration: number
+  ): Promise<definitions["event_rounds"]> {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const endTime = now.add({ milliseconds: duration });
+    const { error, data } = await supabase.from("event_rounds").insert(
+      {
+        event_id: +currentEventId.value,
+        start_timestamp: now.toInstant().toString(),
+        end_timestamp: endTime.toInstant().toString(),
+      },
+      { returning: "representation" }
+    );
+    if (error) throw error;
+    if (!data) throw new Error("Inserted event round was not returned");
+    return data[0];
+  }
+
+  /**
+   * Gets the current event's ongoing round if it exists else null
+   *
+   * @returns The current ongoing round or null
+   */
+  async function getCurrentRound(): Promise<
+    definitions["event_rounds"] | null
+  > {
+    if (!currentEventId.value) throw new Error("There is no current event.");
+    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const { data, error } = await supabase
+      .from("event_rounds")
+      .select("*")
+      .gte("end_timestamp", now.toInstant().toString())
+      .limit(1)
+      .maybeSingle();
+    if (error) throw error;
+    return data;
+  }
+
+  return {
+    hasEvent,
+    getCurrentId,
+    setCurrentId,
+    startEvent,
+    startNewRound,
+    getCurrentRound,
+  };
 });
 
 if (import.meta.hot) {
