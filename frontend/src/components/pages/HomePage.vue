@@ -17,14 +17,23 @@
         :key="i"
         :matchy-event="e"
         show-image
+        :pulse="e.id == +currentEventStore.getCurrentId()"
         :to="'/events/' + e.id"
         @share="share(e)"
       >
         <v-card-actions class="d-flex justify-center mh-0">
           <v-btn
+            v-if="e.id == +currentEventStore.getCurrentId()"
+            :to="'/events/' + e.id + '/participant'"
             color="primary"
             size="small"
-            @click.prevent="confirmPresence"
+            >To action</v-btn
+          >
+          <v-btn
+            v-else
+            color="primary"
+            size="small"
+            @click.prevent="confirmPresence(e.id)"
             >{{ t("pages.home.confirm-presence-action") }}</v-btn
           >
         </v-card-actions>
@@ -173,8 +182,15 @@ watch(() => PageMode.value, fetchEvents, { immediate: true });
 const share = async (e: EventInfo) =>
   await shareEvent(e, PageMode.value, authStore);
 
-const confirmPresence = () => {
+const confirmPresence = async (id: number) => {
   console.log("Don't care, didn't ask");
+  try {
+    await currentEventStore.confirmPresence(id);
+    successToast("Welcome to th event");
+    router.push({ name: "participant-view", params: { id } });
+  } catch (e) {
+    errorToast(e);
+  }
 };
 
 const startEvent = async (id: number) => {

@@ -9,6 +9,7 @@ declare module "@vue/runtime-core" {
   export interface GlobalComponents {
     AboutPage: typeof import("./components/pages/AboutPage.vue")["default"];
     Countdown: typeof import("./components/Countdown.vue")["default"];
+    CurrentParticipantEventPage: typeof import("./components/pages/CurrentParticipantEventPage.vue")["default"];
     EditEvent: typeof import("./components/EditEvent.vue")["default"];
     EventCreatePage: typeof import("./components/pages/EventCreatePage.vue")["default"];
     EventDashboard: typeof import("./components/pages/EventDashboard.vue")["default"];

@@ -126,6 +126,21 @@
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN"
     },
+    "participant-event": {
+      "ended-button-link": "",
+      "ended-subtitle": "",
+      "ended-title": "",
+      "not-started-subtitle": "",
+      "not-started-title": "",
+      "ongoing-title": "",
+      "searching-manual-pair-button": "",
+      "searching-minutes-left": "",
+      "searching-subtitle": "",
+      "searching-title": "",
+      "vote-subtitle": "",
+      "vote-title": "",
+      "waiting-title": ""
+    },
     "profile": {
       "delete-button-text": "PROFIL LÖSCHEN",
       "delete-dialog-delete": "LÖSCHEN",

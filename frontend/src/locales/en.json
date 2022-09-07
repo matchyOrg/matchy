@@ -126,6 +126,21 @@
       "resend-button-text": "RESEND",
       "send-button-text": "SEND"
     },
+    "participant-event": {
+      "ended-button-link": "To Homepage",
+      "ended-subtitle": "This event is now over, thanks for being here!",
+      "ended-title": "That's all volks!",
+      "not-started-subtitle": "Please wait for the organizer to start the event",
+      "not-started-title": "The event hasn't started yet...",
+      "ongoing-title": "Have fun, you two!",
+      "searching-manual-pair-button": "Pair",
+      "searching-minutes-left": "minutes left",
+      "searching-subtitle": "Use the Qr-Scanner below or type their id in the textbox",
+      "searching-title": "Let's find you a partner for this round!",
+      "vote-subtitle": "Your partner will not see your decision immediately",
+      "vote-title": "Did you like them?",
+      "waiting-title": "Waiting for new round"
+    },
     "profile": {
       "delete-button-text": "DELETE PROFILE",
       "delete-dialog-delete": "DELETE",

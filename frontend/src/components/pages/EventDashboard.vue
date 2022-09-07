@@ -1,4 +1,7 @@
 <template>
+  <teleport to="#nav-right">
+    <v-btn icon="mdi-close-octagon" variant="text" @click="endEvent"></v-btn>
+  </teleport>
   <v-main>
     <v-container>
       <div class="bg-grey mb-6" :style="{ height: '100px' }"></div>
@@ -36,6 +39,7 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const currentEvent = useCurrentEventStore();
+const router = useRouter();
 
 const second = 1000;
 const minute = 60 * second;
@@ -91,6 +95,17 @@ const startRound = async () => {
   const round = await currentEvent.startNewRound(setDuration.value);
   setupTimer(round);
   startingRound.value = false;
+};
+
+const endEvent = async () => {
+  try {
+    await currentEvent.endCurrentEvent();
+    successToast("Event ended");
+    router.push("/");
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
 };
 
 onMounted(async () => {
