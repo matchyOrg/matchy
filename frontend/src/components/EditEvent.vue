@@ -13,7 +13,7 @@
       elevation="0"
       color="#E0E0E0"
     >
-      <v-img :src="headerImageSrc" v-if="hasHeaderImage" />
+      <v-img cover :src="headerImageSrc" v-if="hasHeaderImage" />
       <v-card-title class="header-text absolute text-white">{{
         model.header_image
           ? t("components.edit-event.add-image")
@@ -186,9 +186,7 @@ const headerImageSrc = computed(() => {
     // convert image file to image src
     return URL.createObjectURL(headerImage.value[0]);
   } else {
-    import.meta.env.VITE_SUPABASE_STORAGE_URL +
-      "event-image-headers/" +
-      model.value.header_image;
+    return import.meta.env.VITE_SUPABASE_STORAGE_URL + model.value.header_image;
   }
 });
 
