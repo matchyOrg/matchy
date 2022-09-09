@@ -6,6 +6,7 @@ import {
   timestamptzToTemporalZonedDateTime,
 } from "./utils/datetime";
 import { nanoid } from "nanoid";
+import type { PostgrestError } from "@supabase/supabase-js";
 
 export interface Group {
   id?: number;
@@ -170,6 +171,29 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // SELECT
   // ...
 
+  /**
+   * Uploads a new header image to storage
+   * @param headerImageFile File object to upload to storage.
+   * @returns the file path to retrieve from storage.
+   */
+  async function uploadImage(headerImageFile: File): Promise<string> {
+    // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
+    // easily replaceable should we ever need to
+    const fileName = nanoid();
+    const { data, error } = await supabase.storage
+      .from("event-header-images")
+      .upload(fileName, headerImageFile, {
+        contentType: "image/png",
+      });
+
+    if (error) throw error;
+    if (!data || !data.Key) {
+      throw new Error("Received no data after uploading image");
+    }
+    // return file path
+    return data.Key;
+  }
+
   // INSERT
   async function createEvent(eventData: EditEventInfo): Promise<number> {
     console.log("Called useEventService.createEvent()", eventData);
@@ -181,25 +205,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     // the user has selected a new image header
     if (eventData.headerImageFile) {
-      // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
-      // easily replaceable should we ever need to
-      const fileName = nanoid();
-      const { data, error } = await supabase.storage
-        .from("event-header-images")
-        .upload(fileName, eventData.headerImageFile, {
-          contentType: "image/png",
-        });
-
-      if (error) throw error;
-      if (!data || !data.Key) {
-        throw new Error("Received no data after uploading image");
-      }
-      // set the new image path
-      eventData.header_image = data.Key;
+      eventData.header_image = await uploadImage(eventData.headerImageFile);
     }
 
-    let creationError;
-    let id;
+    let creationError: PostgrestError;
+    let id: number;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
         throw Error(
@@ -253,6 +263,37 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   // UPDATE
   // ...
 
+  async function updateEvent(id: number, eventData: EditEventInfo) {
+    const {
+      title,
+      description,
+      headerImageFile,
+      location,
+      max_participants,
+      datetime,
+    } = eventData;
+
+    // if user uploader a header image we upload it and
+    // set the header_image path to the returned storage path
+    // otherwise we keep the current one or set it null if it was deleted
+    const header_image = headerImageFile
+      ? await uploadImage(headerImageFile)
+      : eventData.header_image ?? null;
+
+    const { error } = await supabase
+      .from("events")
+      .update({
+        title,
+        description,
+        header_image,
+        location,
+        max_participants,
+        datetime: datetime.toInstant().toString(),
+      })
+      .match({ id });
+    if (error) throw error;
+  }
+
   // DELETE
   // ...
 
@@ -286,6 +327,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
   return {
     createEvent,
+    updateEvent,
     fetchEvents,
     fetchEventById,
     fetchUserEvents,
