@@ -1,4 +1,3 @@
-import { useAuthStore } from "@/stores/auth";
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomePage from "../components/pages/HomePage.vue";
 import LoginPage from "../components/pages/LoginPage.vue";
@@ -31,7 +30,7 @@ const router = createRouter({
     {
       path: "/",
       component: HomePage,
-      meta: { requiresLogin: true, requiresCompletedProfile: true },
+      meta: { requiresLogin: true },
     },
     {
       path: "/edit-profile",
@@ -41,17 +40,17 @@ const router = createRouter({
     {
       path: "/create-event",
       component: EventCreatePage,
-      meta: { requiresLogin: true, requiresCompletedProfile: true },
+      meta: { requiresLogin: true },
     },
     {
       path: "/matches",
       component: MatchesPage,
-      meta: { requiresLogin: true, requiresCompletedProfile: true },
+      meta: { requiresLogin: true },
     },
     {
       path: "/edit-event/:id",
       component: EventEditPage,
-      meta: { requiresLogin: true, requiresCompletedProfile: true },
+      meta: { requiresLogin: true },
     },
     {
       path: "/events",
@@ -98,22 +97,6 @@ router.beforeEach((to, _from, next) => {
     return;
   }
 
-  // requiresCompletedProfile
-  // TODO: We have a race condition here, because isRegistered isn't set at the beginning. It's basically async.
-  const registered = useAuthStore().isRegistered;
-  if (
-    to.matched.some((record) => record.meta.requiresCompletedProfile) &&
-    loggedIn &&
-    !registered
-  ) {
-    console.warn(
-      "tried to access",
-      to.fullPath,
-      "but not registered, forwarding to /edit-profile"
-    );
-    next({ path: "/edit-profile", query: { redirect: to.fullPath } });
-    return;
-  }
   next();
 });
 
