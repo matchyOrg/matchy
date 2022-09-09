@@ -7,6 +7,7 @@
         v-model="matchyEvent"
         :exclude-fields="['event_groups']"
       />
+      <v-btn color="success" @click="submit">Submit</v-btn>
     </v-container>
   </v-main>
 </template>
@@ -25,6 +26,20 @@ const authStore = useAuthStore();
 const eventService = useEventService(authStore);
 const matchyEvent = ref<EditEventInfo>();
 const loadingEvent = ref(true);
+
+const submit = async () => {
+  try {
+    if (!matchyEvent.value) {
+      errorToast("There's no event to submit");
+      return;
+    }
+    await eventService.updateEvent(+route.params.id, matchyEvent.value);
+    successToast("Event was successfully updated");
+    router.push({ name: "event-detail", params: { id: +route.params.id } });
+  } catch (e) {
+    errorToast(e);
+  }
+};
 
 watch(
   () => route.params.id,
