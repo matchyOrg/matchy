@@ -1,13 +1,15 @@
 <template>
   <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
-    <v-container>
-      <EditEvent
-        v-if="matchyEvent"
-        v-model="matchyEvent"
-        :exclude-fields="['event_groups']"
-      />
-      <v-btn color="success" @click="submit">Submit</v-btn>
+    <v-container class="flex flex-col justify-center">
+      <div v-if="!loadingEvent">
+        <EditEvent
+            v-model="matchyEvent"
+            :exclude-fields="['event_groups']"
+        />
+        <v-btn color="success" @click="submit">Submit</v-btn>
+      </div>
+      <v-progress-circular indeterminate class="spinner" v-else/>
     </v-container>
   </v-main>
 </template>
@@ -69,3 +71,17 @@ watch(
   { immediate: true, flush: "post" }
 );
 </script>
+
+<style scoped>
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.spinner {
+  margin: auto;
+}
+</style>
