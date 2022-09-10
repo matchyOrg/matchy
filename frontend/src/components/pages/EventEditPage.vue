@@ -3,13 +3,10 @@
   <v-main>
     <v-container class="flex flex-col justify-center">
       <div v-if="!loadingEvent">
-        <EditEvent
-            v-model="matchyEvent"
-            :exclude-fields="['event_groups']"
-        />
+        <EditEvent v-model="matchyEvent" :exclude-fields="['event_groups']" />
         <v-btn color="success" @click="submit">Submit</v-btn>
       </div>
-      <v-progress-circular indeterminate class="spinner" v-else/>
+      <v-progress-circular indeterminate class="spinner" v-else />
     </v-container>
   </v-main>
 </template>
