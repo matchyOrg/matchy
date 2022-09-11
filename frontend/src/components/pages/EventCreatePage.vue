@@ -13,6 +13,7 @@ import { useEventService, type EditEventInfo } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
 import { Temporal } from "@js-temporal/polyfill";
 import { useI18n } from "vue-i18n";
+import type { PostgrestError } from "@supabase/postgrest-js";
 
 const { t } = useI18n();
 const eventService = useEventService(useAuthStore());
@@ -23,9 +24,14 @@ const submit = async () => {
     const id = await eventService.createEvent(matchyEvent);
     successToast(t("pages.event-create.success"));
     router.push({ name: "event-detail", params: { id } });
-  } catch (_e) {
-    console.log(_e);
-    errorToast(t("pages.event-create.error"));
+  } catch (e: any) {
+    const err = e as PostgrestError;
+    console.log(e);
+    if (err.code) {
+      if (err.code == "23514") {
+        errorToast("One of the inputs has failed validation!");
+      }
+    }
   }
 };
 

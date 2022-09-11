@@ -52,6 +52,16 @@ export interface EventRegistration {
   present: boolean;
 }
 
+export interface EventSearchParams {
+  title?: string;
+  location?: string;
+  maxParticipants?: string;
+  fromDate?: Temporal.ZonedDateTime;
+  toDate?: Temporal.ZonedDateTime;
+  groupNameA?: string;
+  groupNameB?: string;
+}
+
 export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
@@ -69,7 +79,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .order("datetime", { ascending: true });
 
     if (error) {
-      errorToast(error);
       throw error;
     }
     if (!events) {
@@ -86,6 +95,12 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }));
 
     return parsedEvents;
+  }
+
+  async function fetchEventsByFilters(
+    params: EventSearchParams
+  ): Promise<EventInfo[]> {
+    const { data: events, error } = await supabase.from("events").select("");
   }
 
   async function fetchUserEvents(): Promise<EventInfo[]> {
