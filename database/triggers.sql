@@ -102,3 +102,21 @@ $$
     return new;
   end;
 $$
+
+create or replace function public.event_create_validate()
+returns trigger
+language plpgsql
+as
+$$
+begin
+  if (new.datetime <= now()) then
+    raise exception '[events.create.datetime_must_be_future] Start timestamp of event must be in future';
+  end if;
+  return new;
+end;
+$$
+
+create trigger on_event_create_check_start_timestmap
+ before insert on events
+  for each row 
+  execute procedure public.event_create_validate();
