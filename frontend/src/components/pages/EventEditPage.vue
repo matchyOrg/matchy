@@ -1,12 +1,12 @@
 <template>
   <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
-    <v-container class="flex flex-col justify-center">
+    <v-container class="d-flex flex-column">
       <div v-if="!loadingEvent">
         <EditEvent v-model="matchyEvent" :exclude-fields="['event_groups']" />
         <v-btn color="success" @click="submit">Submit</v-btn>
       </div>
-      <v-progress-circular indeterminate class="spinner" v-else />
+      <v-progress-circular indeterminate class="spinner ma-auto" v-else/>
     </v-container>
   </v-main>
 </template>
@@ -68,17 +68,3 @@ watch(
   { immediate: true, flush: "post" }
 );
 </script>
-
-<style scoped>
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.spinner {
-  margin: auto;
-}
-</style>
