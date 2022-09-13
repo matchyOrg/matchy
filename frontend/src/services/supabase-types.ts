@@ -30,6 +30,8 @@ export interface paths {
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
           is_started?: parameters["rowFilter.events.is_started"];
+          /** Whether match results of the event have been published */
+          results_published?: parameters["rowFilter.events.results_published"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -94,6 +96,8 @@ export interface paths {
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
           is_started?: parameters["rowFilter.events.is_started"];
+          /** Whether match results of the event have been published */
+          results_published?: parameters["rowFilter.events.results_published"];
         };
         header: {
           /** Preference */
@@ -122,6 +126,8 @@ export interface paths {
           datetime?: parameters["rowFilter.events.datetime"];
           is_ended?: parameters["rowFilter.events.is_ended"];
           is_started?: parameters["rowFilter.events.is_started"];
+          /** Whether match results of the event have been published */
+          results_published?: parameters["rowFilter.events.results_published"];
         };
         body: {
           /** events */
@@ -717,6 +723,41 @@ export interface paths {
       };
     };
   };
+  "/all_constraints": {
+    get: {
+      parameters: {
+        query: {
+          relname?: parameters["rowFilter.all_constraints.relname"];
+          conname?: parameters["rowFilter.all_constraints.conname"];
+          contype?: parameters["rowFilter.all_constraints.contype"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["all_constraints"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+  };
   "/event_rounds": {
     get: {
       parameters: {
@@ -1072,6 +1113,26 @@ export interface paths {
       };
     };
   };
+  "/rpc/compute_matches_and_send_notifications": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: bigint */
+            ev_id: number;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
   "/rpc/can_form_pair": {
     post: {
       parameters: {
@@ -1151,6 +1212,12 @@ export interface definitions {
      * @default false
      */
     is_started: boolean;
+    /**
+     * Format: boolean
+     * @description Whether match results of the event have been published
+     * @default false
+     */
+    results_published: boolean;
   };
   /** @description Attribute of event: 2 groups */
   event_group_pairs: {
@@ -1277,6 +1344,14 @@ export interface definitions {
     send_earliest_at?: string;
     /** Format: character varying */
     email?: string;
+  };
+  all_constraints: {
+    /** Format: name */
+    relname?: string;
+    /** Format: name */
+    conname?: string;
+    /** Format: "char" */
+    contype?: string;
   };
   /** @description A single round of an event */
   event_rounds: {
@@ -1421,6 +1496,11 @@ export interface parameters {
   "rowFilter.events.is_ended": string;
   /** Format: boolean */
   "rowFilter.events.is_started": string;
+  /**
+   * Format: boolean
+   * @description Whether match results of the event have been published
+   */
+  "rowFilter.events.results_published": string;
   /** @description event_group_pairs */
   "body.event_group_pairs": definitions["event_group_pairs"];
   /** Format: bigint */
@@ -1483,6 +1563,14 @@ export interface parameters {
   "rowFilter.due_notifications.send_earliest_at": string;
   /** Format: character varying */
   "rowFilter.due_notifications.email": string;
+  /** @description all_constraints */
+  "body.all_constraints": definitions["all_constraints"];
+  /** Format: name */
+  "rowFilter.all_constraints.relname": string;
+  /** Format: name */
+  "rowFilter.all_constraints.conname": string;
+  /** Format: "char" */
+  "rowFilter.all_constraints.contype": string;
   /** @description event_rounds */
   "body.event_rounds": definitions["event_rounds"];
   /** Format: bigint */
