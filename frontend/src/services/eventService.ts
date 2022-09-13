@@ -65,19 +65,37 @@ export interface EventSearchParams {
 export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
-  async function fetchEvents(): Promise<EventInfo[]> {
+  function getPagination(pageIndex: number, size: number) {
+    const from = pageIndex * size;
+    const to = from + size;
+
+    return { from, to };
+  }
+
+  async function fetchEvents(options?: {
+    pagination?: { pageIndex: number; size: number };
+  }): Promise<{ events: EventInfo[]; total: number }> {
     const anHourAgo = dateXHoursAgo(1);
 
-    const { data: events, error } = await supabase
+    let query = supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))",
+        { count: "exact" }
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
       .gt("datetime", anHourAgo.toInstant().toString())
       .order("datetime", { ascending: true });
+    if (options?.pagination) {
+      const { from, to } = getPagination(
+        options?.pagination?.pageIndex,
+        options?.pagination?.size
+      );
+      query = query.range(from, to - 1);
+    }
 
+    const { data: events, count, error } = await query;
     if (error) {
       throw error;
     }
@@ -94,13 +112,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       ),
     }));
 
-    return parsedEvents;
-  }
-
-  async function fetchEventsByFilters(
-    params: EventSearchParams
-  ): Promise<EventInfo[]> {
-    const { data: events, error } = await supabase.from("events").select("");
+    return { events: parsedEvents, total: count ?? 0 };
   }
 
   async function fetchUserEvents(): Promise<EventInfo[]> {
@@ -349,5 +361,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     isRegisteredForEvent,
     registerForEvent,
     fetchOrganizerEvents,
+    getPagination,
   };
 }

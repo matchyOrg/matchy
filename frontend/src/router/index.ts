@@ -53,7 +53,7 @@ const router = createRouter({
       meta: { requiresLogin: true },
     },
     {
-      path: "/events",
+      path: "/eventSearch",
       component: EventSearchPage,
     },
     {
