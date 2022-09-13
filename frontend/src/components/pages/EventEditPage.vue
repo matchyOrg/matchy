@@ -1,13 +1,12 @@
 <template>
   <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
-    <v-container>
-      <EditEvent
-        v-if="matchyEvent"
-        v-model="matchyEvent"
-        :exclude-fields="['event_groups']"
-      />
-      <v-btn color="success" @click="submit">Submit</v-btn>
+    <v-container class="d-flex flex-column">
+      <div v-if="!loadingEvent">
+        <EditEvent v-model="matchyEvent" :exclude-fields="['event_groups']" />
+        <v-btn color="success" @click="submit">Submit</v-btn>
+      </div>
+      <v-progress-circular indeterminate class="spinner ma-auto" v-else/>
     </v-container>
   </v-main>
 </template>
