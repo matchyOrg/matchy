@@ -1,12 +1,12 @@
 <template>
   <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
-    <v-container>
-      <EditEvent
-        v-if="matchyEvent"
-        v-model="matchyEvent"
-        :exclude-fields="['event_groups']"
-      />
+    <v-container class="d-flex flex-column">
+      <div v-if="matchyEvent">
+        <EditEvent v-model="matchyEvent" :exclude-fields="['event_groups']" />
+        <v-btn color="success" @click="submit">Submit</v-btn>
+      </div>
+      <v-progress-circular indeterminate class="spinner ma-auto" v-else />
     </v-container>
   </v-main>
 </template>
@@ -24,11 +24,25 @@ const router = useRouter();
 const authStore = useAuthStore();
 const eventService = useEventService(authStore);
 const matchyEvent = ref<EditEventInfo>();
-const loadingEvent = ref(true);
+
+const submit = async () => {
+  try {
+    if (!matchyEvent.value) {
+      errorToast("There's no event to submit");
+      return;
+    }
+    await eventService.updateEvent(+route.params.id, matchyEvent.value);
+    successToast("Event was successfully updated");
+    router.push({ name: "event-detail", params: { id: +route.params.id } });
+  } catch (e) {
+    errorToast(e);
+  }
+};
 
 watch(
   () => route.params.id,
   async () => {
+    matchyEvent.value = undefined;
     if (isNaN(+route.params.id)) {
       errorToast(t("shared.events.invalid-id"));
       router.back();
@@ -49,7 +63,6 @@ watch(
       errorToast(t("shared.events.event-load-error"));
       router.back();
     }
-    loadingEvent.value = false;
   },
   { immediate: true, flush: "post" }
 );

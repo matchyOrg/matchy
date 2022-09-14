@@ -12,9 +12,9 @@
     >
     <skeleton-loader v-if="loading" width="200" />
     <span v-else-if="datetime">
-      {{ datetime.day }}/{{ String(datetime.month).padStart(2, "0") }}/{{
-        datetime.year
-      }}
+      {{ String(datetime.day).padStart(2, "0") }}/{{
+        String(datetime.month).padStart(2, "0")
+      }}/{{ datetime.year }}
     </span>
   </div>
   <div class="mb-4 d-flex align-center" v-if="loading || datetime">
