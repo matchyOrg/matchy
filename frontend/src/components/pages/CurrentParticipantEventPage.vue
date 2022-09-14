@@ -39,10 +39,22 @@
           {{ t("pages.participant-event.searching-minutes-left") }}</span
         >
         <div
-          :style="{ width: '250px', height: '250px' }"
+          :style="{ width: '250px', height: '250px', position: 'relative' }"
           class="bg-grey mx-auto"
         >
-          <span class="text-white">Nice Qr-Code scanner</span>
+          <div class="logo bg-white pa-2 rounded-lg">
+            <v-icon>mdi-camera</v-icon>
+          </div>
+          <vue-qrcode
+            :value="authStore.user?.id ?? 'unavailable'"
+            :color="{
+              dark: '#000',
+              light: '#fff',
+            }"
+            type="image/png"
+            :quality="0.92"
+            :width="250"
+          ></vue-qrcode>
         </div>
         <v-text-field v-model="otherUser" label="ID (optional)">
           <template v-slot:append>
@@ -109,11 +121,14 @@
 import router from "@/router";
 import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
+import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
 import { useI18n } from "vue-i18n";
+import VueQrcode from "vue-qrcode";
 
+const authStore = useAuthStore();
 const currentEvent = useCurrentEventStore();
 const { t } = useI18n();
 
@@ -284,3 +299,13 @@ onBeforeUnmount(() => {
   pairSubscription.value?.unsubscribe();
 });
 </script>
+
+<style scoped>
+.logo {
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
