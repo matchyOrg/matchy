@@ -41,6 +41,7 @@
         <div
           :style="{ width: '250px', height: '250px', position: 'relative' }"
           class="bg-grey mx-auto"
+          @click="showQrReader = true"
         >
           <div class="logo bg-white pa-2 rounded-lg">
             <v-icon>mdi-camera</v-icon>
@@ -55,6 +56,21 @@
             :quality="0.92"
             :width="250"
           ></vue-qrcode>
+          <v-dialog v-model="showQrReader">
+            <div class="p-relative fullscreen">
+              <qrcode-stream
+                v-if="showQrReader"
+                @init="onReaderInit"
+                @decode="onRead"
+              />
+              <v-progress-circular
+                v-if="loadingReader"
+                class="qr-loader"
+                size="125"
+                indeterminate
+              />
+            </div>
+          </v-dialog>
         </div>
         <v-text-field v-model="otherUser" label="ID (optional)">
           <template v-slot:append>
@@ -118,7 +134,6 @@
 </template>
 
 <script lang="ts" setup>
-import router from "@/router";
 import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
 import { useAuthStore } from "@/stores/auth";
@@ -127,7 +142,9 @@ import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
 import { useI18n } from "vue-i18n";
 import VueQrcode from "vue-qrcode";
+import { QrcodeStream } from "vue3-qrcode-reader";
 
+const router = useRouter();
 const authStore = useAuthStore();
 const currentEvent = useCurrentEventStore();
 const { t } = useI18n();
@@ -159,7 +176,7 @@ const displayTime = computed(() => {
 });
 
 const startCountdown = () =>
-  setInterval(() => {
+  window.setInterval(() => {
     if (!roundTime.value) {
       clearInterval(countingInterval.value);
       return;
@@ -216,6 +233,28 @@ const createPair = async () => {
   }
 };
 
+const showQrReader = ref(false);
+const loadingReader = ref(false);
+const onReaderInit = (initPromise: Promise<any>) => {
+  loadingReader.value = true;
+  initPromise.then(() => (loadingReader.value = false));
+};
+
+const onRead = async (uuid: string) => {
+  const validUUID =
+    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/.test(
+      uuid
+    );
+  if (!validUUID) {
+    errorToast(
+      "Pair creation unsuccessful because we could not identify the other person"
+    );
+    return;
+  }
+  otherUser.value = uuid;
+  await createPair();
+};
+
 watch(
   () => eventStarted.value,
   () => {
@@ -230,6 +269,7 @@ watch(
         // clear pairId of last round
         currentPairId.value = undefined;
         hasVoted.value = false;
+        showQrReader.value = false;
       })
       .subscribe();
     console.log("round subscription activated");
@@ -303,6 +343,22 @@ onBeforeUnmount(() => {
 <style scoped>
 .logo {
   z-index: 5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fullscreen {
+  height: 100vh;
+  width: 100vw;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.qr-loader {
   position: absolute;
   top: 50%;
   left: 50%;
