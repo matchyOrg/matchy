@@ -102,7 +102,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {
@@ -130,7 +134,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("organizer", authStore.user.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {

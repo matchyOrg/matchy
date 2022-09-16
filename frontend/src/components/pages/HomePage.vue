@@ -161,12 +161,17 @@ const fetchEvents = async () => {
       organizerEvents ?? (await eventService.fetchOrganizerEvents());
     allEvents = organizerEvents;
   }
-  // events that have started at most 30 minutes ago or will start in 30 minutes at the earlist
+  // events with
+  // datetime at most 30 minutes ago
+  // or in 30 minutes at the earliest
+  // or have started but not ended
   currentEvents.value = allEvents.filter((e) => {
     const diff = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).since(
       e.datetime
     );
-    return diff.abs().total({ unit: "hour" }) <= 1;
+    return (
+      diff.abs().total({ unit: "hour" }) <= 1 || (e.is_started && !e.is_ended)
+    );
   });
 
   // all other events
@@ -180,7 +185,7 @@ const fetchEvents = async () => {
 watch(() => PageMode.value, fetchEvents, { immediate: true });
 
 const share = async (e: EventInfo) =>
-  await shareEvent(e, PageMode.value, authStore);
+  await shareEvent(e, PageMode.value, authStore, t);
 
 const confirmPresence = async (id: number) => {
   console.log("Don't care, didn't ask");
