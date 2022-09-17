@@ -1,7 +1,7 @@
 <template>
   <teleport to="#nav-title">My Matches</teleport>
   <v-main>
-    <v-container class="pt-16">
+    <v-container class="pt-8 d-flex flex-column align-center">
       <v-expansion-panels
         v-if="eventMatches.length > 0"
         multiple
@@ -34,9 +34,10 @@
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
-      <div v-else class="text-h6 font-weight-bold">
+      <div v-else-if="!loading" class="text-h6 font-weight-bold">
         You haven't participated in any events
       </div>
+      <v-progress-circular v-else indeterminate />
     </v-container>
   </v-main>
 </template>
@@ -49,12 +50,14 @@ const authStore = useAuthStore();
 const matchesService = useMatchService(authStore);
 const eventMatches = ref<EventMatches[]>([]);
 const panels = ref<number[]>([]);
+const loading = ref(true);
 
 onMounted(async () => {
   eventMatches.value = await matchesService.getMatches();
   panels.value = Array(eventMatches.value.length)
     .fill(0)
     .map((_, i) => i);
+  loading.value = false;
 });
 </script>
 
