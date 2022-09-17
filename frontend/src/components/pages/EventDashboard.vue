@@ -5,6 +5,7 @@
   <v-main>
     <v-container>
       <round-overview
+        v-if="!hasNoRoundYet"
         :votes="votesThisRound"
         :total-expected-votes="pairsThisRound * 2"
         :users-in-pairs="pairsThisRound * 2"
@@ -56,6 +57,7 @@ const time = ref(minute);
 const currentRoundId = ref<number>();
 const roundOngoing = ref(false);
 const startingRound = ref(false);
+const hasNoRoundYet = ref(false);
 const countingInterval = ref<ReturnType<typeof setInterval>>();
 
 const pairsThisRound = ref(0);
@@ -98,10 +100,16 @@ const setupTimer = (round: definitions["event_rounds"]) => {
   const roundDuration = roundEnd.since(roundStart);
   const remainingTime = now.until(roundEnd);
   setDuration.value = roundDuration.total({ unit: "milliseconds" });
-  time.value = remainingTime.total({ unit: "milliseconds" });
-  // make sure there's only ever 1 interval at a time
-  clearInterval(countingInterval.value);
-  countingInterval.value = startCountdown();
+  const remainingMilliseconds = remainingTime.total({ unit: "milliseconds" });
+  if (remainingMilliseconds <= 0) {
+    roundOngoing.value = false;
+    time.value = setDuration.value;
+  } else {
+    time.value = remainingTime.total({ unit: "milliseconds" });
+    // make sure there's only ever 1 interval at a time
+    clearInterval(countingInterval.value);
+    countingInterval.value = startCountdown();
+  }
 };
 
 const startRound = async () => {
@@ -170,6 +178,7 @@ onMounted(async () => {
   if (currentRound === null) {
     roundOngoing.value = false;
     startingRound.value = false;
+    hasNoRoundYet.value = true;
     return;
   }
   currentRoundId.value = currentRound.id;
