@@ -28,6 +28,14 @@ const sideBarVisible = ref(false);
 
 // update auth state on app load
 const authStore = useAuthStore();
+const router = useRouter();
+
+watch(
+  () => authStore.user,
+  () => {
+    if (authStore.user === null) router.push("/login");
+  }
+);
 </script>
 
 <style>

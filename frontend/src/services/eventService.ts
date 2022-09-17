@@ -32,6 +32,7 @@ export interface EventInfo {
   is_ended: boolean;
   is_cancelled: boolean;
   is_started: boolean;
+  results_published: boolean;
 }
 
 export interface EditEventInfo
@@ -102,7 +103,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {
@@ -130,7 +135,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("organizer", authStore.user.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {
