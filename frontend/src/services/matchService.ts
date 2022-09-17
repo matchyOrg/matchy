@@ -8,6 +8,8 @@ export interface EventMatchesRaw {
   title: string;
   matches: [
     {
+      uid: string;
+      present: boolean;
       profile: Profile;
     }
   ];
@@ -30,29 +32,34 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
       await supabase
         .from("events")
         .select(
-          "id, title, matches:event_registrations!inner(profile:profiles(fullName:full_name, email, description))"
+          "id, title, matches:event_registrations!inner(present, uid:user_id, profile:profiles(fullName:full_name, email, description))"
         )
-        // TODO: remove once we find a way to correctly type this
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore: valid because of joins
-        .not("matches.profile.user_id", "eq", authStore.user.id)
         .order("datetime", { ascending: false });
     if (error) {
       throw error;
     }
     if (!data) throw new Error("No data returned");
     console.log(data);
-    const eventMatches: EventMatches[] = data.map(
-      ({ id, title, matches }: EventMatchesRaw) => {
+    const eventMatches: EventMatches[] = data
+      // filter out events where the user wasn't present
+      .filter(({ matches }) =>
+        matches.some(({ uid, present }) => {
+          console.log(authStore.user?.id);
+          console.log(uid);
+          console.log(uid === authStore.user?.id ? present : true);
+          return uid === authStore.user?.id ? present : true;
+        })
+      )
+      .map(({ id, title, matches }: EventMatchesRaw) => {
         return {
           id,
           title,
           matches: matches
+            .filter(({ uid }) => uid !== authStore.user?.id)
             .map(({ profile }) => profile) // profile nested in postgrest response
             .filter((p) => p !== null),
         };
-      }
-    );
+      });
     return eventMatches ?? [];
   }
   return {
