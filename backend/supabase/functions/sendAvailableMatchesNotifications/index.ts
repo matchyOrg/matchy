@@ -89,7 +89,7 @@ serve(async (req) => {
                 data.title
               )}</b>\" are now available</h2>
               <br>
-              <div>Check them out <a href="https://matchyorg.github.io/matchy">here</a>.</div>
+              <div>Check them out <a href="https://matchyorg.github.io/matchy/#/matches">here</a>.</div>
             `,
       });
     });
