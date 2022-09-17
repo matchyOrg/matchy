@@ -30,7 +30,7 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
       await supabase
         .from("events")
         .select(
-          "id, title, matches:event_registrations!inner(profile:profiles(*))"
+          "id, title, matches:event_registrations!inner(profile:profiles(fullName:full_name, email, description))"
         )
         // TODO: remove once we find a way to correctly type this
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
