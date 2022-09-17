@@ -32,6 +32,7 @@ export interface EventInfo {
   is_ended: boolean;
   is_cancelled: boolean;
   is_started: boolean;
+  results_published: boolean;
 }
 
 export interface EditEventInfo
