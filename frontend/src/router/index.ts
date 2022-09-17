@@ -64,7 +64,8 @@ const router = createRouter({
     },
     {
       path: "/events/:id/participant",
-      component: CurrentParticipantEventPage,
+      component: () =>
+        import("@/components/pages/CurrentParticipantEventPage.vue"),
       name: "participant-view",
       meta: { requiresLogin: true },
     },
