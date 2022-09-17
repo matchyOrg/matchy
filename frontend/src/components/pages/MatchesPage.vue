@@ -4,28 +4,29 @@
     <v-container class="pt-16">
       <v-expansion-panels multiple v-model="panels">
         <v-expansion-panel
+          class="matchy-expansion-panel"
           elevation="0"
           v-for="event in eventMatches"
           :key="event.id"
         >
-          <v-expansion-panel-title>{{ event.title }}</v-expansion-panel-title>
+          <v-expansion-panel-title>
+            <span class="d-block text-h6">
+              {{ event.title }}
+            </span>
+          </v-expansion-panel-title>
           <v-expansion-panel-text v-if="event.matches.length === 0">
-            <img
-              src="https://i.kym-cdn.com/entries/icons/mobile/000/039/393/cover2.jpg"
-              height="50"
-              width="50"
-            />No bitches?</v-expansion-panel-text
-          >
-          <v-expansion-panel-text>
-            <div
-              class="d-flex"
-              v-for="match in event.matches"
-              :key="match.email"
-            >
-              <span class="d-block">{{ match.fullName }}</span
-              ><span class="d-block">{{ match.email }}</span
-              ><span class="d-block">{{ match.description }}</span>
-            </div>
+            <span class="text-grey">You had no matches for this event</span>
+          </v-expansion-panel-text>
+          <v-expansion-panel-text v-else>
+            <v-table>
+              <tbody>
+                <tr v-for="match in event.matches" :key="match.email">
+                  <td>{{ match.fullName ?? "unknown" }}</td>
+                  <td>{{ match.email }}</td>
+                  <td>{{ match.description }}</td>
+                </tr>
+              </tbody>
+            </v-table>
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -49,3 +50,13 @@ onMounted(async () => {
     .map((_, i) => i);
 });
 </script>
+
+<style scoped>
+.matchy-expansion-panel::after {
+  opacity: 1 !important;
+}
+.matchy-expansion-panel:deep(.v-expansion-panel-title--active
+    > .v-expansion-panel-title__overlay) {
+  opacity: 0;
+}
+</style>
