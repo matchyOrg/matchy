@@ -70,6 +70,8 @@ const { t } = useI18n();
 
 const authStore = useAuthStore();
 const router = useRouter();
+const { redirect: redirectRaw } = useRoute().query;
+const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
 
 // leave page if already logged in
 if (authStore.isLoggedIn) {
@@ -80,6 +82,11 @@ const email = ref("");
 const mailSent = ref(false);
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
+
+watch(
+  () => authStore.user,
+  () => router.push(redirect ?? "/")
+);
 
 const onSubmit = asyncLoading(async () => {
   // TODO: This is still flawed, especially the hash in the URL is troublesome
