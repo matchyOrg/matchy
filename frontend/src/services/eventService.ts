@@ -24,7 +24,7 @@ export interface EventInfo {
   organizer?: string;
   title: string;
   description: string;
-  header_image?: string;
+  header_image?: string | null;
   datetime: Temporal.ZonedDateTime;
   location: string;
   max_participants: number;
@@ -103,7 +103,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {
@@ -131,7 +135,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("organizer", authStore.user.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .or(
+        `datetime.gt.${anHourAgo
+          .toInstant()
+          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+      )
       .order("datetime", { ascending: true });
 
     if (error) {
@@ -209,7 +217,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       eventData.header_image = await uploadImage(eventData.headerImageFile);
     }
 
-    let creationError: PostgrestError;
+    let creationError: PostgrestError | null;
     let id: number;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
@@ -242,16 +250,22 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         location,
         max_participants,
       } = eventData;
-      const { error, data } = await supabase.from("events").insert({
-        title,
-        description,
-        header_image,
-        location,
-        max_participants,
-        organizer: authStore.user.id,
-        datetime: datetime.toInstant().toString(),
-        event_group_pair: undefined,
-      });
+      const { error, data } = await supabase.from("events").insert(
+        {
+          title,
+          description,
+          // TODO: remove once we find a way to correctly type this
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore: supabase typing is wrong, this column is nullable
+          header_image,
+          location,
+          max_participants,
+          organizer: authStore.user.id,
+          datetime: datetime.toInstant().toString(),
+          event_group_pair: undefined,
+        },
+        { returning: "representation" }
+      );
       creationError = error;
       if (!data) throw new Error("Event was not returned upon creation");
       id = data[0].id;
@@ -286,6 +300,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .update({
         title,
         description,
+        // TODO: remove once we find a way to correctly type this
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore: supabase typing is wrong, this column is nullable
         header_image,
         location,
         max_participants,

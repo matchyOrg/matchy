@@ -12,8 +12,10 @@ create or replace function public.create_event_with_groups(
     "groupBTitle" text,
     "groupBDescription" text
 )
-    returns void language sql as
+    returns bigint language plpgsql as
 $$
+declare event_id bigint;
+begin
     with groupA as (
         insert into event_groups (title, description, creator) values ("groupATitle", "groupADescription", auth.uid()) returning id
     ),
@@ -23,8 +25,10 @@ $$
     pair as (
         insert into event_group_pairs (group_a, group_b) select groupA.id, groupB.id from groupA, groupB returning id
     )
-    insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, delay_for_sending_matches, is_ended)
-        select auth.uid(), title, description, header_image, datetime, location, max_participants, pair.id, False, Null, False from pair
+    insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, is_ended)
+        select auth.uid(), title, description, header_image, datetime, location, max_participants, pair.id, False, False from pair returning id into event_id;
+    return event_id;
+end;
 $$;
 
 
