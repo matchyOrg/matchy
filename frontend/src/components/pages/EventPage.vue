@@ -231,7 +231,7 @@ const onShare = async () => {
   if (!matchyEvent.value) {
     throw new Error("Event shared before loaded");
   }
-  await shareEvent(matchyEvent.value, PageMode.value, authStore, t);
+  await shareEvent(matchyEvent.value, PageMode.value, authStore, t, router);
 };
 
 const onEdit = () => {
