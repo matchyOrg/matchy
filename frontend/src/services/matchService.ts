@@ -43,19 +43,16 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
     const eventMatches: EventMatches[] = data
       // filter out events where the user wasn't present
       .filter(({ matches }) =>
-        matches.some(({ uid, present }) => {
-          console.log(authStore.user?.id);
-          console.log(uid);
-          console.log(uid === authStore.user?.id ? present : true);
-          return uid === authStore.user?.id ? present : true;
-        })
+        matches.some(({ uid, present }) =>
+          uid === authStore.user?.id ? present : true
+        )
       )
       .map(({ id, title, matches }: EventMatchesRaw) => {
         return {
           id,
           title,
           matches: matches
-            .filter(({ uid }) => uid !== authStore.user?.id)
+            .filter(({ uid }) => uid !== authStore.user?.id) // filter user's profile
             .map(({ profile }) => profile) // profile nested in postgrest response
             .filter((p) => p !== null),
         };
