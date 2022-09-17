@@ -2,7 +2,11 @@
   <teleport to="#nav-title">My Matches</teleport>
   <v-main>
     <v-container class="pt-16">
-      <v-expansion-panels multiple v-model="panels">
+      <v-expansion-panels
+        v-if="eventMatches.length > 0"
+        multiple
+        v-model="panels"
+      >
         <v-expansion-panel
           class="matchy-expansion-panel"
           elevation="0"
@@ -30,6 +34,9 @@
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
+      <div v-else class="text-h6 font-weight-bold">
+        You haven't participated in any events
+      </div>
     </v-container>
   </v-main>
 </template>
