@@ -4,7 +4,12 @@
   </teleport>
   <v-main>
     <v-container>
-      <div class="bg-grey mb-6" :style="{ height: '100px' }"></div>
+      <round-overview
+        :votes="votesThisRound"
+        :total-expected-votes="pairsThisRound * 2"
+        :users-in-pairs="pairsThisRound * 2"
+        :total-expected-users="totalPresent"
+      />
       <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
       <div class="d-flex justify-center mb-4">
         <time-display
@@ -32,9 +37,11 @@
 </template>
 
 <script lang="ts" setup>
+import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
+import type { RealtimeSubscription } from "@supabase/realtime-js";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -46,9 +53,17 @@ const minute = 60 * second;
 const hour = 60 * minute;
 const time = ref(minute);
 
+const currentRoundId = ref<number>();
 const roundOngoing = ref(false);
 const startingRound = ref(false);
 const countingInterval = ref<ReturnType<typeof setInterval>>();
+
+const pairsThisRound = ref(0);
+const votesThisRound = ref(0);
+const totalPresent = ref();
+
+const pairSubscription = ref<RealtimeSubscription>();
+const voteSubscription = ref<RealtimeSubscription>();
 
 const setDuration = ref(minute);
 
@@ -93,6 +108,7 @@ const startRound = async () => {
   roundOngoing.value = true;
   startingRound.value = true;
   const round = await currentEvent.startNewRound(setDuration.value);
+  currentRoundId.value = round.id;
   setupTimer(round);
   startingRound.value = false;
 };
@@ -107,6 +123,38 @@ const endEvent = async () => {
     errorToast(e);
   }
 };
+
+watch(
+  () => currentRoundId.value,
+  () => {
+    pairsThisRound.value = 0;
+    votesThisRound.value = 0;
+    pairSubscription.value = supabase
+      .from<any>("event_user_pairs:event_round=eq." + currentRoundId.value)
+      .on("INSERT", () => {
+        pairsThisRound.value += 1;
+      })
+      .subscribe(async (e: string) => {
+        console.log("pair", e);
+        if (currentRoundId.value == undefined) return;
+        pairsThisRound.value += await currentEvent.getNumberOfPairsThisRound(
+          currentRoundId.value
+        );
+      });
+    voteSubscription.value = supabase
+      .from<any>("votes")
+      .on("INSERT", () => {
+        votesThisRound.value += 1;
+      })
+      .subscribe(async (e: string) => {
+        console.log("vote", e);
+        if (currentRoundId.value == undefined) return;
+        votesThisRound.value += await currentEvent.getNumberOfVotesThisRound(
+          currentRoundId.value
+        );
+      });
+  }
+);
 
 onMounted(async () => {
   roundOngoing.value = true;
@@ -124,7 +172,19 @@ onMounted(async () => {
     startingRound.value = false;
     return;
   }
-  setupTimer(currentRound);
+  currentRoundId.value = currentRound.id;
   startingRound.value = false;
+  setupTimer(currentRound);
+  try {
+    totalPresent.value = await currentEvent.getTotalNumberOfParticipants();
+  } catch (e) {
+    console.log(e);
+    errorToast(e);
+  }
+});
+
+onBeforeUnmount(() => {
+  pairSubscription.value?.unsubscribe();
+  voteSubscription.value?.unsubscribe();
 });
 </script>

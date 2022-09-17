@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
     ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RegistrationOverview: typeof import('./components/RegistrationOverview.vue')['default']
+    RoundOverview: typeof import('./components/RoundOverview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./components/SideBar.vue')['default']
