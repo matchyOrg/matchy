@@ -185,7 +185,7 @@ const fetchEvents = async () => {
 watch(() => PageMode.value, fetchEvents, { immediate: true });
 
 const share = async (e: EventInfo) =>
-  await shareEvent(e, PageMode.value, authStore, t);
+  await shareEvent(e, PageMode.value, authStore, t, router);
 
 const confirmPresence = async (id: number) => {
   console.log("Don't care, didn't ask");
