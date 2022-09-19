@@ -2,7 +2,7 @@
   <v-app class="application" full-height>
     <!-- nav bar header -->
 
-    <v-app-bar app :model-value="!!authStore.user && authStore.isRegistered">
+    <v-app-bar app :model-value="!!authStore.user">
       <v-app-bar-nav-icon
         @click="sideBarVisible = !sideBarVisible"
       ></v-app-bar-nav-icon>
@@ -12,7 +12,7 @@
     </v-app-bar>
     <!-- side bar -->
     <SideBar
-      v-if="authStore.user && authStore.isRegistered"
+      v-if="authStore.user"
       :visible="sideBarVisible"
       @update:visible="(value) => (sideBarVisible = value)"
     />
@@ -28,6 +28,14 @@ const sideBarVisible = ref(false);
 
 // update auth state on app load
 const authStore = useAuthStore();
+const router = useRouter();
+
+watch(
+  () => authStore.user,
+  () => {
+    if (authStore.user === null) router.push("/login");
+  }
+);
 </script>
 
 <style>

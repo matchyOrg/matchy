@@ -1,14 +1,16 @@
 import type { useAuthStore } from "@/stores/auth";
-import { useI18n } from "vue-i18n";
+import type { useI18n } from "vue-i18n";
 import type { EventInfo } from "../eventService";
 
 export async function shareEvent(
   event: EventInfo,
   PageMode: string,
-  authStore: ReturnType<typeof useAuthStore>
+  authStore: ReturnType<typeof useAuthStore>,
+  t: ReturnType<typeof useI18n>["t"],
+  router: ReturnType<typeof useRouter>
 ) {
-  const { t } = useI18n();
   let shareText;
+
   if (!authStore.isRegistered) {
     shareText = `Join the event "${event.title} on Matchy 🐱"`;
   } else if (
@@ -19,8 +21,9 @@ export async function shareEvent(
   } else {
     shareText = `${authStore.profile.fullName} invited you to the event "${event.title}"`;
   }
+  const url = router.resolve("/events/" + event.id).href;
   const shareData = {
-    url: window.location.href,
+    url: url,
     title: "Invitation to " + event.title,
     text: shareText,
   };

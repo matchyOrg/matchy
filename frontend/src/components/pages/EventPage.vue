@@ -129,7 +129,11 @@
             </v-card></v-dialog
           >
         </v-btn>
-        <v-btn v-else class="d-block mx-auto" @click="showStartModal = true">
+        <v-btn
+          v-else-if="!matchyEvent?.is_ended"
+          class="d-block mx-auto"
+          @click="showStartModal = true"
+        >
           {{ t("pages.dashboard.prepare.start-event") }}
           <v-dialog v-model="showStartModal">
             <v-card>
@@ -151,6 +155,14 @@
             </v-card></v-dialog
           >
         </v-btn>
+        <v-btn
+          v-else-if="!matchyEvent.results_published"
+          :loading="publishing"
+          color="success"
+          @click="publish"
+          >Publish results</v-btn
+        >
+        <div v-else class="text-h6 font-weight-bold">Results published</div>
       </div>
     </v-container>
   </v-main>
@@ -219,7 +231,7 @@ const onShare = async () => {
   if (!matchyEvent.value) {
     throw new Error("Event shared before loaded");
   }
-  await shareEvent(matchyEvent.value, PageMode.value, authStore);
+  await shareEvent(matchyEvent.value, PageMode.value, authStore, t, router);
 };
 
 const onEdit = () => {
@@ -261,6 +273,27 @@ const splitByGroup = async (
   });
   groupACounts.value = groupA;
   groupBCounts.value = groupB;
+};
+
+const publishing = ref(false);
+
+const publish = async () => {
+  publishing.value = true;
+  const { error } = await supabase.rpc(
+    "compute_matches_and_send_notifications",
+    {
+      ev_id: +route.params.id,
+    }
+  );
+  if (error) {
+    console.log(error);
+    errorToast(error);
+  } else {
+    successToast("Succesfully published the results");
+  }
+  publishing.value = false;
+  if (!matchyEvent.value) return;
+  matchyEvent.value.results_published = true;
 };
 
 watch(
