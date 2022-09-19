@@ -119,6 +119,7 @@ const startRound = async () => {
   currentRoundId.value = round.id;
   setupTimer(round);
   startingRound.value = false;
+  hasNoRoundYet.value = false;
 };
 
 const endEvent = async () => {
