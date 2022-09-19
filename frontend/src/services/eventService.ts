@@ -208,8 +208,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     console.log("Called useEventService.createEvent()", eventData);
 
     if (!authStore.user) {
-      errorToast("Please log in first");
-      throw Error("User is not logged in");
+      throw Error("Please log in first", {
+        cause: new Error("User not logged in"),
+      });
     }
 
     // the user has selected a new image header
@@ -236,7 +237,8 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         groupBTitle: eventData.event_groups.groupB.title,
         groupBDescription: eventData.event_groups.groupB.description,
       });
-      creationError = error;
+      if (error) throw error;
+
       // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: supabase typing is wrong, this returns a number (the id)
@@ -266,12 +268,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         },
         { returning: "representation" }
       );
-      creationError = error;
-      if (!data) throw new Error("Event was not returned upon creation");
+      if (error) throw error;
+
       id = data[0].id;
     }
 
-    if (creationError) throw creationError;
     return id;
   }
 

@@ -2,6 +2,7 @@
   <teleport to="#nav-title">{{ t("pages.about.title") }}</teleport>
   <v-main class="mx-9 mt-5">
     <p>
+      <!-- TODO: Fix https://github.com/intlify/vue-i18n-next/discussions/851 -->
       <i18n-t keypath="pages.about.github-plug" tag="p">
         <a class="text-grey" href="https://github.com/sueszli/matchy">{{
           t("pages.about.github-page")
