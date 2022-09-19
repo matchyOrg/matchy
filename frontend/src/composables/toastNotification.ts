@@ -27,10 +27,13 @@ export function warningToast(msg: string) {
   toast.warning(msg, toastOptions);
 }
 
-export async function errorToast(error: any) {
-  console.error(error, { error });
+export async function errorToast(error: any, userFriendlyMessage?: string) {
+  console.error(error, { error, userFriendlyMessage });
   const message = await getErrorMessage(error);
-  toast.error(message, toastOptions);
+  toast.error(
+    (userFriendlyMessage ? userFriendlyMessage + "\n" : "") + message,
+    toastOptions
+  );
   return message;
 }
 

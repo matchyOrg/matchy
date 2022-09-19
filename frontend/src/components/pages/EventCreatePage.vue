@@ -24,7 +24,7 @@ const submit = async () => {
     successToast(t("pages.event-create.success"));
     router.push({ name: "event-detail", params: { id } });
   } catch (e) {
-    errorToast(e);
+    errorToast(e, t("pages.event-create.error"));
   }
 };
 
