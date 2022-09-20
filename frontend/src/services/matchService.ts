@@ -6,6 +6,7 @@ import { supabase } from "./supabase";
 export interface EventMatchesRaw {
   id: number;
   title: string;
+  resultsPublished: boolean;
   matches: [
     {
       uid: string;
@@ -32,7 +33,7 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
       await supabase
         .from("events")
         .select(
-          "id, title, matches:event_registrations!inner(present, uid:user_id, profile:profiles(fullName:full_name, email, description))"
+          "id, title, resultsPublished:results_published, matches:event_registrations!inner(present, uid:user_id, profile:profiles(fullName:full_name, email, description))"
         )
         .order("datetime", { ascending: false });
     if (error) {
@@ -47,10 +48,11 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
           uid === authStore.user?.id ? present : true
         )
       )
-      .map(({ id, title, matches }: EventMatchesRaw) => {
+      .map(({ id, title, matches, resultsPublished }: EventMatchesRaw) => {
         return {
           id,
           title,
+          resultsPublished,
           matches: matches
             .filter(({ uid }) => uid !== authStore.user?.id) // filter user's profile
             .map(({ profile }) => profile) // profile nested in postgrest response

@@ -18,7 +18,15 @@
               {{ event.title }}
             </span>
           </v-expansion-panel-title>
-          <v-expansion-panel-text v-if="event.matches.length === 0">
+          <v-expansion-panel-text v-if="!event.resultsPublished">
+            <span class="text-grey-darken-3">
+              Matches for this event have not been published
+            </span>
+            <span class="d-block text-grey-darken-1">
+              You will be notified when they are
+            </span>
+          </v-expansion-panel-text>
+          <v-expansion-panel-text v-else-if="event.matches.length === 0">
             <span class="text-grey">You had no matches for this event</span>
           </v-expansion-panel-text>
           <v-expansion-panel-text v-else>
