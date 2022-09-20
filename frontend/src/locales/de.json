@@ -126,6 +126,13 @@
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN"
     },
+    "matches": {
+      "no-events": "",
+      "no-matches": "",
+      "title": "",
+      "unpublished-hint": "",
+      "unpublished-subhint": ""
+    },
     "participant-event": {
       "ended-button-link": "Zur Homepage",
       "ended-subtitle": "Das Event ist vorbei. Danke dass du dabei warst!",
@@ -166,6 +173,9 @@
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "no-description": "Keine Beschreibung."
+    },
+    "profiles": {
+      "unknown": ""
     }
   },
   "sidebar": {

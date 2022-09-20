@@ -1,5 +1,5 @@
 <template>
-  <teleport to="#nav-title">My Matches</teleport>
+  <teleport to="#nav-title">{{ t("pages.matches.title") }}</teleport>
   <v-main>
     <v-container class="pt-8 d-flex flex-column align-center">
       <v-expansion-panels
@@ -19,21 +19,23 @@
             </span>
           </v-expansion-panel-title>
           <v-expansion-panel-text v-if="!event.resultsPublished">
-            <span class="text-grey-darken-3">
-              Matches for this event have not been published
+            <span class="text-grey-darken-3 font-weight-bold">
+              {{ t("pages.matches.unpublished-hint") }}
             </span>
             <span class="d-block text-grey-darken-1">
-              You will be notified when they are
+              {{ t("pages.matches.unpublished-subhint") }}
             </span>
           </v-expansion-panel-text>
           <v-expansion-panel-text v-else-if="event.matches.length === 0">
-            <span class="text-grey">You had no matches for this event</span>
+            <span class="text-grey font-weight-bold">{{
+              t("pages.matches.no-matches")
+            }}</span>
           </v-expansion-panel-text>
           <v-expansion-panel-text v-else>
             <v-table>
               <tbody>
                 <tr v-for="match in event.matches" :key="match.email">
-                  <td>{{ match.fullName ?? "unknown" }}</td>
+                  <td>{{ match.fullName ?? t("shared.profiles.unknown") }}</td>
                   <td>{{ match.email }}</td>
                   <td>{{ match.description }}</td>
                 </tr>
@@ -43,7 +45,7 @@
         </v-expansion-panel>
       </v-expansion-panels>
       <div v-else-if="!loading" class="text-h6 font-weight-bold">
-        You haven't participated in any events
+        {{ t("pages.matches.no-events") }}
       </div>
       <v-progress-circular v-else indeterminate />
     </v-container>
@@ -53,9 +55,11 @@
 <script lang="ts" setup>
 import { useMatchService, type EventMatches } from "@/services/matchService";
 import { useAuthStore } from "@/stores/auth";
+import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 const matchesService = useMatchService(authStore);
+const { t } = useI18n();
 const eventMatches = ref<EventMatches[]>([]);
 const panels = ref<number[]>([]);
 const loading = ref(true);
