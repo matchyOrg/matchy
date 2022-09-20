@@ -127,11 +127,11 @@
       "send-button-text": "SENDEN"
     },
     "matches": {
-      "no-events": "",
-      "no-matches": "",
-      "title": "",
-      "unpublished-hint": "",
-      "unpublished-subhint": ""
+      "no-events": "Du hast an keinen Events teilgenommen",
+      "no-matches": "Du hattest bei diesem Event keine Matches",
+      "title": "Meine Matches",
+      "unpublished-hint": "Matches bei diesem Event sind noch nicht veröffentlicht",
+      "unpublished-subhint": "Wir benachrichtigen dich wenn sie verfügbar sind"
     },
     "participant-event": {
       "ended-button-link": "Zur Homepage",
@@ -175,7 +175,7 @@
       "no-description": "Keine Beschreibung."
     },
     "profiles": {
-      "unknown": ""
+      "unknown": "Unbekannt"
     }
   },
   "sidebar": {
