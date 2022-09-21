@@ -1,5 +1,6 @@
-In this open source project, we're making speed dating paperless! 💌 <br>
-Check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out to find out what we're all about.
+In this open source project, we're making speed dating paperless! 💌
+
+> Check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out to find out what we're all about.
 
 Speed dating doesn't happen online. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
 
@@ -22,7 +23,7 @@ After the event, each of the participants will give their cards to the host to p
 
 With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
 
-*In short:* Matchy digitalizes the old school speed dating paperwork and lets you focus on what matters most: making fun experiences and lasting relationships. 
+We are digitalizing the old school speed dating paperwork so you can focus on what matters most: making fun experiences and lasting relationships. 
 
 <details>
   <summary> Let's do the math! 💭 </summary>
