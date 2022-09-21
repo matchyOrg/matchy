@@ -6,6 +6,8 @@ Speed dating doesn't happen online like you're probably used to. It is an organi
 > Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made or give it a star.
 
 This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
+
+This [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) explains the whole concept in short.
 <br><br><br><br>
 
 
