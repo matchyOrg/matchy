@@ -1,18 +1,17 @@
 Howdy friend! <br>
-In this open source project, we're making speed dating paperless! 💌
+In this open source project, we're making speed dating paperless! 💌 <br>
+Check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out to find out what we're all about.
 
 Speed dating doesn't happen online like you're probably used to. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date.
 
 > Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made or give it a star.
 
-This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
-
-This [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) explains the whole concept in short.
+This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get (not up to date).
 <br><br><br><br>
 
 
 ## How does conventional speed dating work?
-Here's a quick [video demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
+Here's [what it looks like](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s) to participate in a speed dating event.
 
 When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
 There will be two rows sitting in front of eachother at tables and one these rows will remain seated while the other one rotates about every 3-4 mins. Think of the dates as mini introductions. <br>
