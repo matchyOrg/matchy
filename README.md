@@ -1,29 +1,30 @@
-In this open source project, we're making speed dating paperless! 💌
+With this open source web app, we're making speed dating paperless! 💌
 
-> Check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out to find out what we're all about.
+For a super short summary - check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out for our project.
 
-Speed dating doesn't happen online. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
-
-This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get (currently not up to date).
+Also, this [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you a good idea of where we're trying to get (currently not up to date).
 <br><br><br><br>
 
 
-## How does conventional speed dating work?
-Here's [what it looks like](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s) to participate in a speed dating event.
+## What is speed dating?
 
-When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
+Speed dating doesn't happen online. It is an organized social event in which participants have one-on-one conversations in person, which are typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
+
+Here's how it works: When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
 There will be two rows sitting in front of eachother at tables and one these rows will remain seated while the other one rotates about every 3-4 mins. Think of the dates as mini introductions. <br>
 You will use your card to mark down if you are interested in the people you meet.
 
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
+
+Enough said. See what it's currently like to participate in such an event for yourself [in this short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 <br><br><br><br>
 
 
-## How are we improving it?
+## How are we improving speed dating?
 
-With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
+With our app the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
 
-We are digitalizing the old school speed dating paperwork so you can focus on what matters most: making fun experiences and lasting relationships. 
+We are digitalizing the old school speed dating process so you can focus on what matters most: making fun experiences and lasting relationships. 
 
 <details>
   <summary> Let's do the math! 💭 </summary>
