@@ -2,7 +2,7 @@ Howdy friend! <br>
 In this open source project, we're making speed dating paperless! 💌 <br>
 Check this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) out to find out what we're all about.
 
-Speed dating doesn't happen online like you're probably used to. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date.
+Speed dating doesn't happen online like you're probably used to. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
 
 > Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made or give it a star.
 
