@@ -24,6 +24,7 @@
         class="file-input absolute opacity-0 h-48"
         accept="image/*"
         v-model="headerImage"
+        :key="updateId"
       />
     </v-card>
     <v-text-field
@@ -172,6 +173,8 @@ const showTimePicker = ref(false);
 // const currentDate = ref(["2021", "01", "01"]);
 // const currentTime = ref(["12", "00"]);
 
+const updateId = ref(0);
+
 // the new image, file input only accept file-arrays
 const headerImage = ref<File[]>([]);
 
@@ -184,6 +187,7 @@ const hasHeaderImage = computed(
 const headerImageSrc = computed(() => {
   if (headerImage.value[0]) {
     // convert image file to image src
+    URL.revokeObjectURL(headerImageSrc.value);
     return URL.createObjectURL(headerImage.value[0]);
   } else {
     return import.meta.env.VITE_SUPABASE_STORAGE_URL + model.value.header_image;
@@ -193,6 +197,11 @@ const headerImageSrc = computed(() => {
 watch(
   () => headerImage.value,
   () => (model.value.headerImageFile = headerImage.value[0])
+);
+
+watch(
+  () => headerImage.value,
+  () => updateId.value++
 );
 
 const removeImage = () => {
@@ -259,6 +268,9 @@ const displayedTime = computed(() => {
   const [hour, minute] = currentTime.value.split(":");
   return `${zeroPad(hour)}:${zeroPad(minute)}`;
 });
+
+// make sure we release the url
+onBeforeUnmount(() => URL.revokeObjectURL(headerImageSrc.value));
 
 // const dateTime = ref("");
 </script>
