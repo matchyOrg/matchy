@@ -22,7 +22,7 @@ You will use your card to mark down if you are interested in the people you meet
 
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
 
-Enough said. See what it's currently like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
+Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 <br><br><br><br>
 
 
