@@ -1,4 +1,9 @@
-With this open source web app, we're making speed dating paperless! 💌 🏃🏻💨
+<p align="center">
+<img width="512" src="./frontend/src/assets/matchyLogoGreen.svg" alt="Matchy Logo">
+</p>
+<p align="center">
+<i>Making speed dating paperless! 💌 🏃🏻💨</i>
+</p>
 
 For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s).
 
