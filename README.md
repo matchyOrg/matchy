@@ -73,4 +73,4 @@ That's why – after some non profits reached out to us and told us how desperat
 ## How can I join you guys and contribute?
 If you'd like to improve this app, just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) so we can meme around, get to know eachother and have a good chat and then:
 - Check out the `CONTRIBUTING.md` file. It's an in depth guide to this app.
-- Access all relevant documents, resources and references of this project on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6
+- Check out our documents and other on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6
