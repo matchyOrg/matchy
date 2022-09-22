@@ -5,7 +5,6 @@ import {
   dateXHoursAgo,
   timestamptzToTemporalZonedDateTime,
 } from "./utils/datetime";
-import { nanoid } from "nanoid";
 import type { PostgrestError } from "@supabase/supabase-js";
 
 export interface Group {
@@ -215,7 +214,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function uploadImage(headerImageFile: File): Promise<string> {
     // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
     // easily replaceable should we ever need to
-    const fileName = nanoid();
+    const fileName = crypto.randomUUID();
     const { data, error } = await supabase.storage
       .from("event-header-images")
       .upload(fileName, headerImageFile, {
