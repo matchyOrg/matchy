@@ -36,8 +36,6 @@ export default defineConfig({
       },
 
       // Filepath to generate corresponding .d.ts file.
-      // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
-      // Set `false` to disable.
       dts: "src/auto-imports.d.ts",
     }),
     Components({ dts: "src/components.d.ts" }),

@@ -13,7 +13,7 @@ export const useAuthStore = defineStore("user", () => {
     console.log("Updating user state", newUser);
     user.value = newUser;
     if (newUser) {
-      const fetchedProfile = await useProfileService().readProfile();
+      const fetchedProfile = await useProfileService().readProfile(newUser);
       setProfileStore(fetchedProfile);
     }
   }

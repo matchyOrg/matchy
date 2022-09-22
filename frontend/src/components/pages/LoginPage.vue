@@ -12,6 +12,7 @@
         :model-value="hasEmail"
         @submit.prevent="onSubmit.handler"
       >
+        <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
         <v-text-field
           filled
           type="email"
