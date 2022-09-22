@@ -51,25 +51,29 @@ Evaluating the matches is very time consuming and is the most expensive part of 
   > But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
 
 </details>
+
+That's why – after some non profits reached out to us and told us how desperately they need this app – we decided to get our hands dirty and help them out.
+
+<details>
+  <summary> Some of our potential clients from Vienna. </summary>
+
+  > - https://www.meetup.com/speed-friending-events/ (over 8800 members)
+  > - https://esnuniwien.com/events/speedfriending-esn-1
+  > - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
+  > - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
+  > 
+  > (But effectively anyone can use it to throw their own event!)
+  
+</details>
+
 <br><br><br>
 
-
-## Who is this for?
-
-Some non profits have already reached out to us and requested this app. Here are some selected non profits in Vienna, that we are aiming to help out:
-- https://www.meetup.com/speed-friending-events/ (over 8800 members in Vienna)
-- https://esnuniwien.com/events/speedfriending-esn-1
-- https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
-- https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
-
-But effectively anyone can use it to throw their own event!
-<br><br><br><br>
 
 
 ## How can I join you guys and contribute?
 
 Joining the community doesn't require you to commit to anything / contribute anything. <br>
-You can just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) and just have a good time, meme around and get to know us. <br>
+You can just [join our wonderful discord server](https://discord.gg/ahNVefYjUc), just have a good time, meme around and get to know us. <br>
 Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
 There are so many ways you could contribute! You don't even necessarily have to code to be a contributor. <br>
 Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
