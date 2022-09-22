@@ -56,9 +56,7 @@ Evaluating the matches is very time consuming and is the most expensive part of 
 
 ## Who is this for?
 
-The main goal of this app is to provide existing speed friending or dating organizations with a better alternative to pen and paper after some of them reached out to us - so we already know that there is a demand for it!
-
-Here are some selected non profits in Vienna, that we are aiming to help out:
+Some non profits have already reached out to us and requested this app. Here are some selected non profits in Vienna, that we are aiming to help out:
 - https://www.meetup.com/speed-friending-events/ (over 8800 members in Vienna)
 - https://esnuniwien.com/events/speedfriending-esn-1
 - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
