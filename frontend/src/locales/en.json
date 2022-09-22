@@ -3,6 +3,14 @@
     "dataIterator": {
       "pageText": "{0}-{1} of {2}",
       "rowsPerPageText": "Items per page:"
+    },
+    "pagination": {
+      "ariaLabel": {
+        "next": "Next page",
+        "previous": "Previous page",
+        "root": "Pagination",
+        "currentPage": "Current page"
+      }
     }
   },
   "components": {

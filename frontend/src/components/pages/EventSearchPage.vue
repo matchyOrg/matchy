@@ -16,6 +16,7 @@
           :matchy-event="event"
           :showInfo="true"
           :showImage="true"
+          :to="'/events/' + event.id"
         >
         </event-list-item>
         <v-pagination
