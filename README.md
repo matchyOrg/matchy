@@ -37,7 +37,7 @@ No more paperwork! With our app:
 Evaluating the matches is very time consuming and is the most expensive part of throwing these events.
 
 <details>
-  <summary> How expensive? Let's do the math! </summary>
+  <summary> <i> How expensive? Let's do the math! </i> </summary>
 
   > Let's assume that we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
   > Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $(n)$ 40 cards, each with $(\frac{n}{2})$ 20 reviews.
@@ -55,7 +55,7 @@ Evaluating the matches is very time consuming and is the most expensive part of 
 That's why – after some non profits reached out to us and told us how desperately they need this app – we decided to get our hands dirty and help them out.
 
 <details>
-  <summary> Some of our potential clients from Vienna. </summary>
+  <summary> <i> Some of our potential clients from Vienna. </i> </summary>
 
   > - https://www.meetup.com/speed-friending-events/ (over 8800 members)
   > - https://esnuniwien.com/events/speedfriending-esn-1
@@ -70,7 +70,11 @@ That's why – after some non profits reached out to us and told us how desperat
 
 
 
-## How can I join you guys and contribute?
-If you'd like to improve this app, just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) so we can meme around, get to know eachother and have a good chat and then:
-- Check out the `CONTRIBUTING.md` file. It's an in depth guide to this app.
-- Check out our documents and other on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6
+
+---
+<i> 🤖 Want to join us and improve the app? </i>
+
+Here's all you need to start:
+- Our wonderful [discord server](https://discord.gg/ahNVefYjUc) where we meme around and organize ourselves.
+- The [`CONTRIBUTING.md`](./CONTRIBUTING.md) file. It's an in depth guide to this app.
+- Our [notion page](https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6) where we store all of our files.
