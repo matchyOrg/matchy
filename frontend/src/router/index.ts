@@ -88,7 +88,7 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   // requiresLogin
   const loggedIn = supabase.auth.user();
-  if (to.matched.some((record) => record.meta.requiresLogin) && !loggedIn) {
+  if (to.meta.requiresLogin && !loggedIn) {
     console.warn(
       "tried to access",
       to.fullPath,
