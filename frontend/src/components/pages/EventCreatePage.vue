@@ -24,14 +24,8 @@ const submit = async () => {
     const id = await eventService.createEvent(matchyEvent);
     successToast(t("pages.event-create.success"));
     router.push({ name: "event-detail", params: { id } });
-  } catch (e: any) {
-    const err = e as PostgrestError;
-    console.log(e);
-    if (err.code) {
-      if (err.code == "23514") {
-        errorToast("One of the inputs has failed validation!");
-      }
-    }
+  } catch (e) {
+    errorToast(e, t("pages.event-create.error"));
   }
 };
 

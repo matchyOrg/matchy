@@ -127,19 +127,19 @@
       "send-button-text": "SENDEN"
     },
     "participant-event": {
-      "ended-button-link": "",
-      "ended-subtitle": "",
-      "ended-title": "",
-      "not-started-subtitle": "",
-      "not-started-title": "",
-      "ongoing-title": "",
-      "searching-manual-pair-button": "",
-      "searching-minutes-left": "",
-      "searching-subtitle": "",
-      "searching-title": "",
-      "vote-subtitle": "",
-      "vote-title": "",
-      "waiting-title": ""
+      "ended-button-link": "Zur Homepage",
+      "ended-subtitle": "Das Event ist vorbei. Danke dass du dabei warst!",
+      "ended-title": "That's all volks!",
+      "not-started-subtitle": "Der Organisierer wird das Event bald starten",
+      "not-started-title": "Das Event hat noch nicht angefangen...",
+      "ongoing-title": "Viel Spaß euch beiden!",
+      "searching-manual-pair-button": "Paar",
+      "searching-minutes-left": "minuten verbleiben",
+      "searching-subtitle": "Benutze den Qr-Scanner oder gib die id in die Textbox ein",
+      "searching-title": "Zeit einen Partner für diese Runde zu finden!",
+      "vote-subtitle": "Dein Partner sieht deine Entscheidung nicht sofort",
+      "vote-title": "Mochtest du deinen Partner?",
+      "waiting-title": "Warte auf die nächste Runde"
     },
     "profile": {
       "delete-button-text": "PROFIL LÖSCHEN",

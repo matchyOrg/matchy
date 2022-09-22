@@ -12,8 +12,10 @@ create or replace function public.create_event_with_groups(
     "groupBTitle" text,
     "groupBDescription" text
 )
-    returns void language sql as
+    returns bigint language plpgsql as
 $$
+declare event_id bigint;
+begin
     with groupA as (
         insert into event_groups (title, description, creator) values ("groupATitle", "groupADescription", auth.uid()) returning id
     ),
@@ -23,8 +25,10 @@ $$
     pair as (
         insert into event_group_pairs (group_a, group_b) select groupA.id, groupB.id from groupA, groupB returning id
     )
-    insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, delay_for_sending_matches, is_ended)
-        select auth.uid(), title, description, header_image, datetime, location, max_participants, pair.id, False, Null, False from pair
+    insert into events (organizer, title, description, header_image, datetime, location, max_participants, event_group_pair, is_cancelled, is_ended)
+        select auth.uid(), title, description, header_image, datetime, location, max_participants, pair.id, False, False from pair returning id into event_id;
+    return event_id;
+end;
 $$;
 
 
@@ -106,4 +110,36 @@ $$
     where bucket_id = 'event-header-images'
     and name <> '.emptyFolderPlaceholder'
     and name not in (select trim(leading 'event-header-images/' from header_image)  from events where header_image is not null);
+$$
+
+create or replace function public.compute_matches_and_send_notifications(ev_id bigint)
+returns void
+language plpgsql
+security definer
+as
+$$
+declare 
+  anon_key text;
+  func_secret text;
+  _organizer uuid;
+begin
+  select into _organizer events.organizer from events where events.id = ev_id;
+  if (auth.uid() <> _organizer) then
+    raise exception '[events.not_organizer] You do not have permission to perform this action because you are not the organizer.';
+  end if;
+  call public.compute_matches(ev_id);
+  anon_key := (select public_key from auth.secrets);
+  func_secret := (select function_secret from auth.secrets);
+  perform http((
+    'POST',
+    'https://ngryplxakzlojeqhdkse.functions.supabase.co/sendAvailableMatchesNotifications',
+    ARRAY[
+        http_header('Authorization', 'Bearer ' || anon_key),
+        http_header('function-secret', func_secret)
+    ],
+    'application/json',
+    CAST(ev_id as varchar)
+  ));
+  update events set results_published = true where events.id = ev_id;
+end;
 $$
