@@ -3,6 +3,9 @@
     <!-- logo -->
     <SiteLogo class="mt-3"></SiteLogo>
 
+    <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
+    <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn>
+
     <!-- email field -->
     <div class="mx-9 mt-13">
       <p>{{ t("pages.login.password-text") }}</p>
@@ -65,6 +68,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import type { Provider } from "@supabase/gotrue-js";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -102,6 +106,14 @@ const onSubmit = asyncLoading(async () => {
     mailSent.value = true;
 
     successToast(t("pages.login.check-mail"));
+  } catch (e) {
+    errorToast(e);
+  }
+});
+
+const oAuthLogin = asyncLoading(async (provider: Provider) => {
+  try {
+    await authStore.oAuthLogin(provider);
   } catch (e) {
     errorToast(e);
   }

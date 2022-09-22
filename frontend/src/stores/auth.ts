@@ -1,6 +1,6 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
-import type { User } from "@supabase/supabase-js";
+import type { Provider, User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
 
 export const useAuthStore = defineStore("user", () => {
@@ -40,8 +40,16 @@ export const useAuthStore = defineStore("user", () => {
     if (error) throw error;
   }
 
+  async function oAuthLogin(provider: Provider) {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: provider,
+    });
+    if (error) throw error;
+  }
+
   // LOGOUT
   function logout() {
+    // TODO: Catch error
     supabase.auth.signOut();
   }
 
@@ -64,6 +72,7 @@ export const useAuthStore = defineStore("user", () => {
     isRegistered,
     setProfileStore,
     login,
+    oAuthLogin,
     logout,
     deleteAccount,
   };
