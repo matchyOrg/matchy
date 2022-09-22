@@ -136,9 +136,15 @@ const valid = ref(false);
 const deleteDialog = ref(false);
 
 // immediately call loadingProfile, update loading state
-const loadingProfile = asyncLoading(() =>
-  profileService
-    .readProfile()
+const loadingProfile = asyncLoading(async () => {
+  const user = authStore.user;
+  if (user === null) {
+    errorToast("Not logged in");
+    router.push("/login");
+    return;
+  }
+  await profileService
+    .readProfile(user)
     .then((profile) => {
       formData.value.email = profile.email;
       formData.value.fullName = profile.fullName;
@@ -146,8 +152,8 @@ const loadingProfile = asyncLoading(() =>
     })
     .catch((e) => {
       errorToast(e);
-    })
-);
+    });
+});
 loadingProfile.handler();
 
 const onSubmit = asyncLoading(async () => {
