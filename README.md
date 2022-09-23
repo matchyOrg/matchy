@@ -22,7 +22,7 @@ You will use your card to mark down if you are interested in the people you meet
 
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
 
-Enough said. See what it's currently like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
+Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 <br><br><br><br>
 
 
@@ -37,7 +37,7 @@ No more paperwork! With our app:
 Evaluating the matches is very time consuming and is the most expensive part of throwing these events.
 
 <details>
-  <summary> How expensive? Let's do the math! </summary>
+  <summary> <i> How expensive? Let's do the math! </i> </summary>
 
   > Let's assume that we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
   > Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $(n)$ 40 cards, each with $(\frac{n}{2})$ 20 reviews.
@@ -51,31 +51,30 @@ Evaluating the matches is very time consuming and is the most expensive part of 
   > But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
 
 </details>
+
+That's why – after some non profits reached out to us and told us how desperately they need this app – we decided to get our hands dirty and help them out.
+
+<details>
+  <summary> <i> Some of our potential clients from Vienna. </i> </summary>
+
+  > - https://www.meetup.com/speed-friending-events/ (over 8800 members)
+  > - https://esnuniwien.com/events/speedfriending-esn-1
+  > - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
+  > - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
+  > 
+  > (But effectively anyone can use it to throw their own event!)
+  
+</details>
+
 <br><br><br>
 
 
-## Who is this for?
-
-The main goal of this app is to provide existing speed friending or dating organizations with a better alternative to pen and paper after some of them reached out to us - so we already know that there is a demand for it!
-
-Here are some selected non profits in Vienna, that we are aiming to help out:
-- https://www.meetup.com/speed-friending-events/ (over 8800 members in Vienna)
-- https://esnuniwien.com/events/speedfriending-esn-1
-- https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
-- https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
-
-But effectively anyone can use it to throw their own event!
-<br><br><br><br>
 
 
-## How can I join you guys and contribute?
+---
+<i> 🤖 Want to join us and improve the app? </i>
 
-Joining the community doesn't require you to commit to anything / contribute anything. <br>
-You can just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) and just have a good time, meme around and get to know us. <br>
-Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
-There are so many ways you could contribute! You don't even necessarily have to code to be a contributor. <br>
-Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
-
-If you feel ready to contribute:
-- Check out the `CONTRIBUTING.md` file. It's an in depth guide to this app.
-- Access all relevant documents, resources and references of this project on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6
+Here's all you need to get started:
+- Our wonderful [discord server](https://discord.gg/ahNVefYjUc) where we meme around and organize ourselves.
+- The [`CONTRIBUTING.md`](./CONTRIBUTING.md) file. It's an in depth guide to this app.
+- Our [notion page](https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6) where we store all of our files.
