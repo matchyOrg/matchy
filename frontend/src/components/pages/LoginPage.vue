@@ -94,12 +94,11 @@ watch(
 );
 
 const onSubmit = asyncLoading(async () => {
-  // TODO: This is still flawed, especially the hash in the URL is troublesome
   const redirectTo =
     new URL(
       router.resolve("/callback").href,
       new URL(import.meta.env.BASE_URL, window.location.origin)
-    ) + "#";
+    ) + "";
   console.log("Will redirect to", redirectTo);
   try {
     await authStore.login(email.value, redirectTo);
