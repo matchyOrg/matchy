@@ -7,7 +7,7 @@
 
 For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s).
 
-Also this [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you a good idea of where we're trying to get (currently not up to date).
+Also this [mockup](https://www.figma.com/file/qmUZ5y2V9Ycmh1ACpyIOmi/matchy-V3) gives you a good idea of where we're trying to get.
 <br><br><br><br>
 
 
