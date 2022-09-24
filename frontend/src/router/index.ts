@@ -90,8 +90,6 @@ const router = createRouter({
 
 // Check requirements to enter a route
 router.beforeEach((to, _from, next) => {
-  console.log("from", _from, "to", to);
-
   // requiresLogin
   const loggedIn = supabase.auth.user();
   if (to.meta.requiresLogin && !loggedIn) {
