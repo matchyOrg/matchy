@@ -1,8 +1,4 @@
-import {
-  createRouter,
-  createWebHashHistory,
-  createWebHistory,
-} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../components/pages/HomePage.vue";
 import LoginPage from "../components/pages/LoginPage.vue";
 import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
@@ -14,6 +10,7 @@ import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 import EventPage from "@/components/pages/EventPage.vue";
 import EventSearchPage from "@/components/pages/EventSearchPage.vue";
 import EventDashboard from "@/components/pages/EventDashboard.vue";
+import SignUpPage from "@/components/pages/SignUpPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +18,10 @@ const router = createRouter({
     {
       path: "/login",
       component: LoginPage,
+    },
+    {
+      path: "/signup",
+      component: SignUpPage,
     },
     {
       path: "/about",

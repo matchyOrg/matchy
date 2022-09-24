@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideBar: typeof import('./components/SideBar.vue')['default']
+    SignUpPage: typeof import('./components/pages/SignUpPage.vue')['default']
     SiteLogo: typeof import('./components/SiteLogo.vue')['default']
     SkeletonLoader: typeof import('./components/SkeletonLoader.vue')['default']
     TimeDisplay: typeof import('./components/TimeDisplay.vue')['default']
