@@ -1,59 +1,52 @@
 <template>
   <v-main>
-    <!-- logo -->
-    <SiteLogo class="mt-3"></SiteLogo>
-
-    <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
-    <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn>
-
-    <!-- email field -->
-    <div class="mx-9 mt-13">
-      <h3 class="text-h5 font-weight-bold">
-        {{ t("shared.auth.login") }}
-      </h3>
-      <v-form
-        class="mt-8 mb-5"
-        :model-value="hasEmail"
-        @submit.prevent="onSubmit.handler"
-      >
-        <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
-        <v-text-field
-          filled
-          type="email"
-          v-model="email"
-          name="Email"
-          label="Email"
-          placeholder="geniusPinapple@mail.com"
-          variant="outlined"
-          :rules="[(value) => !!value || t('shared.forms.required')]"
-        ></v-text-field>
-        <v-text-field
-          filled
-          type="password"
-          v-model="password"
-          name="password"
-          label="Password"
-          variant="outlined"
-          :rules="[(value) => !!value || t('shared.forms.required')]"
-        ></v-text-field>
-
-        <div class="text-right">
-          <v-btn variant="text" class="text-blue" to="/signup">{{
-            t("pages.login.not-signed-up")
-          }}</v-btn>
-        </div>
-        <span v-if="error" class="text-red text-center d-block my-2">{{
-          error
-        }}</span>
-        <div class="d-flex">
+    <v-container class="h-100">
+      <!-- logo -->
+      <SiteLogo class="my-12"></SiteLogo>
+      <!-- <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
+      <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn> -->
+      <!-- email field -->
+      <div class="mx-5 mt-16">
+        <v-form
+          class="mt-8 mb-5"
+          :model-value="hasEmail"
+          @submit.prevent="onSubmit.handler"
+        >
+          <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
+          <v-text-field
+            variant="filled"
+            type="email"
+            v-model="email"
+            name="Email"
+            label="Email"
+            placeholder="geniusPinapple@mail.com"
+            :rules="[(value) => !!value || t('shared.forms.required')]"
+          ></v-text-field>
+          <v-text-field
+            variant="filled"
+            :type="showPW ? 'text' : 'password'"
+            v-model="password"
+            name="password"
+            label="Password"
+            :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPW = !showPW"
+            :rules="[(value) => !!value || t('shared.forms.required')]"
+          ></v-text-field>
+          <!-- <div class="text-right">
+            <v-btn variant="text" class="text-blue" to="/signup">{{
+              t("pages.login.not-signed-up")
+            }}</v-btn>
+          </div> -->
+          <span v-if="error" class="text-red text-center d-block my-2">{{
+            error
+          }}</span>
           <v-btn
-            class="mx-auto"
+            class="d-block mx-auto"
             size="x-large"
             color="primary"
             variant="tonal"
-            rounded="pill"
             type="submit"
-            minWidth="20rem"
+            width="66%"
             :disabled="onSubmit.loading || !hasEmail"
             :loading="onSubmit.loading"
           >
@@ -64,9 +57,48 @@
               {{ t("shared.auth.login") }}
             </span>
           </v-btn>
-        </div>
-      </v-form>
-    </div>
+          <div class="text-center">
+            <span class="d-inline-block text-small text-grey font-weight-bold"
+              >Sign up / Log in with:</span
+            >
+            <div class="d-inline-block">
+              <v-btn
+                size="small"
+                variant="text"
+                icon="mdi-github"
+                @click="oAuthLogin.handler('github')"
+              />
+              <v-btn
+                class="ref"
+                size="small"
+                variant="text"
+                icon="mdi-google"
+                @click="oAuthLogin.handler('google')"
+              />
+            </div>
+          </div>
+        </v-form>
+      </div>
+      <div
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-12"
+      >
+        <span>Don't have an account?</span>
+        <v-btn to="/signup" size="x-small" variant="text" color="primary"
+          >Sign Up</v-btn
+        >
+      </div>
+      <div
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold"
+      >
+        <v-btn
+          to="/forgot-password"
+          size="x-small"
+          variant="text"
+          color="primary"
+          >Forgot Password?</v-btn
+        >
+      </div>
+    </v-container>
   </v-main>
 
   <v-footer class="d-flex justify-center pb-4" absolute app>
@@ -101,6 +133,8 @@ const email = ref("");
 const password = ref("");
 const error = ref("");
 
+const showPW = ref(false);
+
 watch([email, password], () => (error.value = ""));
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
@@ -129,3 +163,25 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
   }
 });
 </script>
+
+<style scoped>
+/* Rainbow colors for google icon */
+.ref:deep(.mdi-google) {
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-small {
+  font-size: 12px;
+}
+</style>
