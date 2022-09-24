@@ -33,7 +33,6 @@
           v-model="password"
           name="password"
           label="Password"
-          placeholder="geniusPinapple@mail.com"
           variant="outlined"
           :rules="[(value) => !!value || 'Required']"
         ></v-text-field>
