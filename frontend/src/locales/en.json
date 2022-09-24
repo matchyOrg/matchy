@@ -177,11 +177,20 @@
       "update-success": "Updated profile successfully!",
       "welcome": "Welcome to",
       "welcome-subtitle": "Let's get to know you a bit better."
+    },
+    "reset-password": {
+      "heading-p1": "Choose a new password",
+      "heading-p2": "Keep in mind: Using a password manager will help you set up a super secure password that you won't even need to remember. Pretty convenient stuff."
     }
   },
   "shared": {
     "auth": {
       "login": "Login",
+      "password": "Password",
+      "password-mismatch": "Passwords must match",
+      "password-placeholder": "secret password",
+      "repeat-password": "Repeat password",
+      "repeat-password-placeholder": "repeat secret password",
       "signup": "Sign Up"
     },
     "events": {
@@ -190,6 +199,7 @@
       "no-description": "No description."
     },
     "forms": {
+      "confirm": "Confirm",
       "required": "Required"
     },
     "profiles": {

@@ -177,11 +177,20 @@
       "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."
+    },
+    "reset-password": {
+      "heading-p1": "",
+      "heading-p2": ""
     }
   },
   "shared": {
     "auth": {
       "login": "Einloggen",
+      "password": "",
+      "password-mismatch": "",
+      "password-placeholder": "",
+      "repeat-password": "",
+      "repeat-password-placeholder": "",
       "signup": "Registrieren"
     },
     "events": {
@@ -190,6 +199,7 @@
       "no-description": "Keine Beschreibung."
     },
     "forms": {
+      "confirm": "",
       "required": "Erforderlich"
     },
     "profiles": {
