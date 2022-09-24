@@ -62,7 +62,7 @@ const repeatPassword = ref("");
 
 const submit = asyncLoading(async () => {
   await authStore.setNewPassword(password.value);
-  successToast("New password was set");
+  successToast(t("pages.reset-password.new-pw-success"));
 });
 
 const showPW = ref(false);

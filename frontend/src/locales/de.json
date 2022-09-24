@@ -187,7 +187,8 @@
     },
     "reset-password": {
       "heading-p1": "Wähle ein neues Passwort",
-      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht mal merken. Ziemlich nützlich!"
+      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht mal merken. Ziemlich nützlich!",
+      "new-pw-success": "Dein neues Passwort wurde gespeichert"
     }
   },
   "shared": {

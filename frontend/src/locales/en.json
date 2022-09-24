@@ -187,7 +187,8 @@
     },
     "reset-password": {
       "heading-p1": "Choose a new password",
-      "heading-p2": "Keep in mind: Using a password manager will help you set up a super secure password that you won't even need to remember. Pretty convenient stuff."
+      "heading-p2": "Keep in mind: Using a password manager will help you set up a super secure password that you won't even need to remember. Pretty convenient stuff.",
+      "new-pw-success": "New password was set"
     }
   },
   "shared": {
