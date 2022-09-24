@@ -134,6 +134,13 @@
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN"
     },
+    "matches": {
+      "no-events": "Du hast an keinen Events teilgenommen",
+      "no-matches": "Du hattest bei diesem Event keine Matches",
+      "title": "Meine Matches",
+      "unpublished-hint": "Matches bei diesem Event sind noch nicht veröffentlicht",
+      "unpublished-subhint": "Wir benachrichtigen dich wenn sie verfügbar sind"
+    },
     "participant-event": {
       "ended-button-link": "Zur Homepage",
       "ended-subtitle": "Das Event ist vorbei. Danke dass du dabei warst!",
@@ -174,6 +181,9 @@
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "no-description": "Keine Beschreibung."
+    },
+    "profiles": {
+      "unknown": "Unbekannt"
     }
   },
   "sidebar": {
