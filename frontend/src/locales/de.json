@@ -126,16 +126,16 @@
       "no-org-events-cta": "Erstelle ein Event"
     },
     "login": {
-      "already-signed-up": "",
+      "already-signed-up": "Schon registriert?",
       "check-mail": "Wir haben dir eine Email geschickt!",
       "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
       "footer-about-us": "über uns",
       "footer-legal-notice": "impressum",
-      "not-signed-up": "",
+      "not-signed-up": "Noch kein Account?",
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN",
-      "successful-signup": ""
+      "successful-signup": "Du wurdest erfolgreich registriert! Check deine email um zu bestätigen."
     },
     "participant-event": {
       "ended-button-link": "Zur Homepage",
@@ -174,8 +174,8 @@
   },
   "shared": {
     "auth": {
-      "login": "",
-      "signup": ""
+      "login": "Einloggen",
+      "signup": "Registrieren"
     },
     "events": {
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
@@ -183,7 +183,7 @@
       "no-description": "Keine Beschreibung."
     },
     "forms": {
-      "required": ""
+      "required": "Erforderlich"
     }
   },
   "sidebar": {
