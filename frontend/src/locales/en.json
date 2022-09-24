@@ -189,6 +189,15 @@
       "heading-p1": "Choose a new password",
       "heading-p2": "Keep in mind: Using a password manager will help you set up a super secure password that you won't even need to remember. Pretty convenient stuff.",
       "new-pw-success": "New password was set"
+    },
+    "signup": {
+      "heading-p1": "Thanks for joining us.",
+      "heading-p2": "We're just as excited as you are!",
+      "heading-p3": "First let's set your account up",
+      "registered-subheader1": "Thanks for joining Matchy!",
+      "registered-subheader2": "We've sent you an email with your confirmation link!",
+      "registered-title": "Welcome to Matchy.",
+      "title": "Welcome to Matchy."
     }
   },
   "shared": {
@@ -198,6 +207,7 @@
       "password": "Password",
       "password-mismatch": "Passwords must match",
       "password-placeholder": "secret password",
+      "register": "Register",
       "repeat-password": "Repeat password",
       "repeat-password-placeholder": "repeat secret password",
       "signup": "Sign Up"

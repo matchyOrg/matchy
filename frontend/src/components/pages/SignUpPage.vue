@@ -5,12 +5,12 @@
         <div class="d-flex align-center mb-6">
           <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
           <span class="d-block text-h6 font-weight-bold">
-            Welcome to Matchy.
+            {{ t("pages.signup.title") }}
           </span>
         </div>
-        <span class="d-block">Thanks for joining us.</span
-        ><span class="d-block">We're just as excited as you are!</span
-        ><span class="d-block">First let's set your account up</span>
+        <span class="d-block">{{ t("pages.signup.heading-p1") }}</span
+        ><span class="d-block">{{ t("pages.signup.heading-p2") }}</span
+        ><span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
       </div>
       <v-form @submit.prevent="submit.handler">
         <v-text-field
@@ -18,24 +18,26 @@
           label="Email"
           placeholder="aphrodite@mail.com"
           name="email"
-          :rules="[(val) => hasEmail || 'Please enter a valid email']"
+          :rules="[(val) => hasEmail || t('shared.auth.enter-valid-mail')]"
         />
         <v-text-field
           v-model="password"
           :type="showPW ? 'text' : 'password'"
-          label="Password"
-          placeholder="secret password"
+          :label="t('shared.auth.password')"
+          :placeholder="t('shared.auth.password-placeholder')"
           :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPW = !showPW"
         />
         <v-text-field
           v-model="repeatPassword"
           :type="showRepeatPW ? 'text' : 'password'"
-          label="Repeat password"
-          placeholder="repeat secret password"
+          :label="t('shared.auth.repeat-password')"
+          :placeholder="t('shared.auth.repeat-password-placeholder')"
           :append-icon="showRepeatPW ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showRepeatPW = !showRepeatPW"
-          :rules="[(val) => val === password || 'Passwords must match']"
+          :rules="[
+            (val) => val === password || t('shared.auth.password-mismatch'),
+          ]"
         />
         <v-btn
           :loading="submit.loading"
@@ -48,7 +50,7 @@
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          Register</v-btn
+          {{ t("shared.auth.register") }}</v-btn
         >
       </v-form>
     </v-container>
@@ -56,19 +58,19 @@
       <div class="d-flex align-center mt-6">
         <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
         <span class="d-block text-h6 font-weight-bold">
-          Welcome to Matchy.
+          {{ t("pages.signup.registered-title") }}
         </span>
       </div>
       <div class="h-100 d-flex flex-column justify-center pt-4">
-        <span class="d-block text-h6 font-weight-bold">
-          Thanks for joining Matchy!
+        <span class="d-block text-h5 font-weight-bold mb-1">
+          {{ t("pages.signup.registered-subheader1") }}
         </span>
         <span class="d-block">
-          We've sent you an email with your confirmation link!
+          {{ t("pages.signup.registered-subheader2") }}
         </span>
-        <v-btn class="mt-4" to="/login" variant="text" color="primary"
-          >Log in</v-btn
-        >
+        <v-btn class="mt-4" to="/login" variant="text" color="primary">{{
+          t("shared.auth.login")
+        }}</v-btn>
       </div>
     </v-container>
   </v-main>
