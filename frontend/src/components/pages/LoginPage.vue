@@ -113,7 +113,7 @@ const onSubmit = asyncLoading(async () => {
 
 const oAuthLogin = asyncLoading(async (provider: Provider) => {
   try {
-    await authStore.oAuthLogin(provider);
+    await authStore.oAuthLogin(provider, redirect ?? "/");
   } catch (e) {
     errorToast(e);
   }

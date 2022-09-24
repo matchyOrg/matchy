@@ -2,12 +2,14 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { Provider, User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
+import { useStorage } from "@vueuse/core";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
   const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
+  const redirect = useStorage("redirect", "/");
   // user setter
   async function setUserStore(newUser: User | null) {
     console.log("Updating user state", newUser);
@@ -40,10 +42,16 @@ export const useAuthStore = defineStore("user", () => {
     if (error) throw error;
   }
 
-  async function oAuthLogin(provider: Provider) {
-    const { user, session, error } = await supabase.auth.signIn({
-      provider: provider,
-    });
+  async function oAuthLogin(provider: Provider, afterLoginRedirect: string) {
+    redirect.value = afterLoginRedirect;
+    const redirectTo =
+      new URL(import.meta.env.BASE_URL, window.location.origin) + "#/callback";
+    const { user, session, error } = await supabase.auth.signIn(
+      {
+        provider: provider,
+      },
+      { redirectTo }
+    );
     if (error) throw error;
   }
 
@@ -75,6 +83,7 @@ export const useAuthStore = defineStore("user", () => {
     oAuthLogin,
     logout,
     deleteAccount,
+    redirect,
   };
 });
 
