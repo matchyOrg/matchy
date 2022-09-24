@@ -12,6 +12,7 @@ import EventSearchPage from "@/components/pages/EventSearchPage.vue";
 import EventDashboard from "@/components/pages/EventDashboard.vue";
 import SignUpPage from "@/components/pages/SignUpPage.vue";
 import ForgotPassword from "@/components/pages/ForgotPassword.vue";
+import ResetPassword from "@/components/pages/ResetPassword.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,10 @@ const router = createRouter({
     {
       path: "/forgot-password",
       component: ForgotPassword,
+    },
+    {
+      path: "/reset-password",
+      component: ResetPassword,
     },
     {
       path: "/about",
