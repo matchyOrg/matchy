@@ -3,8 +3,6 @@
     <v-container class="h-100">
       <!-- logo -->
       <SiteLogo class="my-12"></SiteLogo>
-      <!-- <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
-      <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn> -->
       <!-- email field -->
       <div class="mx-5 mt-16">
         <v-form
@@ -27,7 +25,7 @@
             :type="showPW ? 'text' : 'password'"
             v-model="password"
             name="password"
-            label="Password"
+            :label="t('shared.auth.password')"
             :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
@@ -58,8 +56,9 @@
             </span>
           </v-btn>
           <div class="text-center">
-            <span class="d-inline-block text-small text-grey font-weight-bold"
-              >Sign up / Log in with:</span
+            <span
+              class="d-inline-block text-small text-grey font-weight-bold"
+              >{{ t("pages.login.oauth-login-prompt") }}</span
             >
             <div class="d-inline-block">
               <v-btn
@@ -82,10 +81,10 @@
       <div
         class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-12"
       >
-        <span>Don't have an account?</span>
-        <v-btn to="/signup" size="x-small" variant="text" color="primary"
-          >Sign Up</v-btn
-        >
+        <span>{{ t("pages.login.no-account") }}</span>
+        <v-btn to="/signup" size="x-small" variant="text" color="primary">{{
+          t("shared.auth.signup")
+        }}</v-btn>
       </div>
       <div
         class="d-flex align-center justify-center text-small text-grey font-weight-bold"
@@ -95,7 +94,7 @@
           size="x-small"
           variant="text"
           color="primary"
-          >Forgot Password?</v-btn
+          >{{ t("pages.login.forgot-password") }}</v-btn
         >
       </div>
     </v-container>
@@ -147,7 +146,7 @@ const login = async () => {
     console.log(e);
 
     if (e.status === 400) {
-      error.value = "Your email or password are incorrect";
+      error.value = t("pages.login.wrong-credentials-error");
     }
   }
 };

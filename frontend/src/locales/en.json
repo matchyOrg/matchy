@@ -138,11 +138,15 @@
       "enter-email-text": "Just enter your email below to register or log in.",
       "footer-about-us": "about us",
       "footer-legal-notice": "legal notice",
+      "forgot-password": "Forgot Password?",
+      "no-account": "Don't have an account?",
       "not-signed-up": "Not signed up yet?",
+      "oauth-login-prompt": "Sign up / Log in with:",
       "password-text": "No need for passwords.",
       "resend-button-text": "RESEND",
       "send-button-text": "SEND",
-      "successful-signup": "You were successfully signed up! Check your email to confirm."
+      "successful-signup": "You were successfully signed up! Check your email to confirm.",
+      "wrong-credentials-error": "Your email or password are incorrect"
     },
     "matches": {
       "no-events": "You haven't participated in any events",

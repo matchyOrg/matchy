@@ -138,11 +138,15 @@
       "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
       "footer-about-us": "über uns",
       "footer-legal-notice": "impressum",
+      "forgot-password": "Passwort vergessen?",
+      "no-account": "Du hast keinen Account?",
       "not-signed-up": "Noch kein Account?",
+      "oauth-login-prompt": "Registrieren / Einloggen mit:",
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN",
-      "successful-signup": "Du wurdest erfolgreich registriert! Check deine email um zu bestätigen."
+      "successful-signup": "Du wurdest erfolgreich registriert! Check deine email um zu bestätigen.",
+      "wrong-credentials-error": "Email oder Passwort sind inkorrekt"
     },
     "matches": {
       "no-events": "Du hast an keinen Events teilgenommen",
