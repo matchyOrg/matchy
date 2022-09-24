@@ -191,13 +191,13 @@
       "new-pw-success": "Dein neues Passwort wurde gespeichert"
     },
     "signup": {
-      "heading-p1": "",
-      "heading-p2": "",
-      "heading-p3": "",
-      "registered-subheader1": "",
-      "registered-subheader2": "",
-      "registered-title": "",
-      "title": ""
+      "heading-p1": "Danke für's dabei sein!",
+      "heading-p2": "Wir sind genauso aufgeregt wie du!",
+      "heading-p3": "Lass uns zunächst deinen Account erstellen",
+      "registered-subheader1": "Danke, dass du dich bei Matchy angemeldet hast!",
+      "registered-subheader2": "Wir haben dir eine Bestätigungsemail geschickt!",
+      "registered-title": "Willkommen bei Matchy.",
+      "title": "Willkommen bei Matchy."
     }
   },
   "shared": {
@@ -207,7 +207,7 @@
       "password": "Passwort",
       "password-mismatch": "Passwörter müssen übereinstimmen",
       "password-placeholder": "Geheimes Passwort",
-      "register": "",
+      "register": "Registrieren",
       "repeat-password": "Wiederhole Passwort",
       "repeat-password-placeholder": "Wiederhole geheimes Passwort",
       "signup": "Registrieren"
