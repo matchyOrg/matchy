@@ -8,8 +8,9 @@
 
     <!-- email field -->
     <div class="mx-9 mt-13">
-      <p>{{ t("pages.login.password-text") }}</p>
-      <p>{{ t("pages.login.enter-email-text") }}</p>
+      <h3 class="text-h5 font-weight-bold">
+        {{ authType === "LOGIN" ? "Login" : "Sign Up" }}
+      </h3>
       <v-form
         class="mt-8 mb-5"
         :model-value="hasEmail"
@@ -23,8 +24,30 @@
           name="Email"
           label="Email"
           placeholder="geniusPinapple@mail.com"
+          variant="outlined"
           :rules="[(value) => !!value || 'Required']"
         ></v-text-field>
+        <v-text-field
+          filled
+          type="password"
+          v-model="password"
+          name="password"
+          label="Password"
+          placeholder="geniusPinapple@mail.com"
+          variant="outlined"
+          :rules="[(value) => !!value || 'Required']"
+        ></v-text-field>
+        <div class="text-right">
+          <span
+            class="text-blue"
+            @click="authType = authType === 'LOGIN' ? 'SIGNUP' : 'LOGIN'"
+            >{{
+              authType === "LOGIN"
+                ? "Not signed up yet?"
+                : "Already registered?"
+            }}</span
+          >
+        </div>
 
         <div class="d-flex">
           <v-btn
@@ -43,11 +66,7 @@
               <v-progress-circular indeterminate />
             </template>
             <span class="text-h6">
-              {{
-                !mailSent
-                  ? t("pages.login.send-button-text")
-                  : t("pages.login.resend-button-text")
-              }}
+              {{ authType === "LOGIN" ? "Login" : "Sign Up" }}
             </span>
           </v-btn>
         </div>
@@ -69,6 +88,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import type { Provider } from "@supabase/gotrue-js";
+import type { Ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -78,38 +98,44 @@ const router = useRouter();
 const { redirect: redirectRaw } = useRoute().query;
 const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
 
+const authType: Ref<"LOGIN" | "SIGNUP"> = ref("LOGIN");
+
 // leave page if already logged in
 if (authStore.isLoggedIn) {
   router.push("/");
 }
 
 const email = ref("");
-const mailSent = ref(false);
+const password = ref("");
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 
-watch(
-  () => authStore.user,
-  () => router.push(redirect ?? "/")
-);
-
 const onSubmit = asyncLoading(async () => {
   // TODO: This is still flawed, especially the hash in the URL is troublesome
-  const redirectTo =
-    new URL(
-      router.resolve("/callback").href,
-      new URL(import.meta.env.BASE_URL, window.location.origin)
-    ) + "#";
-  console.log("Will redirect to", redirectTo);
-  try {
-    await authStore.login(email.value, redirectTo);
-    mailSent.value = true;
-
-    successToast(t("pages.login.check-mail"));
-  } catch (e) {
-    errorToast(e);
+  console.log("Will redirect to", redirect);
+  if (authType.value === "LOGIN") {
+    await authStore.login(email.value, password.value);
+  } else {
+    await authStore.signUp(email.value, password.value);
   }
+  router.push(redirect ?? "/");
 });
+
+const login = async () => {
+  await authStore.login(email.value, password.value);
+  router.push(redirect ?? "/");
+};
+
+const signUp = async () => {
+  await authStore.signUp(email.value, password.value);
+  successToast("You were successfully signed up! Check your email to confirm.");
+};
+
+watch(
+  () => authType.value,
+  (newValue) => (onSubmit.handler = newValue === "LOGIN" ? login : signUp),
+  { immediate: true }
+);
 
 const oAuthLogin = asyncLoading(async (provider: Provider) => {
   try {
