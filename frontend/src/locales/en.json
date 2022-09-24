@@ -6,10 +6,10 @@
     },
     "pagination": {
       "ariaLabel": {
+        "currentPage": "Current page",
         "next": "Next page",
         "previous": "Previous page",
-        "root": "Pagination",
-        "currentPage": "Current page"
+        "root": "Pagination"
       }
     }
   },
@@ -126,13 +126,16 @@
       "no-org-events-cta": "Create an Event"
     },
     "login": {
+      "already-signed-up": "Already registered?",
       "check-mail": "Check your email for the login link!",
       "enter-email-text": "Just enter your email below to register or log in.",
       "footer-about-us": "about us",
       "footer-legal-notice": "legal notice",
+      "not-signed-up": "Not signed up yet?",
       "password-text": "No need for passwords.",
       "resend-button-text": "RESEND",
-      "send-button-text": "SEND"
+      "send-button-text": "SEND",
+      "successful-signup": "You were successfully signed up! Check your email to confirm."
     },
     "participant-event": {
       "ended-button-link": "To Homepage",
@@ -170,10 +173,17 @@
     }
   },
   "shared": {
+    "auth": {
+      "login": "Login",
+      "signup": "Sign Up"
+    },
     "events": {
       "event-load-error": "The event could not be loaded... Going back to previous page.",
       "invalid-id": "Uh oh, looks like this event does not exist",
       "no-description": "No description."
+    },
+    "forms": {
+      "required": "Required"
     }
   },
   "sidebar": {

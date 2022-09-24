@@ -9,7 +9,11 @@
     <!-- email field -->
     <div class="mx-9 mt-13">
       <h3 class="text-h5 font-weight-bold">
-        {{ authType === "LOGIN" ? "Login" : "Sign Up" }}
+        {{
+          authType === "LOGIN"
+            ? t("shared.auth.login")
+            : t("shared.auth.signup")
+        }}
       </h3>
       <v-form
         class="mt-8 mb-5"
@@ -25,7 +29,7 @@
           label="Email"
           placeholder="geniusPinapple@mail.com"
           variant="outlined"
-          :rules="[(value) => !!value || 'Required']"
+          :rules="[(value) => !!value || t('shared.forms.required')]"
         ></v-text-field>
         <v-text-field
           filled
@@ -34,27 +38,29 @@
           name="password"
           label="Password"
           variant="outlined"
-          :rules="[(value) => !!value || 'Required']"
+          :rules="[(value) => !!value || t('shared.forms.required')]"
         ></v-text-field>
+
         <div class="text-right">
           <span
             class="text-blue"
             @click="authType = authType === 'LOGIN' ? 'SIGNUP' : 'LOGIN'"
             >{{
               authType === "LOGIN"
-                ? "Not signed up yet?"
-                : "Already registered?"
+                ? t("pages.login.not-signed-up")
+                : t("pages.login.already-signed-up")
             }}</span
           >
         </div>
-
+        <span v-if="error" class="text-red text-center d-block my-2">{{
+          error
+        }}</span>
         <div class="d-flex">
           <v-btn
             class="mx-auto"
             size="x-large"
             color="primary"
             variant="tonal"
-            append-icon="mdi-email"
             rounded="pill"
             type="submit"
             minWidth="20rem"
@@ -65,7 +71,11 @@
               <v-progress-circular indeterminate />
             </template>
             <span class="text-h6">
-              {{ authType === "LOGIN" ? "Login" : "Sign Up" }}
+              {{
+                authType === "LOGIN"
+                  ? t("shared.auth.login")
+                  : t("shared.auth.signup")
+              }}
             </span>
           </v-btn>
         </div>
@@ -106,6 +116,9 @@ if (authStore.isLoggedIn) {
 
 const email = ref("");
 const password = ref("");
+const error = ref("");
+
+watch([email, password], () => (error.value = ""));
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 
@@ -121,13 +134,23 @@ const onSubmit = asyncLoading(async () => {
 });
 
 const login = async () => {
-  await authStore.login(email.value, password.value);
-  router.push(redirect ?? "/");
+  try {
+    await authStore.login(email.value, password.value);
+    router.push(redirect ?? "/");
+  } catch (e: any) {
+    console.log(e);
+
+    if (e.status === 400) {
+      error.value = "Your email or password are incorrect";
+    }
+  }
+  return "ok";
 };
 
 const signUp = async () => {
   await authStore.signUp(email.value, password.value);
-  successToast("You were successfully signed up! Check your email to confirm.");
+  successToast(t("pages.login.successful-signup"));
+  return "ok";
 };
 
 watch(

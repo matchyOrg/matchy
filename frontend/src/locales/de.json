@@ -6,10 +6,10 @@
     },
     "pagination": {
       "ariaLabel": {
+        "currentPage": "Aktuelle Seite",
         "next": "Nächste Seite",
         "previous": "Vorherige Seite",
-        "root": "Seiten-Navigation",
-        "currentPage": "Aktuelle Seite"
+        "root": "Seiten-Navigation"
       }
     }
   },
@@ -126,13 +126,16 @@
       "no-org-events-cta": "Erstelle ein Event"
     },
     "login": {
+      "already-signed-up": "",
       "check-mail": "Wir haben dir eine Email geschickt!",
       "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
       "footer-about-us": "über uns",
       "footer-legal-notice": "impressum",
+      "not-signed-up": "",
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
-      "send-button-text": "SENDEN"
+      "send-button-text": "SENDEN",
+      "successful-signup": ""
     },
     "participant-event": {
       "ended-button-link": "Zur Homepage",
@@ -170,10 +173,17 @@
     }
   },
   "shared": {
+    "auth": {
+      "login": "",
+      "signup": ""
+    },
     "events": {
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "no-description": "Keine Beschreibung."
+    },
+    "forms": {
+      "required": ""
     }
   },
   "sidebar": {
