@@ -90,6 +90,11 @@ export const useAuthStore = defineStore("user", () => {
     logout();
   }
 
+  async function resetPassword(email: string) {
+    const { error } = await supabase.auth.api.resetPasswordForEmail(email);
+    if (error) throw error;
+  }
+
   return {
     user,
     isLoggedIn,
@@ -103,6 +108,7 @@ export const useAuthStore = defineStore("user", () => {
     deleteAccount,
     redirect,
     signUp,
+    resetPassword,
   };
 });
 
