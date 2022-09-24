@@ -137,6 +137,13 @@
       "send-button-text": "SEND",
       "successful-signup": "You were successfully signed up! Check your email to confirm."
     },
+    "matches": {
+      "no-events": "You haven't participated in any events",
+      "no-matches": "You had no matches for this event",
+      "title": "My Matches",
+      "unpublished-hint": "Matches for this event have not been published",
+      "unpublished-subhint": "You will be notified when they are"
+    },
     "participant-event": {
       "ended-button-link": "To Homepage",
       "ended-subtitle": "This event is now over, thanks for being here!",
@@ -184,6 +191,9 @@
     },
     "forms": {
       "required": "Required"
+    },
+    "profiles": {
+      "unknown": "Unknown"
     }
   },
   "sidebar": {
