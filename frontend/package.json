@@ -8,7 +8,6 @@
     "start": "vite",
     "dev": "vite --open",
     "build": "run-p type-check build-only",
-    "deploy": "vite build --base=/matchy/ && node utils/publish.js",
     "preview": "vite preview --port 4173",
     "type-gen": "node utils/supabase-types.js",
     "test:unit": "vitest --environment jsdom",

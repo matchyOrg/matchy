@@ -27,7 +27,7 @@ body {
   /* max-width: var(--mobile-l); */
 }
 
-/* just for development, remove before deployment! */
+/* just for development, TODO: remove before deployment! */
 html {
   background-color: #f6f6f6;
 }
