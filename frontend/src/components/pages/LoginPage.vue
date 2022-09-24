@@ -150,7 +150,6 @@ const login = async () => {
       error.value = "Your email or password are incorrect";
     }
   }
-  return "ok";
 };
 
 const onSubmit = asyncLoading(() => login());
