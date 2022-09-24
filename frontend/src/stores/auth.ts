@@ -63,7 +63,7 @@ export const useAuthStore = defineStore("user", () => {
   async function oAuthLogin(provider: Provider, afterLoginRedirect: string) {
     redirect.value = afterLoginRedirect;
     const redirectTo =
-      new URL(import.meta.env.BASE_URL, window.location.origin) + "#/callback";
+      new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
     const { user, session, error } = await supabase.auth.signIn(
       {
         provider: provider,
