@@ -36,9 +36,14 @@ export const useAuthStore = defineStore("user", () => {
     setUserStore(session?.user ?? null);
   });
 
+  async function signUp(email: string, password: string) {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  }
+
   // LOGIN
-  async function login(email: string, redirectTo: string) {
-    const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+  async function login(email: string, password: string) {
+    const { error } = await supabase.auth.signIn({ email, password });
     if (error) throw error;
   }
 
