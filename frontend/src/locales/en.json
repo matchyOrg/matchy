@@ -114,6 +114,13 @@
       "share-hint-organizer": "Invite participants by sharing this link with them",
       "share-hint-participant": "Share this invite link with friends!"
     },
+    "forgot-password": {
+      "heading-p1": "No problem. We've got you covered.",
+      "heading-p2": "Just enter your email below to reset your password.",
+      "reset": "Reset",
+      "reset-success-message": "We reset your password. Check your email to choose a new one.",
+      "title": "Forgot Your Password?"
+    },
     "home": {
       "active-event": "Your active event",
       "active-event-action": "To Dashboard",
@@ -185,6 +192,7 @@
   },
   "shared": {
     "auth": {
+      "enter-valid-mail": "Enter a valid email",
       "login": "Login",
       "password": "Password",
       "password-mismatch": "Passwords must match",

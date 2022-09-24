@@ -114,6 +114,13 @@
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
+    "forgot-password": {
+      "heading-p1": "",
+      "heading-p2": "",
+      "reset": "",
+      "reset-success-message": "",
+      "title": ""
+    },
     "home": {
       "active-event": "Jetzt gerade",
       "active-event-action": "Zum Dashboard",
@@ -185,6 +192,7 @@
   },
   "shared": {
     "auth": {
+      "enter-valid-mail": "",
       "login": "Einloggen",
       "password": "Passwort",
       "password-mismatch": "Passwörter müssen übereinstimmen",
