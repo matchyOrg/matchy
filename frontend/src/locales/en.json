@@ -215,6 +215,7 @@
       "register": "Register",
       "repeat-password": "Repeat password",
       "repeat-password-placeholder": "repeat secret password",
+      "sign-up-with": "Sign up with",
       "signup": "Sign Up"
     },
     "events": {

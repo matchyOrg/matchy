@@ -18,7 +18,8 @@
         color="grey-darken-4"
         @click="oAuthLogin.handler('github')"
       >
-        <v-icon class="mr-2">mdi-github</v-icon> Sign up with Github
+        <v-icon class="mr-2">mdi-github</v-icon>
+        {{ t("shared.auth.sign-up-with") }} Github
       </v-btn>
       <v-btn
         class="mb-6"
@@ -26,7 +27,8 @@
         color="grey-lighten-5"
         @click="oAuthLogin.handler('google')"
       >
-        <v-icon class="google-icon mr-2">mdi-google</v-icon> Sign up with Google
+        <v-icon class="google-icon mr-2">mdi-google</v-icon>
+        {{ t("shared.auth.sign-up-with") }} Google
       </v-btn>
       <v-form @submit.prevent="submit.handler">
         <v-text-field
