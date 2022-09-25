@@ -5,7 +5,6 @@ import {
   dateXHoursAgo,
   timestamptzToTemporalZonedDateTime,
 } from "./utils/datetime";
-import { nanoid } from "nanoid";
 import type { PostgrestError } from "@supabase/supabase-js";
 
 export interface Group {
@@ -53,24 +52,51 @@ export interface EventRegistration {
   present: boolean;
 }
 
+export interface EventSearchParams {
+  title?: string;
+  location?: string;
+  maxParticipants?: string;
+  fromDate?: Temporal.ZonedDateTime;
+  toDate?: Temporal.ZonedDateTime;
+  groupNameA?: string;
+  groupNameB?: string;
+}
+
 export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
-  async function fetchEvents(): Promise<EventInfo[]> {
+  function getPagination(pageIndex: number, size: number) {
+    const from = pageIndex * size;
+    const to = from + size;
+
+    return { from, to };
+  }
+
+  async function fetchEvents(options?: {
+    pagination?: { pageIndex: number; size: number };
+  }): Promise<{ events: EventInfo[]; total: number }> {
     const anHourAgo = dateXHoursAgo(1);
 
-    const { data: events, error } = await supabase
+    let query = supabase
       .from("events")
       .select(
-        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
+        "*, event_groups:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))",
+        { count: "exact" }
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
       .gt("datetime", anHourAgo.toInstant().toString())
       .order("datetime", { ascending: true });
+    if (options?.pagination) {
+      const { from, to } = getPagination(
+        options?.pagination?.pageIndex,
+        options?.pagination?.size
+      );
+      query = query.range(from, to - 1);
+    }
 
+    const { data: events, count, error } = await query;
     if (error) {
-      errorToast(error);
       throw error;
     }
     if (!events) {
@@ -86,7 +112,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       ),
     }));
 
-    return parsedEvents;
+    return { events: parsedEvents, total: count ?? 0 };
   }
 
   async function fetchUserEvents(): Promise<EventInfo[]> {
@@ -188,7 +214,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
   async function uploadImage(headerImageFile: File): Promise<string> {
     // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
     // easily replaceable should we ever need to
-    const fileName = nanoid();
+    const fileName = crypto.randomUUID();
     const { data, error } = await supabase.storage
       .from("event-header-images")
       .upload(fileName, headerImageFile, {
@@ -208,8 +234,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     console.log("Called useEventService.createEvent()", eventData);
 
     if (!authStore.user) {
-      errorToast("Please log in first");
-      throw Error("User is not logged in");
+      throw Error("Please log in first", {
+        cause: new Error("User not logged in"),
+      });
     }
 
     // the user has selected a new image header
@@ -236,7 +263,8 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         groupBTitle: eventData.event_groups.groupB.title,
         groupBDescription: eventData.event_groups.groupB.description,
       });
-      creationError = error;
+      if (error) throw error;
+
       // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: supabase typing is wrong, this returns a number (the id)
@@ -266,12 +294,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         },
         { returning: "representation" }
       );
-      creationError = error;
-      if (!data) throw new Error("Event was not returned upon creation");
+      if (error) throw error;
+
       id = data[0].id;
     }
 
-    if (creationError) throw creationError;
     return id;
   }
 
@@ -352,5 +379,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     isRegisteredForEvent,
     registerForEvent,
     fetchOrganizerEvents,
+    getPagination,
   };
 }

@@ -3,6 +3,14 @@
     "dataIterator": {
       "pageText": "{0}-{1} {2}",
       "rowsPerPageText": "Elemente pro Seite:"
+    },
+    "pagination": {
+      "ariaLabel": {
+        "next": "Nächste Seite",
+        "previous": "Vorherige Seite",
+        "root": "Seiten-Navigation",
+        "currentPage": "Aktuelle Seite"
+      }
     }
   },
   "components": {
@@ -126,20 +134,27 @@
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN"
     },
+    "matches": {
+      "no-events": "Du hast an keinen Events teilgenommen",
+      "no-matches": "Du hattest bei diesem Event keine Matches",
+      "title": "Meine Matches",
+      "unpublished-hint": "Matches bei diesem Event sind noch nicht veröffentlicht",
+      "unpublished-subhint": "Wir benachrichtigen dich wenn sie verfügbar sind"
+    },
     "participant-event": {
-      "ended-button-link": "",
-      "ended-subtitle": "",
-      "ended-title": "",
-      "not-started-subtitle": "",
-      "not-started-title": "",
-      "ongoing-title": "",
-      "searching-manual-pair-button": "",
-      "searching-minutes-left": "",
-      "searching-subtitle": "",
-      "searching-title": "",
-      "vote-subtitle": "",
-      "vote-title": "",
-      "waiting-title": ""
+      "ended-button-link": "Zur Homepage",
+      "ended-subtitle": "Das Event ist vorbei. Danke dass du dabei warst!",
+      "ended-title": "That's all volks!",
+      "not-started-subtitle": "Der Organisierer wird das Event bald starten",
+      "not-started-title": "Das Event hat noch nicht angefangen...",
+      "ongoing-title": "Viel Spaß euch beiden!",
+      "searching-manual-pair-button": "Paar",
+      "searching-minutes-left": "minuten verbleiben",
+      "searching-subtitle": "Benutze den Qr-Scanner oder gib die id in die Textbox ein",
+      "searching-title": "Zeit einen Partner für diese Runde zu finden!",
+      "vote-subtitle": "Dein Partner sieht deine Entscheidung nicht sofort",
+      "vote-title": "Mochtest du deinen Partner?",
+      "waiting-title": "Warte auf die nächste Runde"
     },
     "profile": {
       "delete-button-text": "PROFIL LÖSCHEN",
@@ -166,6 +181,9 @@
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "no-description": "Keine Beschreibung."
+    },
+    "profiles": {
+      "unknown": "Unbekannt"
     }
   },
   "sidebar": {

@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/auth";
+import type { User } from "@supabase/gotrue-js";
 import { supabase } from "./supabase";
 
 export interface Profile {
@@ -10,26 +11,23 @@ export interface Profile {
 export function useProfileService() {
   const authStore = useAuthStore();
 
-  // TODO: Refactor readProfile and updateProfile to take a profile oject instead of reading it from the store
   // SELECT
-  async function readProfile() {
+  async function readProfile(user: User) {
     console.log("Called useProfileService.readProfile()");
 
-    if (!authStore.user || !authStore.user.email) {
-      errorToast("Please log in first");
+    if (!user.email) {
       throw Error("User is not logged in");
     }
 
     const { data, error } = await supabase
       .from("profiles")
       .select(`full_name, description, email`)
-      .eq("user_id", authStore.user.id)
+      .eq("user_id", user.id)
       .maybeSingle();
     if (error) {
       throw error;
     }
     if (!data) {
-      errorToast("Loading profile failed");
       throw new Error("Fetching profile failed");
     }
     const retArg: Profile = {
@@ -39,6 +37,8 @@ export function useProfileService() {
     };
     return retArg;
   }
+
+  // TODO: Refactor updateProfile to take a user/profile oject instead of reading it from the store
 
   // UPDATE
   async function updateProfile(newProfile: Profile) {

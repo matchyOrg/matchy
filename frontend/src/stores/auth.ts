@@ -1,19 +1,21 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
-import type { User } from "@supabase/supabase-js";
+import type { Provider, User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
+import { useStorage } from "@vueuse/core";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
   const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
+  const redirect = useStorage("redirect", "/");
   // user setter
   async function setUserStore(newUser: User | null) {
     console.log("Updating user state", newUser);
     user.value = newUser;
     if (newUser) {
-      const fetchedProfile = await useProfileService().readProfile();
+      const fetchedProfile = await useProfileService().readProfile(newUser);
       setProfileStore(fetchedProfile);
     }
   }
@@ -40,8 +42,22 @@ export const useAuthStore = defineStore("user", () => {
     if (error) throw error;
   }
 
+  async function oAuthLogin(provider: Provider, afterLoginRedirect: string) {
+    redirect.value = afterLoginRedirect;
+    const redirectTo =
+      new URL(import.meta.env.BASE_URL, window.location.origin) + "#/callback";
+    const { user, session, error } = await supabase.auth.signIn(
+      {
+        provider: provider,
+      },
+      { redirectTo }
+    );
+    if (error) throw error;
+  }
+
   // LOGOUT
   function logout() {
+    // TODO: Catch error
     supabase.auth.signOut();
   }
 
@@ -64,8 +80,10 @@ export const useAuthStore = defineStore("user", () => {
     isRegistered,
     setProfileStore,
     login,
+    oAuthLogin,
     logout,
     deleteAccount,
+    redirect,
   };
 });
 

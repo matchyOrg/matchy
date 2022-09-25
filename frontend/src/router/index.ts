@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../components/pages/HomePage.vue";
 import LoginPage from "../components/pages/LoginPage.vue";
 import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
@@ -10,10 +10,9 @@ import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
 import EventPage from "@/components/pages/EventPage.vue";
 import EventSearchPage from "@/components/pages/EventSearchPage.vue";
 import EventDashboard from "@/components/pages/EventDashboard.vue";
-import CurrentParticipantEventPage from "@/components/pages/CurrentParticipantEventPage.vue";
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/login",
@@ -88,7 +87,7 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   // requiresLogin
   const loggedIn = supabase.auth.user();
-  if (to.matched.some((record) => record.meta.requiresLogin) && !loggedIn) {
+  if (to.meta.requiresLogin && !loggedIn) {
     console.warn(
       "tried to access",
       to.fullPath,

@@ -19,13 +19,6 @@ const options: PluginOptions = {
   transition: "Vue-Toastification__bounce",
   maxToasts: 5,
   newestOnTop: true,
-  // I'm not sure if surpressing toasts is what we want
-  /*filterBeforeCreate: (toast, toasts) => {
-    if (toasts.filter((t) => t.type === toast.type).length !== 0) {
-      return false;
-    }
-    return toast;
-  },*/
 };
 
 // for integration with vuetify see: https://next.vuetifyjs.com/en/features/internationalization/
@@ -49,9 +42,6 @@ import { createVuetify } from "vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
-// TODO: Remove the ts-ignore once this gets fixed https://github.com/vuetifyjs/vuetify/issues/15699
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
 
 const vuetify = createVuetify({
@@ -63,7 +53,7 @@ const vuetify = createVuetify({
     aliases,
     sets: { mdi },
   },
-  locale: createVueI18nAdapter({ i18n, useI18n }),
+  locale: createVueI18nAdapter({ i18n: i18n as any, useI18n }),
 });
 
 const app = createApp(App);

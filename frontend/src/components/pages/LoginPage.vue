@@ -3,6 +3,9 @@
     <!-- logo -->
     <SiteLogo class="mt-3"></SiteLogo>
 
+    <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
+    <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn>
+
     <!-- email field -->
     <div class="mx-9 mt-13">
       <p>{{ t("pages.login.password-text") }}</p>
@@ -12,6 +15,7 @@
         :model-value="hasEmail"
         @submit.prevent="onSubmit.handler"
       >
+        <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
         <v-text-field
           filled
           type="email"
@@ -64,6 +68,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
+import type { Provider } from "@supabase/gotrue-js";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
@@ -89,18 +94,25 @@ watch(
 );
 
 const onSubmit = asyncLoading(async () => {
-  // TODO: This is still flawed, especially the hash in the URL is troublesome
   const redirectTo =
     new URL(
       router.resolve("/callback").href,
       new URL(import.meta.env.BASE_URL, window.location.origin)
-    ) + "#";
+    ) + "";
   console.log("Will redirect to", redirectTo);
   try {
     await authStore.login(email.value, redirectTo);
     mailSent.value = true;
 
     successToast(t("pages.login.check-mail"));
+  } catch (e) {
+    errorToast(e);
+  }
+});
+
+const oAuthLogin = asyncLoading(async (provider: Provider) => {
+  try {
+    await authStore.oAuthLogin(provider, redirect ?? "/");
   } catch (e) {
     errorToast(e);
   }

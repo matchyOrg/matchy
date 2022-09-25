@@ -8,7 +8,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
-    Countdown: typeof import("./components/Countdown.vue")["default"]
     CurrentParticipantEventPage: typeof import('./components/pages/CurrentParticipantEventPage.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']
     EventCreatePage: typeof import('./components/pages/EventCreatePage.vue')['default']
@@ -28,6 +27,7 @@ declare module '@vue/runtime-core' {
     RoundOverview: typeof import('./components/RoundOverview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchEvent: typeof import('./components/SearchEvent.vue')['default']
     SideBar: typeof import('./components/SideBar.vue')['default']
     SiteLogo: typeof import('./components/SiteLogo.vue')['default']
     SkeletonLoader: typeof import('./components/SkeletonLoader.vue')['default']

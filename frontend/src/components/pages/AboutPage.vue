@@ -2,7 +2,7 @@
   <teleport to="#nav-title">{{ t("pages.about.title") }}</teleport>
   <v-main class="mx-9 mt-5">
     <p>
-      <i18n-t keypath="pages.about.github-plug" tag="p">
+      <i18n-t keypath="pages.about.github-plug" tag="p" scope="global">
         <a class="text-grey" href="https://github.com/sueszli/matchy">{{
           t("pages.about.github-page")
         }}</a>
@@ -36,7 +36,12 @@
       <a class="text-grey" href="https://github.com/sueszli">@sueszli</a>
     </h3>
     <i class="text-grey">{{ t("pages.about.devs.yahya.title") }}</i>
-    <i18n-t keypath="pages.about.devs.yahya.p1" tag="p" class="mb-4">
+    <i18n-t
+      keypath="pages.about.devs.yahya.p1"
+      tag="p"
+      class="mb-4"
+      scope="global"
+    >
       <a class="text-grey" href="https://github.com/sueszli/datewatch"
         >DateWatch</a
       >

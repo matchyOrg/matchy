@@ -1,67 +1,80 @@
-Howdy friend! <br>
-In this open source project, we're making speed dating paperless! 💌
+<p align="center">
+<img width="512" src="./frontend/src/assets/matchyLogoGreen.svg" alt="Matchy Logo">
+</p>
+<p align="center">
+<i>Making speed dating paperless! 💌 🏃🏻💨</i>
+</p>
 
-Speed dating doesn't happen online like you're probably used to. It is an organized social event in which participants have one-on-one conversations typically limited to less than ten minutes, for the purpose of meeting people they would like to date.
+For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s).
 
-> Sounds interesting? Feel free to put this project on your watch list by clicking the `watch` button above and coming back later when there is more progress made or give it a star.
-
-This [simplified mockup](https://www.figma.com/file/ClWUVCuVzjNAG4Gat5TO10/matchy-V2-(Read-Only)?node-id=9%3A1033) gives you an idea of where we're trying to get.
+Also this [mockup](https://www.figma.com/file/qmUZ5y2V9Ycmh1ACpyIOmi/matchy-V3) gives you a good idea of where we're trying to get.
 <br><br><br><br>
 
 
-## How does conventional speed dating work?
-Here's a quick [video demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
+## What is speed dating?
 
-When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
+Speed dating doesn't happen online! <br>
+It is an organized social event in which participants have one-on-one conversations in person, which are typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
+
+Here's how it works: When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
 There will be two rows sitting in front of eachother at tables and one these rows will remain seated while the other one rotates about every 3-4 mins. Think of the dates as mini introductions. <br>
 You will use your card to mark down if you are interested in the people you meet.
 
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
+
+Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 <br><br><br><br>
 
 
-## How are we improving it?
+## How are we improving speed dating?
 
-With our app, the hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
+No more paperwork! With our app: 
 
-Let's do the math!
-> Let's assume that we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
-> Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $(n)$ 40 cards, each with $(\frac{n}{2})$ 20 reviews.
->
-> Now, when going through a single card, the host will check if the participant liked the other one. If yes, time to search for their card, and check if they also liked our participant. Then we need somewhere between 0 and $(\frac{n}{2})$ 20 card comparisons to determine the matches for a *single* person. And finally, for each match, all the contact information needs to be manually noted down, and sent to our participant.
->
-> Repeat this for every single of the $(n)$ 40 participants, and you have at most $(n \cdot \frac{n}{2})$ 800 card comparisons to determine all the matches.
-> 
-> Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $((\frac{n}{2})^2)$ comparisons - in our example this would mean the host has to do 400 comparisons for just 40 participants which is still very time consuming.
-> 
-> But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
+- the participants can focus on what matters most: making fun experiences and lasting relationships instead of fiddling around with paper. Also they don't have to wait days until their matches get evaluated by the host anymore.
 
-*In short:* Matchy digitalizes the old school speed dating paperwork and lets you focus on what matters most: making fun experiences and lasting relationships. 
-<br><br><br><br>
+- the event hosts no longer have to print any cards, use a clock to time the dates or spend countless hours after the events determining the matches and contacting the participants.
+  
+Evaluating the matches is very time consuming and is the most expensive part of throwing these events.
+
+<details>
+  <summary> <i> How expensive? Let's do the math! </i> </summary>
+
+  > Let's assume that we have $n$ participants, split into two groups. For example, 40 participants in total, of which there are 20 in each group.
+  > Each participant speed-dates everyone from the other group and fills out their cards as they go along. This gives you $(n)$ 40 cards, each with $(\frac{n}{2})$ 20 reviews.
+  >
+  > Now, when going through a single card, the host will check if the participant liked the other one. If yes, time to search for their card, and check if they also liked our participant. Then we need somewhere between 0 and $(\frac{n}{2})$ 20 card comparisons to determine the matches for a *single* person. And finally, for each match, all the contact information needs to be manually noted down, and sent to our participant.
+  >
+  > Repeat this for every single of the $(n)$ 40 participants, and you have at most $(n \cdot \frac{n}{2})$ 800 card comparisons to determine all the matches.
+  > 
+  > Now assuming that we do this as efficient as possible by iterating through each date that happened at the event once instead of twice from both sides (in the description above we iterated through the people, not the dates) we still have $((\frac{n}{2})^2)$ comparisons - in our example this would mean the host has to do 400 comparisons for just 40 participants which is still very time consuming.
+  > 
+  > But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
+
+</details>
+
+That's why – after some non profits reached out to us and told us how desperately they need this app – we decided to get our hands dirty and help them out.
+
+<details>
+  <summary> <i> Some of our potential clients from Vienna. </i> </summary>
+
+  > - https://www.meetup.com/speed-friending-events/ (over 8800 members)
+  > - https://esnuniwien.com/events/speedfriending-esn-1
+  > - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
+  > - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
+  > 
+  > (But effectively anyone can use it to throw their own event!)
+  
+</details>
+
+<br><br><br>
 
 
-## Who is this for?
-
-The main goal of this app is to provide existing speed friending or dating organizations with a better alternative to pen and paper after some of them reached out to us - so we already know that there is a demand for it!
-
-Here are some selected non profits in Vienna, that we are aiming to help out:
-- https://www.meetup.com/speed-friending-events/ (over 8800 members in Vienna)
-- https://esnuniwien.com/events/speedfriending-esn-1
-- https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
-- https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
-
-But effectively anyone can use it to throw their own event!
-<br><br><br><br>
 
 
-## How can I join you guys and contribute?
+---
+<i> 🤖 Want to join us and improve the app? </i>
 
-Joining the community doesn't require you to commit to anything / contribute anything. <br>
-You can just [join our wonderful discord server](https://discord.gg/ahNVefYjUc) and just have a good time, meme around and get to know us. <br>
-Most of us are students or working as software engineers and have pretty tight schedules - so we can totally understand if you're unsure whether you really want to put in the time / energy. We want the development process to be fun. We don't have any deadlines. 🍜🐱 <br>
-There are so many ways you could contribute! You don't even necessarily have to code to be part of our team. <br>
-Also: If you feel like the project is overwhelming / too complex, don't worry! We're here to help you out and introduce you to the technologies we're using.
-
-If you feel ready to contribute:
-- Check out the `CONTRIBUTING.md` file. It's an in depth guide to this app.
-- Access all relevant documents, resources and references of this project on our public notion page: https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6
+Here's all you need to get started:
+- Our wonderful [discord server](https://discord.gg/ahNVefYjUc) where we meme around and organize ourselves.
+- The [`CONTRIBUTING.md`](./CONTRIBUTING.md) file. It's an in depth guide to this app.
+- Our [notion page](https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6) where we store all of our files.
