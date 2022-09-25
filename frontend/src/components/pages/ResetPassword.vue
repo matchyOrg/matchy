@@ -18,6 +18,10 @@
           :placeholder="t('shared.auth.password-placeholder')"
           :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPW = !showPW"
+          :rules="[
+            (value) =>
+              value.length >= 6 || 'Password must be at least 6 characters',
+          ]"
         />
         <v-text-field
           v-model="repeatPassword"
