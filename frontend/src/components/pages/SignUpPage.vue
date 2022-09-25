@@ -45,7 +45,12 @@
         />
         <v-btn
           :loading="submit.loading"
-          :disabled="submit.loading || !hasEmail || repeatPassword !== password"
+          :disabled="
+            submit.loading ||
+            !hasEmail ||
+            repeatPassword !== password ||
+            password.length < 6
+          "
           color="primary"
           class="d-block mx-auto"
           width="67%"

@@ -37,9 +37,7 @@
         <v-btn
           :loading="submit.loading"
           :disabled="
-            submit.loading ||
-            repeatPassword !== password ||
-            repeatPassword !== password
+            submit.loading || repeatPassword !== password || password.length < 6
           "
           color="primary"
           class="d-block mx-auto"
