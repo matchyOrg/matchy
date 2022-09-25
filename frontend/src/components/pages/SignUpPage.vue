@@ -90,7 +90,6 @@ const password = ref("");
 const repeatPassword = ref("");
 
 const submit = asyncLoading(async () => {
-  console.log("signup");
   await authStore.signUp(email.value, password.value);
   registered.value = true;
   successToast(t("pages.login.successful-signup"));

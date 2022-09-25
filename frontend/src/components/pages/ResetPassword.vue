@@ -57,11 +57,17 @@ import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
 const { t } = useI18n();
+const route = useRoute();
+
 const password = ref("");
 const repeatPassword = ref("");
 
+const { redirect: redirectRaw } = route.query;
+const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
+
 const submit = asyncLoading(async () => {
   await authStore.setNewPassword(password.value);
+  authStore.redirect = redirect ?? "/";
   successToast(t("pages.reset-password.new-pw-success"));
 });
 

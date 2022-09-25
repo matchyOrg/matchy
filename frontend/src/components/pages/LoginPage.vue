@@ -90,7 +90,10 @@
         class="d-flex align-center justify-center text-small text-grey font-weight-bold"
       >
         <v-btn
-          to="/forgot-password"
+          :to="{
+            path: '/forgot-password',
+            query: { redirect: redirect },
+          }"
           size="x-small"
           variant="text"
           color="primary"
@@ -116,11 +119,11 @@ import { useAuthStore } from "@/stores/auth";
 import type { Provider } from "@supabase/gotrue-js";
 import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
-
 const authStore = useAuthStore();
 const router = useRouter();
-const { redirect: redirectRaw } = useRoute().query;
+const route = useRoute();
+const { t } = useI18n();
+const { redirect: redirectRaw } = route.query;
 const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
 
 // leave page if already logged in

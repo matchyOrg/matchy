@@ -39,7 +39,6 @@ export const useAuthStore = defineStore("user", () => {
   async function signUp(email: string, password: string) {
     const redirectURL =
       new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
-    console.log(redirectURL);
     redirect.value = "/edit-profile";
     const { error, user, session } = await supabase.auth.signUp(
       {
