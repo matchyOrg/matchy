@@ -12,6 +12,22 @@
         ><span class="d-block">{{ t("pages.signup.heading-p2") }}</span
         ><span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
       </div>
+      <v-btn
+        class="mb-4"
+        block
+        color="grey-darken-4"
+        @click="oAuthLogin.handler('github')"
+      >
+        <v-icon class="mr-2">mdi-github</v-icon> Sign up with Github
+      </v-btn>
+      <v-btn
+        class="mb-6"
+        block
+        color="grey-lighten-5"
+        @click="oAuthLogin.handler('google')"
+      >
+        <v-icon class="google-icon mr-2">mdi-google</v-icon> Sign up with Google
+      </v-btn>
       <v-form @submit.prevent="submit.handler">
         <v-text-field
           v-model="email"
@@ -87,6 +103,7 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
+import type { Provider } from "@supabase/supabase-js";
 import { useI18n } from "vue-i18n";
 
 const authStore = useAuthStore();
@@ -104,8 +121,33 @@ const submit = asyncLoading(async () => {
   successToast(t("pages.login.successful-signup"));
 });
 
+const oAuthLogin = asyncLoading(async (provider: Provider) => {
+  try {
+    await authStore.oAuthLogin(provider, "/edit-profile");
+  } catch (e) {
+    errorToast(e);
+  }
+});
+
 const showPW = ref(false);
 const showRepeatPW = ref(false);
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 </script>
+
+<style scope>
+.google-icon {
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+</style>
