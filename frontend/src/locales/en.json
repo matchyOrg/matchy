@@ -209,6 +209,7 @@
       "enter-valid-mail": "Enter a valid email",
       "login": "Login",
       "password": "Password",
+      "password-min-len-rule": "Password must be at least 6 characters",
       "password-mismatch": "Passwords must match",
       "password-placeholder": "secret password",
       "register": "Register",

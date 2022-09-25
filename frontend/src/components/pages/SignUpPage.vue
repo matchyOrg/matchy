@@ -29,7 +29,7 @@
           @click:append="showPW = !showPW"
           :rules="[
             (value) =>
-              value.length >= 6 || 'Password must be at least 6 characters',
+              value.length >= 6 || t('shared.auth.password-min-len-rule'),
           ]"
         />
         <v-text-field
