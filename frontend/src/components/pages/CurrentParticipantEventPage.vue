@@ -1,134 +1,21 @@
 <template>
   <v-main>
     <v-container class="h-100 pt-12">
-      <div
-        class="h-75 d-flex flex-column justify-center align-center"
-        v-if="eventEnded"
-      >
-        <span class="d-block text-h4 font-weight-bold">{{
-          t("pages.participant-event.ended-title")
-        }}</span>
-        <span class="d-block">{{
-          t("pages.participant-event.ended-subtitle")
-        }}</span>
-        <v-btn class="mt-16" color="primary" to="/" variant="text">{{
-          t("pages.participant-event.ended-button-link")
-        }}</v-btn>
-      </div>
-      <div
-        v-else-if="!eventStarted"
-        class="h-50 d-flex flex-column align center justify-center pl-2"
-      >
-        <span class="d-flex font-weight-medium text-h6">{{
-          t("pages.participant-event.not-started-title")
-        }}</span>
-        <span class="d-block text-subtitle-2">{{
-          t("pages.participant-event.not-started-subtitle")
-        }}</span>
-      </div>
-
-      <div v-else-if="roundOngoing && !currentPairId">
-        <span class="d-block text-body-1 font-weight-bold"
-          >{{ t("pages.participant-event.searching-title") }}
-        </span>
-        <span class="d-block mb-4 text-body-2">{{
-          t("pages.participant-event.searching-subtitle")
-        }}</span>
-        <span class="d-block mb-4 text-body-2"
-          >{{ displayTime }}
-          {{ t("pages.participant-event.searching-minutes-left") }}</span
-        >
-        <div
-          :style="{ width: '250px', height: '250px', position: 'relative' }"
-          class="bg-grey mx-auto"
-          @click="showQrReader = true"
-        >
-          <div class="logo bg-white pa-2 rounded-lg">
-            <v-icon>mdi-camera</v-icon>
-          </div>
-          <vue-qrcode
-            :value="authStore.user?.id ?? 'unavailable'"
-            :color="{
-              dark: '#000',
-              light: '#fff',
-            }"
-            type="image/png"
-            :quality="0.92"
-            :width="250"
-          ></vue-qrcode>
-          <v-dialog v-model="showQrReader">
-            <div class="p-relative fullscreen">
-              <qrcode-stream
-                v-if="showQrReader"
-                @init="onReaderInit"
-                @decode="onRead"
-              />
-              <v-progress-circular
-                v-if="loadingReader"
-                class="qr-loader"
-                size="125"
-                indeterminate
-              />
-            </div>
-          </v-dialog>
-        </div>
-        <v-text-field v-model="otherUser" label="ID (optional)">
-          <template v-slot:append>
-            <v-btn @click="createPair" color="secondary">{{
-              t("pages.participant-event.searching-manual-pair-button")
-            }}</v-btn>
-          </template>
-        </v-text-field>
-      </div>
-      <div
-        class="h-75 d-flex flex-column justify-center align-center"
+      <event-ended-view v-if="eventEnded" />
+      <waiting-for-event-start-view v-else-if="!eventStarted" />
+      <create-pairing-view
+        :user-id="authStore.user?.id ?? 'unavailable'"
+        :round-time="roundTime"
+        @partner-found="createPair"
+        v-else-if="roundOngoing && !currentPairId"
+      />
+      <ongoing-round-view
+        :round-time="roundTime"
+        :round-duration="roundDuration"
         v-else-if="roundOngoing"
-      >
-        <span class="d-block text-h5 font-weight-bold mb-10">{{
-          t("pages.participant-event.ongoing-title")
-        }}</span>
-        <time-display
-          v-if="roundDuration && roundTime"
-          :max="roundDuration"
-          :model-value="roundTime"
-        />
-      </div>
-      <div
-        class="h-75 d-flex justify-center align-center"
-        v-else-if="!hasVoted && currentPairId"
-      >
-        <div class="pt-6">
-          <span class="d-block text-h4 pl-4">{{
-            t("pages.participant-event.vote-title")
-          }}</span>
-          <span class="d-block pl-4 mb-12 text-grey-darken-1">{{
-            t("pages.participant-event.vote-subtitle")
-          }}</span>
-          <div class="d-flex justify-space-between px-6 bg-grey-lighten-3">
-            <v-btn
-              size="x-large"
-              variant="text"
-              icon="mdi-thumb-down"
-              @click="vote(false)"
-            ></v-btn>
-            <v-btn
-              size="x-large"
-              variant="text"
-              icon="mdi-thumb-up"
-              color="primary"
-              @click="vote(true)"
-            ></v-btn>
-          </div>
-        </div>
-      </div>
-      <div v-else class="h-75 d-flex flex-column justify-center align-center">
-        <span class="d-block text-h5 font-weight-bold mb-4">{{
-          t("pages.participant-event.waiting-title")
-        }}</span>
-        <v-progress-circular class="text-h3" indeterminate size="100"
-          >🐱</v-progress-circular
-        >
-      </div>
+      />
+      <vote-view @vote="vote" v-else-if="!hasVoted && currentPairId" />
+      <waiting-for-round-view v-else />
     </v-container>
   </v-main>
 </template>
@@ -141,8 +28,6 @@ import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
 import { useI18n } from "vue-i18n";
-import VueQrcode from "vue-qrcode";
-import { QrcodeStream } from "vue3-qrcode-reader";
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -161,20 +46,9 @@ const currentRound = ref<definitions["event_rounds"]>();
 const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
-const otherUser = ref("");
-
 const roundTime = ref<number>();
 const roundDuration = ref<number>();
 const countingInterval = ref<number>();
-
-const displayTime = computed(() => {
-  if (!roundTime.value) return "00:00";
-  const minutes = Math.floor(roundTime.value / (60 * 1000));
-  const seconds = Math.floor((roundTime.value % (60 * 1000)) / 1000);
-  return (
-    String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0")
-  );
-});
 
 const startCountdown = () =>
   window.setInterval(() => {
@@ -223,37 +97,15 @@ const vote = async (match: boolean) => {
   }
 };
 
-const createPair = async () => {
+const createPair = async (otherUserId: string) => {
   if (!currentRoundId.value) return;
   try {
-    await currentEvent.createPair(otherUser.value, currentRoundId.value);
+    await currentEvent.createPair(otherUserId, currentRoundId.value);
     successToast;
   } catch (e) {
     console.log(e);
     errorToast(e);
   }
-};
-
-const showQrReader = ref(false);
-const loadingReader = ref(false);
-const onReaderInit = (initPromise: Promise<any>) => {
-  loadingReader.value = true;
-  initPromise.then(() => (loadingReader.value = false));
-};
-
-const onRead = async (uuid: string) => {
-  const validUUID =
-    /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/.test(
-      uuid
-    );
-  if (!validUUID) {
-    errorToast(
-      "Pair creation unsuccessful because we could not identify the other person"
-    );
-    return;
-  }
-  otherUser.value = uuid;
-  await createPair();
 };
 
 const setupRoundSubscription = () => {
@@ -269,12 +121,10 @@ const setupRoundSubscription = () => {
       // clear pairId of last round
       currentPairId.value = undefined;
       hasVoted.value = false;
-      showQrReader.value = false;
     })
     .subscribe();
 
   roundSubscription.value.socket.onOpen(async () => {
-    console.log("Round socket opened");
     const round = await currentEvent.getCurrentRoundInfo();
     if (round !== null) {
       currentRound.value = round;
@@ -342,7 +192,10 @@ watch(
 );
 
 onMounted(async () => {
-  if (!currentEvent.hasEvent) {
+  if (
+    !currentEvent.hasEvent ||
+    +useRoute().params.id !== +currentEvent.getCurrentId()
+  ) {
     errorToast(
       "This event does not exist or you have not confirmed you're present"
     );
@@ -380,29 +233,3 @@ onBeforeUnmount(() => {
   document.removeEventListener("visibilitychange", reestablishCallback);
 });
 </script>
-
-<style scoped>
-.logo {
-  z-index: 5;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.fullscreen {
-  height: 100vh;
-  width: 100vw;
-}
-
-.p-relative {
-  position: relative;
-}
-
-.qr-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
