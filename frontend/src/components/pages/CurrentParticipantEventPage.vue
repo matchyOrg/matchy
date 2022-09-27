@@ -131,16 +131,23 @@ const setupRoundSubscription = () => {
     where a round might be pushed after we tried fetching it
     but before we established the subscription 
 
+    Yes, this is cursed
+
     TODO: update this if realtime-js gets a proper join listener
     */
-  roundSubscription.value.socket.onOpen(async () => {
-    // timeout while we're joining
-    while (
-      !roundSubscription.value?.isJoined() &&
-      !roundSubscription.value?.isErrored()
+  function checkConnectionEstablished(resolve: (value: unknown) => void) {
+    if (
+      roundSubscription.value?.isJoined() ||
+      roundSubscription.value?.isErrored()
     ) {
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      resolve(null);
+    } else {
+      setTimeout(() => checkConnectionEstablished(resolve), 50);
     }
+  }
+  const connectionEstablished = new Promise(checkConnectionEstablished);
+
+  connectionEstablished.then(async () => {
     console.log(roundSubscription.value?.state);
     const round = await currentEvent.getCurrentRoundInfo();
     if (round !== null) {
@@ -151,9 +158,9 @@ const setupRoundSubscription = () => {
         Temporal.Instant.from(round.end_timestamp).since(Temporal.Now.instant())
           .sign > 0;
       roundOngoing.value = hasNotEnded;
+      currentPairId.value = round.pairId ?? undefined;
+      hasVoted.value = round.hasVoted;
       if (hasNotEnded) {
-        currentPairId.value = round.pairId ?? undefined;
-        hasVoted.value = round.hasVoted;
         currentRoundId.value = round.id;
       }
       setupTimer(round);
@@ -219,6 +226,8 @@ onMounted(async () => {
     router.push("/");
     return;
   }
+  console.log("mounted");
+
   const eventId = +currentEvent.getCurrentId();
   // Generated types do not work with the realtime syntax
   eventSubscription.value = supabase
@@ -237,7 +246,9 @@ onMounted(async () => {
       router.push("/");
       return;
     }
+
     eventStarted.value = event.is_started;
+    console.log(eventStarted.value);
   } catch (e) {
     console.log(e);
   }
