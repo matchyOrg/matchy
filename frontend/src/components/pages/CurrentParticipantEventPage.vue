@@ -157,6 +157,7 @@ const eventStarted = ref(false);
 const eventEnded = ref(false);
 const roundOngoing = ref(false);
 const hasVoted = ref(false);
+const currentRound = ref<definitions["event_rounds"]>();
 const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
@@ -255,31 +256,88 @@ const onRead = async (uuid: string) => {
   await createPair();
 };
 
+const setupRoundSubscription = () => {
+  roundSubscription.value = supabase
+    .from("event_rounds")
+    .on("INSERT", (payload) => {
+      // round of some other event we do not care about
+      if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
+      currentRound.value = payload.new;
+      setupTimer(payload.new);
+      currentRoundId.value = payload.new.id;
+      roundOngoing.value = true;
+      // clear pairId of last round
+      currentPairId.value = undefined;
+      hasVoted.value = false;
+      showQrReader.value = false;
+    })
+    .subscribe();
+
+  roundSubscription.value.socket.onOpen(async () => {
+    console.log("Round socket opened");
+    const round = await currentEvent.getCurrentRoundInfo();
+    if (round !== null) {
+      currentRound.value = round;
+      currentRoundId.value = round.id;
+      // end_timestamp is in future
+      const hasNotEnded =
+        Temporal.Instant.from(round.end_timestamp).since(Temporal.Now.instant())
+          .sign > 0;
+      roundOngoing.value = hasNotEnded;
+      if (hasNotEnded) {
+        currentPairId.value = round.pairId ?? undefined;
+        hasVoted.value = round.hasVoted;
+        currentRoundId.value = round.id;
+      }
+      setupTimer(round);
+    }
+  });
+};
+
+const setupPairSubscription = () => {
+  pairSubscription.value = supabase
+    .from("event_user_pairs")
+    .on("INSERT", (payload) => {
+      currentPairId.value = payload.new.id;
+    })
+    .subscribe();
+  console.log("pair subscription activiated");
+};
+
+const reestablishRealTimeScubscriptionOnVisibilityChange = () => {
+  if (document.visibilityState !== "visible") {
+    return;
+  }
+  if (
+    roundSubscription.value?.isErrored() ||
+    roundSubscription.value?.isClosed()
+  ) {
+    setupRoundSubscription();
+  }
+  if (
+    pairSubscription.value?.isErrored() ||
+    pairSubscription.value?.isClosed()
+  ) {
+    setupPairSubscription();
+  }
+  if (currentRound.value) setupTimer(currentRound.value);
+};
+
+const reestablishCallback = () =>
+  reestablishRealTimeScubscriptionOnVisibilityChange();
+
 watch(
   () => eventStarted.value,
   () => {
-    roundSubscription.value = supabase
-      .from("event_rounds")
-      .on("INSERT", (payload) => {
-        // round of some other event we do not care about
-        if (payload.new.event_id !== +currentEvent.getCurrentId()) return;
-        setupTimer(payload.new);
-        currentRoundId.value = payload.new.id;
-        roundOngoing.value = true;
-        // clear pairId of last round
-        currentPairId.value = undefined;
-        hasVoted.value = false;
-        showQrReader.value = false;
-      })
-      .subscribe();
-    console.log("round subscription activated");
-    pairSubscription.value = supabase
-      .from("event_user_pairs")
-      .on("INSERT", (payload) => {
-        currentPairId.value = payload.new.id;
-      })
-      .subscribe();
-    console.log("pair subscription activiated");
+    setupRoundSubscription();
+    setupPairSubscription();
+  }
+);
+
+watch(
+  () => eventStarted.value,
+  () => {
+    document.addEventListener("visibilitychange", reestablishCallback);
   }
 );
 
@@ -309,25 +367,7 @@ onMounted(async () => {
       router.push("/");
       return;
     }
-    if (event.is_started) {
-      eventStarted.value = true;
-      const currentRound = await currentEvent.getCurrentRoundInfo();
-      if (currentRound !== null) {
-        currentRoundId.value = currentRound.id;
-        // end_timestamp is in future
-        const hasNotEnded =
-          Temporal.Instant.from(currentRound.end_timestamp).since(
-            Temporal.Now.instant()
-          ).sign > 0;
-        roundOngoing.value = hasNotEnded;
-        if (hasNotEnded) {
-          currentPairId.value = currentRound.pairId ?? undefined;
-          hasVoted.value = currentRound.hasVoted;
-          currentRoundId.value = currentRound.id;
-        }
-        setupTimer(currentRound);
-      }
-    }
+    eventStarted.value = event.is_started;
   } catch (e) {
     console.log(e);
   }
@@ -337,6 +377,7 @@ onBeforeUnmount(() => {
   eventSubscription.value?.unsubscribe();
   roundSubscription.value?.unsubscribe();
   pairSubscription.value?.unsubscribe();
+  document.removeEventListener("visibilitychange", reestablishCallback);
 });
 </script>
 
