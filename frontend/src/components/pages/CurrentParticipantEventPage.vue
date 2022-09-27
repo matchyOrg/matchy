@@ -148,7 +148,7 @@ const setupRoundSubscription = () => {
   const connectionEstablished = new Promise(checkConnectionEstablished);
 
   connectionEstablished.then(async () => {
-    console.log(roundSubscription.value?.state);
+    console.log("Round suscription established");
     const round = await currentEvent.getCurrentRoundInfo();
     if (round !== null) {
       currentRound.value = round;
@@ -178,7 +178,7 @@ const setupPairSubscription = () => {
   console.log("pair subscription activiated");
 };
 
-const reestablishRealTimeScubscriptionOnVisibilityChange = () => {
+const recoverStateOnVisibilityChange = () => {
   if (document.visibilityState !== "visible") {
     return;
   }
@@ -197,8 +197,7 @@ const reestablishRealTimeScubscriptionOnVisibilityChange = () => {
   if (currentRound.value) setupTimer(currentRound.value);
 };
 
-const reestablishCallback = () =>
-  reestablishRealTimeScubscriptionOnVisibilityChange();
+const reestablishCallback = () => recoverStateOnVisibilityChange();
 
 watch(
   () => eventStarted.value,
@@ -226,8 +225,6 @@ onMounted(async () => {
     router.push("/");
     return;
   }
-  console.log("mounted");
-
   const eventId = +currentEvent.getCurrentId();
   // Generated types do not work with the realtime syntax
   eventSubscription.value = supabase
@@ -244,6 +241,10 @@ onMounted(async () => {
         "This event does not exist or you have not confirmed you're present"
       );
       router.push("/");
+      return;
+    }
+    if (event.is_ended) {
+      eventEnded.value = true;
       return;
     }
 
