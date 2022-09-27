@@ -124,7 +124,24 @@ const setupRoundSubscription = () => {
     })
     .subscribe();
 
+  /*
+    wait for the subscription to be completely established
+    then try to fetch the round info.
+    this way there shouldn't be a time inbetween,
+    where a round might be pushed after we tried fetching it
+    but before we established the subscription 
+
+    TODO: update this if realtime-js gets a proper join listener
+    */
   roundSubscription.value.socket.onOpen(async () => {
+    // timeout while we're joining
+    while (
+      !roundSubscription.value?.isJoined() &&
+      !roundSubscription.value?.isErrored()
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+    console.log(roundSubscription.value?.state);
     const round = await currentEvent.getCurrentRoundInfo();
     if (round !== null) {
       currentRound.value = round;
