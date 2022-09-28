@@ -8,11 +8,13 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
+    CreatePairingView: typeof import('./components/pages/currentParticipantEventViews/CreatePairingView.vue')['default']
     CurrentParticipantEventPage: typeof import('./components/pages/CurrentParticipantEventPage.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']
     EventCreatePage: typeof import('./components/pages/EventCreatePage.vue')['default']
     EventDashboard: typeof import('./components/pages/EventDashboard.vue')['default']
     EventEditPage: typeof import('./components/pages/EventEditPage.vue')['default']
+    EventEndedView: typeof import('./components/pages/currentParticipantEventViews/EventEndedView.vue')['default']
     EventInfo: typeof import('./components/EventInfo.vue')['default']
     EventListItem: typeof import('./components/EventListItem.vue')['default']
     EventPage: typeof import('./components/pages/EventPage.vue')['default']
@@ -23,6 +25,7 @@ declare module '@vue/runtime-core' {
     LoginCallbackPage: typeof import('./components/pages/LoginCallbackPage.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
+    OngoingRoundView: typeof import('./components/pages/currentParticipantEventViews/OngoingRoundView.vue')['default']
     ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RegistrationOverview: typeof import('./components/RegistrationOverview.vue')['default']
     ResetPassword: typeof import('./components/pages/ResetPassword.vue')['default']
@@ -33,5 +36,8 @@ declare module '@vue/runtime-core' {
     SiteLogo: typeof import('./components/SiteLogo.vue')['default']
     SkeletonLoader: typeof import('./components/SkeletonLoader.vue')['default']
     TimeDisplay: typeof import('./components/TimeDisplay.vue')['default']
+    VoteView: typeof import('./components/pages/currentParticipantEventViews/VoteView.vue')['default']
+    WaitingForEventStartView: typeof import('./components/pages/currentParticipantEventViews/WaitingForEventStartView.vue')['default']
+    WaitingForRoundView: typeof import('./components/pages/currentParticipantEventViews/WaitingForRoundView.vue')['default']
   }
 }
