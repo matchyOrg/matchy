@@ -28,7 +28,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
       .maybeSingle();
     if (error) throw error;
     if (eventData === null) {
-      throw new Error("No data was returned");
+      return null;
     }
     const event = {
       ...eventData,

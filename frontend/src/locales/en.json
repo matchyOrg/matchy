@@ -6,10 +6,10 @@
     },
     "pagination": {
       "ariaLabel": {
+        "currentPage": "Current page",
         "next": "Next page",
         "previous": "Previous page",
-        "root": "Pagination",
-        "currentPage": "Current page"
+        "root": "Pagination"
       }
     }
   },
@@ -114,6 +114,13 @@
       "share-hint-organizer": "Invite participants by sharing this link with them",
       "share-hint-participant": "Share this invite link with friends!"
     },
+    "forgot-password": {
+      "heading-p1": "No problem. We've got you covered.",
+      "heading-p2": "Just enter your email below to reset your password.",
+      "reset": "Reset",
+      "reset-success-message": "We reset your password. Check your email to choose a new one.",
+      "title": "Forgot Your Password?"
+    },
     "home": {
       "active-event": "Your active event",
       "active-event-action": "To Dashboard",
@@ -126,13 +133,20 @@
       "no-org-events-cta": "Create an Event"
     },
     "login": {
+      "already-signed-up": "Already registered?",
       "check-mail": "Check your email for the login link!",
       "enter-email-text": "Just enter your email below to register or log in.",
       "footer-about-us": "about us",
       "footer-legal-notice": "legal notice",
+      "forgot-password": "Forgot Password?",
+      "no-account": "Don't have an account?",
+      "not-signed-up": "Not signed up yet?",
+      "oauth-login-prompt": "Sign up / Log in with:",
       "password-text": "No need for passwords.",
       "resend-button-text": "RESEND",
-      "send-button-text": "SEND"
+      "send-button-text": "SEND",
+      "successful-signup": "You were successfully signed up! Check your email to confirm.",
+      "wrong-credentials-error": "Your email or password are incorrect"
     },
     "matches": {
       "no-events": "You haven't participated in any events",
@@ -174,13 +188,44 @@
       "update-success": "Updated profile successfully!",
       "welcome": "Welcome to",
       "welcome-subtitle": "Let's get to know you a bit better."
+    },
+    "reset-password": {
+      "heading-p1": "Choose a new password",
+      "heading-p2": "Keep in mind: Using a password manager will help you set up a super secure password that you won't even need to remember. Pretty convenient stuff.",
+      "new-pw-success": "New password was set"
+    },
+    "signup": {
+      "heading-p1": "Thanks for joining us.",
+      "heading-p2": "We're just as excited as you are!",
+      "heading-p3": "First let's set your account up",
+      "registered-subheader1": "Thanks for joining Matchy!",
+      "registered-subheader2": "We've sent you an email with your confirmation link!",
+      "registered-title": "Welcome to Matchy.",
+      "title": "Welcome to Matchy."
     }
   },
   "shared": {
+    "auth": {
+      "enter-valid-mail": "Enter a valid email",
+      "login": "Login",
+      "password": "Password",
+      "password-min-len-rule": "Password must be at least 6 characters",
+      "password-mismatch": "Passwords must match",
+      "password-placeholder": "secret password",
+      "register": "Register",
+      "repeat-password": "Repeat password",
+      "repeat-password-placeholder": "repeat secret password",
+      "sign-up-with": "Sign up with",
+      "signup": "Sign Up"
+    },
     "events": {
       "event-load-error": "The event could not be loaded... Going back to previous page.",
       "invalid-id": "Uh oh, looks like this event does not exist",
       "no-description": "No description."
+    },
+    "forms": {
+      "confirm": "Confirm",
+      "required": "Required"
     },
     "profiles": {
       "unknown": "Unknown"

@@ -1,41 +1,50 @@
 <template>
   <v-main>
-    <!-- logo -->
-    <SiteLogo class="mt-3"></SiteLogo>
-
-    <v-btn @click="oAuthLogin.handler('google')">Google</v-btn>
-    <v-btn @click="oAuthLogin.handler('github')">GitHub</v-btn>
-
-    <!-- email field -->
-    <div class="mx-9 mt-13">
-      <p>{{ t("pages.login.password-text") }}</p>
-      <p>{{ t("pages.login.enter-email-text") }}</p>
-      <v-form
-        class="mt-8 mb-5"
-        :model-value="hasEmail"
-        @submit.prevent="onSubmit.handler"
-      >
-        <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
-        <v-text-field
-          filled
-          type="email"
-          v-model="email"
-          name="Email"
-          label="Email"
-          placeholder="geniusPinapple@mail.com"
-          :rules="[(value) => !!value || 'Required']"
-        ></v-text-field>
-
-        <div class="d-flex">
+    <v-container class="h-100">
+      <!-- logo -->
+      <SiteLogo class="my-12"></SiteLogo>
+      <!-- email field -->
+      <div class="mx-5 mt-16">
+        <v-form
+          class="mt-8 mb-5"
+          :model-value="hasEmail"
+          @submit.prevent="onSubmit.handler"
+        >
+          <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
+          <v-text-field
+            variant="filled"
+            type="email"
+            v-model="email"
+            name="Email"
+            label="Email"
+            placeholder="geniusPinapple@mail.com"
+            :rules="[(value) => !!value || t('shared.forms.required')]"
+          ></v-text-field>
+          <v-text-field
+            variant="filled"
+            :type="showPW ? 'text' : 'password'"
+            v-model="password"
+            name="password"
+            :label="t('shared.auth.password')"
+            :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPW = !showPW"
+            :rules="[(value) => !!value || t('shared.forms.required')]"
+          ></v-text-field>
+          <!-- <div class="text-right">
+            <v-btn variant="text" class="text-blue" to="/signup">{{
+              t("pages.login.not-signed-up")
+            }}</v-btn>
+          </div> -->
+          <span v-if="error" class="text-red text-center d-block my-2">{{
+            error
+          }}</span>
           <v-btn
-            class="mx-auto"
+            class="d-block mx-auto"
             size="x-large"
             color="primary"
             variant="tonal"
-            append-icon="mdi-email"
-            rounded="pill"
             type="submit"
-            minWidth="20rem"
+            width="66%"
             :disabled="onSubmit.loading || !hasEmail"
             :loading="onSubmit.loading"
           >
@@ -43,16 +52,55 @@
               <v-progress-circular indeterminate />
             </template>
             <span class="text-h6">
-              {{
-                !mailSent
-                  ? t("pages.login.send-button-text")
-                  : t("pages.login.resend-button-text")
-              }}
+              {{ t("shared.auth.login") }}
             </span>
           </v-btn>
-        </div>
-      </v-form>
-    </div>
+          <div class="text-center">
+            <span
+              class="d-inline-block text-small text-grey font-weight-bold"
+              >{{ t("pages.login.oauth-login-prompt") }}</span
+            >
+            <div class="d-inline-block">
+              <v-btn
+                size="small"
+                variant="text"
+                icon="mdi-github"
+                @click="oAuthLogin.handler('github')"
+              />
+              <v-btn
+                class="ref"
+                size="small"
+                variant="text"
+                icon="mdi-google"
+                @click="oAuthLogin.handler('google')"
+              />
+            </div>
+          </div>
+        </v-form>
+      </div>
+      <div
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-12"
+      >
+        <span>{{ t("pages.login.no-account") }}</span>
+        <v-btn to="/signup" size="x-small" variant="text" color="primary">{{
+          t("shared.auth.signup")
+        }}</v-btn>
+      </div>
+      <div
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold"
+      >
+        <v-btn
+          :to="{
+            path: '/forgot-password',
+            query: { redirect: redirect },
+          }"
+          size="x-small"
+          variant="text"
+          color="primary"
+          >{{ t("pages.login.forgot-password") }}</v-btn
+        >
+      </div>
+    </v-container>
   </v-main>
 
   <v-footer class="d-flex justify-center pb-4" absolute app>
@@ -71,11 +119,11 @@ import { useAuthStore } from "@/stores/auth";
 import type { Provider } from "@supabase/gotrue-js";
 import { useI18n } from "vue-i18n";
 
-const { t } = useI18n();
-
 const authStore = useAuthStore();
 const router = useRouter();
-const { redirect: redirectRaw } = useRoute().query;
+const route = useRoute();
+const { t } = useI18n();
+const { redirect: redirectRaw } = route.query;
 const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
 
 // leave page if already logged in
@@ -84,31 +132,29 @@ if (authStore.isLoggedIn) {
 }
 
 const email = ref("");
-const mailSent = ref(false);
+const password = ref("");
+const error = ref("");
+
+const showPW = ref(false);
+
+watch([email, password], () => (error.value = ""));
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 
-watch(
-  () => authStore.user,
-  () => router.push(redirect ?? "/")
-);
-
-const onSubmit = asyncLoading(async () => {
-  const redirectTo =
-    new URL(
-      router.resolve("/callback").href,
-      new URL(import.meta.env.BASE_URL, window.location.origin)
-    ) + "";
-  console.log("Will redirect to", redirectTo);
+const login = async () => {
   try {
-    await authStore.login(email.value, redirectTo);
-    mailSent.value = true;
+    await authStore.login(email.value, password.value);
+    router.push(redirect ?? "/");
+  } catch (e: any) {
+    console.log(e);
 
-    successToast(t("pages.login.check-mail"));
-  } catch (e) {
-    errorToast(e);
+    if (e.status === 400) {
+      error.value = t("pages.login.wrong-credentials-error");
+    }
   }
-});
+};
+
+const onSubmit = asyncLoading(() => login());
 
 const oAuthLogin = asyncLoading(async (provider: Provider) => {
   try {
@@ -118,3 +164,25 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
   }
 });
 </script>
+
+<style scoped>
+/* Rainbow colors for google icon */
+.ref:deep(.mdi-google) {
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-small {
+  font-size: 12px;
+}
+</style>
