@@ -100,12 +100,11 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     definitions["event_rounds"] | null
   > {
     if (!currentEventId.value) throw new Error("There is no current event.");
-    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
     const { data, error } = await supabase
       .from("event_rounds")
       .select("*")
       .eq("event_id", currentEventId.value)
-      .gte("end_timestamp", now.toInstant().toString())
+      .order("start_timestamp", { ascending: false })
       .limit(1)
       .maybeSingle();
     if (error) throw error;
@@ -196,6 +195,36 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     };
   }
 
+  async function getNumberOfPairsThisRound(roundId: number): Promise<number> {
+    const { count, error } = await supabase
+      .from("event_user_pairs")
+      .select("id", { count: "exact" })
+      .eq("event_round", roundId);
+    if (error) throw error;
+    return count ?? 0;
+  }
+
+  async function getNumberOfVotesThisRound(roundId: number): Promise<number> {
+    const { count, error, data } = await supabase
+      .from<any>("votes")
+      .select("id, event_user_pairs!inner(*)", { count: "exact" })
+      .eq("event_user_pairs.event_round", roundId);
+    console.log(data);
+
+    if (error) throw error;
+    return count ?? 0;
+  }
+
+  async function getTotalNumberOfParticipants(): Promise<number> {
+    const { count, error } = await supabase
+      .from("event_registrations")
+      .select("id", { count: "exact" })
+      .eq("event_id", +currentEventId.value)
+      .eq("present", true);
+    if (error) throw error;
+    return count ?? 0;
+  }
+
   return {
     hasEvent,
     getCurrentId,
@@ -210,6 +239,9 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     vote,
     getCurrentRoundInfo,
     endCurrentEvent,
+    getNumberOfPairsThisRound,
+    getNumberOfVotesThisRound,
+    getTotalNumberOfParticipants,
   };
 });
 

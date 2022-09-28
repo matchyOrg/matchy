@@ -1,10 +1,36 @@
 <template>
   <teleport to="#nav-right">
-    <v-btn icon="mdi-close-octagon" variant="text" @click="endEvent"></v-btn>
+    <v-btn
+      v-if="!loadingEvent && eventStarted && !eventEnded"
+      icon="mdi-close-octagon"
+      variant="text"
+      @click="endEvent"
+    ></v-btn>
   </teleport>
   <v-main>
-    <v-container>
-      <div class="bg-grey mb-6" :style="{ height: '100px' }"></div>
+    <v-container
+      class="h-100 d-flex flex-column align-center justify-center"
+      v-if="loadingEvent"
+    >
+      <v-progress-circular indeterminate />
+    </v-container>
+    <v-container
+      class="h-100 d-flex flex-column align-center justify-center"
+      v-else-if="eventEnded"
+    >
+      <span class="d-block text-h6 mb-2">You have ended the event.</span>
+      <v-btn class="d-block mx-auto" color="primary" variant="text" to="/"
+        >Back to Homepage</v-btn
+      >
+    </v-container>
+    <v-container v-else-if="eventStarted">
+      <round-overview
+        v-if="!hasNoRoundYet"
+        :votes="votesThisRound"
+        :total-expected-votes="pairsThisRound * 2"
+        :users-in-pairs="pairsThisRound * 2"
+        :total-expected-users="totalPresent"
+      />
       <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
       <div class="d-flex justify-center mb-4">
         <time-display
@@ -28,29 +54,69 @@
         >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
       >
     </v-container>
+    <v-container
+      class="h-100 d-flex flex-column align-center justify-center"
+      v-else
+    >
+      <div class="text-h6 mb-2">You haven't started the event.</div>
+      <v-btn class="d-block mx-auto" color="primary" @click="startEvent"
+        >Start Event</v-btn
+      >
+    </v-container>
   </v-main>
 </template>
 
 <script lang="ts" setup>
+import { useEventService } from "@/services/eventService";
+import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
+import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
+import type { RealtimeSubscription } from "@supabase/realtime-js";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const currentEvent = useCurrentEventStore();
+const authStore = useAuthStore();
+const eventService = useEventService(authStore);
 const router = useRouter();
+const route = useRoute();
 
 const second = 1000;
 const minute = 60 * second;
 const hour = 60 * minute;
 const time = ref(minute);
 
+const loadingEvent = ref(true);
+
+const eventId = ref<number>();
+const currentRoundId = ref<number>();
 const roundOngoing = ref(false);
 const startingRound = ref(false);
+const hasNoRoundYet = ref(false);
 const countingInterval = ref<ReturnType<typeof setInterval>>();
 
+const pairsThisRound = ref(0);
+const votesThisRound = ref(0);
+const totalPresent = ref();
+
+const pairSubscription = ref<RealtimeSubscription>();
+const voteSubscription = ref<RealtimeSubscription>();
+
 const setDuration = ref(minute);
+
+const eventEnded = ref(false);
+const eventStarted = ref(false);
+
+const startEvent = async () => {
+  try {
+    await currentEvent.startEvent(+currentEvent.getCurrentId());
+    eventStarted.value = true;
+  } catch (e) {
+    errorToast(e);
+  }
+};
 
 const timeInput = computed<number>({
   get() {
@@ -83,18 +149,26 @@ const setupTimer = (round: definitions["event_rounds"]) => {
   const roundDuration = roundEnd.since(roundStart);
   const remainingTime = now.until(roundEnd);
   setDuration.value = roundDuration.total({ unit: "milliseconds" });
-  time.value = remainingTime.total({ unit: "milliseconds" });
-  // make sure there's only ever 1 interval at a time
-  clearInterval(countingInterval.value);
-  countingInterval.value = startCountdown();
+  const remainingMilliseconds = remainingTime.total({ unit: "milliseconds" });
+  if (remainingMilliseconds <= 0) {
+    roundOngoing.value = false;
+    time.value = setDuration.value;
+  } else {
+    time.value = remainingTime.total({ unit: "milliseconds" });
+    // make sure there's only ever 1 interval at a time
+    clearInterval(countingInterval.value);
+    countingInterval.value = startCountdown();
+  }
 };
 
 const startRound = async () => {
   roundOngoing.value = true;
   startingRound.value = true;
   const round = await currentEvent.startNewRound(setDuration.value);
+  currentRoundId.value = round.id;
   setupTimer(round);
   startingRound.value = false;
+  hasNoRoundYet.value = false;
 };
 
 const endEvent = async () => {
@@ -108,23 +182,97 @@ const endEvent = async () => {
   }
 };
 
+watch(
+  () => currentRoundId.value,
+  () => {
+    pairsThisRound.value = 0;
+    votesThisRound.value = 0;
+    pairSubscription.value = supabase
+      .from<any>("event_user_pairs:event_round=eq." + currentRoundId.value)
+      .on("INSERT", () => {
+        pairsThisRound.value += 1;
+      })
+      .subscribe(async (e: string) => {
+        console.log("pair", e);
+        if (currentRoundId.value == undefined) return;
+        pairsThisRound.value += await currentEvent.getNumberOfPairsThisRound(
+          currentRoundId.value
+        );
+      });
+    voteSubscription.value = supabase
+      .from<any>("votes")
+      .on("INSERT", () => {
+        votesThisRound.value += 1;
+      })
+      .subscribe(async (e: string) => {
+        console.log("vote", e);
+        if (currentRoundId.value == undefined) return;
+        votesThisRound.value += await currentEvent.getNumberOfVotesThisRound(
+          currentRoundId.value
+        );
+      });
+  }
+);
+
 onMounted(async () => {
-  roundOngoing.value = true;
-  startingRound.value = true;
-  let currentRound;
+  loadingEvent.value = true;
+  const idString = route.params.id;
+  if (Number.isNaN(+idString)) {
+    errorToast("Not a valid event id");
+    router.back();
+    return;
+  }
+  eventId.value = +idString;
   try {
-    currentRound = await currentEvent.getCurrentRound();
-  } catch (e) {
-    console.log(e);
-    errorToast(e);
-    return;
-  }
-  if (currentRound === null) {
-    roundOngoing.value = false;
+    const event = await eventService.fetchEventById(eventId.value);
+    if (event === null) {
+      errorToast("We couldn't load this event");
+      router.back();
+      return;
+    }
+    if (event.organizer !== authStore.user?.id) {
+      errorToast("Only the organizer can manage the event");
+      router.back();
+      return;
+    }
+    eventStarted.value = event.is_started;
+    eventEnded.value = event.is_ended;
+    roundOngoing.value = true;
+    startingRound.value = true;
+    let currentRound;
+    try {
+      currentRound = await currentEvent.getCurrentRound();
+    } catch (e) {
+      console.log(e);
+      errorToast(e);
+      return;
+    }
+    if (currentRound === null) {
+      roundOngoing.value = false;
+      startingRound.value = false;
+      hasNoRoundYet.value = true;
+      return;
+    }
+    currentRoundId.value = currentRound.id;
     startingRound.value = false;
+    setupTimer(currentRound);
+    try {
+      totalPresent.value = await currentEvent.getTotalNumberOfParticipants();
+    } catch (e) {
+      console.log(e);
+      errorToast(e);
+    }
+  } catch (e) {
+    errorToast("Could not load event");
+    router.back();
     return;
+  } finally {
+    loadingEvent.value = false;
   }
-  setupTimer(currentRound);
-  startingRound.value = false;
+});
+
+onBeforeUnmount(() => {
+  pairSubscription.value?.unsubscribe();
+  voteSubscription.value?.unsubscribe();
 });
 </script>
