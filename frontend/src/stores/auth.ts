@@ -36,16 +36,33 @@ export const useAuthStore = defineStore("user", () => {
     setUserStore(session?.user ?? null);
   });
 
+  async function signUp(email: string, password: string) {
+    const redirectURL =
+      new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
+    redirect.value = "/edit-profile";
+    const { error, user, session } = await supabase.auth.signUp(
+      {
+        email,
+        password,
+      },
+      {
+        redirectTo: redirectURL,
+      }
+    );
+
+    if (error) throw error;
+  }
+
   // LOGIN
-  async function login(email: string, redirectTo: string) {
-    const { error } = await supabase.auth.signIn({ email }, { redirectTo });
+  async function login(email: string, password: string) {
+    const { error } = await supabase.auth.signIn({ email, password });
     if (error) throw error;
   }
 
   async function oAuthLogin(provider: Provider, afterLoginRedirect: string) {
     redirect.value = afterLoginRedirect;
     const redirectTo =
-      new URL(import.meta.env.BASE_URL, window.location.origin) + "#/callback";
+      new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
     const { user, session, error } = await supabase.auth.signIn(
       {
         provider: provider,
@@ -72,6 +89,22 @@ export const useAuthStore = defineStore("user", () => {
     logout();
   }
 
+  async function resetPassword(email: string) {
+    const redirectTo =
+      new URL(import.meta.env.BASE_URL, window.location.origin) +
+      "reset-password";
+
+    const { error } = await supabase.auth.api.resetPasswordForEmail(email, {
+      redirectTo,
+    });
+    if (error) throw error;
+  }
+
+  async function setNewPassword(password: string) {
+    const { error } = await supabase.auth.update({ password });
+    if (error) throw error;
+  }
+
   return {
     user,
     isLoggedIn,
@@ -84,6 +117,9 @@ export const useAuthStore = defineStore("user", () => {
     logout,
     deleteAccount,
     redirect,
+    signUp,
+    resetPassword,
+    setNewPassword,
   };
 });
 

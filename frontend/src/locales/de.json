@@ -6,10 +6,10 @@
     },
     "pagination": {
       "ariaLabel": {
+        "currentPage": "Aktuelle Seite",
         "next": "Nächste Seite",
         "previous": "Vorherige Seite",
-        "root": "Seiten-Navigation",
-        "currentPage": "Aktuelle Seite"
+        "root": "Seiten-Navigation"
       }
     }
   },
@@ -114,6 +114,13 @@
       "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
+    "forgot-password": {
+      "heading-p1": "Kein Problem. ",
+      "heading-p2": "Gib einfach deine Email ein um dein Passwort zurückzusetzen.",
+      "reset": "Zurücksetzen",
+      "reset-success-message": "Wir haben dein Passwort zurückgesetzt. Schau in deine Emails um ein neues zu wählen.",
+      "title": "Passwort vergessen?"
+    },
     "home": {
       "active-event": "Jetzt gerade",
       "active-event-action": "Zum Dashboard",
@@ -126,13 +133,20 @@
       "no-org-events-cta": "Erstelle ein Event"
     },
     "login": {
+      "already-signed-up": "Schon registriert?",
       "check-mail": "Wir haben dir eine Email geschickt!",
       "enter-email-text": "Gib einfach deine Email ein um dich zu registrieren oder einzuloggen.",
       "footer-about-us": "über uns",
       "footer-legal-notice": "impressum",
+      "forgot-password": "Passwort vergessen?",
+      "no-account": "Du hast keinen Account?",
+      "not-signed-up": "Noch kein Account?",
+      "oauth-login-prompt": "Registrieren / Einloggen mit:",
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
-      "send-button-text": "SENDEN"
+      "send-button-text": "SENDEN",
+      "successful-signup": "Du wurdest erfolgreich registriert! Check deine email um zu bestätigen.",
+      "wrong-credentials-error": "Email oder Passwort sind inkorrekt"
     },
     "matches": {
       "no-events": "Du hast an keinen Events teilgenommen",
@@ -174,13 +188,44 @@
       "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."
+    },
+    "reset-password": {
+      "heading-p1": "Wähle ein neues Passwort",
+      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht mal merken. Ziemlich nützlich!",
+      "new-pw-success": "Dein neues Passwort wurde gespeichert"
+    },
+    "signup": {
+      "heading-p1": "Danke für's dabei sein!",
+      "heading-p2": "Wir sind genauso aufgeregt wie du!",
+      "heading-p3": "Lass uns zunächst deinen Account erstellen",
+      "registered-subheader1": "Danke, dass du dich bei Matchy angemeldet hast!",
+      "registered-subheader2": "Wir haben dir eine Bestätigungsemail geschickt!",
+      "registered-title": "Willkommen bei Matchy.",
+      "title": "Willkommen bei Matchy."
     }
   },
   "shared": {
+    "auth": {
+      "enter-valid-mail": "Gib eine valide Email ein",
+      "login": "Einloggen",
+      "password": "Passwort",
+      "password-min-len-rule": "Passwort muss mindestens 6 Zeichen lang sein",
+      "password-mismatch": "Passwörter müssen übereinstimmen",
+      "password-placeholder": "Geheimes Passwort",
+      "register": "Registrieren",
+      "repeat-password": "Wiederhole Passwort",
+      "repeat-password-placeholder": "Wiederhole geheimes Passwort",
+      "sign-up-with": "Einloggen mit",
+      "signup": "Registrieren"
+    },
     "events": {
       "event-load-error": "Das Event konnte nicht geladen werden... Wir bringen dich zurück zur vorherigen Seite.",
       "invalid-id": "Oh, oh, sieht so aus als würde dieses Event nicht existieren",
       "no-description": "Keine Beschreibung."
+    },
+    "forms": {
+      "confirm": "Bestätigen",
+      "required": "Erforderlich"
     },
     "profiles": {
       "unknown": "Unbekannt"

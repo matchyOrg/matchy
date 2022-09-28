@@ -4,12 +4,10 @@ import { version } from "@/../package.json";
 <template>
   <div class="stacked-container">
     <div class="logo-wrapper">
-      <span class="logo">🐱</span>
-      <span class="mainText mx-1">matchy</span>
-      <span class="superText font-thin">{{ version }}</span>
+      <img src="@/assets/matchyLogoGreen.svg" height="40" />
     </div>
 
-    <div class="subText text-grey">paperless speed dating</div>
+    <div class="subText text-grey-darken-3">paperless speed dating</div>
   </div>
 </template>
 
