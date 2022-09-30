@@ -4,6 +4,9 @@
       "pageText": "{0}-{1} of {2}",
       "rowsPerPageText": "Items per page:"
     },
+    "input": {
+      "appendAction": "Append"
+    },
     "pagination": {
       "ariaLabel": {
         "currentPage": "Current page",
@@ -11,9 +14,6 @@
         "previous": "Previous page",
         "root": "Pagination"
       }
-    },
-    "input": {
-      "appendAction": "Append"
     }
   },
   "components": {
@@ -100,13 +100,14 @@
       "error": "There was an error creating the event",
       "submit": "Submit",
       "success": "Creation of new event successful",
-      "title": "Create Event"
+      "title": "Organize an event"
     },
     "event-edit": {
       "title": "Edit Event"
     },
     "events": {
       "already-registered": "You are registered",
+      "edit-event": "Edit event",
       "groups-text": "There are 2 types of participants in this event",
       "login-register": "Log in or register to participate",
       "register-button-text": "I'll be there",

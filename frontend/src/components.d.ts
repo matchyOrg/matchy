@@ -27,6 +27,7 @@ declare module '@vue/runtime-core' {
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
     OngoingRoundView: typeof import('./components/pages/currentParticipantEventViews/OngoingRoundView.vue')['default']
+    PageTitle: typeof import('./components/PageTitle.vue')['default']
     ProfileEditPage: typeof import('./components/pages/ProfileEditPage.vue')['default']
     RegistrationOverview: typeof import('./components/RegistrationOverview.vue')['default']
     ResetPassword: typeof import('./components/pages/ResetPassword.vue')['default']

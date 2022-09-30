@@ -1,6 +1,6 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.profile.title") }}</teleport>
   <v-main class="mx-8 d-flex flex-column">
+    <page-title>{{ t("pages.profile.title") }}</page-title>
     <!-- welcome message on registration -->
     <div class="mt-8" v-if="!authStore.isRegistered">
       <h1 class="font-weight-regular">

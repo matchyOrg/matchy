@@ -1,12 +1,4 @@
 <template>
-  <teleport to="#nav-right">
-    <v-btn
-      v-if="!loadingEvent && eventStarted && !eventEnded"
-      icon="mdi-close-octagon"
-      variant="text"
-      @click="endEvent"
-    ></v-btn>
-  </teleport>
   <v-main>
     <v-container
       class="h-100 d-flex flex-column align-center justify-center"
@@ -63,6 +55,15 @@
         >Start Event</v-btn
       >
     </v-container>
+
+    <!--TODO: Proper styling and placing for this button-->
+    <v-btn
+      v-if="!loadingEvent && eventStarted && !eventEnded"
+      icon="mdi-close-octagon"
+      variant="text"
+      @click="endEvent"
+      >End event</v-btn
+    >
   </v-main>
 </template>
 

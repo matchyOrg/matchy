@@ -1,7 +1,7 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.matches.title") }}</teleport>
   <v-main>
     <v-container class="pt-8 d-flex flex-column align-center">
+      <page-title>{{ t("pages.matches.title") }}</page-title>
       <v-expansion-panels
         v-if="eventMatches.length > 0"
         multiple

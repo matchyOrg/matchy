@@ -1,7 +1,4 @@
 <template>
-  <teleport to="#nav-right">
-    <v-icon v-if="isOrganizer" @click="onEdit">mdi-pencil</v-icon>
-  </teleport>
   <v-main>
     <v-container>
       <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
@@ -82,6 +79,12 @@
         :total-present-count="totalPresentCount"
         :total-registered-count="totalRegisteredCount"
       />
+      <div class="d-flex justify-center mt-8">
+        <v-btn v-if="isOrganizer" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+          {{ t("pages.events.edit-event") }}
+        </v-btn>
+      </div>
       <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">

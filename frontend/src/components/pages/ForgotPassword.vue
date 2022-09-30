@@ -2,12 +2,9 @@
   <v-main>
     <v-container>
       <div class="pt-4 mb-12">
-        <div class="d-flex align-center mb-8">
-          <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
-          <span class="d-block text-h6 font-weight-bold">
-            {{ t("pages.forgot-password.title") }}
-          </span>
-        </div>
+        <page-title>
+          {{ t("pages.forgot-password.title") }}
+        </page-title>
         <span class="d-block">{{ t("pages.forgot-password.heading-p1") }}</span
         ><span class="d-block">{{
           t("pages.forgot-password.heading-p2")

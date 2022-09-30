@@ -4,6 +4,9 @@
       "pageText": "{0}-{1} {2}",
       "rowsPerPageText": "Elemente pro Seite:"
     },
+    "input": {
+      "appendAction": "Anhängen"
+    },
     "pagination": {
       "ariaLabel": {
         "currentPage": "Aktuelle Seite",
@@ -11,9 +14,6 @@
         "previous": "Vorherige Seite",
         "root": "Seiten-Navigation"
       }
-    },
-    "input": {
-      "appendAction": "Anhängen"
     }
   },
   "components": {
@@ -100,13 +100,14 @@
       "error": "Das Event konnte nicht erstellt werden",
       "submit": "Fertig",
       "success": "Das Event wurde erfolgreich erstellt",
-      "title": "Event erstellen"
+      "title": "Event organisieren"
     },
     "event-edit": {
       "title": "Event bearbeiten"
     },
     "events": {
       "already-registered": "Du nimmst teil",
+      "edit-event": "Event bearbeiten",
       "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
       "login-register": "Log dich ein oder registriere dich",
       "register-button-text": "Ich bin dabei",
