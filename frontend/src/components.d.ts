@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
+    BottomNavBar: typeof import('./components/BottomNavBar.vue')['default']
     CreatePairingView: typeof import('./components/pages/currentParticipantEventViews/CreatePairingView.vue')['default']
     CurrentParticipantEventPage: typeof import('./components/pages/CurrentParticipantEventPage.vue')['default']
     EditEvent: typeof import('./components/EditEvent.vue')['default']

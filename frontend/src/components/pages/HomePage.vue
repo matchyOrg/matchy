@@ -122,7 +122,7 @@
       </div>
     </div>
   </v-main>
-  <v-footer class="d-flex justify-center pb-4" absolute app>
+  <v-footer class="d-flex justify-center pb-4">
     <!-- other links -->
     <router-link to="/about" class="mx-4 text-grey">
       {{ t("pages.login.footer-about-us") }}
@@ -131,6 +131,7 @@
       {{ t("pages.login.footer-legal-notice") }}
     </router-link>
   </v-footer>
+  <bottom-nav-bar />
 </template>
 
 <script setup lang="ts">

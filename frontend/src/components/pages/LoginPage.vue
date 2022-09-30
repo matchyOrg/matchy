@@ -103,7 +103,7 @@
     </v-container>
   </v-main>
 
-  <v-footer class="d-flex justify-center pb-4" absolute app>
+  <v-footer class="d-flex justify-center pb-4">
     <!-- other links -->
     <router-link to="/about" class="mx-4 text-grey">
       {{ t("pages.login.footer-about-us") }}

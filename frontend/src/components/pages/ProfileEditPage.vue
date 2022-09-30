@@ -59,7 +59,6 @@
 
         <!-- sign out button -->
         <v-btn
-          v-if="!authStore.isRegistered"
           class="mb-4"
           size="x-large"
           color="secondary"
@@ -70,10 +69,10 @@
           >{{ t("pages.profile.sign-out-button-text") }}
         </v-btn>
 
+        <!-- TODO: Maybe move the delete button to the bottom of the screen-->
         <!-- sign delete -->
         <v-btn
           v-if="authStore.isRegistered"
-          id="delete-button"
           size="x-large"
           color="error"
           variant="tonal"
