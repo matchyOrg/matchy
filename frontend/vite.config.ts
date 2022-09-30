@@ -8,6 +8,7 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import { visualizer } from "rollup-plugin-visualizer";
 import vuetify from "vite-plugin-vuetify";
 import vueI18n from "@intlify/vite-plugin-vue-i18n";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 export default defineConfig({
   plugins: [
@@ -39,6 +40,7 @@ export default defineConfig({
       dts: "src/auto-imports.d.ts",
     }),
     Components({ dts: "src/components.d.ts" }),
+    basicSsl(),
     visualizer({
       emitFile: true,
       filename: "stats.html",
@@ -51,6 +53,7 @@ export default defineConfig({
     },
   },
   server: {
+    https: true,
     port: 5173,
   },
   build: {
