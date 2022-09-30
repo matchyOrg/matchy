@@ -26,8 +26,8 @@
             v-model="password"
             name="password"
             :label="t('shared.auth.password')"
-            :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPW = !showPW"
+            :append-inner-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append-inner="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
           <!-- <div class="text-right">
@@ -62,17 +62,17 @@
             >
             <div class="d-inline-block">
               <v-btn
-                size="small"
-                variant="text"
-                icon="mdi-github"
-                @click="oAuthLogin.handler('github')"
-              />
-              <v-btn
                 class="ref"
                 size="small"
                 variant="text"
                 icon="mdi-google"
                 @click="oAuthLogin.handler('google')"
+              />
+              <v-btn
+                size="small"
+                variant="text"
+                icon="mdi-github"
+                @click="oAuthLogin.handler('github')"
               />
             </div>
           </div>
@@ -103,7 +103,7 @@
     </v-container>
   </v-main>
 
-  <v-footer class="d-flex justify-center pb-4" absolute app>
+  <v-footer class="d-flex justify-center pb-4">
     <!-- other links -->
     <router-link to="/about" class="mx-4 text-grey">
       {{ t("pages.login.footer-about-us") }}
@@ -123,13 +123,17 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
-const { redirect: redirectRaw } = route.query;
-const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
+const redirect = routeParam(route, "redirect");
 
 // leave page if already logged in
-if (authStore.isLoggedIn) {
-  router.push("/");
-}
+watch(
+  () => authStore.isLoggedIn,
+  (isLoggedIn) => {
+    if (isLoggedIn) {
+      router.push(redirect || "/");
+    }
+  }
+);
 
 const email = ref("");
 const password = ref("");
@@ -146,7 +150,7 @@ const login = async () => {
     await authStore.login(email.value, password.value);
     router.push(redirect ?? "/");
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
 
     if (e.status === 400) {
       error.value = t("pages.login.wrong-credentials-error");

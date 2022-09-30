@@ -1,6 +1,6 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.about.title") }}</teleport>
   <v-main class="mx-9 mt-5">
+    <page-title>{{ t("pages.about.title") }}</page-title>
     <p>
       <i18n-t keypath="pages.about.github-plug" tag="p" scope="global">
         <a class="text-grey" href="https://github.com/sueszli/matchy">{{

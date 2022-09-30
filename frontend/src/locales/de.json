@@ -4,6 +4,9 @@
       "pageText": "{0}-{1} {2}",
       "rowsPerPageText": "Elemente pro Seite:"
     },
+    "input": {
+      "appendAction": "Anhängen"
+    },
     "pagination": {
       "ariaLabel": {
         "currentPage": "Aktuelle Seite",
@@ -97,13 +100,14 @@
       "error": "Das Event konnte nicht erstellt werden",
       "submit": "Fertig",
       "success": "Das Event wurde erfolgreich erstellt",
-      "title": "Event erstellen"
+      "title": "Event organisieren"
     },
     "event-edit": {
       "title": "Event bearbeiten"
     },
     "events": {
       "already-registered": "Du nimmst teil",
+      "edit-event": "Event bearbeiten",
       "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
       "login-register": "Log dich ein oder registriere dich",
       "register-button-text": "Ich bin dabei",
@@ -176,7 +180,7 @@
       "delete-dialog-keep": "BEHALTEN",
       "delete-dialog-text": "Bist du sicher dass du dein Profil löschen willst? Diese Aktion kann nicht rückgängig gemacht werden.",
       "delete-success": "Dein Profil wurde erfolgreich gelöscht",
-      "description-label": "Beschreibung",
+      "description-label": "Kontaktdaten",
       "description-placeholder": "Erzähl über dich: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
       "full-name-label": "Vollständiger Name",
       "full-name-placeholder": "Dein vollständiger Name",

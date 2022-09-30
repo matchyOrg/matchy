@@ -2,12 +2,9 @@
   <v-main>
     <v-container v-if="!registered">
       <div class="pt-4 mb-8">
-        <div class="d-flex align-center mb-6">
-          <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
-          <span class="d-block text-h6 font-weight-bold">
-            {{ t("pages.signup.title") }}
-          </span>
-        </div>
+        <page-title>
+          {{ t("pages.signup.title") }}
+        </page-title>
         <span class="d-block">{{ t("pages.signup.heading-p1") }}</span
         ><span class="d-block">{{ t("pages.signup.heading-p2") }}</span
         ><span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
@@ -82,12 +79,9 @@
       </v-form>
     </v-container>
     <v-container v-else class="h-75">
-      <div class="d-flex align-center mt-6">
-        <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
-        <span class="d-block text-h6 font-weight-bold">
-          {{ t("pages.signup.registered-title") }}
-        </span>
-      </div>
+      <page-title>
+        {{ t("pages.signup.registered-title") }}
+      </page-title>
       <div class="h-100 d-flex flex-column justify-center pt-4">
         <span class="d-block text-h5 font-weight-bold mb-1">
           {{ t("pages.signup.registered-subheader1") }}
@@ -125,6 +119,7 @@ const submit = asyncLoading(async () => {
 
 const oAuthLogin = asyncLoading(async (provider: Provider) => {
   try {
+    // After registering, the user should fill out their profile
     await authStore.oAuthLogin(provider, "/edit-profile");
   } catch (e) {
     errorToast(e);

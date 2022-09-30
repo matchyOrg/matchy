@@ -1,7 +1,8 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.event-edit.title") }}</teleport>
   <v-main>
     <v-container class="d-flex flex-column">
+      <page-title>{{ t("pages.event-edit.title") }}</page-title>
+
       <div v-if="matchyEvent">
         <EditEvent
           v-model="matchyEvent"

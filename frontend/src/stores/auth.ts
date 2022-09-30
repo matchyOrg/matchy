@@ -30,7 +30,7 @@ export const useAuthStore = defineStore("user", () => {
     profile.value = newProfile;
   }
 
-  // on authState change, update everything (called when user clicked magic link)
+  // on authState change, update everything
   supabase.auth.onAuthStateChange((event, session) => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);

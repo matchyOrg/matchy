@@ -1,7 +1,7 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.event-create.title") }}</teleport>
   <v-main>
     <v-container>
+      <page-title>{{ t("pages.event-create.title") }}</page-title>
       <edit-event v-model="matchyEvent" />
       <v-btn @click="submit">{{ t("pages.event-create.submit") }}</v-btn>
     </v-container>

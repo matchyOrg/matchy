@@ -1,9 +1,6 @@
 <template>
-  <teleport to="#nav-title">⚖️ Legal Notice</teleport>
   <v-main class="mx-9 mt-5">
-    <div v-if="!authStore.isLoggedIn">
-      <h2 class="my-5">⚖️ Legal Notice</h2>
-    </div>
+    <page-title> ⚖️ Legal Notice </page-title>
     <p>
       This software service falls under the
       <a class="text-grey" href="https://opensource.org/licenses/MIT"

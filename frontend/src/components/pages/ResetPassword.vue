@@ -2,12 +2,7 @@
   <v-main>
     <v-container>
       <div class="pt-4 mb-8">
-        <div class="d-flex align-center mb-6">
-          <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
-          <span class="d-block text-h6 font-weight-bold">
-            {{ t("pages.reset-password.heading-p1") }}
-          </span>
-        </div>
+        <page-title>{{ t("pages.reset-password.heading-p1") }} </page-title>
         <span class="d-block">{{ t("pages.reset-password.heading-p2") }}</span>
       </div>
       <v-form @submit.prevent="submit.handler">
@@ -63,9 +58,7 @@ const route = useRoute();
 
 const password = ref("");
 const repeatPassword = ref("");
-
-const { redirect: redirectRaw } = route.query;
-const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
+const redirect = routeParam(route, "redirect");
 
 const submit = asyncLoading(async () => {
   await authStore.setNewPassword(password.value);

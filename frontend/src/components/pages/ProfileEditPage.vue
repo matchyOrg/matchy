@@ -1,6 +1,6 @@
 <template>
-  <teleport to="#nav-title">{{ t("pages.profile.title") }}</teleport>
   <v-main class="mx-8 d-flex flex-column">
+    <page-title>{{ t("pages.profile.title") }}</page-title>
     <!-- welcome message on registration -->
     <div class="mt-8" v-if="!authStore.isRegistered">
       <h1 class="font-weight-regular">
@@ -45,7 +45,6 @@
           color="green"
           variant="tonal"
           append-icon="mdi-account-arrow-left"
-          rounded="pill"
           type="submit"
           minWidth="20rem"
           :disabled="onSubmit.loading || !valid"
@@ -60,27 +59,24 @@
 
         <!-- sign out button -->
         <v-btn
-          v-if="!authStore.isRegistered"
           class="mb-4"
           size="x-large"
           color="secondary"
           variant="tonal"
           append-icon="mdi-logout"
-          rounded="pill"
           minWidth="20rem"
           @click="logout"
           >{{ t("pages.profile.sign-out-button-text") }}
         </v-btn>
 
+        <!-- TODO: Maybe move the delete button to the bottom of the screen-->
         <!-- sign delete -->
         <v-btn
           v-if="authStore.isRegistered"
-          id="delete-button"
           size="x-large"
           color="error"
           variant="tonal"
           append-icon="mdi-account-off"
-          rounded="pill"
           minWidth="20rem"
           @click="deleteDialog = true"
           >{{ t("pages.profile.delete-button-text") }}

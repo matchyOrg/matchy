@@ -1,7 +1,4 @@
 <template>
-  <teleport to="#nav-right">
-    <v-icon v-if="isOrganizer" @click="onEdit">mdi-pencil</v-icon>
-  </teleport>
   <v-main>
     <v-container>
       <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
@@ -68,9 +65,7 @@
         {{ t("pages.events.share-button-text") }}
       </v-btn>
       <span class="d-block text-center text-grey text-caption">{{
-        PageMode === "organizer" &&
-        authStore.user &&
-        authStore.user.id === matchyEvent?.organizer
+        authStore.user && authStore.user.id === matchyEvent?.organizer
           ? t("pages.events.share-hint-organizer")
           : t("pages.events.share-hint-participant")
       }}</span>
@@ -82,6 +77,12 @@
         :total-present-count="totalPresentCount"
         :total-registered-count="totalRegisteredCount"
       />
+      <div class="d-flex justify-center mt-8">
+        <v-btn v-if="isOrganizer" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+          {{ t("pages.events.edit-event") }}
+        </v-btn>
+      </div>
       <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">
@@ -177,7 +178,6 @@ import {
   type GroupPair,
 } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
-import { PageMode } from "@/stores/pageMode";
 import { shareEvent } from "@/services/utils/share";
 import { useI18n } from "vue-i18n";
 import { supabase } from "@/services/supabase";
@@ -231,7 +231,7 @@ const onShare = async () => {
   if (!matchyEvent.value) {
     throw new Error("Event shared before loaded");
   }
-  await shareEvent(matchyEvent.value, PageMode.value, authStore, t, router);
+  await shareEvent(matchyEvent.value, authStore, t, router);
 };
 
 const onEdit = () => {
