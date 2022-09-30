@@ -26,8 +26,8 @@
             v-model="password"
             name="password"
             :label="t('shared.auth.password')"
-            :append-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPW = !showPW"
+            :append-inner-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append-inner="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
           <!-- <div class="text-right">
@@ -62,17 +62,17 @@
             >
             <div class="d-inline-block">
               <v-btn
-                size="small"
-                variant="text"
-                icon="mdi-github"
-                @click="oAuthLogin.handler('github')"
-              />
-              <v-btn
                 class="ref"
                 size="small"
                 variant="text"
                 icon="mdi-google"
                 @click="oAuthLogin.handler('google')"
+              />
+              <v-btn
+                size="small"
+                variant="text"
+                icon="mdi-github"
+                @click="oAuthLogin.handler('github')"
               />
             </div>
           </div>

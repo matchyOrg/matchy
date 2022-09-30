@@ -45,7 +45,6 @@
           color="green"
           variant="tonal"
           append-icon="mdi-account-arrow-left"
-          rounded="pill"
           type="submit"
           minWidth="20rem"
           :disabled="onSubmit.loading || !valid"
@@ -66,7 +65,6 @@
           color="secondary"
           variant="tonal"
           append-icon="mdi-logout"
-          rounded="pill"
           minWidth="20rem"
           @click="logout"
           >{{ t("pages.profile.sign-out-button-text") }}
@@ -80,7 +78,6 @@
           color="error"
           variant="tonal"
           append-icon="mdi-account-off"
-          rounded="pill"
           minWidth="20rem"
           @click="deleteDialog = true"
           >{{ t("pages.profile.delete-button-text") }}
