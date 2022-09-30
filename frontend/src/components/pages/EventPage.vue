@@ -65,9 +65,7 @@
         {{ t("pages.events.share-button-text") }}
       </v-btn>
       <span class="d-block text-center text-grey text-caption">{{
-        PageMode === "organizer" &&
-        authStore.user &&
-        authStore.user.id === matchyEvent?.organizer
+        authStore.user && authStore.user.id === matchyEvent?.organizer
           ? t("pages.events.share-hint-organizer")
           : t("pages.events.share-hint-participant")
       }}</span>
@@ -180,7 +178,6 @@ import {
   type GroupPair,
 } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
-import { PageMode } from "@/stores/pageMode";
 import { shareEvent } from "@/services/utils/share";
 import { useI18n } from "vue-i18n";
 import { supabase } from "@/services/supabase";
@@ -234,7 +231,7 @@ const onShare = async () => {
   if (!matchyEvent.value) {
     throw new Error("Event shared before loaded");
   }
-  await shareEvent(matchyEvent.value, PageMode.value, authStore, t, router);
+  await shareEvent(matchyEvent.value, authStore, t, router);
 };
 
 const onEdit = () => {
