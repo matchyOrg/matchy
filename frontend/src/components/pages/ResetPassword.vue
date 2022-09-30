@@ -63,9 +63,7 @@ const route = useRoute();
 
 const password = ref("");
 const repeatPassword = ref("");
-
-const { redirect: redirectRaw } = route.query;
-const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
+const redirect = routeParam(route, "redirect");
 
 const submit = asyncLoading(async () => {
   await authStore.setNewPassword(password.value);

@@ -123,13 +123,17 @@ const authStore = useAuthStore();
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
-const { redirect: redirectRaw } = route.query;
-const redirect = Array.isArray(redirectRaw) ? redirectRaw[0] : redirectRaw;
+const redirect = routeParam(route, "redirect");
 
 // leave page if already logged in
-if (authStore.isLoggedIn) {
-  router.push("/");
-}
+watch(
+  () => authStore.isLoggedIn,
+  (isLoggedIn) => {
+    if (isLoggedIn) {
+      router.push(redirect || "/");
+    }
+  }
+);
 
 const email = ref("");
 const password = ref("");
@@ -146,7 +150,7 @@ const login = async () => {
     await authStore.login(email.value, password.value);
     router.push(redirect ?? "/");
   } catch (e: any) {
-    console.log(e);
+    console.error(e);
 
     if (e.status === 400) {
       error.value = t("pages.login.wrong-credentials-error");

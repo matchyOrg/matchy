@@ -11,6 +11,9 @@
         "previous": "Vorherige Seite",
         "root": "Seiten-Navigation"
       }
+    },
+    "input": {
+      "appendAction": "Anhängen"
     }
   },
   "components": {

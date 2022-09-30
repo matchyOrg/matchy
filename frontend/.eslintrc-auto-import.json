@@ -38,6 +38,7 @@
     "readonly": true,
     "ref": true,
     "resolveComponent": true,
+    "routeParam": true,
     "shallowReactive": true,
     "shallowReadonly": true,
     "shallowRef": true,

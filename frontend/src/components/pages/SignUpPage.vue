@@ -125,6 +125,7 @@ const submit = asyncLoading(async () => {
 
 const oAuthLogin = asyncLoading(async (provider: Provider) => {
   try {
+    // After registering, the user should fill out their profile
     await authStore.oAuthLogin(provider, "/edit-profile");
   } catch (e) {
     errorToast(e);

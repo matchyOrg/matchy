@@ -11,6 +11,9 @@
         "previous": "Previous page",
         "root": "Pagination"
       }
+    },
+    "input": {
+      "appendAction": "Append"
     }
   },
   "components": {
