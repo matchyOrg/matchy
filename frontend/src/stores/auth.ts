@@ -2,14 +2,14 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { Provider, User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { useStorage } from "@vueuse/core";
+import { storageRef } from "./utils/localstorage";
 
 export const useAuthStore = defineStore("user", () => {
   // user state (only update with setter)
   const user = ref<User | null>(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
-  const redirect = useStorage("redirect", "/");
+  const redirect = storageRef("redirect");
   // user setter
   async function setUserStore(newUser: User | null) {
     console.log("Updating user state", newUser);
