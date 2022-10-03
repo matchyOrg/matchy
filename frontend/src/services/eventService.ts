@@ -6,6 +6,7 @@ import {
   timestamptzToTemporalZonedDateTime,
 } from "./utils/datetime";
 import type { PostgrestError } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Group {
   id?: number;
@@ -212,9 +213,8 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
    * @returns the file path to retrieve from storage.
    */
   async function uploadImage(headerImageFile: File): Promise<string> {
-    // collision rate of 1 in a million at 24k, 1 in 1000 at 750k
-    // easily replaceable should we ever need to
-    const fileName = crypto.randomUUID();
+    // TODO: 2022-10-03: Remove the iOS fallback in the future
+    const fileName = uuidv4(); // crypto.randomUUID();
     const { data, error } = await supabase.storage
       .from("event-header-images")
       .upload(fileName, headerImageFile, {
