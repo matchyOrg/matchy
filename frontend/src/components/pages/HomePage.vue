@@ -133,7 +133,6 @@
       {{ t("pages.login.footer-legal-notice") }}
     </router-link>
   </v-footer>
-  <bottom-nav-bar />
 </template>
 
 <script setup lang="ts">

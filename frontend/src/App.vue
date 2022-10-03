@@ -16,6 +16,7 @@
     />-->
     <!-- content -->
     <RouterView />
+    <bottom-nav-bar />
   </v-app>
 </template>
 
