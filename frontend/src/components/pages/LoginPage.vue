@@ -45,7 +45,7 @@
             variant="tonal"
             type="submit"
             width="66%"
-            :disabled="onSubmit.loading || !hasEmail"
+            :disabled="onSubmit.loading || !hasEmail || !hasPassword"
             :loading="onSubmit.loading"
           >
             <template v-slot:loader>
@@ -144,6 +144,7 @@ const showPW = ref(false);
 watch([email, password], () => (error.value = ""));
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
+const hasPassword = computed(() => password.value.length > 0);
 
 const login = async () => {
   try {
