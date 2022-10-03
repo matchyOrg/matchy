@@ -16,7 +16,7 @@
     />-->
     <!-- content -->
     <RouterView />
-    <bottom-nav-bar />
+    <bottom-nav-bar v-if="authStore.user" />
   </v-app>
 </template>
 
