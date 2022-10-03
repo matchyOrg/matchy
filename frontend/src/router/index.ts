@@ -96,6 +96,13 @@ const router = createRouter({
       component: LoginCallbackPage,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
 });
 
 // Check requirements to enter a route
