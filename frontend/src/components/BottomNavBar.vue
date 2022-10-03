@@ -1,10 +1,9 @@
 <template>
   <v-bottom-navigation color="primary" grow app>
-    <!--
     <v-btn to="/">
       <v-icon>mdi-home</v-icon>
       <span>Home</span>
-    </v-btn>-->
+    </v-btn>
     <v-btn to="/edit-profile">
       <span
         v-if="!auth.isRegistered"
