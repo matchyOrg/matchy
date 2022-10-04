@@ -1,5 +1,6 @@
 <template>
   <v-bottom-navigation color="primary" grow app>
+    <!-- TODO: Make sure all buttons have the same width-->
     <v-btn to="/">
       <v-icon>mdi-home</v-icon>
       <span>Home</span>
