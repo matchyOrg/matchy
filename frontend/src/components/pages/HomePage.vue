@@ -212,7 +212,7 @@ const confirmPresence = async (id: number) => {
   console.log("Don't care, didn't ask");
   try {
     await currentEventStore.confirmPresence(id);
-    successToast("Welcome to th event");
+    successToast("Welcome to the event");
     router.push({ name: "participant-view", params: { id } });
   } catch (e) {
     errorToast(e);
