@@ -134,7 +134,9 @@
       "active-event-action": "Zum Dashboard",
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
+      "finish-profile": "Profil fertigstellen",
       "future-events-header": "Deine geplanten Events",
+      "hello": "Hallo",
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",
       "no-org-events": "Du hast keine bevorstehenden Events",
@@ -240,7 +242,7 @@
     }
   },
   "sidebar": {
-    "create-event": "Event erstellen",
+    "create-event": "Neues Event",
     "current-view": "Ansicht",
     "matches": "Matches",
     "menu-title": "Menü",
