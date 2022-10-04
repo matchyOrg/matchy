@@ -104,7 +104,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       throw new Error("Failed to fetch events");
     }
     // datetime is sent as string, need to parse it to Temporal ZonedDateTime datatype
-    console.log(events[0].datetime);
     const parsedEvents = events.map((e) => ({
       ...e,
       datetime: Temporal.Instant.from(e.datetime).toZonedDateTimeISO(

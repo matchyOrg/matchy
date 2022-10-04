@@ -105,6 +105,10 @@
     "event-edit": {
       "title": "Event bearbeiten"
     },
+    "event-search": {
+      "no-results": "Derzeit gibt es keine Events",
+      "title": "Events finden"
+    },
     "events": {
       "already-registered": "Du nimmst teil",
       "edit-event": "Event bearbeiten",

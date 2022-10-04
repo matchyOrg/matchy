@@ -1,15 +1,13 @@
 <template>
   <v-main>
     <v-container>
-      <header>Search Events</header>
+      <page-title>{{ t("pages.event-search.title") }}</page-title>
       <br />
-      <div v-if="eventPage.length <= 0 && fetched">
-        <b>There are currently no Events in our Database!</b>
-      </div>
-      <div v-else-if="eventPage.length <= 0 && !fetched">
-        <b>Loading Event Entries, please wait...</b>
-      </div>
-      <div v-else class="">
+      <div>
+        <div v-if="eventPage.length <= 0">
+          <!--TODO: Add loading indicator using fetchPageItems.loading-->
+          <b>{{ t("pages.event-search.no-results") }}</b>
+        </div>
         <event-list-item
           v-for="event in eventPage"
           :key="event.id"
@@ -19,6 +17,7 @@
           :to="'/events/' + event.id"
         >
         </event-list-item>
+        <!--TODO: Add loading indicator using fetchPageItems.loading-->
         <v-pagination
           :length="Math.ceil(totalSize / pageSize)"
           v-model="vuetifyAutismPageIndex"
@@ -49,23 +48,21 @@ const vuetifyAutismPageIndex = computed({
 });
 const pageSize = ref(10);
 const totalSize = ref(0);
-const fetched = ref(false);
 
-async function fetchPageItems(pageIndex: number, size: number) {
+const fetchPageItems = asyncLoading(async (pageIndex: number, size: number) => {
   const { events, total } = await eventService.fetchEvents({
     pagination: { pageIndex, size },
   });
   eventPage.value = events;
   totalSize.value = total;
-}
+});
 
 onMounted(async () => {
-  await fetchPageItems(pageIndex.value, pageSize.value);
-  fetched.value = true;
+  await fetchPageItems.handler(pageIndex.value, pageSize.value);
 });
 
 watch(pageIndex, () => {
-  fetchPageItems(pageIndex.value, pageSize.value);
+  fetchPageItems.handler(pageIndex.value, pageSize.value);
 });
 
 const searchParams = ref<EventSearchParams>({

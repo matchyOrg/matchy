@@ -105,6 +105,10 @@
     "event-edit": {
       "title": "Edit Event"
     },
+    "event-search": {
+      "title": "Find Events",
+      "no-results": "There are no events at the moment"
+    },
     "events": {
       "already-registered": "You are registered",
       "edit-event": "Edit event",
