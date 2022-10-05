@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container class="pt-8 d-flex flex-column align-center">
+    <v-container>
       <page-title>{{ t("pages.matches.title") }}</page-title>
       <v-expansion-panels
         v-if="eventMatches.length > 0"

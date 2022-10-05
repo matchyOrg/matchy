@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container class="h-100">
+    <v-container>
       <!-- logo -->
       <SiteLogo class="my-12"></SiteLogo>
       <!-- email field -->

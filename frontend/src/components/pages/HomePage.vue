@@ -1,5 +1,5 @@
 <template>
-  <v-main class="mx-5">
+  <v-main>
     <v-container>
       <page-title>Matchy</page-title>
       <h2

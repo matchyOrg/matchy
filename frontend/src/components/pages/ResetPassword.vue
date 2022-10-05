@@ -1,8 +1,8 @@
 <template>
   <v-main>
     <v-container>
-      <div class="pt-4 mb-8">
-        <page-title>{{ t("pages.reset-password.heading-p1") }} </page-title>
+      <page-title>{{ t("pages.reset-password.heading-p1") }} </page-title>
+      <div class="mb-8">
         <span class="d-block">{{ t("pages.reset-password.heading-p2") }}</span>
       </div>
       <v-form @submit.prevent="submit.handler">

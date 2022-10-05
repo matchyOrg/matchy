@@ -1,10 +1,10 @@
 <template>
   <v-main>
     <v-container>
-      <div class="pt-4 mb-12">
-        <page-title>
-          {{ t("pages.forgot-password.title") }}
-        </page-title>
+      <page-title>
+        {{ t("pages.forgot-password.title") }}
+      </page-title>
+      <div class="mb-12">
         <span class="d-block">{{ t("pages.forgot-password.heading-p1") }}</span
         ><span class="d-block">{{
           t("pages.forgot-password.heading-p2")

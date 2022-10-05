@@ -1,10 +1,10 @@
 <template>
   <v-main>
     <v-container v-if="!registered">
-      <div class="pt-4 mb-8">
-        <page-title>
-          {{ t("pages.signup.title") }}
-        </page-title>
+      <page-title>
+        {{ t("pages.signup.title") }}
+      </page-title>
+      <div class="mb-8">
         <span class="d-block">{{ t("pages.signup.heading-p1") }}</span
         ><span class="d-block">{{ t("pages.signup.heading-p2") }}</span
         ><span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
