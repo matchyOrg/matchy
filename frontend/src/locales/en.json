@@ -105,6 +105,10 @@
     "event-edit": {
       "title": "Edit Event"
     },
+    "event-search": {
+      "title": "Find Events",
+      "no-results": "There are no events at the moment"
+    },
     "events": {
       "already-registered": "You are registered",
       "edit-event": "Edit event",
@@ -130,7 +134,9 @@
       "active-event-action": "To Dashboard",
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
+      "finish-profile": "Fill out your profile",
       "future-events-header": "Your planned events",
+      "hello": "Hey",
       "no-event-cta": "Check out events",
       "no-events": "You aren't registered for any events",
       "no-org-events": "You aren't organizing any events",
@@ -236,7 +242,7 @@
     }
   },
   "sidebar": {
-    "create-event": "Create Event",
+    "create-event": "New Event",
     "current-view": "Current view",
     "matches": "Matches",
     "menu-title": "Menu",

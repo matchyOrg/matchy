@@ -26,10 +26,10 @@
       "edit-image": "Titelbild ändern",
       "group-a-description-label": "Beschreibung Gruppe A",
       "group-a-description-placeholder": "Beschreibe Gruppe A",
-      "group-a-name": "Name Gruppe A",
+      "group-a-name": "Gruppenname A",
       "group-b-description-label": "Beschreibung Gruppe B",
       "group-b-description-placeholder": "Beschreibe Gruppe B",
-      "group-b-name": "Name Gruppe B",
+      "group-b-name": "Gruppenname B",
       "location-input": "Standort",
       "location-placeholder": "Eventstandort",
       "max-participants": "Max Teilnehmer",
@@ -105,6 +105,10 @@
     "event-edit": {
       "title": "Event bearbeiten"
     },
+    "event-search": {
+      "no-results": "Derzeit gibt es keine Events",
+      "title": "Events finden"
+    },
     "events": {
       "already-registered": "Du nimmst teil",
       "edit-event": "Event bearbeiten",
@@ -130,7 +134,9 @@
       "active-event-action": "Zum Dashboard",
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Bestätige dass du da bist",
+      "finish-profile": "Profil fertigstellen",
       "future-events-header": "Deine geplanten Events",
+      "hello": "Hallo",
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",
       "no-org-events": "Du hast keine bevorstehenden Events",
@@ -236,7 +242,7 @@
     }
   },
   "sidebar": {
-    "create-event": "Event erstellen",
+    "create-event": "Neues Event",
     "current-view": "Ansicht",
     "matches": "Matches",
     "menu-title": "Menü",

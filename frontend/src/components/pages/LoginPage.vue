@@ -171,20 +171,33 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
 </script>
 
 <style scoped>
-/* Rainbow colors for google icon */
 .ref:deep(.mdi-google) {
-  background: conic-gradient(
+  background: black;
+}
+
+/* Rainbow colors for google icon if the browser is not Safari */
+@supports (
+  background:
+    conic-gradient(
       from -45deg,
       #ea4335 110deg,
       #4285f4 90deg 180deg,
       #34a853 180deg 270deg,
       #fbbc05 270deg
     )
-    73% 55%/150% 150% no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+) {
+  .ref:deep(.mdi-google) {
+    background: conic-gradient(
+        from -45deg,
+        #ea4335 110deg,
+        #4285f4 90deg 180deg,
+        #34a853 180deg 270deg,
+        #fbbc05 270deg
+      )
+      73% 55%/150% 150% no-repeat;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 .text-small {

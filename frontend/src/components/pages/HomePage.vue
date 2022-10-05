@@ -2,7 +2,17 @@
   <v-main class="mx-5">
     <v-container>
       <page-title>Matchy</page-title>
-      <h2 class="my-7 text-grey font-weight-regular">Hey {{ firstName }}!</h2>
+      <h2
+        class="my-7 text-grey font-weight-regular"
+        v-if="authStore.isRegistered"
+      >
+        {{ t("pages.home.hello") }} {{ firstName }}!
+      </h2>
+      <div class="my-7 d-flex justify-center" v-else>
+        <v-btn to="/edit-profile">
+          {{ t("pages.home.finish-profile") }}
+        </v-btn>
+      </div>
 
       <!-- Participant view -->
       <div v-if="PageMode === 'participant'">
@@ -56,6 +66,7 @@
         </template>
         <div v-else class="text-center text-grey">
           {{ t("pages.home.no-events") }}
+          <br />
           <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
             t("pages.home.no-event-cta")
           }}</v-btn>
@@ -201,7 +212,7 @@ const confirmPresence = async (id: number) => {
   console.log("Don't care, didn't ask");
   try {
     await currentEventStore.confirmPresence(id);
-    successToast("Welcome to th event");
+    successToast("Welcome to the event");
     router.push({ name: "participant-view", params: { id } });
   } catch (e) {
     errorToast(e);
