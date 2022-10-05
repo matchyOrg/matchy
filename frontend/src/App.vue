@@ -42,4 +42,8 @@ watch(
   max-width: 435px;
   margin: 0 auto;
 }
+.v-main {
+  margin-right: 20px;
+  margin-left: 20px;
+}
 </style>

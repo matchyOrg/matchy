@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container class="d-flex flex-column">
+    <v-container>
       <page-title>{{ t("pages.event-edit.title") }}</page-title>
 
       <div v-if="matchyEvent">

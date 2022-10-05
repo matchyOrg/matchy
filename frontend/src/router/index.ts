@@ -62,6 +62,7 @@ const router = createRouter({
       meta: { requiresLogin: true },
     },
     {
+      // TODO: Maybe change to /events/:id/edit
       path: "/edit-event/:id",
       component: EventEditPage,
       meta: { requiresLogin: true },
