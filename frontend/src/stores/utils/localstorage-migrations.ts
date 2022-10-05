@@ -36,9 +36,15 @@ class Migration<ResultDatabase extends VersionedDatabase<number>> {
 // Database format migrations
 // Make sure to *NEVER* change an existing migration that is used in production. Always add new migrations.
 const finalMigration = Migration.BaseMigration.addMigration(1, (db) => {
-  // This migration just exists to show off how migrations work
   return {
+    /**
+     * Version, always increment this
+     */
     version: 1,
+    /**
+     * Redirect to this page after login
+     */
+    redirect: "/",
   };
 });
 /*.addMigration(2, (db) => {

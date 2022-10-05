@@ -46,7 +46,7 @@ function parseReviver(key: string, value: any) {
   return value;
 }
 
-const LocalStorageKey = "matchy-";
+const LocalStorageKey = "matchy.";
 export class ExtendedLocalStorage<T extends Record<string, any>> {
   readAll(): Partial<T> {
     const obj = {} as { [key: string]: any };
