@@ -47,6 +47,14 @@ import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
 const vuetify = createVuetify({
   theme: {
     defaultTheme: "light",
+    themes: {
+      light: {
+        colors: {
+          primary: "#2e7d32",
+          secondary: "#81c784",
+        },
+      },
+    },
   },
   icons: {
     defaultSet: "mdi",
