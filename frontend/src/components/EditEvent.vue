@@ -137,6 +137,7 @@
 </template>
 <script setup lang="ts">
 import type { EditEventInfo } from "@/services/eventService";
+import { instantToZonedDateTime } from "@/services/utils/datetime";
 import { Temporal } from "@js-temporal/polyfill";
 import { useI18n } from "vue-i18n";
 
@@ -169,9 +170,6 @@ const model = computed<EditEventInfo>({
 
 const showDatePicker = ref(false);
 const showTimePicker = ref(false);
-
-// const currentDate = ref(["2021", "01", "01"]);
-// const currentTime = ref(["12", "00"]);
 
 const updateId = ref(0);
 
@@ -215,7 +213,7 @@ const removeImage = () => {
 
 const currentDate = computed<string>({
   get() {
-    const currentDate = model.value.datetime;
+    const currentDate = instantToZonedDateTime(model.value.datetime);
     return (
       currentDate.year.toString() +
       "-" +
@@ -225,35 +223,35 @@ const currentDate = computed<string>({
     );
   },
   set(newVal) {
-    const oldDate = model.value.datetime;
+    const oldDate = instantToZonedDateTime(model.value.datetime);
     const [year, month, day] = newVal.split("-");
     model.value.datetime = Temporal.ZonedDateTime.from({
       timeZone: oldDate.timeZone,
       hour: oldDate.hour,
       minute: oldDate.minute,
-      year: Number.parseInt(year),
-      month: Number.parseInt(month),
-      day: Number.parseInt(day),
-    });
+      year: +year,
+      month: +month,
+      day: +day,
+    }).toInstant();
   },
 });
 
 const currentTime = computed<string>({
   get() {
-    const currentDate = model.value.datetime;
+    const currentDate = instantToZonedDateTime(model.value.datetime);
     return zeroPad(currentDate.hour) + ":" + zeroPad(currentDate.minute);
   },
   set(newVal) {
-    const oldDate = model.value.datetime;
+    const oldDate = instantToZonedDateTime(model.value.datetime);
     const [hour, minute] = newVal.split(":");
     model.value.datetime = Temporal.ZonedDateTime.from({
       timeZone: oldDate.timeZone,
-      hour: Number.parseInt(hour),
-      minute: Number.parseInt(minute),
+      hour: +hour,
+      minute: +minute,
       year: oldDate.year,
       month: oldDate.month,
       day: oldDate.day,
-    });
+    }).toInstant();
   },
 });
 

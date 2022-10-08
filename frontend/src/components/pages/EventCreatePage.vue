@@ -33,7 +33,7 @@ const matchyEvent = reactive({
   description: "",
   header_image: undefined,
   max_participants: 50,
-  datetime: Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()),
+  datetime: Temporal.Now.instant().add({ minutes: 1 }),
   location: "",
   uses_groups: true,
   event_groups: {

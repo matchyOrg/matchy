@@ -1,10 +1,7 @@
 import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
-import {
-  dateXHoursAgo,
-  timestamptzToTemporalZonedDateTime,
-} from "./utils/datetime";
+import { timestampToInstant } from "./utils/datetime";
 import type { PostgrestError } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -25,7 +22,7 @@ export interface EventInfo {
   title: string;
   description: string;
   header_image?: string | null;
-  datetime: Temporal.ZonedDateTime;
+  datetime: Temporal.Instant;
   location: string;
   max_participants: number;
   event_groups?: GroupPair;
@@ -57,8 +54,8 @@ export interface EventSearchParams {
   title?: string;
   location?: string;
   maxParticipants?: string;
-  fromDate?: Temporal.ZonedDateTime;
-  toDate?: Temporal.ZonedDateTime;
+  fromDate?: Temporal.Instant;
+  toDate?: Temporal.Instant;
   groupNameA?: string;
   groupNameB?: string;
 }
@@ -73,11 +70,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     return { from, to };
   }
 
+  const getAnHourAgo = () => Temporal.Now.instant().subtract({ hours: 1 });
+
   async function fetchEvents(options?: {
     pagination?: { pageIndex: number; size: number };
   }): Promise<{ events: EventInfo[]; total: number }> {
-    const anHourAgo = dateXHoursAgo(1);
-
     let query = supabase
       .from("events")
       .select(
@@ -86,7 +83,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       )
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .gt("datetime", anHourAgo.toInstant().toString())
+      .gt("datetime", getAnHourAgo().toString())
       .order("datetime", { ascending: true });
     if (options?.pagination) {
       const { from, to } = getPagination(
@@ -107,17 +104,13 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     // datetime is sent as string, need to parse it to Temporal ZonedDateTime datatype
     const parsedEvents = events.map((e) => ({
       ...e,
-      datetime: Temporal.Instant.from(e.datetime).toZonedDateTimeISO(
-        Temporal.Now.timeZone()
-      ),
+      datetime: timestampToInstant(e.datetime),
     }));
 
     return { events: parsedEvents, total: count ?? 0 };
   }
 
   async function fetchUserEvents(): Promise<EventInfo[]> {
-    const anHourAgo = dateXHoursAgo(1);
-
     const { data: events, error } = await supabase
       .from("events")
       .select(
@@ -130,9 +123,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
       .or(
-        `datetime.gt.${anHourAgo
-          .toInstant()
-          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+        `datetime.gt.${getAnHourAgo().toString()},and(is_started.eq.true,is_ended.eq.false)`
       )
       .order("datetime", { ascending: true });
 
@@ -144,14 +135,13 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     return events?.map((e) => ({
       ...e,
-      datetime: timestamptzToTemporalZonedDateTime(e.datetime),
+      datetime: timestampToInstant(e.datetime),
     }));
   }
 
   async function fetchOrganizerEvents(): Promise<EventInfo[]> {
     if (!authStore.user)
       throw new Error("User must be logged to fetch their events");
-    const anHourAgo = dateXHoursAgo(1);
 
     const { data: events, error } = await supabase
       .from("events")
@@ -162,9 +152,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
       .or(
-        `datetime.gt.${anHourAgo
-          .toInstant()
-          .toString()},and(is_started.eq.true,is_ended.eq.false)`
+        `datetime.gt.${getAnHourAgo().toString()},and(is_started.eq.true,is_ended.eq.false)`
       )
       .order("datetime", { ascending: true });
 
@@ -176,7 +164,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     return events.map((e) => ({
       ...e,
-      datetime: timestamptzToTemporalZonedDateTime(e.datetime),
+      datetime: timestampToInstant(e.datetime),
     }));
   }
 
@@ -198,7 +186,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     }
     const fetchedEvent = {
       ...data,
-      datetime: timestamptzToTemporalZonedDateTime(data.datetime),
+      datetime: timestampToInstant(data.datetime),
     };
 
     return fetchedEvent;
@@ -254,7 +242,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         title: eventData.title,
         description: eventData.description,
         header_image: eventData.header_image ?? null,
-        datetime: eventData.datetime.toInstant().toString(),
+        datetime: eventData.datetime.toString(),
         location: eventData.location,
         max_participants: eventData.max_participants,
         groupATitle: eventData.event_groups.groupA.title,
@@ -288,7 +276,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
           location,
           max_participants,
           organizer: authStore.user.id,
-          datetime: datetime.toInstant().toString(),
+          datetime: datetime.toString(),
           event_group_pair: undefined,
         },
         { returning: "representation" }
@@ -332,7 +320,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         header_image,
         location,
         max_participants,
-        datetime: datetime.toInstant().toString(),
+        datetime: datetime.toString(),
       })
       .match({ id });
     if (error) throw error;
