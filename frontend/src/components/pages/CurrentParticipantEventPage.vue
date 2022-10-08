@@ -23,6 +23,7 @@
 <script lang="ts" setup>
 import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
+import { timestampToInstant } from "@/services/utils/datetime";
 import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
@@ -64,13 +65,9 @@ const startCountdown = () =>
   }, 1000);
 
 const setupTimer = (round: definitions["event_rounds"]) => {
-  const roundStart = Temporal.Instant.from(
-    round.start_timestamp
-  ).toZonedDateTimeISO(Temporal.Now.timeZone());
-  const roundEnd = Temporal.Instant.from(
-    round.end_timestamp
-  ).toZonedDateTimeISO(Temporal.Now.timeZone());
-  const now = Temporal.Now.zonedDateTimeISO();
+  const roundStart = timestampToInstant(round.start_timestamp);
+  const roundEnd = timestampToInstant(round.end_timestamp);
+  const now = Temporal.Now.instant();
   const duration = roundEnd.since(roundStart);
   const remainingTime = now.until(roundEnd);
   roundDuration.value = duration.total({ unit: "milliseconds" });
@@ -103,7 +100,6 @@ const createPair = async (otherUserId: string) => {
     await currentEvent.createPair(otherUserId, currentRoundId.value);
     successToast;
   } catch (e) {
-    console.log(e);
     errorToast(e);
   }
 };

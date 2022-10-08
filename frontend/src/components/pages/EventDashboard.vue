@@ -71,6 +71,7 @@
 import { useEventService } from "@/services/eventService";
 import { supabase } from "@/services/supabase";
 import type { definitions } from "@/services/supabase-types";
+import { timestampToInstant } from "@/services/utils/datetime";
 import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
@@ -140,13 +141,9 @@ const startCountdown = () =>
   }, 1000);
 
 const setupTimer = (round: definitions["event_rounds"]) => {
-  const roundStart = Temporal.Instant.from(
-    round.start_timestamp
-  ).toZonedDateTimeISO(Temporal.Now.timeZone());
-  const roundEnd = Temporal.Instant.from(
-    round.end_timestamp
-  ).toZonedDateTimeISO(Temporal.Now.timeZone());
-  const now = Temporal.Now.zonedDateTimeISO();
+  const roundStart = timestampToInstant(round.start_timestamp);
+  const roundEnd = timestampToInstant(round.end_timestamp);
+  const now = Temporal.Now.instant();
   const roundDuration = roundEnd.since(roundStart);
   const remainingTime = now.until(roundEnd);
   setDuration.value = roundDuration.total({ unit: "milliseconds" });
@@ -178,7 +175,6 @@ const endEvent = async () => {
     successToast("Event ended");
     router.push("/");
   } catch (e) {
-    console.log(e);
     errorToast(e);
   }
 };
@@ -244,7 +240,6 @@ onMounted(async () => {
     try {
       currentRound = await currentEvent.getCurrentRound();
     } catch (e) {
-      console.log(e);
       errorToast(e);
       return;
     }
@@ -260,11 +255,10 @@ onMounted(async () => {
     try {
       totalPresent.value = await currentEvent.getTotalNumberOfParticipants();
     } catch (e) {
-      console.log(e);
       errorToast(e);
     }
   } catch (e) {
-    errorToast("Could not load event");
+    errorToast(e, "Could not load event");
     router.back();
     return;
   } finally {

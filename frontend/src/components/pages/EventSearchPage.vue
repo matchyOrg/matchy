@@ -69,8 +69,8 @@ const searchParams = ref<EventSearchParams>({
   title: "",
   location: "",
   maxParticipants: "",
-  fromDate: Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()),
-  toDate: Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()),
+  fromDate: Temporal.Now.instant(),
+  toDate: Temporal.Now.instant(),
   groupNameA: "",
   groupNameB: "",
 });

@@ -5,7 +5,7 @@ import { Temporal } from "@js-temporal/polyfill";
 import type { definitions } from "@/services/supabase-types";
 import { useAuthStore } from "./auth";
 import type { EventInfo } from "@/services/eventService";
-import { timestamptzToTemporalZonedDateTime } from "@/services/utils/datetime";
+import { timestampToInstant } from "@/services/utils/datetime";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
   const currentEventId = useStorage("current-event-id", "");
@@ -32,7 +32,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     }
     const event = {
       ...eventData,
-      datetime: timestamptzToTemporalZonedDateTime(eventData.datetime),
+      datetime: timestampToInstant(eventData.datetime),
     };
     return event;
   }
@@ -76,13 +76,13 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     duration: number
   ): Promise<definitions["event_rounds"]> {
     if (!currentEventId.value) throw new Error("There is no current event.");
-    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const now = Temporal.Now.instant();
     const endTime = now.add({ milliseconds: duration });
     const { error, data } = await supabase.from("event_rounds").insert(
       {
         event_id: +currentEventId.value,
-        start_timestamp: now.toInstant().toString(),
-        end_timestamp: endTime.toInstant().toString(),
+        start_timestamp: now.toString(),
+        end_timestamp: endTime.toString(),
       },
       { returning: "representation" }
     );
@@ -129,7 +129,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     const authStore = useAuthStore();
     if (!authStore.user)
       throw new Error("User must be logged in to confirm presence");
-    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
+    const now = Temporal.Now.instant();
 
     const { data, error } = await supabase
       .from("event_user_pairs")
@@ -140,7 +140,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
       .eq("event_rounds.event_id", currentEventId.value)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: valid because of foreign key
-      .gte("event_rounds.end_timestamp", now.toInstant().toString())
+      .gte("event_rounds.end_timestamp", now.toString())
       .limit(1)
       .or(
         `main_user.eq.${authStore.user?.id},other_user.eq.${authStore.user?.id}`
@@ -168,7 +168,6 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     | null
   > {
     if (!currentEventId.value) throw new Error("There is no current event.");
-    const now = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone());
     const authStore = useAuthStore();
     if (!authStore.user) return null;
     // types are completely useless here...
