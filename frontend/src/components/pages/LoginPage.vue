@@ -112,12 +112,18 @@
 
   <v-footer class="d-flex justify-center pb-4">
     <!-- other links -->
-    <router-link to="/about" class="mx-4 text-grey">
+    <a
+      href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
+      class="mx-4 text-grey"
+    >
       {{ t("pages.login.footer-about-us") }}
-    </router-link>
-    <router-link to="/legal" class="mx-4 text-grey">
+    </a>
+    <a
+      href="https://github.com/matchyOrg/matchy/blob/main/TERMS.md"
+      class="mx-4 text-grey"
+    >
       {{ t("pages.login.footer-legal-notice") }}
-    </router-link>
+    </a>
   </v-footer>
 </template>
 

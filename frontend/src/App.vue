@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-const authStore = useAuthStore(); // updates store on init
+const authStore = useAuthStore(); // update store on init
 const router = useRouter();
 
 watch(
@@ -22,29 +22,25 @@ watch(
 </script>
 
 <style>
-/* mobile breakpoint variables */
-:root {
-  /* chrome */
-  --mobile-s: 320px;
-  --mobile-m: 375px;
-  --mobile-l: 435px;
-
-  /* vuetify */
-  --material-xs: 600px;
-  --material-sm: 960px;
-
-  /* tailwind css */
-  --sm: 640px;
-  --md: 768px;
-}
 .application {
   margin: 0 auto;
-  /* not resposive - mobile only */
-  max-width: var(--mobile-l);
+  max-width: 435px;
+}
+
+html {
+  background-color: #f6f6f6;
 }
 
 .v-main {
   margin-right: 20px;
   margin-left: 20px;
+}
+
+/* chrome browser 'autofill' fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }
 </style>

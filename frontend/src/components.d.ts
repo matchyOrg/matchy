@@ -7,7 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AboutPage: typeof import('./components/pages/AboutPage.vue')['default']
     BottomNavBar: typeof import('./components/BottomNavBar.vue')['default']
     CreatePairingView: typeof import('./components/pages/currentParticipantEventViews/CreatePairingView.vue')['default']
     CurrentParticipantEventPage: typeof import('./components/pages/CurrentParticipantEventPage.vue')['default']
@@ -22,7 +21,7 @@ declare module '@vue/runtime-core' {
     EventSearchPage: typeof import('./components/pages/EventSearchPage.vue')['default']
     ForgotPassword: typeof import('./components/pages/ForgotPassword.vue')['default']
     HomePage: typeof import('./components/pages/HomePage.vue')['default']
-    LegalPage: typeof import('./components/pages/LegalPage.vue')['default']
+    LegalPage: typeof import("./components/pages/LegalPage.vue")["default"]
     LoginCallbackPage: typeof import('./components/pages/LoginCallbackPage.vue')['default']
     LoginPage: typeof import('./components/pages/LoginPage.vue')['default']
     MatchesPage: typeof import('./components/pages/MatchesPage.vue')['default']
@@ -34,7 +33,7 @@ declare module '@vue/runtime-core' {
     RoundOverview: typeof import('./components/RoundOverview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SideBar: typeof import('./components/SideBar.vue')['default']
+    SideBar: typeof import("./components/SideBar.vue")["default"]
     SignUpPage: typeof import('./components/pages/SignUpPage.vue')['default']
     SiteLogo: typeof import('./components/SiteLogo.vue')['default']
     SkeletonLoader: typeof import('./components/SkeletonLoader.vue')['default']
