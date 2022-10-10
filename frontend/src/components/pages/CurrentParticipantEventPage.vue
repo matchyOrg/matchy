@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { supabase } from "@/services/supabase";
-import type { definitions } from "@/services/supabase-types";
+import type { definitions } from "@/services/generated/supabase-types";
 import { timestampToInstant } from "@/services/utils/datetime";
 import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";

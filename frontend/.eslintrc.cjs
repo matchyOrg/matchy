@@ -31,6 +31,6 @@ module.exports = {
   ignorePatterns: [
     "src/components.d.ts",
     "src/auto-imports.d.ts",
-    "src/services/supabase-types.ts",
+    "src/services/generated/supabase-types.ts",
   ],
 };

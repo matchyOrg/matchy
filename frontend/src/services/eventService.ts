@@ -191,7 +191,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     return fetchedEvent;
   }
-  // SELECT
+  // READ
   // ...
 
   /**
@@ -325,9 +325,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .match({ id });
     if (error) throw error;
   }
-
-  // DELETE
-  // ...
 
   async function registerForEvent(
     eventId: number,

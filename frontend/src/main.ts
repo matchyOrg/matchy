@@ -1,4 +1,6 @@
 import { createApp } from "vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import App from "./App.vue";
 import router from "./router";
 
@@ -21,6 +23,9 @@ const options: PluginOptions = {
   newestOnTop: true,
 };
 
+/**
+ * Internationalization
+ */
 // for integration with vuetify see: https://next.vuetifyjs.com/en/features/internationalization/
 import { createI18n, useI18n } from "vue-i18n";
 import en from "./locales/en.json";
