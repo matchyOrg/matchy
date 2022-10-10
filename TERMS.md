@@ -32,8 +32,7 @@ the frontend code of our application on their servers:
 Although the server is certified to be secure, the API is not.
 We do not take any liabalities for data breaches or misuses of the service.
 
-Furthermore this service is hosted by [Vercel](https://vercel.com/)
-
 By using this service you agree to the terms above.
+
 If you have any concerns or questions, you can read through this project's code base directly [on Github](https://github.com/matchyOrg/matchy) or contact the authors.
 
