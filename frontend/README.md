@@ -103,6 +103,14 @@ npm run type-gen
 npm run dev
 ```
 
+### Development and Testing on the Local Network
+```sh
+npm run start-network
+```
+
+and then visit the sites from other devices. Make sure to use `https`.
+
+
 ### Type-Check, Compile and Minify for Production
 ```sh
 npm run build
