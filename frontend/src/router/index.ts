@@ -39,6 +39,9 @@ import ForgotPassword from "@/components/pages/ForgotPassword.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import ResetPassword from "@/components/pages/ResetPassword.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import CurrentParticipantEventPage from "@/components/pages/CurrentParticipantEventPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,16 +94,11 @@ const router = createRouter({
     {
       path: "/events/:id/dashboard",
       component: EventDashboard,
-      name: "dashboard",
       meta: { requiresLogin: true },
     },
     {
       path: "/events/:id/participant",
-      component: () =>
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore disable
-        import("@/components/pages/CurrentParticipantEventPage.vue"), // lazy loading
-      name: "participant-view",
+      component: CurrentParticipantEventPage,
       meta: { requiresLogin: true },
     },
     {

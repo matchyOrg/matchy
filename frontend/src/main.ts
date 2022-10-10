@@ -4,17 +4,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
-import "./styles/global.css";
-
-/**
- * Pinia
- */
 import { createPinia } from "pinia";
 const pinia = createPinia();
 
-/**
- * Toastification
- */
 import Toast, { type PluginOptions } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 const options: PluginOptions = {
@@ -23,10 +15,6 @@ const options: PluginOptions = {
   newestOnTop: true,
 };
 
-/**
- * Internationalization
- */
-// for integration with vuetify see: https://next.vuetifyjs.com/en/features/internationalization/
 import { createI18n, useI18n } from "vue-i18n";
 import en from "./locales/en.json";
 import de from "./locales/de.json";
@@ -40,15 +28,11 @@ const i18n = createI18n({
   },
 });
 
-/**
- * Vuetify
- */
 import { createVuetify } from "vuetify";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
-
 const vuetify = createVuetify({
   theme: {
     defaultTheme: "light",

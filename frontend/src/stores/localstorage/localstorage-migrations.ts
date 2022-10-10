@@ -37,13 +37,9 @@ class Migration<ResultDatabase extends VersionedDatabase<number>> {
 // Make sure to *NEVER* change an existing migration that is used in production. Always add new migrations.
 const finalMigration = Migration.BaseMigration.addMigration(1, (db) => {
   return {
-    /**
-     * Version, always increment this
-     */
+    /** always increment this */
     version: 1,
-    /**
-     * Redirect to this page after login
-     */
+    /** Redirect to this page after login */
     redirect: "/",
   };
 });

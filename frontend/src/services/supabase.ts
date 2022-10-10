@@ -19,7 +19,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-// clients
 export type SafeSupabaseClient = {
   from<T extends keyof definitions>(
     table: T

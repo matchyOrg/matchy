@@ -91,12 +91,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     return data[0];
   }
 
-  /**
-   * Gets the current event's ongoing round if it exists else null
-   *
-   * @returns The current ongoing round or null
-   */
-  async function getCurrentRound(): Promise<
+  async function getCurrentOngoingRound(): Promise<
     definitions["event_rounds"] | null
   > {
     if (!currentEventId.value) throw new Error("There is no current event.");
@@ -134,7 +129,6 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     const { data, error } = await supabase
       .from("event_user_pairs")
       .select("*, event_rounds!inner(event_id, end_timestamp)")
-      // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: valid because of foreign key
       .eq("event_rounds.event_id", currentEventId.value)
@@ -230,7 +224,7 @@ export const useCurrentEventStore = defineStore("current-event", () => {
     setCurrentId,
     startEvent,
     startNewRound,
-    getCurrentRound,
+    getCurrentOngoingRound,
     getCurrentEvent,
     confirmPresence,
     createPair,

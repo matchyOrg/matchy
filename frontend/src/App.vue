@@ -36,7 +36,7 @@ html {
   margin-left: 20px;
 }
 
-/* chrome browser 'autofill' fix */
+/* chrome browser's 'autofill' fix */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

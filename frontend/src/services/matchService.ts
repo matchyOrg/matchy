@@ -23,7 +23,6 @@ export type EventMatches = Omit<EventMatchesRaw, "matches"> & {
 export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
   async function getMatches(): Promise<EventMatches[]> {
     if (!authStore.user) return [];
-    // TODO: remove once we find a way to correctly type this
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: valid because of joins
     const {
@@ -32,13 +31,12 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
     }: { data: EventMatchesRaw[] | null; error: PostgrestError | null } =
       await supabase
         .from("events")
-        // top level filtering doesn't seem to work with supabase filters
-        // using postgrest syntax: https://postgrest.org/en/stable/api.html#embedding-with-top-level-filtering
+        // top level filtering doesn't seem to work with supabase filters using postgrest syntax
+        //    see: https://postgrest.org/en/stable/api.html#embedding-with-top-level-filtering
         // to filter the events based on whether the user is registered, otherwise organizers see their own events
         .select(
           `id, title, resultsPublished:results_published, matches:event_registrations(present, uid:user_id, profile:profiles(fullName:full_name, email, description)), allRegs:event_registrations!inner(*)`
         )
-        // TODO: remove once we find a way to correctly type this
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore: valid because of joins
         .eq("allRegs.user_id", authStore.user.id)
@@ -68,6 +66,7 @@ export function useMatchService(authStore: ReturnType<typeof useAuthStore>) {
       });
     return eventMatches ?? [];
   }
+
   return {
     getMatches,
   };

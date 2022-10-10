@@ -20,15 +20,14 @@
         <!--TODO: Add loading indicator using fetchPageItems.loading-->
         <v-pagination
           :length="Math.ceil(totalSize / pageSize)"
-          v-model="vuetifyAutismPageIndex"
+          v-model="vPageIndex"
         ></v-pagination>
       </div>
     </v-container>
   </v-main>
 </template>
 <script setup lang="ts">
-import type { EventInfo, EventSearchParams } from "@/services/eventService";
-import { Temporal } from "@js-temporal/polyfill";
+import type { EventInfo } from "@/services/eventService";
 import { useI18n } from "vue-i18n";
 import { useEventService } from "@/services/eventService";
 import { useAuthStore } from "@/stores/auth";
@@ -38,7 +37,7 @@ const authStore = useAuthStore();
 const eventService = useEventService(authStore);
 const eventPage = ref<EventInfo[]>([]);
 const pageIndex = ref(0);
-const vuetifyAutismPageIndex = computed({
+const vPageIndex = computed({
   get() {
     return pageIndex.value + 1;
   },
@@ -63,15 +62,5 @@ onMounted(async () => {
 
 watch(pageIndex, () => {
   fetchPageItems.handler(pageIndex.value, pageSize.value);
-});
-
-const searchParams = ref<EventSearchParams>({
-  title: "",
-  location: "",
-  maxParticipants: "",
-  fromDate: Temporal.Now.instant(),
-  toDate: Temporal.Now.instant(),
-  groupNameA: "",
-  groupNameB: "",
 });
 </script>

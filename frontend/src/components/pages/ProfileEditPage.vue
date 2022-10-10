@@ -142,7 +142,7 @@ const loadingProfile = asyncLoading(async () => {
     return;
   }
   await profileService
-    .readProfile(user)
+    .fetchProfile(user)
     .then((profile) => {
       formData.value.email = profile.email;
       formData.value.fullName = profile.fullName;
