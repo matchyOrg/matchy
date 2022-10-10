@@ -11,7 +11,7 @@ import path from "path";
 const supabaseUrl = process.env.VITE_SUPABASE_URL + "/rest/v1/";
 // eslint-disable-next-line no-undef
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
-const outputPath = "./src/services/supabase-types.ts";
+const outputPath = "./src/services/generated/supabase-types.ts";
 
 if (!supabaseKey) {
   console.error("Please set VITE_SUPABASE_ANON_KEY environment variable");

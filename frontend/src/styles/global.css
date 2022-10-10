@@ -1,41 +1,11 @@
-:root {
-  /* bootstrap breakpoints */
-  --breakpoint-small: 567px;
-  --breakpoint-medium: 768px;
-  --breakpoint-large: 992px;
-  --breakpoint-extra-large: 1200px;
-
-  /* chrome breakpoints */
-  --mobile-s: 320px; /* 2010-era devices like the iPhone 4 */
-  --mobile-m: 375px; /* small modern devices */
-  --mobile-l: 435px; /* average modern flagship phones */
-
-  /* vuetify breakpoints */
-  --material-xs: 600px;
-  --material-sm: 960px;
-  --material-md: 1264px;
-  --material-lg: 1904px;
-  --material-xl: 1904px;
-}
-
-html,
-body {
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  /* emulated mobile view, until we bother writing better desktop styles */
-  /* max-width: var(--mobile-l); */
-}
-
-/* just for development, TODO: remove before deployment! */
-html {
-  background-color: #f6f6f6;
-}
-
-/* no background-color change for form fields in chrome after autofill */
+/* CHROME BROWSER FIX: no background-color change for form fields after autofill */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
+}
+
+html {
+  background-color: #f6f6f6;
 }

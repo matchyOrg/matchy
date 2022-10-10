@@ -8,7 +8,7 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/module/lib/SupabaseQueryBuilder";
-import type { definitions } from "./supabase-types";
+import type { definitions } from "./generated/supabase-types";
 
 // credentials
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;

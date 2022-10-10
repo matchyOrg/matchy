@@ -10,6 +10,7 @@ export const useAuthStore = defineStore("user", () => {
   const isLoggedIn = computed(() => user.value !== null);
 
   const redirect = storageRef("redirect");
+
   // user setter
   async function setUserStore(newUser: User | null) {
     console.log("Updating user state", newUser);
@@ -26,7 +27,7 @@ export const useAuthStore = defineStore("user", () => {
 
   // profile setter
   function setProfileStore(newProfile: Profile) {
-    console.warn("Updating profile state", newProfile);
+    console.log("Updating profile state", newProfile);
     profile.value = newProfile;
   }
 

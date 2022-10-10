@@ -11,7 +11,7 @@ export interface Profile {
 export function useProfileService() {
   const authStore = useAuthStore();
 
-  // SELECT
+  // READ
   async function readProfile(user: User) {
     console.log("Called useProfileService.readProfile()");
 
@@ -37,8 +37,6 @@ export function useProfileService() {
     };
     return retArg;
   }
-
-  // TODO: Refactor updateProfile to take a user/profile oject instead of reading it from the store
 
   // UPDATE
   async function updateProfile(newProfile: Profile) {
@@ -76,9 +74,6 @@ export function useProfileService() {
     authStore.setProfileStore(updatedProfile);
     return updatedProfile;
   }
-
-  // DELETE
-  // ...
 
   return {
     readProfile,

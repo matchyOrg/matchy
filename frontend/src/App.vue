@@ -1,20 +1,5 @@
 <template>
   <v-app class="application" full-height>
-    <!--
-    <v-app-bar app :model-value="!!authStore.user">
-      <v-app-bar-nav-icon
-        @click="sideBarVisible = !sideBarVisible"
-      ></v-app-bar-nav-icon>
-      <v-app-bar-title id="nav-title"></v-app-bar-title>
-      <v-spacer />
-      <div class="mr-4" id="nav-right"></div>
-    </v-app-bar>
-    <SideBar
-      v-if="authStore.user"
-      :visible="sideBarVisible"
-      @update:visible="(value) => (sideBarVisible = value)"
-    />-->
-    <!-- content -->
     <RouterView />
     <bottom-nav-bar v-if="authStore.user" />
   </v-app>
@@ -22,26 +7,42 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
-
-const sideBarVisible = ref(false);
-
-// update auth state on app load
-const authStore = useAuthStore();
+const authStore = useAuthStore(); // updates store on init
 const router = useRouter();
 
 watch(
   () => authStore.user,
   () => {
-    if (authStore.user === null) router.push("/login");
-  }
+    if (authStore.user === null) {
+      router.push("/login");
+    }
+  },
+  { immediate: true }
 );
 </script>
 
 <style>
-.application {
-  max-width: 435px;
-  margin: 0 auto;
+/* mobile breakpoint variables */
+:root {
+  /* chrome */
+  --mobile-s: 320px;
+  --mobile-m: 375px;
+  --mobile-l: 435px;
+
+  /* vuetify */
+  --material-xs: 600px;
+  --material-sm: 960px;
+
+  /* tailwind css */
+  --sm: 640px;
+  --md: 768px;
 }
+.application {
+  margin: 0 auto;
+  /* not resposive - mobile only */
+  max-width: var(--mobile-l);
+}
+
 .v-main {
   margin-right: 20px;
   margin-left: 20px;

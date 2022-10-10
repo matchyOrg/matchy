@@ -11,7 +11,7 @@ export async function shareEvent(
   let shareText;
 
   if (!authStore.isRegistered) {
-    shareText = `Join the event "${event.title} on Matchy 🐱"`;
+    shareText = `Join the event "${event.title} on Matchy 🌱!`;
   } else if (event.organizer === authStore.user?.id) {
     shareText = `${authStore.profile.fullName} invited you to their event "${event.title}"`;
   } else {

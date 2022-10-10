@@ -2,7 +2,7 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import { supabase } from "@/services/supabase";
 import { Temporal } from "@js-temporal/polyfill";
-import type { definitions } from "@/services/supabase-types";
+import type { definitions } from "@/services/generated/supabase-types";
 import { useAuthStore } from "./auth";
 import type { EventInfo } from "@/services/eventService";
 import { timestampToInstant } from "@/services/utils/datetime";
