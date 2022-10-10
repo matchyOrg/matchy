@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import "./polyfills";
 
 import "./styles/global.css";
 
@@ -65,6 +66,17 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+app.config.errorHandler = async (err, instance, info) => {
+  console.error({
+    err,
+    instance,
+    info,
+  });
+  errorToast(err);
+  errorToast((err as any).stack || "");
+  errorToast(info);
+};
+
 app.use(router);
 app.use(pinia);
 app.use(i18n);
