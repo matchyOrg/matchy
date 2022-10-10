@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "start-network": "vite --host",
     "dev": "vite --open",
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",

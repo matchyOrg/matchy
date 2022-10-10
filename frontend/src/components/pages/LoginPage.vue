@@ -65,9 +65,16 @@
                 class="ref"
                 size="small"
                 variant="text"
-                icon="mdi-google"
+                icon
                 @click="oAuthLogin.handler('google')"
-              />
+              >
+                <img
+                  src="@/assets/googleLogo.svg"
+                  alt="google"
+                  width="16"
+                  height="16"
+                />
+              </v-btn>
               <v-btn
                 size="small"
                 variant="text"
@@ -79,7 +86,7 @@
         </v-form>
       </div>
       <div
-        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-12"
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-8"
       >
         <span>{{ t("pages.login.no-account") }}</span>
         <v-btn to="/signup" size="x-small" variant="text" color="primary">{{
@@ -87,7 +94,7 @@
         }}</v-btn>
       </div>
       <div
-        class="d-flex align-center justify-center text-small text-grey font-weight-bold"
+        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-8"
       >
         <v-btn
           :to="{
@@ -171,35 +178,6 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
 </script>
 
 <style scoped>
-.ref:deep(.mdi-google) {
-  background: black;
-}
-
-/* Rainbow colors for google icon if the browser is not Safari */
-@supports (
-  background:
-    conic-gradient(
-      from -45deg,
-      #ea4335 110deg,
-      #4285f4 90deg 180deg,
-      #34a853 180deg 270deg,
-      #fbbc05 270deg
-    )
-) {
-  .ref:deep(.mdi-google) {
-    background: conic-gradient(
-        from -45deg,
-        #ea4335 110deg,
-        #4285f4 90deg 180deg,
-        #34a853 180deg 270deg,
-        #fbbc05 270deg
-      )
-      73% 55%/150% 150% no-repeat;
-    background-clip: text;
-    color: transparent;
-  }
-}
-
 .text-small {
   font-size: 12px;
 }
