@@ -59,11 +59,13 @@
     <!--TODO: Proper styling and placing for this button-->
     <v-btn
       v-if="!loadingEvent && eventStarted && !eventEnded"
-      icon="mdi-close-octagon"
-      variant="text"
+      variant="tonal"
+      color="error"
       @click="endEvent"
-      >End event</v-btn
     >
+      <v-icon left>mdi-close</v-icon>
+      End event
+    </v-btn>
   </v-main>
 </template>
 
