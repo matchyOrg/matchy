@@ -5,11 +5,11 @@ It was made as a proof of concept and is not intended for commercial usage.
 
 ### Client Side
 The client does not store any personal data other than an authentication token
-linked to the user credentials, which is necessary for the user to stay logged in, which is managed by
+linked to the user credentials, necessary for the user to stay logged in and managed by
 the Supabase frontend library.
 
-Furthermore all legal documents from [our used frontend libraries](https://github.com/matchyOrg/matchy/blob/main/frontend/package-lock.json)
-also apply to this application.
+All legal documents from [our used frontend libraries](https://github.com/matchyOrg/matchy/blob/main/frontend/package-lock.json)
+including those from Supabase, mentioned above, also apply to this application.
 
 <br>
 
