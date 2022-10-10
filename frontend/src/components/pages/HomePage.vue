@@ -172,9 +172,7 @@ function groupCurrentAndFutureEvents(events: EventInfo[]) {
   // or in 30 minutes at the earliest
   // or have started but not ended
   const current = events.filter((e) => {
-    const diff = Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).since(
-      e.datetime
-    );
+    const diff = Temporal.Now.instant().since(e.datetime);
     return (
       diff.abs().total({ unit: "hour" }) <= 1 || (e.is_started && !e.is_ended)
     );

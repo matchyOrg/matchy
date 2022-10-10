@@ -1,15 +1,15 @@
 import { Temporal } from "@js-temporal/polyfill";
 
-export function timestamptzToTemporalZonedDateTime(
-  timestamptz: string
-): Temporal.ZonedDateTime {
-  return Temporal.Instant.from(timestamptz).toZonedDateTimeISO(
-    Temporal.Now.timeZone()
-  );
+export type IsoTimestampString = string;
+
+export function timestampToInstant(timestamp: IsoTimestampString) {
+  return Temporal.Instant.from(timestamp);
 }
 
-export function dateXHoursAgo(x: number) {
-  return Temporal.Now.zonedDateTimeISO(Temporal.Now.timeZone()).subtract(
-    new Temporal.Duration(0, 0, 0, 0, x)
-  );
+export function getUserTimeZone() {
+  return Temporal.Now.timeZone();
+}
+
+export function instantToZonedDateTime(instant: Temporal.Instant) {
+  return instant.toZonedDateTimeISO(Temporal.Now.timeZone());
 }

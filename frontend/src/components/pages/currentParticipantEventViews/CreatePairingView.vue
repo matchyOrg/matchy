@@ -20,16 +20,17 @@
       </div>
       <vue-qrcode
         :value="userId"
-        :color="{
-          dark: '#000',
-          light: '#fff',
-        }"
         type="image/png"
         :quality="0.92"
         :width="250"
+        :color="{
+          dark: '#000',
+          light: '#fff',
+        } as any"
       ></vue-qrcode>
       <v-dialog v-model="showQrReader">
         <div class="p-relative fullscreen">
+          <!-- TODO: maybe use https://github.com/nimiq/qr-scanner -->
           <qrcode-stream
             v-if="showQrReader"
             @init="onReaderInit"
