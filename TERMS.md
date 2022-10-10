@@ -11,6 +11,10 @@ the Supabase frontend library.
 All legal documents from [our used frontend libraries](https://github.com/matchyOrg/matchy/blob/main/frontend/package-lock.json)
 including those from Supabase, mentioned above, also apply to this application.
 
+And so do all legal documents that apply to [Vercel](https://vercel.com/legal/terms) which hosts
+the frontend code of our application on their servers:
+- [Terms of Service](https://vercel.com/legal/terms)
+
 <br>
 
 ### Server Side 
@@ -20,9 +24,6 @@ Therefore all legal documents that apply to Supabase also apply to this applicat
 - [Data Processing Addendum](https://supabase.com/legal/dpa) (Supabase is GDPR compliant)
 - [Privacy Policy](https://supabase.com/docs/company/privacy)
 - [Trust Reports](https://security.supabase.com/)
-
-And so do all legal documents that apply to [Vercel]() which hosts our application on their servers:
-- [Terms of Service](https://vercel.com/legal/terms)
 
 <br>
 
