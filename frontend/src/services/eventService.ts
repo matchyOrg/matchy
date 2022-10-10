@@ -149,11 +149,11 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         "*, event_group_pair:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description))"
       )
       .eq("organizer", authStore.user.id)
-      .not("is_cancelled", "eq", true)
+      /*.not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
       .or(
         `datetime.gt.${getAnHourAgo().toString()},and(is_started.eq.true,is_ended.eq.false)`
-      )
+      )*/
       .order("datetime", { ascending: true });
 
     if (error) {
