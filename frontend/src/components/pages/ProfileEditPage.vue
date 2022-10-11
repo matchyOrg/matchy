@@ -156,7 +156,14 @@ loadingProfile.handler();
 
 const onSubmit = asyncLoading(async () => {
   try {
-    await profileService.updateProfile(formData.value);
+    if (!authStore.user || !authStore.user.email) {
+      throw Error("Please log in first");
+    }
+    const updatedProfile = await profileService.updateProfile(
+      authStore.user,
+      formData.value
+    );
+    authStore.setProfileStore(updatedProfile);
     successToast(t("pages.profile.update-success"));
   } catch (error: any) {
     errorToast(error);

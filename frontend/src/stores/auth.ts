@@ -99,7 +99,7 @@ export const useAuthStore = defineStore("user", () => {
     user,
     isLoggedIn,
     setUserStore,
-    profile,
+    profile: computed(() => profile.value),
     isRegistered,
     setProfileStore,
     login,
