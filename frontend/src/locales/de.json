@@ -140,7 +140,8 @@
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",
       "no-org-events": "Du hast keine bevorstehenden Events",
-      "no-org-events-cta": "Erstelle ein Event"
+      "no-org-events-cta": "Erstelle ein Event",
+      "to-action": "Los gehts"
     },
     "login": {
       "already-signed-up": "Schon registriert?",

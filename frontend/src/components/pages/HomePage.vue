@@ -37,7 +37,7 @@
             :to="'/events/' + e.id + '/participant'"
             color="primary"
             size="small"
-            >To action</v-btn
+            >{{ t("pages.home.to-action") }}</v-btn
           >
           <v-btn
             v-else
