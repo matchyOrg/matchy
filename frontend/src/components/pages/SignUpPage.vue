@@ -27,6 +27,7 @@
         <img
           src="@/assets/googleLogo.svg"
           alt="google"
+          class="mr-2"
           width="16"
           height="16"
         />
