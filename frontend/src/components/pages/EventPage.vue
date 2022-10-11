@@ -9,18 +9,11 @@
         height="200"
         color="#E0E0E0"
         elevation="0"
+        v-if="matchyEvent?.header_image"
       >
-        <v-img
-          cover
-          width="100%"
-          v-if="matchyEvent?.header_image"
-          :src="imageHeaderSrc"
-        />
-        <span v-else class="pa-4">
-          Replace this with an actual placeholder in case no thumbnail is
-          available
-        </span>
+        <v-img cover width="100%" :src="imageHeaderSrc" />
       </v-card>
+      <div v-else class="mt-8"></div>
 
       <event-info
         :loading="loadingEvent"
