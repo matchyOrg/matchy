@@ -29,8 +29,8 @@
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          {{ t("pages.forgot-password.reset") }}</v-btn
-        >
+          {{ t("pages.forgot-password.reset") }}
+        </v-btn>
       </v-form>
     </v-container>
   </v-main>
