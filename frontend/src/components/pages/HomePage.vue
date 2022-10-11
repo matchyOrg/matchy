@@ -1,14 +1,8 @@
 <template>
-  <!-- MAKE THIS THE HEADER EVERYWHERE -->
-  <!-- <header class="d-flex align-center mb-6">
-    <img class="mr-2" src="@/assets/matchyLogo.svg" height="19" />
-    <h2 class="text-h6 font-weight-bold">AYOOO</h2>
-  </header> -->
-
   <v-main>
     <v-container>
       <!-- Greeting -->
-      <section class="mb-7">
+      <section class="mb-6">
         <h2
           v-if="authStore.isRegistered"
           class="mt-1 text-grey font-weight-regular"
@@ -32,13 +26,13 @@
       </section>
 
       <!-- Events currently running -->
-      <section>
-        <h2
-          v-if="currentUserEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
-        >
-          {{ t("pages.home.confirm-presence-header") }}
-        </h2>
+      <section v-if="currentUserEvents.length > 0" class="mb-12">
+        <header class="d-flex align-center mb-4">
+          <img class="mr-2" src="@/assets/matchyLogo.svg" height="17" />
+          <h2 class="text-h6 font-weight-bold">
+            {{ t("pages.home.confirm-presence-header") }}
+          </h2>
+        </header>
         <event-list-item
           class="mb-4"
           v-for="(e, i) in currentUserEvents"
@@ -67,10 +61,13 @@
       </section>
 
       <!-- Participant view -->
-      <section>
-        <h2 class="text-h6 font-weight-bold mb-4">
-          {{ t("pages.home.future-events-visiting-header") }}
-        </h2>
+      <section class="mb-12">
+        <header class="d-flex align-center mb-4">
+          <img class="mr-2" src="@/assets/matchyLogo.svg" height="17" />
+          <h2 class="text-h6 font-weight-bold">
+            {{ t("pages.home.future-events-visiting-header") }}
+          </h2>
+        </header>
         <template v-if="futureUserEvents.length > 0">
           <event-list-item
             class="mb-4"
@@ -91,14 +88,17 @@
         </div>
       </section>
 
-      <!-- Organizer events -->
-      <section>
-        <div
+      <!-- Active events -->
+      <section class="mb-12">
+        <header
           v-if="currentOrganizerEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
+          class="d-flex align-center mb-4"
         >
-          {{ t("pages.home.active-event") }}
-        </div>
+          <img class="mr-2" src="@/assets/matchyLogo.svg" height="17" />
+          <h2 class="text-h6 font-weight-bold">
+            {{ t("pages.home.active-event") }}
+          </h2>
+        </header>
         <event-list-item
           class="mb-4"
           v-for="(e, i) in currentOrganizerEvents"
@@ -114,17 +114,25 @@
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/dashboard'"
               color="primary"
-              >{{ t("pages.home.active-event-action") }}</v-btn
             >
+              {{ t("pages.home.active-event-action") }}
+            </v-btn>
             <v-btn v-else color="primary" @click.prevent="startEvent(e.id)"
               >Start Event</v-btn
             >
           </v-card-actions>
         </event-list-item>
+      </section>
 
-        <div class="text-h6 font-weight-bold mb-4">
-          {{ t("pages.home.future-events-hosting-header") }}
-        </div>
+      <!-- organizer events -->
+      <section class="mb-12">
+        <header class="d-flex align-center mb-4">
+          <img class="mr-2" src="@/assets/matchyLogo.svg" height="17" />
+          <h2 class="text-h6 font-weight-bold">
+            {{ t("pages.home.future-events-hosting-header") }}
+          </h2>
+        </header>
+        <div class="text-h6 font-weight-bold mb-4"></div>
         <template v-if="futureOrganizerEvents.length > 0">
           <event-list-item
             class="mb-4"

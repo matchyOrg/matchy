@@ -20,11 +20,10 @@
   <div class="mb-4 d-flex align-center" v-if="loading || datetimeToDisplay">
     <v-icon class="mr-4" size="small" color="grey-darken-2">mdi-clock</v-icon>
     <skeleton-loader v-if="loading" width="200" />
-    <span v-else-if="datetimeToDisplay"
-      >{{ String(datetimeToDisplay.hour).padStart(2, "0") }}:{{
-        String(datetimeToDisplay.minute).padStart(2, "0")
-      }}</span
-    >
+    <span v-else-if="datetimeToDisplay">
+      {{ String(datetimeToDisplay.hour).padStart(2, "0") }}
+      :{{ String(datetimeToDisplay.minute).padStart(2, "0") }}
+    </span>
   </div>
 </template>
 
