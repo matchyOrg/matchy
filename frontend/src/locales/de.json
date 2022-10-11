@@ -52,7 +52,9 @@
         "end-event": "Event beenden",
         "end-event-question": "Willst du das Event beenden?",
         "round": "Runde",
-        "start-round": "Runde starten"
+        "start-round": "Runde starten",
+        "start-round-question": "Bist du sicher, dass du die nächste Runde starten möchtest? Nicht alle Teilnehmer haben die Abstimmung beendet.",
+        "start-round-title": "Nächste Runde starten?"
       },
       "prepare": {
         "loading-text": "Event wird geladen...",
