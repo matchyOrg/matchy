@@ -1,4 +1,3 @@
-import type { Ref, ShallowRef } from "vue";
 import { ExtendedLocalStorage } from "./localstorage-json";
 import {
   migrateToLatest,

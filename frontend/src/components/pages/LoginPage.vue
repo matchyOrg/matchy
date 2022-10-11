@@ -1,9 +1,8 @@
 <template>
   <v-main>
     <v-container>
-      <!-- logo -->
       <SiteLogo class="my-12"></SiteLogo>
-      <!-- email field -->
+
       <div class="mx-5 mt-16">
         <v-form
           class="mt-8 mb-5"
@@ -30,11 +29,6 @@
             @click:append-inner="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
-          <!-- <div class="text-right">
-            <v-btn variant="text" class="text-blue" to="/signup">{{
-              t("pages.login.not-signed-up")
-            }}</v-btn>
-          </div> -->
           <span v-if="error" class="text-red text-center d-block my-2">{{
             error
           }}</span>
@@ -112,12 +106,18 @@
 
   <v-footer class="d-flex justify-center pb-4">
     <!-- other links -->
-    <router-link to="/about" class="mx-4 text-grey">
+    <a
+      href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
+      class="mx-4 text-grey"
+    >
       {{ t("pages.login.footer-about-us") }}
-    </router-link>
-    <router-link to="/legal" class="mx-4 text-grey">
+    </a>
+    <a
+      href="https://github.com/matchyOrg/matchy/blob/main/TERMS.md"
+      class="mx-4 text-grey"
+    >
       {{ t("pages.login.footer-legal-notice") }}
-    </router-link>
+    </a>
   </v-footer>
 </template>
 

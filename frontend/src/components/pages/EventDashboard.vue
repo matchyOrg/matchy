@@ -238,7 +238,7 @@ onMounted(async () => {
     startingRound.value = true;
     let currentRound;
     try {
-      currentRound = await currentEvent.getCurrentRound();
+      currentRound = await currentEvent.getCurrentOngoingRound();
     } catch (e) {
       errorToast(e);
       return;

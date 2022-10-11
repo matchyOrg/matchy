@@ -41,46 +41,7 @@
       "title-placeholder": "Eventtitel"
     }
   },
-  "pageMode": {
-    "organizer": "Organisierer",
-    "participant": "Teilnehmer"
-  },
   "pages": {
-    "about": {
-      "community": {
-        "p1": "Das Entwickeln wäre jedoch ohne die Hilfe unserer Freunde und der Matchy Community nicht möglich. Das wertvolle Feedback hilft uns Matchy immer weiter zu verbessern und motiviert uns am Ball zu bleiben. ",
-        "p2": "Wir hoffen, dass dieses Projekt dir Freude bringt und dir hilft fröhliche Erinnerungen und langanhaltende Beziehungen aufzubauen.",
-        "title": "🧑‍🤝‍🧑 Die Community"
-      },
-      "devs": {
-        "daniel": {
-          "p1": "Daniel ist der \"Rapid Prototyper\" im Team mit der meisten Erfahrung in der Software-Industrie. Er entwickelt essentielle Feature zuverlässig und mit großer Acht auf Qualität.",
-          "title": "Der Rapid Prototyper."
-        },
-        "description": "Das Entwicklerteam umfasst momentan die folgenden Contributor:",
-        "marco": {
-          "p1": "Marco hat die Verantwortung übernommen die Applikationsarchitektur zu entwerfen und hat fast das gesamte Backend (inklusive Postgres Datenbank, Postgres Cronjobs, Edge Functions, RPCs, Input validation und Security Policies) implementiert.",
-          "p2": "Er entwarf ebenfalls viele Diagramme, die zum Verständnis der Echtzeitprozesse, auf denen diese Applikation basiert, beigetragen haben. Marco ist verantwortlich für die Implementierung großer Teile des Frontends und verbesserte die Leistung und Sicherheit dieser Applikation enorm.",
-          "title": "Der Architekt."
-        },
-        "stefan": {
-          "p1": "Stefan ist der kundigste Frontend-Entwickler im Team. Er hat persönlich jeden einzelnen Beitrag überprüft und uns geholfen ein besseres Verständnis für fortgeschrittene Vue.js-Konzepze zu gewinnen.",
-          "p2": "Er entschied welche Technologien im Frontend zum Einsatz kamen und übernahm das Aufsetzen des Frontends mit allen notwendigen Technologien. Stefan fand immer die elegantesten und effizientesten Lösungen für unsere UI/UX Probleme.",
-          "p3": "Er ist im Team bekannt als \"Frontend Sensei\", weil er sehr geduldig mit Neuankömmlingen ist und ihnen alles beigebracht hat, was sie über Vue.js und das Frontend-Eco-System wissen müssen. ",
-          "title": "Der Webentwickler."
-        },
-        "title": "Die Devs",
-        "yahya": {
-          "p1": "Diese App war ursprünglich seine Idee und ist der zweite Versuch basierend auf einer vorherigen Iteration namens {0}.",
-          "p2": "Nachdem er die nötigen Eigenschaften dieser Iteration definiert und die Mockups designt hat, sammelte Yahya alle seine Freund zu einem Team zusammen und startete das Projekt.",
-          "p3": "Er behielt stets das Gesamtbild im Blick, indem er in allen Aspekten der Applikation mitwirkte und das Projekt effektiv verwaltete.",
-          "title": "Der Kickstarter."
-        }
-      },
-      "github-page": "Github Seite",
-      "github-plug": "Schaut bei unserer {0} vorbei, schaut euch den Source-Code an und lernt uns, unsere Philosophien und unsere Ziele kennen.",
-      "title": "🌱 Über uns"
-    },
     "dashboard": {
       "ongoing": {
         "round": "Runde",
@@ -175,7 +136,7 @@
       "ongoing-title": "Viel Spaß euch beiden!",
       "searching-manual-pair-button": "Paar",
       "searching-minutes-left": "minuten verbleiben",
-      "searching-subtitle": "Benutze den Qr-Scanner oder gib die id in die Textbox ein",
+      "searching-subtitle": "Benutze den QR-Scanner oder gib die id in die Textbox ein",
       "searching-title": "Zeit einen Partner für diese Runde zu finden!",
       "vote-subtitle": "Dein Partner sieht deine Entscheidung nicht sofort",
       "vote-title": "Mochtest du deinen Partner?",
@@ -191,7 +152,7 @@
       "description-placeholder": "Erzähl über dich: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
       "full-name-label": "Vollständiger Name",
       "full-name-placeholder": "Dein vollständiger Name",
-      "full-name-required": "Dein vollständiger ist erforderlich",
+      "full-name-required": "Dein vollständiger Name ist erforderlich",
       "register-button-text": "Profil fertigstellen",
       "sign-out-button-text": "ausloggen",
       "title": "Profil bearbeiten",
@@ -202,7 +163,7 @@
     },
     "reset-password": {
       "heading-p1": "Wähle ein neues Passwort",
-      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht mal merken. Ziemlich nützlich!",
+      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht Mal merken. Ziemlich nützlich!",
       "new-pw-success": "Dein neues Passwort wurde gespeichert"
     },
     "signup": {

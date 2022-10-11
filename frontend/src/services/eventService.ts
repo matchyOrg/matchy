@@ -2,7 +2,6 @@ import { Temporal } from "@js-temporal/polyfill";
 import type { useAuthStore } from "@/stores/auth";
 import { supabase } from "./supabase";
 import { timestampToInstant } from "./utils/datetime";
-import type { PostgrestError } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 
 export interface Group {
@@ -50,26 +49,9 @@ export interface EventRegistration {
   present: boolean;
 }
 
-export interface EventSearchParams {
-  title?: string;
-  location?: string;
-  maxParticipants?: string;
-  fromDate?: Temporal.Instant;
-  toDate?: Temporal.Instant;
-  groupNameA?: string;
-  groupNameB?: string;
-}
-
 export type CreateEventRegistration = Omit<EventRegistration, "id" | "present">;
 
 export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
-  function getPagination(pageIndex: number, size: number) {
-    const from = pageIndex * size;
-    const to = from + size;
-
-    return { from, to };
-  }
-
   const getAnHourAgo = () => Temporal.Now.instant().subtract({ hours: 1 });
 
   async function fetchEvents(options?: {
@@ -86,10 +68,10 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .gt("datetime", getAnHourAgo().toString())
       .order("datetime", { ascending: true });
     if (options?.pagination) {
-      const { from, to } = getPagination(
-        options?.pagination?.pageIndex,
-        options?.pagination?.size
-      );
+      const pageIndex = options?.pagination?.pageIndex;
+      const size = options?.pagination?.size;
+      const from = pageIndex * size;
+      const to = from + size;
       query = query.range(from, to - 1);
     }
 
@@ -101,7 +83,7 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       errorToast("Failed to fetch events");
       throw new Error("Failed to fetch events");
     }
-    // datetime is sent as string, need to parse it to Temporal ZonedDateTime datatype
+    // datetime as string parsed to TempralZoneDateTime
     const parsedEvents = events.map((e) => ({
       ...e,
       datetime: timestampToInstant(e.datetime),
@@ -116,7 +98,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .select(
         "*, event_group_pair:event_group_pairs(groupA:group_a(id, title, description), groupB:group_b(id, title, description)), event_registrations!inner(*)"
       )
-      // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: with the inner join this is valid
       .eq("event_registrations.user_id", authStore.user?.id)
@@ -130,7 +111,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     if (error) {
       throw error;
     }
-
     if (events === null) throw new Error("Could not load user's events");
 
     return events?.map((e) => ({
@@ -159,7 +139,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     if (error) {
       throw error;
     }
-
     if (events === null) throw new Error("Could not load user's events");
 
     return events.map((e) => ({
@@ -180,7 +159,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     if (error) {
       throw error;
     }
-
     if (!data) {
       throw new Error("Event with this ID does not exist");
     }
@@ -191,17 +169,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     return fetchedEvent;
   }
-  // READ
-  // ...
 
-  /**
-   * Uploads a new header image to storage
-   * @param headerImageFile File object to upload to storage.
-   * @returns the file path to retrieve from storage.
-   */
   async function uploadImage(headerImageFile: File): Promise<string> {
-    // TODO: 2022-10-03: Remove the iOS fallback in the future
-    const fileName = uuidv4(); // crypto.randomUUID();
+    const fileName = uuidv4(); // crypto.randomUUID(); -- iOS fallback
     const { data, error } = await supabase.storage
       .from("event-header-images")
       .upload(fileName, headerImageFile, {
@@ -212,11 +182,10 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     if (!data || !data.Key) {
       throw new Error("Received no data after uploading image");
     }
-    // return file path
+    // return file path for image from supabase storage
     return data.Key;
   }
 
-  // INSERT
   async function createEvent(eventData: EditEventInfo): Promise<number> {
     console.log("Called useEventService.createEvent()", eventData);
 
@@ -231,7 +200,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       eventData.header_image = await uploadImage(eventData.headerImageFile);
     }
 
-    let creationError: PostgrestError | null;
     let id: number;
     if (eventData.uses_groups) {
       if (!eventData.event_groups)
@@ -251,8 +219,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         groupBDescription: eventData.event_groups.groupB.description,
       });
       if (error) throw error;
-
-      // TODO: remove once we find a way to correctly type this
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore: supabase typing is wrong, this returns a number (the id)
       id = data as number;
@@ -269,7 +235,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
         {
           title,
           description,
-          // TODO: remove once we find a way to correctly type this
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore: supabase typing is wrong, this column is nullable
           header_image,
@@ -288,9 +253,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
 
     return id;
   }
-
-  // UPDATE
-  // ...
 
   async function updateEvent(id: number, eventData: EditEventInfo) {
     const {
@@ -314,7 +276,6 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .update({
         title,
         description,
-        // TODO: remove once we find a way to correctly type this
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore: supabase typing is wrong, this column is nullable
         header_image,
@@ -324,6 +285,19 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       })
       .match({ id });
     if (error) throw error;
+  }
+
+  async function isRegisteredForEvent(eventId: number): Promise<boolean> {
+    if (!authStore.user?.id) return false;
+
+    const { error, count } = await supabase
+      .from("event_registrations")
+      .select("id", { count: "exact", head: true })
+      .eq("event_id", eventId)
+      .eq("user_id", authStore.user?.id);
+
+    if (error) throw error;
+    return count != 0;
   }
 
   async function registerForEvent(
@@ -341,28 +315,14 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
     if (error) throw error;
   }
 
-  async function isRegisteredForEvent(eventId: number): Promise<boolean> {
-    if (!authStore.user?.id) return false;
-
-    const { error, count } = await supabase
-      .from("event_registrations")
-      .select("id", { count: "exact", head: true })
-      .eq("event_id", eventId)
-      .eq("user_id", authStore.user?.id);
-
-    if (error) throw error;
-    return count != 0;
-  }
-
   return {
     createEvent,
     updateEvent,
     fetchEvents,
     fetchEventById,
+    fetchOrganizerEvents,
     fetchUserEvents,
     isRegisteredForEvent,
     registerForEvent,
-    fetchOrganizerEvents,
-    getPagination,
   };
 }

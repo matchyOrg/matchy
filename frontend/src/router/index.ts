@@ -1,18 +1,47 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomePage from "../components/pages/HomePage.vue";
-import LoginPage from "../components/pages/LoginPage.vue";
-import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import HomePage from "@/components/pages/HomePage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import LoginPage from "@/components/pages/LoginPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import ProfileEditPage from "@/components/pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
-import EventEditPage from "../components/pages/EventEditPage.vue";
-import EventCreatePage from "../components/pages/EventCreatePage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import EventEditPage from "@/components/pages/EventEditPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import EventCreatePage from "@/components/pages/EventCreatePage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import MatchesPage from "@/components/pages/MatchesPage.vue";
-import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import LoginCallbackPage from "@/components/pages/LoginCallbackPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import EventPage from "@/components/pages/EventPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import EventSearchPage from "@/components/pages/EventSearchPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import EventDashboard from "@/components/pages/EventDashboard.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import SignUpPage from "@/components/pages/SignUpPage.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import ForgotPassword from "@/components/pages/ForgotPassword.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
 import ResetPassword from "@/components/pages/ResetPassword.vue";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore disable
+import CurrentParticipantEventPage from "@/components/pages/CurrentParticipantEventPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,14 +61,6 @@ const router = createRouter({
     {
       path: "/reset-password",
       component: ResetPassword,
-    },
-    {
-      path: "/about",
-      component: () => import("../components/pages/AboutPage.vue"), // lazy-loading
-    },
-    {
-      path: "/legal",
-      component: () => import("../components/pages/LegalPage.vue"), // lazy-loading
     },
     {
       path: "/",
@@ -62,7 +83,6 @@ const router = createRouter({
       meta: { requiresLogin: true },
     },
     {
-      // TODO: Maybe change to /events/:id/edit
       path: "/edit-event/:id",
       component: EventEditPage,
       meta: { requiresLogin: true },
@@ -74,14 +94,11 @@ const router = createRouter({
     {
       path: "/events/:id/dashboard",
       component: EventDashboard,
-      name: "dashboard",
       meta: { requiresLogin: true },
     },
     {
       path: "/events/:id/participant",
-      component: () =>
-        import("@/components/pages/CurrentParticipantEventPage.vue"),
-      name: "participant-view",
+      component: CurrentParticipantEventPage,
       meta: { requiresLogin: true },
     },
     {
@@ -89,9 +106,6 @@ const router = createRouter({
       component: EventPage,
       name: "event-detail",
     },
-
-    // TODO: Better supabase callback handling https://github.com/JMaylor/vuepabase/blob/5e5668af6b4430a0c6dc7f6b72b38f885de2d2de/src/router.ts#L51
-    // not sure if /callback is the correct route though ^
     {
       path: "/callback",
       component: LoginCallbackPage,
@@ -106,7 +120,6 @@ const router = createRouter({
   },
 });
 
-// Check requirements to enter a route
 router.beforeEach((to, _from, next) => {
   // requiresLogin
   const loggedIn = supabase.auth.user();

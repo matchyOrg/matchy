@@ -11,9 +11,8 @@ export interface Profile {
 export function useProfileService() {
   const authStore = useAuthStore();
 
-  // READ
-  async function readProfile(user: User) {
-    console.log("Called useProfileService.readProfile()");
+  async function fetchProfile(user: User) {
+    console.log("Called useProfileService.fetchProfile()");
 
     if (!user.email) {
       throw Error("User is not logged in");
@@ -38,14 +37,12 @@ export function useProfileService() {
     return retArg;
   }
 
-  // UPDATE
   async function updateProfile(newProfile: Profile) {
     console.log("Called useProfileService.updateProfile()", newProfile);
 
     if (!authStore.user || !authStore.user.email) {
       throw Error("Please log in first");
     }
-    // TODO: Add a proper validation library like https://github.com/colinhacks/zod
     if (!newProfile.fullName) {
       throw Error("Please register first");
     }
@@ -76,7 +73,7 @@ export function useProfileService() {
   }
 
   return {
-    readProfile,
+    fetchProfile,
     updateProfile,
   };
 }

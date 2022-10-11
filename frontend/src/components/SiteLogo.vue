@@ -1,12 +1,8 @@
-<script setup lang="ts">
-import { version } from "@/../package.json";
-</script>
 <template>
   <div class="stacked-container">
     <div class="logo-wrapper">
       <img src="@/assets/matchyLogoGreen.svg" height="40" />
     </div>
-
     <div class="subText text-grey-darken-3">paperless speed dating</div>
   </div>
 </template>

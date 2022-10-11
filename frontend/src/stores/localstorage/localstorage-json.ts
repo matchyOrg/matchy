@@ -1,6 +1,5 @@
-// https://stackoverflow.com/a/73155667/3492994
-
 function stringifyReplacer(key: string, value: any) {
+  // see: https://stackoverflow.com/a/73155667/3492994
   if (typeof value === "object" && value !== null) {
     if (value instanceof Map) {
       return {
@@ -13,7 +12,7 @@ function stringifyReplacer(key: string, value: any) {
         value: Array.from(value.values()),
       };
     } else if ("_meta" in value) {
-      // Escape "_meta" properties
+      // escape "_meta" properties
       return {
         ...value,
         _meta: {
