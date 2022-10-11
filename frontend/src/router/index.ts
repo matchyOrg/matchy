@@ -83,8 +83,9 @@ const router = createRouter({
       meta: { requiresLogin: true },
     },
     {
-      path: "/edit-event/:id",
+      path: "/event/:id/edit",
       component: EventEditPage,
+      name: "event-edit",
       meta: { requiresLogin: true },
     },
     {
