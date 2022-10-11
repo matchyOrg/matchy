@@ -10,6 +10,8 @@ export const useAuthStore = defineStore("user", () => {
   const isLoggedIn = computed(() => user.value !== null);
 
   const redirect = storageRef("redirect");
+  const redirectTo =
+    new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
 
   async function setUserStore(newUser: User | null) {
     console.log("Updating user state", newUser);
@@ -39,13 +41,11 @@ export const useAuthStore = defineStore("user", () => {
   setUserStore(supabase.auth.user());
 
   async function signUp(email: string, password: string) {
-    const redirectURL =
-      new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
     redirect.value = "/edit-profile";
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { error, user, session } = await supabase.auth.signUp(
       { email, password },
-      { redirectTo: redirectURL }
+      { redirectTo }
     );
 
     if (error) throw error;
@@ -58,8 +58,6 @@ export const useAuthStore = defineStore("user", () => {
 
   async function oAuthLogin(provider: Provider, afterLoginRedirect: string) {
     redirect.value = afterLoginRedirect;
-    const redirectTo =
-      new URL(import.meta.env.BASE_URL, window.location.origin) + "callback";
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { user, session, error } = await supabase.auth.signIn(
       { provider: provider },
@@ -84,10 +82,7 @@ export const useAuthStore = defineStore("user", () => {
   }
 
   async function resetPassword(email: string) {
-    const redirectTo =
-      new URL(import.meta.env.BASE_URL, window.location.origin) +
-      "reset-password";
-
+    redirect.value = "/reset-password";
     const { error } = await supabase.auth.api.resetPasswordForEmail(email, {
       redirectTo,
     });

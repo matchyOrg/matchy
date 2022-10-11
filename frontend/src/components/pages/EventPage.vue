@@ -76,12 +76,6 @@
         :total-registered-count="totalRegisteredCount"
       />
       <div class="d-flex justify-center mt-8">
-        <v-btn v-if="isOrganizer" @click="onEdit">
-          <v-icon>mdi-pencil</v-icon>
-          {{ t("pages.events.edit-event") }}
-        </v-btn>
-      </div>
-      <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
@@ -160,9 +154,18 @@
           :loading="publishing"
           color="success"
           @click="publish"
-          >Publish results</v-btn
+          >{{ t("pages.dashboard.publish-results") }}</v-btn
         >
-        <div v-else class="text-h6 font-weight-bold">Results published</div>
+        <div v-else class="text-h6 font-weight-bold">
+          {{ t("pages.dashboard.results-published") }}
+        </div>
+      </div>
+
+      <div class="d-flex justify-center mt-8">
+        <v-btn v-if="isOrganizer" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+          {{ t("pages.events.edit-event") }}
+        </v-btn>
       </div>
     </v-container>
   </v-main>
@@ -213,6 +216,7 @@ const showStartModal = ref(false);
 const startEvent = async () => {
   if (!matchyEvent.value) return;
   try {
+    showStartModal.value = false;
     await currentEvent.startEvent(matchyEvent.value.id);
     router.push({ name: "dashboard", params: { id: matchyEvent.value.id } });
   } catch (e) {
