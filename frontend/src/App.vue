@@ -36,14 +36,6 @@ html {
   margin-left: 20px;
 }
 
-/* chrome browser's 'autofill' fix */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-}
-
 @font-face {
   font-family: "unviers";
   src: url("@/assets/universFont/universltstd-obl-webfont.woff2")
@@ -67,5 +59,13 @@ input:-webkit-autofill:active {
 * {
   font-family: "univers", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+}
+
+/* chrome browser's 'autofill' fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
 }
 </style>

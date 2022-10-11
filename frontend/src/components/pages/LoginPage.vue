@@ -1,10 +1,8 @@
 <template>
   <v-main>
     <v-container>
-      <!-- logo -->
       <SiteLogo class="my-12"></SiteLogo>
 
-      <!-- email field -->
       <div class="mx-5 mt-16">
         <v-form
           class="mt-8 mb-5"

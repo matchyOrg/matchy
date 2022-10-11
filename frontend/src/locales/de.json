@@ -135,7 +135,7 @@
       "ongoing-title": "Viel Spaß euch beiden!",
       "searching-manual-pair-button": "Paar",
       "searching-minutes-left": "minuten verbleiben",
-      "searching-subtitle": "Benutze den Qr-Scanner oder gib die id in die Textbox ein",
+      "searching-subtitle": "Benutze den QR-Scanner oder gib die id in die Textbox ein",
       "searching-title": "Zeit einen Partner für diese Runde zu finden!",
       "vote-subtitle": "Dein Partner sieht deine Entscheidung nicht sofort",
       "vote-title": "Mochtest du deinen Partner?",
@@ -151,7 +151,7 @@
       "description-placeholder": "Erzähl über dich: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
       "full-name-label": "Vollständiger Name",
       "full-name-placeholder": "Dein vollständiger Name",
-      "full-name-required": "Dein vollständiger ist erforderlich",
+      "full-name-required": "Dein vollständiger Name ist erforderlich",
       "register-button-text": "Profil fertigstellen",
       "sign-out-button-text": "ausloggen",
       "title": "Profil bearbeiten",
@@ -162,7 +162,7 @@
     },
     "reset-password": {
       "heading-p1": "Wähle ein neues Passwort",
-      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht mal merken. Ziemlich nützlich!",
+      "heading-p2": "Geheimtipp: Ein Passwortmanager kann dir dabei helfen ein super sicheres Passwort zu generieren und du musst es dir nicht Mal merken. Ziemlich nützlich!",
       "new-pw-success": "Dein neues Passwort wurde gespeichert"
     },
     "signup": {
