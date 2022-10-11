@@ -2,7 +2,7 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 import { supabase } from "@/services/supabase";
 import type { Provider, User } from "@supabase/supabase-js";
 import { useProfileService, type Profile } from "@/services/profileService";
-import { storageRef } from "./localstorage/localstorage";
+import { storageRef } from "./localstorage";
 
 export const useAuthStore = defineStore("user", () => {
   // User
