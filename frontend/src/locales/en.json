@@ -106,8 +106,8 @@
       "title": "Edit Event"
     },
     "event-search": {
-      "title": "Find Events",
-      "no-results": "There are no events at the moment"
+      "no-results": "There are no events at the moment",
+      "title": "Find Events"
     },
     "events": {
       "already-registered": "You are registered",
@@ -140,7 +140,8 @@
       "no-event-cta": "Check out events",
       "no-events": "You aren't registered for any events",
       "no-org-events": "You aren't organizing any events",
-      "no-org-events-cta": "Create an Event"
+      "no-org-events-cta": "Create an Event",
+      "to-action": "Let's go"
     },
     "login": {
       "already-signed-up": "Already registered?",
