@@ -1,7 +1,12 @@
 <template>
   <v-main>
     <v-container>
-      <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
+      <div v-if="!loadingEvent" class="d-flex">
+        <h2 class="mr-auto break-all">{{ matchyEvent?.title }}</h2>
+        <v-btn v-if="isOrganizer" icon elevation="0" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+      </div>
       <skeleton-loader v-else width="200" height="32" />
       <v-card
         class="mb-3 font-weight-bold"
@@ -9,22 +14,15 @@
         height="200"
         color="#E0E0E0"
         elevation="0"
+        v-if="matchyEvent?.header_image"
       >
-        <v-img
-          cover
-          width="100%"
-          v-if="matchyEvent?.header_image"
-          :src="imageHeaderSrc"
-        />
-        <span v-else class="pa-4">
-          Replace this with an actual placeholder in case no thumbnail is
-          available
-        </span>
+        <v-img cover width="100%" :src="imageHeaderSrc" />
       </v-card>
+      <div v-else class="mt-8"></div>
 
       <event-info
         :loading="loadingEvent"
-        :location="matchyEvent?.location"
+        :location="matchyEvent?.location ?? ''"
         :datetime="matchyEvent?.datetime"
       />
       <p v-if="!loadingEvent" class="mt-8">{{ matchyEvent?.description }}</p>
@@ -287,7 +285,6 @@ const publish = async () => {
     }
   );
   if (error) {
-    console.log(error);
     errorToast(error);
   } else {
     successToast("Succesfully published the results");
@@ -310,8 +307,7 @@ watch(
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
     } catch (e) {
-      console.log(e);
-      errorToast(t("shared.events.event-load-error"));
+      errorToast(e, t("shared.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;
