@@ -127,8 +127,8 @@
                   {{ matchyEvent?.event_groups?.groupB.title }}
                 </v-btn>
               </v-card-actions>
-            </v-card></v-dialog
-          >
+            </v-card>
+          </v-dialog>
         </v-btn>
         <v-btn
           v-else-if="!matchyEvent?.is_ended"
@@ -153,9 +153,10 @@
                   {{ t("pages.dashboard.prepare.start-modal-confirm") }}
                 </v-btn>
               </v-card-actions>
-            </v-card></v-dialog
-          >
+            </v-card>
+          </v-dialog>
         </v-btn>
+
         <v-btn
           v-else-if="!matchyEvent.results_published"
           :loading="publishing"

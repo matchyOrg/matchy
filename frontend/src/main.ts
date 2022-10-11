@@ -3,6 +3,7 @@ import { createApp } from "vue";
 // @ts-ignore disable
 import App from "./App.vue";
 import router from "./router";
+import "./polyfills";
 
 import { createPinia } from "pinia";
 const pinia = createPinia();
@@ -54,6 +55,17 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+app.config.errorHandler = async (err, instance, info) => {
+  console.error({
+    err,
+    instance,
+    info,
+  });
+  errorToast(err);
+  errorToast((err as any).stack || "");
+  errorToast(info);
+};
+
 app.use(router);
 app.use(pinia);
 app.use(i18n);
