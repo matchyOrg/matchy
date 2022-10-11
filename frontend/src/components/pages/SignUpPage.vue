@@ -5,34 +5,46 @@
         {{ t("pages.signup.title") }}
       </page-title>
       <div class="mb-8">
-        <span class="d-block">{{ t("pages.signup.heading-p1") }}</span
-        ><span class="d-block">{{ t("pages.signup.heading-p2") }}</span
-        ><span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
+        <span class="d-block">{{ t("pages.signup.heading-p1") }}</span>
+        <span class="d-block">{{ t("pages.signup.heading-p2") }}</span>
+        <span class="d-block">{{ t("pages.signup.heading-p3") }}</span>
       </div>
-      <v-btn
-        class="mb-4"
-        block
-        color="grey-darken-4"
-        @click="oAuthLogin.handler('github')"
-      >
-        <v-icon class="mr-2">mdi-github</v-icon>
-        {{ t("shared.auth.sign-up-with") }} Github
-      </v-btn>
-      <v-btn
-        class="mb-6"
-        block
-        color="grey-lighten-5"
-        @click="oAuthLogin.handler('google')"
-      >
-        <img
-          src="@/assets/googleLogo.svg"
-          alt="google"
-          class="mr-2"
-          width="16"
-          height="16"
-        />
-        {{ t("shared.auth.sign-up-with") }} Google
-      </v-btn>
+
+      <v-divider class="my-12" />
+
+      <!-- OAUTH -->
+      <section>
+        <v-btn
+          class="mb-4"
+          block
+          elevation="5"
+          color="grey-darken-4"
+          @click="oAuthLogin.handler('github')"
+        >
+          <v-icon class="mr-2">mdi-github</v-icon>
+          {{ t("shared.auth.sign-up-with") }} Github
+        </v-btn>
+        <v-btn
+          class="mb-6"
+          block
+          elevation="5"
+          color="grey-lighten-5"
+          @click="oAuthLogin.handler('google')"
+        >
+          <img
+            src="@/assets/googleLogo.svg"
+            alt="google"
+            class="mr-2"
+            width="16"
+            height="16"
+          />
+          {{ t("shared.auth.sign-up-with") }} Google
+        </v-btn>
+      </section>
+
+      <v-divider class="my-13" />
+
+      <!-- EMAIL + PASSWORD -->
       <v-form @submit.prevent="submit.handler">
         <v-text-field
           v-model="email"
@@ -65,6 +77,13 @@
           ]"
         />
         <v-btn
+          class="d-block mx-auto mt-3"
+          size="x-large"
+          color="primary"
+          variant="tonal"
+          block
+          elevation="5"
+          width="80%"
           :loading="submit.loading"
           :disabled="
             submit.loading ||
@@ -72,32 +91,29 @@
             repeatPassword !== password ||
             password.length < 6
           "
-          color="primary"
-          class="d-block mx-auto"
-          width="67%"
           type="submit"
         >
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          {{ t("shared.auth.register") }}</v-btn
-        >
+          {{ t("shared.auth.register") }}
+        </v-btn>
       </v-form>
     </v-container>
+
     <v-container v-else class="h-75">
       <page-title>
         {{ t("pages.signup.registered-title") }}
       </page-title>
-      <div class="h-100 d-flex flex-column justify-center pt-4">
-        <span class="d-block text-h5 font-weight-bold mb-1">
-          {{ t("pages.signup.registered-subheader1") }}
-        </span>
-        <span class="d-block">
+
+      <div class="h-100 d-flex flex-column justify-center">
+        <span> {{ t("pages.signup.registered-subheader1") }} </span>
+        <span>
           {{ t("pages.signup.registered-subheader2") }}
         </span>
-        <v-btn class="mt-4" to="/login" variant="text" color="primary">{{
-          t("shared.auth.login")
-        }}</v-btn>
+        <v-btn class="mt-4" to="/login" variant="text" color="primary">
+          <h3>{{ t("shared.auth.login") }}</h3>
+        </v-btn>
       </div>
     </v-container>
   </v-main>

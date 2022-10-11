@@ -6,7 +6,7 @@
       <div class="mt-8" v-if="!authStore.isRegistered">
         <h1 class="font-weight-regular">
           {{ t("pages.profile.welcome") }}
-          <span style="color: #b39ddb">matchy</span>.
+          <span style="color: #2e7d32">Matchy</span>.
         </h1>
         <p class="text-grey">{{ t("pages.profile.welcome-subtitle") }}</p>
       </div>
@@ -70,7 +70,6 @@
             >{{ t("pages.profile.sign-out-button-text") }}
           </v-btn>
 
-          <!-- TODO: Maybe move the delete button to the bottom of the screen-->
           <!-- sign delete -->
           <v-btn
             v-if="authStore.isRegistered"

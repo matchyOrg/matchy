@@ -30,20 +30,24 @@
           ]"
         />
         <v-btn
+          class="d-block mx-auto mt-3"
+          size="x-large"
+          color="primary"
+          variant="tonal"
+          block
+          elevation="5"
+          width="80%"
           :loading="submit.loading"
           :disabled="
             submit.loading || repeatPassword !== password || password.length < 6
           "
-          color="primary"
-          class="d-block mx-auto"
-          width="67%"
           type="submit"
         >
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          {{ t("shared.forms.confirm") }}</v-btn
-        >
+          {{ t("shared.forms.confirm") }}
+        </v-btn>
       </v-form>
     </v-container>
   </v-main>
