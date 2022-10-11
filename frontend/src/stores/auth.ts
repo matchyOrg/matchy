@@ -17,6 +17,8 @@ export const useAuthStore = defineStore("user", () => {
     if (newUser) {
       const fetchedProfile = await useProfileService().fetchProfile(newUser);
       setProfileStore(fetchedProfile);
+    } else {
+      setProfileStore({});
     }
   }
 
