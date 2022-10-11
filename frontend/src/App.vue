@@ -24,7 +24,7 @@ watch(
 <style>
 .application {
   margin: 0 auto;
-  max-width: 437px;
+  max-width: 435px;
 }
 
 html {
