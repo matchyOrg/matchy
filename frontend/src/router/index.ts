@@ -94,11 +94,13 @@ const router = createRouter({
     {
       path: "/events/:id/dashboard",
       component: EventDashboard,
+      name: "dashboard",
       meta: { requiresLogin: true },
     },
     {
       path: "/events/:id/participant",
       component: CurrentParticipantEventPage,
+      name: "participant",
       meta: { requiresLogin: true },
     },
     {
