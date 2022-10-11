@@ -1,4 +1,3 @@
-import { useAuthStore } from "@/stores/auth";
 import type { User } from "@supabase/gotrue-js";
 import { supabase } from "./supabase";
 
@@ -9,8 +8,6 @@ export interface Profile {
 }
 
 export function useProfileService() {
-  const authStore = useAuthStore();
-
   async function fetchProfile(user: User) {
     console.log("Called useProfileService.fetchProfile()");
 
@@ -37,12 +34,9 @@ export function useProfileService() {
     return retArg;
   }
 
-  async function updateProfile(newProfile: Profile) {
+  async function updateProfile(user: User, newProfile: Profile) {
     console.log("Called useProfileService.updateProfile()", newProfile);
 
-    if (!authStore.user || !authStore.user.email) {
-      throw Error("Please log in first");
-    }
     if (!newProfile.fullName) {
       throw Error("Please register first");
     }
@@ -53,7 +47,7 @@ export function useProfileService() {
         full_name: newProfile.fullName,
         description: newProfile.description,
       })
-      .match({ user_id: authStore.user.id })
+      .match({ user_id: user.id })
       .maybeSingle();
     if (error) {
       throw error;
@@ -68,7 +62,6 @@ export function useProfileService() {
     };
 
     // update store
-    authStore.setProfileStore(updatedProfile);
     return updatedProfile;
   }
 

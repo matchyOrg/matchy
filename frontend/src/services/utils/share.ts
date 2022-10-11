@@ -34,7 +34,11 @@ export async function shareEvent(
         errorToast(t("utils.share-event.clipboard-error"));
       }
     }
-  } catch (_e) {
-    errorToast(t("utils.share-event.share-error"));
+  } catch (e) {
+    if (e instanceof DOMException && e.name === "AbortError") {
+      // User aborted the share, usually by clicking somewhere else
+    } else {
+      errorToast(e, t("utils.share-event.share-error"));
+    }
   }
 }

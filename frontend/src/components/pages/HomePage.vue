@@ -91,14 +91,9 @@
             v-if="e.id == +currentEventStore.getCurrentId()"
             :to="'/events/' + e.id + '/dashboard'"
             color="primary"
-            size="small"
             >{{ t("pages.home.active-event-action") }}</v-btn
           >
-          <v-btn
-            v-else
-            color="primary"
-            size="small"
-            @click.prevent="startEvent(e.id)"
+          <v-btn v-else color="primary" @click.prevent="startEvent(e.id)"
             >Start Event</v-btn
           >
         </v-card-actions>

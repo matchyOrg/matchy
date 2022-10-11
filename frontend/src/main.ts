@@ -62,6 +62,7 @@ app.config.errorHandler = async (err, instance, info) => {
     info,
   });
   errorToast(err);
+  // TODO: remove before putting into production
   errorToast((err as any).stack || "");
   errorToast(info);
 };

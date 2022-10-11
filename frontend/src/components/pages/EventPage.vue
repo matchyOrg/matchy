@@ -236,7 +236,7 @@ const onShare = async () => {
 };
 
 const onEdit = () => {
-  router.push("/edit-event/" + route.params.id);
+  router.push({ name: "event-edit", params: { id: route.params.id } });
 };
 
 // entry-point for both registrations
