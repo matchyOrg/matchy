@@ -43,6 +43,7 @@
   },
   "pages": {
     "dashboard": {
+      "back-to-home": "Zurück zur Homepage",
       "ongoing": {
         "round": "Runde",
         "start-round": "Runde starten"

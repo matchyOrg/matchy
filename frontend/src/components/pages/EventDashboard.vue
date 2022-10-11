@@ -11,9 +11,9 @@
       v-else-if="eventEnded"
     >
       <span class="d-block text-h6 mb-2">You have ended the event.</span>
-      <v-btn class="d-block mx-auto" color="primary" variant="text" to="/"
-        >Back to Homepage</v-btn
-      >
+      <v-btn class="d-block mx-auto" color="primary" variant="text" to="/">
+        {{ t("pages.dashboard.back-to-home") }}
+      </v-btn>
     </v-container>
     <v-container v-else-if="eventStarted">
       <round-overview
