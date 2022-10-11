@@ -285,7 +285,6 @@ const publish = async () => {
     }
   );
   if (error) {
-    console.log(error);
     errorToast(error);
   } else {
     successToast("Succesfully published the results");
@@ -308,8 +307,7 @@ watch(
     try {
       matchyEvent.value = await eventService.fetchEventById(+route.params.id);
     } catch (e) {
-      console.log(e);
-      errorToast(t("shared.events.event-load-error"));
+      errorToast(e, t("shared.events.event-load-error"));
       router.back();
     }
     loadingEvent.value = false;
