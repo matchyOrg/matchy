@@ -118,7 +118,7 @@
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN",
-      "successful-signup": "Du wurdest erfolgreich registriert! Check deine email um zu bestätigen.",
+      "successful-signup": "Es wurde dir eine Bestätigungsmail geschickt.",
       "wrong-credentials-error": "Email oder Passwort sind inkorrekt"
     },
     "matches": {
@@ -150,7 +150,7 @@
       "delete-dialog-text": "Bist du sicher dass du dein Profil löschen willst? Diese Aktion kann nicht rückgängig gemacht werden.",
       "delete-success": "Dein Profil wurde erfolgreich gelöscht",
       "description-label": "Kontaktdaten",
-      "description-placeholder": "Erzähl über dich: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
+      "description-placeholder": "Erzähl über dich oder füge andere Social-Media-Kanäle hinzu: Deine Matches werden dies zusätzlich zu deiner Email sehen.",
       "full-name-label": "Vollständiger Name",
       "full-name-placeholder": "Dein vollständiger Name",
       "full-name-required": "Dein vollständiger Name ist erforderlich",
@@ -170,11 +170,11 @@
     "signup": {
       "heading-p1": "Danke für's dabei sein!",
       "heading-p2": "Wir sind genauso aufgeregt wie du!",
-      "heading-p3": "Lass uns zunächst deinen Account erstellen",
-      "registered-subheader1": "Danke, dass du dich bei Matchy angemeldet hast!",
-      "registered-subheader2": "Wir haben dir eine Bestätigungsemail geschickt!",
+      "heading-p3": "Lass uns zuerst deinen Account erstellen.",
+      "registered-subheader1": "Es ist großartig, dich am Bord zu haben. 🎉",
+      "registered-subheader2": "Wir haben dir eine Bestätigungsemail geschickt.",
       "registered-title": "Willkommen bei Matchy.",
-      "title": "Willkommen bei Matchy."
+      "title": "Fast fertig!"
     }
   },
   "shared": {

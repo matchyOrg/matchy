@@ -44,8 +44,8 @@
           :rules="[(value) => !!value || t('shared.forms.required')]"
         ></v-text-field>
 
-        <span v-if="error" class="inline-block text-red text-center my-2">
-          {{ error }}
+        <span v-if="error" class="inline-block text-red text-center mb-5">
+          > {{ error }}
         </span>
 
         <v-btn
@@ -112,7 +112,7 @@
 
       <!-- SIGN UP -->
       <section
-        class="text-grey flex align-center justify-center mt-12 border-1 rounded-md border-t-teal-600"
+        class="text-grey flex align-center justify-center mt-20 border-1 rounded-md border-t-teal-600"
       >
         <p class="inline-block text-xl mb-0.5 ml-5">
           {{ t("pages.login.no-account") }}
