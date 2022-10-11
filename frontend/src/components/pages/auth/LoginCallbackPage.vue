@@ -9,6 +9,7 @@ watch(
   () => authStore.user,
   (user) => {
     if (user !== null) {
+      console.log("Login callback, redirecting to", redirect);
       router.push(redirect);
     }
   },
