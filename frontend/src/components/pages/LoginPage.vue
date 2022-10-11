@@ -2,7 +2,19 @@
   <v-main>
     <v-container>
       <!-- LOGO -->
-      <SiteLogo class="my-12"></SiteLogo>
+      <div class="mt-4 flex flex-col content-center items-center">
+        <img src="@/assets/matchyLogoGreen.svg" height="40" />
+        <p
+          class="text-grey-darken-3"
+          style="
+            font-size: 0.85rem;
+            margin-top: -0.1rem;
+            letter-spacing: 0.05rem;
+          "
+        >
+          paperless speed dating
+        </p>
+      </div>
 
       <div class="mx-5 mt-16">
         <v-form
@@ -33,7 +45,7 @@
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
           <!-- ERROR MESSAGE -->
-          <span v-if="error" class="text-red text-center d-block my-2">
+          <span v-if="error" class="d-block text-red text-center my-2">
             {{ error }}
           </span>
           <!-- LOGIN BUTTON -->

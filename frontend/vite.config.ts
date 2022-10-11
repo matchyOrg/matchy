@@ -47,7 +47,9 @@ export default defineConfig({
       filename: "stats.html",
       template: "sunburst",
     }),
-    Unocss({ /* options */ }),
+    Unocss({
+      /* options */
+    }),
   ],
   resolve: {
     alias: {
