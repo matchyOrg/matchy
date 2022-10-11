@@ -9,6 +9,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import vuetify from "vite-plugin-vuetify";
 import vueI18n from "@intlify/vite-plugin-vue-i18n";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import Unocss from "unocss/vite";
 
 export default defineConfig({
   plugins: [
@@ -45,6 +46,9 @@ export default defineConfig({
       emitFile: true,
       filename: "stats.html",
       template: "sunburst",
+    }),
+    Unocss({
+      /* options */
     }),
   ],
   resolve: {
