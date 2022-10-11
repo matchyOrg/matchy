@@ -103,9 +103,9 @@ export function useEventService(authStore: ReturnType<typeof useAuthStore>) {
       .eq("event_registrations.user_id", authStore.user?.id)
       .not("is_cancelled", "eq", true)
       .not("is_ended", "eq", true)
-      .or(
+      /*.or(
         `datetime.gt.${getAnHourAgo().toString()},and(is_started.eq.true,is_ended.eq.false)`
-      )
+      )*/
       .order("datetime", { ascending: true });
 
     if (error) {

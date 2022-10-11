@@ -15,12 +15,12 @@
       </div>
 
       <!-- Participant view -->
-      <div
+      <h2
         v-if="currentUserEvents.length > 0"
         class="text-h6 font-weight-bold mb-4"
       >
         {{ t("pages.home.confirm-presence-header") }}
-      </div>
+      </h2>
       <event-list-item
         class="mb-4"
         v-for="(e, i) in currentUserEvents"
@@ -47,9 +47,9 @@
         </v-card-actions>
       </event-list-item>
       <v-spacer />
-      <div class="text-h6 font-weight-bold mb-4">
+      <h2 class="text-h6 font-weight-bold mb-4">
         {{ t("pages.home.future-events-header") }}
-      </div>
+      </h2>
       <template v-if="futureUserEvents.length > 0">
         <event-list-item
           class="mb-4"
@@ -166,20 +166,19 @@ const currentOrganizerEvents = ref<EventInfo[]>([]);
 const futureOrganizerEvents = ref<EventInfo[]>([]);
 
 function groupCurrentAndFutureEvents(events: EventInfo[]) {
-  // events with
-  // datetime at most 30 minutes ago
-  // or in 30 minutes at the earliest
+  // events with a start date that is approximately now (one and a half hours)
   // or have started but not ended
   const current = events.filter((e) => {
     const diff = Temporal.Now.instant().since(e.datetime);
     return (
-      diff.abs().total({ unit: "hour" }) <= 1 || (e.is_started && !e.is_ended)
+      diff.abs().total({ unit: "hour" }) <= 1.5 || (e.is_started && !e.is_ended)
     );
   });
 
   // all other events
   // this is inefficient, but people probably won't be registered for many events anyways
   // and very unlikely to more than 1 at the same time
+  // when will https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/group finally ship?
   const future = events.filter((e) => current.every((ce) => ce.id !== e.id));
 
   return { current, future };
@@ -202,7 +201,6 @@ fetchEvents();
 const share = async (e: EventInfo) => await shareEvent(e, authStore, t, router);
 
 const confirmPresence = async (id: number) => {
-  console.log("Don't care, didn't ask");
   try {
     await currentEventStore.confirmPresence(id);
     successToast("Welcome to the event");
