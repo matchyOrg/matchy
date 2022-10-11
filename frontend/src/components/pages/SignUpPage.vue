@@ -24,7 +24,12 @@
         color="grey-lighten-5"
         @click="oAuthLogin.handler('google')"
       >
-        <v-icon class="google-icon mr-2">mdi-google</v-icon>
+        <img
+          src="@/assets/googleLogo.svg"
+          alt="google"
+          width="16"
+          height="16"
+        />
         {{ t("shared.auth.sign-up-with") }} Google
       </v-btn>
       <v-form @submit.prevent="submit.handler">
@@ -131,20 +136,3 @@ const showRepeatPW = ref(false);
 
 const hasEmail = computed(() => /^[^]+@[^]+$/.test(email.value));
 </script>
-
-<style scope>
-.google-icon {
-  background: conic-gradient(
-      from -45deg,
-      #ea4335 110deg,
-      #4285f4 90deg 180deg,
-      #34a853 180deg 270deg,
-      #fbbc05 270deg
-    )
-    73% 55%/150% 150% no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-</style>
