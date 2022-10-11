@@ -1,11 +1,11 @@
 <template>
   <v-bottom-navigation color="primary" grow app>
     <!-- TODO: Make sure all buttons have the same width-->
-    <v-btn to="/">
+    <v-btn to="/" class="same-width pl-0 pr-0">
       <v-icon>mdi-home</v-icon>
       <span>Home</span>
     </v-btn>
-    <v-btn to="/edit-profile">
+    <v-btn to="/edit-profile" class="same-width pl-0 pr-0">
       <span
         v-if="!auth.isRegistered"
         class="reminder bg-red text-white text-center"
@@ -14,11 +14,11 @@
       <v-icon>mdi-account</v-icon>
       <span>{{ t("sidebar.profile") }}</span>
     </v-btn>
-    <v-btn to="/matches">
+    <v-btn to="/matches" class="same-width pl-0 pr-0">
       <v-icon>mdi-folder-heart</v-icon>
       <span>{{ t("sidebar.matches") }}</span>
     </v-btn>
-    <v-btn to="/create-event">
+    <v-btn to="/create-event" class="same-width pl-0 pr-0">
       <v-icon>mdi-plus</v-icon>
       <span>{{ t("sidebar.create-event") }}</span>
     </v-btn>
@@ -41,5 +41,10 @@ const { t } = useI18n();
   height: 12px;
   width: 12px;
   border-radius: 50%;
+}
+
+.same-width {
+  flex: 1 1 0;
+  width: 0;
 }
 </style>
