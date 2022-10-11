@@ -3,7 +3,21 @@
     <v-container>
       <page-title>{{ t("pages.event-create.title") }}</page-title>
       <edit-event v-model="matchyEvent" />
-      <v-btn @click="submit">{{ t("pages.event-create.submit") }}</v-btn>
+      <v-btn
+        @click="submit"
+        class="d-block mx-auto"
+        size="x-large"
+        color="primary"
+        variant="tonal"
+        block
+        elevation="5"
+        width="80%"
+      >
+        <template v-slot:loader>
+          <v-progress-circular indeterminate />
+        </template>
+        {{ t("pages.event-create.submit") }}
+      </v-btn>
     </v-container>
   </v-main>
 </template>

@@ -156,29 +156,30 @@
           </v-btn>
         </div>
       </section>
+
+      <!-- notes -->
+      <footer class="flex justify-center">
+        <a
+          href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
+          class="mx-2 text-grey"
+        >
+          {{ t("pages.login.footer-about-us") }}
+        </a>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfadw82Hn0h0E6R8vLdCsXYoEZX5-ys59SOSx1UMEuhp6K-Tg/viewform?usp=sf_link"
+          class="mx-2 text-grey"
+        >
+          {{ t("pages.login.footer-feedback") }}
+        </a>
+        <a
+          href="https://github.com/matchyOrg/matchy/blob/main/TERMS.md"
+          class="mx-2 text-grey"
+        >
+          {{ t("pages.login.footer-legal-notice") }}
+        </a>
+      </footer>
     </v-container>
   </v-main>
-
-  <v-footer class="flex justify-center -mb-21">
-    <a
-      href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
-      class="mx-2 text-grey"
-    >
-      {{ t("pages.login.footer-about-us") }}
-    </a>
-    <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLSfadw82Hn0h0E6R8vLdCsXYoEZX5-ys59SOSx1UMEuhp6K-Tg/viewform?usp=sf_link"
-      class="mx-2 text-grey"
-    >
-      {{ t("pages.login.footer-feedback") }}
-    </a>
-    <a
-      href="https://github.com/matchyOrg/matchy/blob/main/TERMS.md"
-      class="mx-2 text-grey"
-    >
-      {{ t("pages.login.footer-legal-notice") }}
-    </a>
-  </v-footer>
 </template>
 
 <script setup lang="ts">

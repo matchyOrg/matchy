@@ -94,6 +94,7 @@ interface GroupCount {
   present: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
   event_groups?: GroupPair;
   totalRegisteredCount?: number;
