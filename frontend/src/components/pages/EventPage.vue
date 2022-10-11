@@ -76,12 +76,6 @@
         :total-registered-count="totalRegisteredCount"
       />
       <div class="d-flex justify-center mt-8">
-        <v-btn v-if="isOrganizer" @click="onEdit">
-          <v-icon>mdi-pencil</v-icon>
-          {{ t("pages.events.edit-event") }}
-        </v-btn>
-      </div>
-      <div class="d-flex justify-center mt-8">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="d-block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
@@ -165,6 +159,13 @@
         <div v-else class="text-h6 font-weight-bold">
           {{ t("pages.dashboard.results-published") }}
         </div>
+      </div>
+
+      <div class="d-flex justify-center mt-8">
+        <v-btn v-if="isOrganizer" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+          {{ t("pages.events.edit-event") }}
+        </v-btn>
       </div>
     </v-container>
   </v-main>
