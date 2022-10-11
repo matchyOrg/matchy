@@ -1,7 +1,12 @@
 <template>
   <v-main>
     <v-container>
-      <h2 v-if="!loadingEvent">{{ matchyEvent?.title }}</h2>
+      <div v-if="!loadingEvent" class="d-flex">
+        <h2 class="mr-auto break-all">{{ matchyEvent?.title }}</h2>
+        <v-btn v-if="isOrganizer" icon elevation="0" @click="onEdit">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+      </div>
       <skeleton-loader v-else width="200" height="32" />
       <v-card
         class="mb-3 font-weight-bold"
