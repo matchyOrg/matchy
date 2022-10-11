@@ -16,7 +16,7 @@
     <div class="info my-2 mx-4" v-if="showInfo">
       <event-info
         :loading="false"
-        :location="matchyEvent.location"
+        :location="matchyEvent.location ?? ''"
         :datetime="matchyEvent.datetime"
       />
     </div>

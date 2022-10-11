@@ -34,7 +34,7 @@ import type { Temporal } from "@js-temporal/polyfill";
 
 const props = defineProps<{
   loading: boolean;
-  location: string | undefined;
+  location: string;
   datetime: Temporal.Instant;
 }>();
 

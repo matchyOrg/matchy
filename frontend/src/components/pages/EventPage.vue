@@ -22,7 +22,7 @@
 
       <event-info
         :loading="loadingEvent"
-        :location="matchyEvent?.location"
+        :location="matchyEvent?.location ?? ''"
         :datetime="matchyEvent?.datetime"
       />
       <p v-if="!loadingEvent" class="mt-8">{{ matchyEvent?.description }}</p>

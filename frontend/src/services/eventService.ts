@@ -22,7 +22,7 @@ export interface EventInfo {
   description: string;
   header_image?: string | null;
   datetime: Temporal.Instant;
-  location: string;
+  location?: string;
   max_participants: number;
   event_groups?: GroupPair;
   is_ended: boolean;
