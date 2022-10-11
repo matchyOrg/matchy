@@ -43,4 +43,28 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
+
+@font-face {
+  font-family: "universltstd-light-webfont-woff2";
+  src: url("@/assets/universFont/universltstd-light-webfont.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "universltstd-lightobl-webfont-woff2";
+  src: url("@/assets/universFont/universltstd-lightobl-webfont.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "universltstd-obl-woff2";
+  src: url("@/assets/universFont/universltstd-obl-webfont.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "universltstd-webfont-woff2";
+  src: url("@/assets/universFont/universltstd-webfont.woff2") format("woff2");
+}
+
+/* * {
+  font-family: "universltstd-light-webfont-woff2", sans-serif;
+} */
 </style>

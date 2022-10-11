@@ -8,7 +8,7 @@ const toastOptions = {
   pauseOnFocusLoss: false,
   pauseOnHover: true,
   draggable: true,
-  draggablePercent: 0.6,
+  draggablePercent: 0.3,
   showCloseButtonOnHover: true,
   hideProgressBar: false,
   icon: true,

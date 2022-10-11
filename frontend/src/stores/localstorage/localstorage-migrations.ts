@@ -35,6 +35,7 @@ class Migration<ResultDatabase extends VersionedDatabase<number>> {
 }
 // Database format migrations
 // Make sure to *NEVER* change an existing migration that is used in production. Always add new migrations.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const finalMigration = Migration.BaseMigration.addMigration(1, (db) => {
   return {
     /** always increment this */

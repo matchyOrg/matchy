@@ -1,26 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import HomePage from "../components/pages/HomePage.vue";
+import HomePage from "@/components/pages/HomePage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import LoginPage from "../components/pages/LoginPage.vue";
+import LoginPage from "@/components/pages/LoginPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import ProfileEditPage from "../components/pages/ProfileEditPage.vue";
+import ProfileEditPage from "@/components/pages/ProfileEditPage.vue";
 import { supabase } from "@/services/supabase";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import EventEditPage from "../components/pages/EventEditPage.vue";
+import EventEditPage from "@/components/pages/EventEditPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import EventCreatePage from "../components/pages/EventCreatePage.vue";
+import EventCreatePage from "@/components/pages/EventCreatePage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import MatchesPage from "@/components/pages/MatchesPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import LoginCallbackPage from "../components/pages/LoginCallbackPage.vue";
+import LoginCallbackPage from "@/components/pages/LoginCallbackPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import EventPage from "@/components/pages/EventPage.vue";

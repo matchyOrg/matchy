@@ -3,6 +3,7 @@
     <v-container>
       <!-- logo -->
       <SiteLogo class="my-12"></SiteLogo>
+
       <!-- email field -->
       <div class="mx-5 mt-16">
         <v-form
@@ -30,11 +31,6 @@
             @click:append-inner="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
-          <!-- <div class="text-right">
-            <v-btn variant="text" class="text-blue" to="/signup">{{
-              t("pages.login.not-signed-up")
-            }}</v-btn>
-          </div> -->
           <span v-if="error" class="text-red text-center d-block my-2">{{
             error
           }}</span>
@@ -137,6 +133,8 @@ const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
 const redirect = routeParam(route, "redirect");
+
+successToast("AYOOO");
 
 // leave page if already logged in
 watch(
