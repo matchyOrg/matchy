@@ -1,13 +1,13 @@
 <template>
   <v-main>
     <v-container
-      class="h-100 d-flex flex-column align-center justify-center"
+      class="d-flex flex-column align-center justify-center"
       v-if="loadingEvent"
     >
       <v-progress-circular indeterminate />
     </v-container>
     <v-container
-      class="h-100 d-flex flex-column align-center justify-center"
+      class="d-flex flex-column align-center justify-center"
       v-else-if="eventEnded"
     >
       <span class="d-block text-h6 mb-2">You have ended the event.</span>
@@ -46,14 +46,13 @@
         >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
       >
     </v-container>
-    <v-container
-      class="h-100 d-flex flex-column align-center justify-center"
-      v-else
-    >
-      <div class="text-h6 mb-2">You haven't started the event.</div>
-      <v-btn class="d-block mx-auto" color="primary" @click="startEvent"
-        >Start Event</v-btn
-      >
+    <v-container class="d-flex flex-column align-center justify-center" v-else>
+      <div class="text-h6 mb-2">
+        {{ t("pages.dashboard.event-not-started") }}
+      </div>
+      <v-btn class="d-block mx-auto" color="primary" @click="startEvent">
+        {{ t("pages.dashboard.start-event") }}
+      </v-btn>
     </v-container>
 
     <!--TODO: Proper styling and placing for this button-->

@@ -213,6 +213,7 @@ const showStartModal = ref(false);
 const startEvent = async () => {
   if (!matchyEvent.value) return;
   try {
+    showStartModal.value = false;
     await currentEvent.startEvent(matchyEvent.value.id);
     router.push({ name: "dashboard", params: { id: matchyEvent.value.id } });
   } catch (e) {
