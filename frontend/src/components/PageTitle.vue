@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex align-center mb-6">
+  <header class="d-flex align-center mb-6">
     <img class="mr-2" src="@/assets/matchyLogo.svg" height="24" />
-    <h1 class="d-block text-h6 font-weight-bold">
+    <h2>
       <slot></slot>
-    </h1>
-  </div>
+    </h2>
+  </header>
 </template>
 <script setup lang="ts"></script>
