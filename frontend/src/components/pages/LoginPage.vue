@@ -193,8 +193,12 @@ const login = async () => {
   } catch (e: any) {
     console.error(e);
 
-    if (e.status === 400) {
-      error.value = t("pages.login.wrong-credentials-error");
+    if ("status" in e && e.status === 400) {
+      if ("message" in e && e.message === "Email not confirmed") {
+        error.value = t("pages.login.not-confirmed-error");
+      } else {
+        error.value = t("pages.login.wrong-credentials-error");
+      }
     }
   }
 };

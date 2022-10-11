@@ -113,6 +113,7 @@
       "footer-legal-notice": "legal notice",
       "forgot-password": "Forgot Password?",
       "no-account": "Don't have an account?",
+      "not-confirmed-error": "Please confirm your email before logging in",
       "not-signed-up": "Not signed up yet?",
       "oauth-login-prompt": "Or just use your ",
       "password-text": "No need for passwords.",
