@@ -160,9 +160,11 @@
           :loading="publishing"
           color="success"
           @click="publish"
-          >Publish results</v-btn
+          >{{ t("pages.dashboard.publish-results") }}</v-btn
         >
-        <div v-else class="text-h6 font-weight-bold">Results published</div>
+        <div v-else class="text-h6 font-weight-bold">
+          {{ t("pages.dashboard.results-published") }}
+        </div>
       </div>
     </v-container>
   </v-main>

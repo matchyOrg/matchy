@@ -10,9 +10,17 @@
       class="d-flex flex-column align-center justify-center"
       v-else-if="eventEnded"
     >
-      <span class="d-block text-h6 mb-2">You have ended the event.</span>
-      <v-btn class="d-block mx-auto" color="primary" variant="text" to="/">
-        {{ t("pages.dashboard.back-to-home") }}
+      <span class="d-block text-h6 mb-2">{{
+        t("pages.dashboard.event-ended")
+      }}</span>
+      <span>{{ t("pages.dashboard.event-result-publish-reminder") }} </span>
+      <v-btn
+        class="d-block mx-auto"
+        color="primary"
+        variant="text"
+        :to="'/events/' + eventId"
+      >
+        {{ t("pages.dashboard.back-to-overview") }}
       </v-btn>
     </v-container>
     <v-container v-else-if="eventStarted">
@@ -45,6 +53,16 @@
         :disabled="roundOngoing"
         >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
       >
+
+      <v-btn
+        class="d-block mx-auto mt-20"
+        variant="tonal"
+        color="error"
+        @click="endEvent"
+      >
+        <v-icon left>mdi-close</v-icon>
+        {{ t("pages.dashboard.ongoing.end-event") }}
+      </v-btn>
     </v-container>
     <v-container class="d-flex flex-column align-center justify-center" v-else>
       <div class="text-h6 mb-2">
@@ -54,17 +72,6 @@
         {{ t("pages.dashboard.start-event") }}
       </v-btn>
     </v-container>
-
-    <!--TODO: Proper styling and placing for this button-->
-    <v-btn
-      v-if="!loadingEvent && eventStarted && !eventEnded"
-      variant="tonal"
-      color="error"
-      @click="endEvent"
-    >
-      <v-icon left>mdi-close</v-icon>
-      End event
-    </v-btn>
   </v-main>
 </template>
 
@@ -235,6 +242,8 @@ onMounted(async () => {
     }
     eventStarted.value = event.is_started;
     eventEnded.value = event.is_ended;
+    if (event.is_ended) return;
+
     roundOngoing.value = true;
     startingRound.value = true;
     let currentRound;

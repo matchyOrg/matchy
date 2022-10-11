@@ -43,9 +43,12 @@
   },
   "pages": {
     "dashboard": {
-      "back-to-home": "Back to Homepage",
+      "back-to-overview": "Back to overview",
+      "event-ended": "You have ended the event.",
       "event-not-started": "You haven't started the event.",
+      "event-result-publish-reminder": "Remember to publish the matches a while after the event.",
       "ongoing": {
+        "end-event": " End event",
         "round": "Round",
         "start-round": "Start round"
       },
@@ -58,6 +61,8 @@
         "start-modal-confirm": "Start",
         "start-modal-text": "Are you sure you want to start the event?"
       },
+      "publish-results": "Publish matches",
+      "results-published": "Matches have been published",
       "start-event": "Start event"
     },
     "event-create": {

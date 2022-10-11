@@ -43,9 +43,12 @@
   },
   "pages": {
     "dashboard": {
-      "back-to-home": "Zurück zur Homepage",
+      "back-to-overview": "Zurück zur Detailansicht",
+      "event-ended": "Das Event wurde beendet.",
       "event-not-started": "Du hast das Event noch nicht gestartet.",
+      "event-result-publish-reminder": "Vergiss nicht die Matches nach dem Event zu verschicken.",
       "ongoing": {
+        "end-event": "Event beenden",
         "round": "Runde",
         "start-round": "Runde starten"
       },
@@ -58,6 +61,8 @@
         "start-modal-confirm": "Start",
         "start-modal-text": "Bist du sicher, dass du das Event starten willst?"
       },
+      "publish-results": "Matches verschicken",
+      "results-published": "Matches wurden verschickt",
       "start-event": "Event starten"
     },
     "event-create": {
