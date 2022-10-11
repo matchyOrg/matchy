@@ -1,18 +1,33 @@
 <template>
+  <!-- MAKE THIS THE HEADER EVERYWHERE -->
+  <!-- <header class="d-flex align-center mb-6">
+    <img class="mr-2" src="@/assets/matchyLogo.svg" height="19" />
+    <h2 class="text-h6 font-weight-bold">AYOOO</h2>
+  </header> -->
+
   <v-main>
     <v-container>
       <!-- Greeting -->
-      <section>
+      <section class="mb-7">
         <h2
-          class="mt-1 mb-7 text-grey font-weight-regular"
           v-if="authStore.isRegistered"
+          class="mt-1 text-grey font-weight-regular"
         >
           {{ t("pages.home.hello") }} {{ firstName }}!
         </h2>
-        <div class="mt-5 mb-7 d-flex justify-center" v-else>
-          <v-btn to="/edit-profile">
-            {{ t("pages.home.finish-profile") }}
-          </v-btn>
+        <div v-else class="mt-5 flex justify-center">
+          <div class="border-1 rounded-md border-neutral-300">
+            <v-btn
+              to="/edit-profile"
+              size="large"
+              variant="text"
+              color="primary"
+            >
+              <span class="text-grey">
+                {{ t("pages.home.finish-profile") }}
+              </span>
+            </v-btn>
+          </div>
         </div>
       </section>
 
