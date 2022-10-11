@@ -62,7 +62,7 @@
       "error": "There was an error creating the event",
       "submit": "Submit",
       "success": "Creation of new event successful",
-      "title": "Organize an event"
+      "title": "Organize an Event"
     },
     "event-edit": {
       "title": "Edit Event"
@@ -97,7 +97,8 @@
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
       "finish-profile": "Fill out your profile",
-      "future-events-header": "Your planned events",
+      "future-events-hosting-header": "Events you'll be hosting",
+      "future-events-visiting-header": "Events you'll be visiting",
       "hello": "Hey",
       "no-event-cta": "Check out events",
       "no-events": "You aren't registered for any events",
