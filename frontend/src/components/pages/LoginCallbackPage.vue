@@ -11,7 +11,8 @@ watch(
     if (user !== null) {
       router.push(redirect);
     }
-  }
+  },
+  { immediate: true }
 );
 </script>
 <template>Logging in...</template>

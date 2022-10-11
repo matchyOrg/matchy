@@ -165,7 +165,7 @@ const onSubmit = asyncLoading(async () => {
     );
     authStore.setProfileStore(updatedProfile);
     successToast(t("pages.profile.update-success"));
-  } catch (error: any) {
+  } catch (error) {
     errorToast(error);
   }
 });

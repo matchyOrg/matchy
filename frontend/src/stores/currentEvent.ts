@@ -8,7 +8,7 @@ import type { EventInfo } from "@/services/eventService";
 import { timestampToInstant } from "@/services/utils/datetime";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
-  const currentEventId = useStorage("current-event-id", "");
+  const currentEventId = useStorage("current-event-id", ""); // TODO: Refactor to use localStorage
   const hasEvent = computed(() => currentEventId.value !== "");
 
   function getCurrentId() {
