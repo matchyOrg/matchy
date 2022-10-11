@@ -28,12 +28,10 @@ import { useAuthStore } from "@/stores/auth";
 import { useCurrentEventStore } from "@/stores/currentEvent";
 import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
-import { useI18n } from "vue-i18n";
 
 const router = useRouter();
 const authStore = useAuthStore();
 const currentEvent = useCurrentEventStore();
-const { t } = useI18n();
 
 const eventSubscription = ref<RealtimeSubscription>();
 const roundSubscription = ref<RealtimeSubscription>();

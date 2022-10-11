@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/components/pages/HomePage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import LoginPage from "@/components/pages/LoginPage.vue";
+import LoginPage from "@/components/pages/auth/LoginPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import ProfileEditPage from "@/components/pages/ProfileEditPage.vue";
@@ -20,28 +20,28 @@ import EventCreatePage from "@/components/pages/EventCreatePage.vue";
 import MatchesPage from "@/components/pages/MatchesPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import LoginCallbackPage from "@/components/pages/LoginCallbackPage.vue";
+import LoginCallbackPage from "@/components/pages/auth/LoginCallbackPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import EventPage from "@/components/pages/EventPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import EventSearchPage from "@/components/pages/EventSearchPage.vue";
+import EventSearchPage from "@/components/pages/EventListPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
 import EventDashboard from "@/components/pages/EventDashboard.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import SignUpPage from "@/components/pages/SignUpPage.vue";
+import SignUpPage from "@/components/pages/auth/SignUpPage.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import ForgotPassword from "@/components/pages/ForgotPassword.vue";
+import ForgotPassword from "@/components/pages/auth/ForgotPassword.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import ResetPassword from "@/components/pages/ResetPassword.vue";
+import ResetPassword from "@/components/pages/auth/ResetPassword.vue";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore disable
-import CurrentParticipantEventPage from "@/components/pages/CurrentParticipantEventPage.vue";
+import CurrentParticipantEventPage from "@/components/pages/currentParticipantEvent/CurrentParticipantEventPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -7,7 +7,6 @@ import { storageRef } from "./localstorage";
 export const useAuthStore = defineStore("user", () => {
   // User
   const user = ref<User | null>(null);
-  setUserStore(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
   const redirect = storageRef("redirect");
@@ -36,6 +35,8 @@ export const useAuthStore = defineStore("user", () => {
     console.log("Auth session changed", event, session);
     setUserStore(session?.user ?? null);
   });
+
+  setUserStore(supabase.auth.user());
 
   async function signUp(email: string, password: string) {
     const redirectURL =
