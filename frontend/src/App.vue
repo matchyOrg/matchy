@@ -31,11 +31,6 @@ html {
   background-color: #f6f6f6;
 }
 
-.v-main {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
 @font-face {
   font-family: "unviers";
   src: url("@/assets/universFont/universltstd-obl-webfont.woff2")

@@ -107,13 +107,10 @@
       </page-title>
 
       <div class="h-100 d-flex flex-column justify-center">
-        <span> {{ t("pages.signup.registered-subheader1") }} </span>
-        <span>
+        <h4 class="mb-4">{{ t("pages.signup.registered-subheader1") }}</h4>
+        <p>
           {{ t("pages.signup.registered-subheader2") }}
-        </span>
-        <v-btn class="mt-4" to="/login" variant="text" color="primary">
-          <h3>{{ t("shared.auth.login") }}</h3>
-        </v-btn>
+        </p>
       </div>
     </v-container>
   </v-main>

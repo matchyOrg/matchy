@@ -4,33 +4,37 @@
       <page-title>
         {{ t("pages.forgot-password.title") }}
       </page-title>
-      <div class="mb-12">
-        <span class="d-block">{{ t("pages.forgot-password.heading-p1") }}</span
-        ><span class="d-block">{{
-          t("pages.forgot-password.heading-p2")
-        }}</span>
+      <div class="mb-6">
+        <p>{{ t("pages.forgot-password.heading-p1") }}</p>
+        <p>{{ t("pages.forgot-password.heading-p2") }}</p>
       </div>
       <v-form @submit.prevent="submit.handler">
         <v-text-field
+          class="mb-2"
           v-model="email"
           label="Email"
           name="email"
           placeholder="aphrodite@mail.com"
           :rules="[() => hasEmail || t('shared.auth.enter-valid-mail')]"
         />
+
         <v-btn
-          class="mx-auto d-block"
-          type="submit"
+          class="d-block mx-auto mt-3"
+          size="x-large"
           color="primary"
-          width="50%"
-          :disabled="submit.loading || !hasEmail"
+          variant="tonal"
+          block
+          elevation="5"
+          width="80%"
           :loading="submit.loading"
+          :disabled="submit.loading || !hasEmail"
+          type="submit"
         >
           <template v-slot:loader>
             <v-progress-circular indeterminate />
           </template>
-          {{ t("pages.forgot-password.reset") }}</v-btn
-        >
+          {{ t("pages.forgot-password.reset") }}
+        </v-btn>
       </v-form>
     </v-container>
   </v-main>

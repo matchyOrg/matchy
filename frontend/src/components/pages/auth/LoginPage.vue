@@ -43,18 +43,31 @@
           @click:append-inner="showPW = !showPW"
           :rules="[(value) => !!value || t('shared.forms.required')]"
         ></v-text-field>
+        <section class="flex flex-row-reverse -mt-6 mb-5">
+          <v-btn
+            :to="{
+              path: '/forgot-password',
+              query: { redirect: redirect },
+            }"
+            size="x-small"
+            variant="text"
+            color="primary"
+          >
+            {{ t("pages.login.forgot-password") }}
+          </v-btn>
+        </section>
 
         <span v-if="error" class="inline-block text-red text-center mb-5">
           > {{ error }}
         </span>
 
         <v-btn
-          class="d-block mx-auto mt-2"
+          class="d-block mx-auto"
           size="x-large"
           color="primary"
           variant="tonal"
           type="submit"
-          width="73%"
+          width="77%"
           :disabled="onSubmit.loading || !hasEmail || !hasPassword"
           :loading="onSubmit.loading"
         >
@@ -67,7 +80,7 @@
         </v-btn>
 
         <!-- ALTERNATIVE LOGIN SECTION-->
-        <section class="text-center mt-6">
+        <section class="flex justify-center align-center mt-7">
           <p class="text-grey ml-4 mr-2 inline-block">
             {{ t("pages.login.oauth-login-prompt") }}
           </p>
@@ -95,24 +108,9 @@
         </section>
       </v-form>
 
-      <!-- FORGOT PASSWORD -->
-      <section class="flex align-center justify-center">
-        <v-btn
-          :to="{
-            path: '/forgot-password',
-            query: { redirect: redirect },
-          }"
-          size="x-small"
-          variant="text"
-          color="primary"
-        >
-          {{ t("pages.login.forgot-password") }}
-        </v-btn>
-      </section>
-
       <!-- SIGN UP -->
       <section
-        class="text-grey flex align-center justify-center mt-20 border-1 rounded-md border-t-teal-600"
+        class="mx-5 text-grey flex align-center justify-center mt-20 border-1 rounded-md border-t-teal-600"
       >
         <p class="inline-block text-xl mb-0.5 ml-5">
           {{ t("pages.login.no-account") }}

@@ -71,7 +71,7 @@
       "error": "There was an error creating the event",
       "submit": "Submit",
       "success": "Creation of new event successful",
-      "title": "Organize an event"
+      "title": "Organize an Event"
     },
     "event-edit": {
       "title": "Edit Event"
@@ -105,8 +105,9 @@
       "active-event-action": "To Dashboard",
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Confirm you're here",
-      "finish-profile": "Fill out your profile",
-      "future-events-header": "Your planned events",
+      "finish-profile": "First fill out your profile",
+      "future-events-hosting-header": "Events you'll be hosting",
+      "future-events-visiting-header": "Events you'll be visiting",
       "hello": "Hey",
       "no-event-cta": "Check out events",
       "no-events": "You aren't registered for any events",
@@ -182,8 +183,8 @@
       "heading-p1": "Thanks for joining us.",
       "heading-p2": "We're just as excited as you are!",
       "heading-p3": "First let's set your account up.",
-      "registered-subheader1": "It's great to have you on board. 🎉",
-      "registered-subheader2": "Next, please confirm your email, so you can log in. We've sent you a confimation email.",
+      "registered-subheader1": "It's great to have you on board. 🎉✨",
+      "registered-subheader2": "Next, to be able to log in, please click on the confirmation link we've sent you via email.",
       "registered-title": "Welcome to Matchy.",
       "title": "Almost there!"
     }

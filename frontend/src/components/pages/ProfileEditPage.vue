@@ -37,8 +37,7 @@
             variant="outlined"
           />
         </div>
-
-        <div class="d-flex flex-column align-center mt-8">
+        <section class="d-flex flex-column align-center mt-3">
           <!-- update button -->
           <v-btn
             class="mb-4"
@@ -57,64 +56,60 @@
                 : t("pages.profile.register-button-text")
             }}
           </v-btn>
-
-          <!-- sign out button -->
-          <v-btn
-            class="mb-4"
-            size="x-large"
-            color="secondary"
-            variant="tonal"
-            append-icon="mdi-logout"
-            minWidth="20rem"
-            @click="logout"
-            >{{ t("pages.profile.sign-out-button-text") }}
-          </v-btn>
-
-          <!-- sign delete -->
-          <v-btn
-            v-if="authStore.isRegistered"
-            size="x-large"
-            color="error"
-            variant="tonal"
-            append-icon="mdi-account-off"
-            minWidth="20rem"
-            @click="deleteDialog = true"
-            >{{ t("pages.profile.delete-button-text") }}
-            <v-dialog class="dialog" v-model="deleteDialog">
-              <v-card>
-                <v-card-title class="text-h6">Delete account</v-card-title>
-                <v-card-text>
-                  {{ t("pages.profile.delete-dialog-text") }}
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="green darken-1"
-                    text
-                    @click="deleteDialog = false"
-                  >
-                    {{ t("pages.profile.delete-dialog-keep") }}
-                  </v-btn>
-                  <v-btn
-                    color="red darken-1"
-                    text
-                    @click="
-                      deleteDialog = false;
-                      deleteProfile();
-                    "
-                  >
-                    {{ t("pages.profile.delete-dialog-delete") }}
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-btn>
-        </div>
+        </section>
       </v-form>
     </v-container>
   </v-main>
 
-  <!-- dialog for account deletion -->
+  <v-footer class="flex flex-col justify-center mb-10">
+    <!-- sign out button -->
+    <v-btn
+      class="mb-4"
+      size="x-large"
+      color="secondary"
+      variant="tonal"
+      append-icon="mdi-logout"
+      minWidth="20rem"
+      @click="logout"
+      >{{ t("pages.profile.sign-out-button-text") }}
+    </v-btn>
+
+    <!-- delete button -->
+    <v-btn
+      v-if="authStore.isRegistered"
+      size="x-large"
+      color="error"
+      variant="tonal"
+      append-icon="mdi-account-off"
+      minWidth="20rem"
+      @click="deleteDialog = true"
+      >{{ t("pages.profile.delete-button-text") }}
+      <v-dialog class="dialog" v-model="deleteDialog">
+        <v-card>
+          <v-card-title class="text-h6">Delete account</v-card-title>
+          <v-card-text>
+            {{ t("pages.profile.delete-dialog-text") }}
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="deleteDialog = false">
+              {{ t("pages.profile.delete-dialog-keep") }}
+            </v-btn>
+            <v-btn
+              color="red darken-1"
+              text
+              @click="
+                deleteDialog = false;
+                deleteProfile();
+              "
+            >
+              {{ t("pages.profile.delete-dialog-delete") }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-btn>
+  </v-footer>
 </template>
 
 <script setup lang="ts">
@@ -176,6 +171,7 @@ function logout() {
 
 async function deleteProfile() {
   await authStore.deleteAccount();
+  //TODO: remove other user data such as stored images and events
   successToast(t("pages.profile.delete-success"));
   router.push("/login");
 }
