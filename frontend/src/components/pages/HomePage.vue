@@ -36,13 +36,11 @@
             v-if="e.id == +currentEventStore.getCurrentId()"
             :to="'/events/' + e.id + '/participant'"
             color="primary"
-            size="small"
             >{{ t("pages.home.to-action") }}</v-btn
           >
           <v-btn
             v-else
             color="primary"
-            size="small"
             @click.prevent="confirmPresence(e.id)"
             >{{ t("pages.home.confirm-presence-action") }}</v-btn
           >
