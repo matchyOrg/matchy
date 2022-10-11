@@ -43,7 +43,7 @@
           @click:append-inner="showPW = !showPW"
           :rules="[(value) => !!value || t('shared.forms.required')]"
         ></v-text-field>
-        <section class="flex flex-row-reverse -mt-6 mb-5">
+        <section class="flex flex-row-reverse -mt-6 mb-3">
           <v-btn
             :to="{
               path: '/forgot-password',
@@ -62,7 +62,7 @@
         </span>
 
         <v-btn
-          class="d-block mx-auto mt-2"
+          class="d-block mx-auto"
           size="x-large"
           color="primary"
           variant="tonal"

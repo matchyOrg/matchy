@@ -120,7 +120,7 @@
       "password-text": "Ganz ohne Passwort.",
       "resend-button-text": "ERNEUT SENDEN",
       "send-button-text": "SENDEN",
-      "successful-signup": "Es wurde dir eine Bestätigungsmail geschickt.",
+      "successful-signup": "Bestätigungsmail wurde erfolgreich verschickt.",
       "wrong-credentials-error": "Email oder Passwort sind inkorrekt"
     },
     "matches": {
@@ -173,8 +173,8 @@
       "heading-p1": "Danke für's dabei sein!",
       "heading-p2": "Wir sind genauso aufgeregt wie du!",
       "heading-p3": "Lass uns zuerst deinen Account erstellen.",
-      "registered-subheader1": "Es ist großartig, dich am Bord zu haben. 🎉",
-      "registered-subheader2": "Wir haben dir eine Bestätigungsemail geschickt.",
+      "registered-subheader1": "Es ist großartig, dich am Bord zu haben. 🎉✨",
+      "registered-subheader2": "Als nächstes: Um dich einloggen zu können, bitte clicke auf den Link in der Bestätigungs-Email, die wir dir geschickt haben.",
       "registered-title": "Willkommen bei Matchy.",
       "title": "Fast fertig!"
     }
