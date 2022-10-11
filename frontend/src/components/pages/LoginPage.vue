@@ -1,6 +1,7 @@
 <template>
   <v-main>
     <v-container>
+      <!-- LOGO -->
       <SiteLogo class="my-12"></SiteLogo>
 
       <div class="mx-5 mt-16">
@@ -9,7 +10,8 @@
           :model-value="hasEmail"
           @submit.prevent="onSubmit.handler"
         >
-          <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
+          <!-- EMAIL -->
+          <!-- warning: this causes the [intlify] Not found parent scope. use the global scope. warning-->
           <v-text-field
             variant="filled"
             type="email"
@@ -19,6 +21,7 @@
             placeholder="geniusPinapple@mail.com"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
+          <!-- PASSWORD -->
           <v-text-field
             variant="filled"
             :type="showPW ? 'text' : 'password'"
@@ -29,9 +32,11 @@
             @click:append-inner="showPW = !showPW"
             :rules="[(value) => !!value || t('shared.forms.required')]"
           ></v-text-field>
-          <span v-if="error" class="text-red text-center d-block my-2">{{
-            error
-          }}</span>
+          <!-- ERROR MESSAGE -->
+          <span v-if="error" class="text-red text-center d-block my-2">
+            {{ error }}
+          </span>
+          <!-- LOGIN BUTTON -->
           <v-btn
             class="d-block mx-auto"
             size="x-large"
@@ -49,6 +54,7 @@
               {{ t("shared.auth.login") }}
             </span>
           </v-btn>
+
           <div class="text-center">
             <span
               class="d-inline-block text-small text-grey font-weight-bold"
@@ -176,9 +182,3 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
   }
 });
 </script>
-
-<style scoped>
-.text-small {
-  font-size: 12px;
-}
-</style>

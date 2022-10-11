@@ -54,6 +54,8 @@ const vuetify = createVuetify({
   locale: createVueI18nAdapter({ i18n: i18n as any, useI18n }),
 });
 
+import "uno.css";
+
 const app = createApp(App);
 app.config.errorHandler = async (err, instance, info) => {
   console.error({

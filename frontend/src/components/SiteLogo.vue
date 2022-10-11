@@ -1,5 +1,5 @@
 <template>
-  <div class="stacked-container">
+  <div class="flex flex-col content-center items-center">
     <div class="logo-wrapper">
       <img src="@/assets/matchyLogoGreen.svg" height="40" />
     </div>
@@ -8,13 +8,6 @@
 </template>
 
 <style scoped>
-.stacked-container {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-}
-
 .logo-wrapper {
   text-align: center;
 }
