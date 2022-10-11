@@ -1,95 +1,102 @@
 <template>
   <v-main>
     <v-container>
-      <SiteLogo class="my-12"></SiteLogo>
-
-      <div class="mx-5 mt-16">
-        <v-form
-          class="mt-8 mb-5"
-          :model-value="hasEmail"
-          @submit.prevent="onSubmit.handler"
+      <!-- LOGO -->
+      <section class="mt-5 flex flex-col content-center items-center">
+        <img src="@/assets/matchyLogoGreen.svg" height="40" />
+        <p
+          class="text-grey-darken-3"
+          style="
+            font-size: 0.85rem;
+            margin-top: -0.1rem;
+            letter-spacing: 0.05rem;
+          "
         >
-          <!-- TODO: This causes the [intlify] Not found parent scope. use the global scope. warning-->
-          <v-text-field
-            variant="filled"
-            type="email"
-            v-model="email"
-            name="Email"
-            label="Email"
-            placeholder="geniusPinapple@mail.com"
-            :rules="[(value) => !!value || t('shared.forms.required')]"
-          ></v-text-field>
-          <v-text-field
-            variant="filled"
-            :type="showPW ? 'text' : 'password'"
-            v-model="password"
-            name="password"
-            :label="t('shared.auth.password')"
-            :append-inner-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append-inner="showPW = !showPW"
-            :rules="[(value) => !!value || t('shared.forms.required')]"
-          ></v-text-field>
-          <span v-if="error" class="text-red text-center d-block my-2">{{
-            error
-          }}</span>
-          <v-btn
-            class="d-block mx-auto"
-            size="x-large"
-            color="primary"
-            variant="tonal"
-            type="submit"
-            width="66%"
-            :disabled="onSubmit.loading || !hasEmail || !hasPassword"
-            :loading="onSubmit.loading"
-          >
-            <template v-slot:loader>
-              <v-progress-circular indeterminate />
-            </template>
-            <span class="text-h6">
-              {{ t("shared.auth.login") }}
-            </span>
-          </v-btn>
-          <div class="text-center">
-            <span
-              class="d-inline-block text-small text-grey font-weight-bold"
-              >{{ t("pages.login.oauth-login-prompt") }}</span
+          paperless speed dating
+        </p>
+      </section>
+
+      <!-- MAIN LOGIN SECTION-->
+      <v-form
+        class="mx-5 mt-16 mb-5"
+        :model-value="hasEmail"
+        @submit.prevent="onSubmit.handler"
+      >
+        <v-text-field
+          class="mb-1"
+          variant="filled"
+          type="email"
+          v-model="email"
+          name="Email"
+          label="Email"
+          placeholder="geniusPinapple@mail.com"
+          :rules="[(value) => !!value || t('shared.forms.required')]"
+        ></v-text-field>
+        <v-text-field
+          class="mb-1"
+          variant="filled"
+          :type="showPW ? 'text' : 'password'"
+          v-model="password"
+          name="password"
+          :label="t('shared.auth.password')"
+          :append-inner-icon="showPW ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append-inner="showPW = !showPW"
+          :rules="[(value) => !!value || t('shared.forms.required')]"
+        ></v-text-field>
+
+        <span v-if="error" class="inline-block text-red text-center my-2">
+          {{ error }}
+        </span>
+
+        <v-btn
+          class="d-block mx-auto mt-2"
+          size="x-large"
+          color="primary"
+          variant="tonal"
+          type="submit"
+          width="73%"
+          :disabled="onSubmit.loading || !hasEmail || !hasPassword"
+          :loading="onSubmit.loading"
+        >
+          <template v-slot:loader>
+            <v-progress-circular indeterminate />
+          </template>
+          <span class="text-h7">
+            {{ t("shared.auth.login") }}
+          </span>
+        </v-btn>
+
+        <!-- ALTERNATIVE LOGIN SECTION-->
+        <section class="text-center mt-6">
+          <p class="text-grey ml-4 mr-2 inline-block">
+            {{ t("pages.login.oauth-login-prompt") }}
+          </p>
+          <div class="inline-block">
+            <v-btn
+              size="small"
+              variant="text"
+              @click="oAuthLogin.handler('google')"
             >
-            <div class="d-inline-block">
-              <v-btn
-                class="ref"
-                size="small"
-                variant="text"
-                icon
-                @click="oAuthLogin.handler('google')"
-              >
-                <img
-                  src="@/assets/googleLogo.svg"
-                  alt="google"
-                  width="16"
-                  height="16"
-                />
-              </v-btn>
-              <v-btn
-                size="small"
-                variant="text"
-                icon="mdi-github"
-                @click="oAuthLogin.handler('github')"
+              <img src="@/assets/googleLogo.svg" width="24" height="24" />
+            </v-btn>
+            <v-btn
+              size="small"
+              variant="text"
+              @click="oAuthLogin.handler('github')"
+            >
+              <img
+                style="margin-top: 0.07rem"
+                src="@/assets/githubLogo.svg"
+                width="28"
+                height="28"
               />
-            </div>
+            </v-btn>
           </div>
-        </v-form>
-      </div>
-      <div
-        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-8"
-      >
-        <span>{{ t("pages.login.no-account") }}</span>
-        <v-btn to="/signup" size="x-small" variant="text" color="primary">{{
-          t("shared.auth.signup")
-        }}</v-btn>
-      </div>
-      <div
-        class="d-flex align-center justify-center text-small text-grey font-weight-bold mt-8"
-      >
+        </section>
+      </v-form>
+
+      <!-- FORGOT PASSWORD -->
+      <section class="flex align-center justify-center">
         <v-btn
           :to="{
             path: '/forgot-password',
@@ -98,23 +105,49 @@
           size="x-small"
           variant="text"
           color="primary"
-          >{{ t("pages.login.forgot-password") }}</v-btn
         >
-      </div>
+          {{ t("pages.login.forgot-password") }}
+        </v-btn>
+      </section>
+
+      <!-- SIGN UP -->
+      <section
+        class="text-grey flex align-center justify-center mt-12 border-1 rounded-md border-t-teal-600"
+      >
+        <p class="inline-block text-xl mb-0.5 ml-5">
+          {{ t("pages.login.no-account") }}
+        </p>
+        <v-btn
+          class="-ml-2"
+          to="/signup"
+          size="x-large"
+          variant="text"
+          color="primary"
+        >
+          <span class="text-h7">
+            {{ t("shared.auth.signup") }}
+          </span>
+        </v-btn>
+      </section>
     </v-container>
   </v-main>
 
-  <v-footer class="d-flex justify-center pb-4">
-    <!-- other links -->
+  <v-footer class="flex justify-center pb-8">
     <a
       href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
-      class="mx-4 text-grey"
+      class="mx-2 text-grey"
     >
       {{ t("pages.login.footer-about-us") }}
     </a>
     <a
+      href="https://docs.google.com/forms/d/e/1FAIpQLSfadw82Hn0h0E6R8vLdCsXYoEZX5-ys59SOSx1UMEuhp6K-Tg/viewform?usp=sf_link"
+      class="mx-2 text-grey"
+    >
+      {{ t("pages.login.footer-feedback") }}
+    </a>
+    <a
       href="https://github.com/matchyOrg/matchy/blob/main/TERMS.md"
-      class="mx-4 text-grey"
+      class="mx-2 text-grey"
     >
       {{ t("pages.login.footer-legal-notice") }}
     </a>
@@ -176,9 +209,3 @@ const oAuthLogin = asyncLoading(async (provider: Provider) => {
   }
 });
 </script>
-
-<style scoped>
-.text-small {
-  font-size: 12px;
-}
-</style>
