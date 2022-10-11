@@ -1,6 +1,3 @@
-<script setup lang="ts">
-import { version } from "@/../package.json";
-</script>
 <template>
   <div class="stacked-container">
     <div class="logo-wrapper">

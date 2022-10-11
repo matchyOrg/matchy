@@ -45,26 +45,27 @@ input:-webkit-autofill:active {
 }
 
 @font-face {
-  font-family: "universltstd-light-webfont-woff2";
-  src: url("@/assets/universFont/universltstd-light-webfont.woff2")
-    format("woff2");
-}
-@font-face {
-  font-family: "universltstd-lightobl-webfont-woff2";
-  src: url("@/assets/universFont/universltstd-lightobl-webfont.woff2")
-    format("woff2");
-}
-@font-face {
-  font-family: "universltstd-obl-woff2";
+  font-family: "unviers";
   src: url("@/assets/universFont/universltstd-obl-webfont.woff2")
     format("woff2");
 }
 @font-face {
-  font-family: "universltstd-webfont-woff2";
+  font-family: "univers-light";
+  src: url("@/assets/universFont/universltstd-light-webfont.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "univers-light-cursive";
+  src: url("@/assets/universFont/universltstd-lightobl-webfont.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "univers-bold-wide";
   src: url("@/assets/universFont/universltstd-webfont.woff2") format("woff2");
 }
 
-/* * {
-  font-family: "universltstd-light-webfont-woff2", sans-serif;
-} */
+* {
+  font-family: "univers", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+}
 </style>

@@ -134,8 +134,6 @@ const route = useRoute();
 const { t } = useI18n();
 const redirect = routeParam(route, "redirect");
 
-successToast("AYOOO");
-
 // leave page if already logged in
 watch(
   () => authStore.isLoggedIn,
