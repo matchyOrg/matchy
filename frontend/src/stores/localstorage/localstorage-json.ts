@@ -57,7 +57,8 @@ export class ExtendedLocalStorage<T extends Record<string, any>> {
 
       const value = localStorage.getItem(key);
       if (value === null) continue;
-      obj[key] = JSON.parse(value, parseReviver);
+      const parsedKey = key.slice(LocalStorageKey.length);
+      obj[parsedKey] = JSON.parse(value, parseReviver);
     }
 
     return obj as Partial<T>;
