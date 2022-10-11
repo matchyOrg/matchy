@@ -44,11 +44,13 @@
   "pages": {
     "dashboard": {
       "back-to-overview": "Zurück zur Detailansicht",
+      "cancel": "Abbrechen",
       "event-ended": "Das Event wurde beendet.",
       "event-not-started": "Du hast das Event noch nicht gestartet.",
       "event-result-publish-reminder": "Vergiss nicht die Matches nach dem Event zu verschicken.",
       "ongoing": {
         "end-event": "Event beenden",
+        "end-event-question": "Willst du das Event beenden?",
         "round": "Runde",
         "start-round": "Runde starten"
       },

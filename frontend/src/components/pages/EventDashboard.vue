@@ -58,10 +58,30 @@
         class="d-block mx-auto mt-20"
         variant="tonal"
         color="error"
-        @click="endEvent"
+        @click="showEndEventModal = true"
       >
         <v-icon left>mdi-close</v-icon>
         {{ t("pages.dashboard.ongoing.end-event") }}
+        <v-dialog v-model="showEndEventModal">
+          <v-card>
+            <v-card-text>
+              {{ t("pages.dashboard.ongoing.end-event-question") }}
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                variant="text"
+                @click="showEndEventModal = false"
+              >
+                {{ t("pages.dashboard.cancel") }}
+              </v-btn>
+              <v-btn color="error" variant="text" @click="endEvent">
+                {{ t("pages.dashboard.ongoing.end-event") }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-btn>
     </v-container>
     <v-container class="d-flex flex-column align-center justify-center" v-else>
@@ -118,6 +138,8 @@ const setDuration = ref(minute);
 
 const eventEnded = ref(false);
 const eventStarted = ref(false);
+
+const showEndEventModal = ref(false);
 
 const startEvent = async () => {
   try {
