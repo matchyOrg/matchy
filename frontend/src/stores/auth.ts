@@ -6,7 +6,8 @@ import { storageRef } from "./localstorage";
 
 export const useAuthStore = defineStore("user", () => {
   // User
-  const user = ref<User | null>(supabase.auth.user());
+  const user = ref<User | null>(null);
+  setUserStore(supabase.auth.user());
   const isLoggedIn = computed(() => user.value !== null);
 
   const redirect = storageRef("redirect");
