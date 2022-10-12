@@ -61,7 +61,7 @@
     </v-container>
   </v-main>
 
-  <v-footer class="flex flex-col justify-center mb-10">
+  <v-footer class="flex flex-col justify-center mb-24">
     <!-- sign out button -->
     <v-btn
       class="mb-4"
