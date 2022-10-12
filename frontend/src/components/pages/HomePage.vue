@@ -190,8 +190,7 @@ const currentOrganizerEvents = ref<EventInfo[]>([]);
 const futureOrganizerEvents = ref<EventInfo[]>([]);
 
 function groupCurrentAndFutureEvents(events: EventInfo[]) {
-  // events with a start date that is approximately now (one and a half hours)
-  // or have started but not ended
+  // current events have a delta of one and a half hours - or have started but not ended
   const current = events.filter((e) => {
     const diff = Temporal.Now.instant().since(e.datetime);
     return (
@@ -200,8 +199,9 @@ function groupCurrentAndFutureEvents(events: EventInfo[]) {
   });
 
   // all other events
-  // this is inefficient, but people probably won't be registered for many events anyways
-  // and very unlikely to more than 1 at the same time
+  // filtered inefficiently, but we assume that
+  // - people won't be registered for too many events anyways
+  // - it's very unlikely to be more than 1 at the same time
   const future = events.filter((e) => current.every((ce) => ce.id !== e.id));
 
   return { current, future };
@@ -218,7 +218,6 @@ const fetchEvents = async () => {
     future: futureOrganizerEvents.value,
   } = groupCurrentAndFutureEvents(organizingEvents));
 };
-
 fetchEvents();
 
 const share = async (e: EventInfo) => await shareEvent(e, authStore, t, router);
