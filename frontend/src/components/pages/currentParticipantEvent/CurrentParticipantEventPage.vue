@@ -5,12 +5,12 @@
       <waiting-for-event-start-view v-else-if="!eventStarted" />
       <create-pairing-view
         :user-id="authStore.user?.id ?? 'unavailable'"
-        :round-time="roundTime"
+        :round-time="roundRemainingTime"
         @partner-found="createPair"
         v-else-if="roundOngoing && !currentPairId"
       />
       <ongoing-round-view
-        :round-time="roundTime"
+        :round-time="roundRemainingTime"
         :round-duration="roundDuration"
         v-else-if="roundOngoing"
       />
@@ -45,18 +45,28 @@ const currentRound = ref<definitions["event_rounds"]>();
 const currentRoundId = ref<number>();
 const currentPairId = ref<number>();
 
-const roundTime = ref<number>();
-const roundDuration = ref<number>();
+const roundTimes = ref<{ start: Temporal.Instant; end: Temporal.Instant }>();
+const roundRemainingTime = ref<number>();
+const roundDuration = computed(() => {
+  const time = roundTimes.value;
+  return time
+    ? time.end.since(time.start).total({ unit: "milliseconds" })
+    : undefined;
+});
 const countingInterval = ref<number>();
 
 const startCountdown = () =>
   window.setInterval(() => {
-    if (!roundTime.value) {
+    if (roundTimes.value === undefined) {
       clearInterval(countingInterval.value);
       return;
     }
-    roundTime.value = Math.max(roundTime.value - 1000, 0);
-    if (roundTime.value === 0) {
+    const remainingTime = Temporal.Now.instant()
+      .until(roundTimes.value.end)
+      .total({ unit: "milliseconds" });
+    roundRemainingTime.value = Math.max(remainingTime, 0);
+
+    if (remainingTime <= 0) {
       roundOngoing.value = false;
       clearInterval(countingInterval.value);
     }
@@ -65,13 +75,10 @@ const startCountdown = () =>
 const setupTimer = (round: definitions["event_rounds"]) => {
   const roundStart = timestampToInstant(round.start_timestamp);
   const roundEnd = timestampToInstant(round.end_timestamp);
-  const now = Temporal.Now.instant();
-  const duration = roundEnd.since(roundStart);
-  const remainingTime = now.until(roundEnd);
-  roundDuration.value = duration.total({ unit: "milliseconds" });
-  roundTime.value = remainingTime.total({ unit: "milliseconds" });
-  console.log("duration", roundDuration.value);
-  console.log("time", roundTime.value);
+  roundTimes.value = {
+    start: roundStart,
+    end: roundEnd,
+  };
 
   // make sure there's only ever 1 interval at a time
   clearInterval(countingInterval.value);
@@ -148,6 +155,7 @@ const setupRoundSubscription = () => {
       currentRound.value = round;
       currentRoundId.value = round.id;
       // end_timestamp is in future
+      // this could be refactored into a computed()
       const hasNotEnded =
         Temporal.Instant.from(round.end_timestamp).since(Temporal.Now.instant())
           .sign > 0;
