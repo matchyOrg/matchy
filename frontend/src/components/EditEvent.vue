@@ -1,32 +1,42 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-form>
     <!-- header image -->
-    <section>
-      <div class="text-right" v-if="!excludeFields.includes('header_image')">
-        <span class="text-red" @click="removeImage">{{
-          t("components.edit-event.remove-image")
-        }}</span>
-      </div>
+    <section class="mb-7">
       <v-card
         v-if="!excludeFields.includes('header_image')"
-        class="header-container mb-8"
+        class="relative"
+        style="cursor: pointer"
         width="100%"
         height="200"
         elevation="0"
         color="#E0E0E0"
       >
         <v-img cover :src="headerImageSrc" v-if="hasHeaderImage" />
-        <v-card-title class="header-text absolute text-white">
+        <v-card-title class="header-text absolute top-0 w-100 text-white">
           {{ t("components.edit-event.edit-image") }}
         </v-card-title>
         <v-file-input
           hide-details
-          class="file-input absolute opacity-0 h-48"
+          class="file-input absolute top-0 w-100 opacity-0"
+          style="height: 48px"
           accept="image/*"
           v-model="headerImage"
           :key="updateId"
         />
       </v-card>
+      <div
+        class="text-right mt-0.5"
+        v-if="!excludeFields.includes('header_image')"
+      >
+        <a
+          style="cursor: pointer"
+          class="text-red underline"
+          @click="removeImage"
+        >
+          {{ t("components.edit-event.remove-image") }}
+        </a>
+      </div>
     </section>
 
     <!-- info -->
@@ -95,12 +105,20 @@
       </v-col>
     </v-row>
 
-    <v-switch
-      v-model="model.uses_groups"
-      v-if="!excludeFields.includes('event_groups')"
-      size="20"
-      color="primary"
-    />
+    <!-- group switch -->
+    <v-divider class="my-6" />
+    <div class="flex align-center -mb-7">
+      <v-switch
+        v-if="!excludeFields.includes('event_groups')"
+        class="ml-2"
+        v-model="model.uses_groups"
+        size="20"
+        color="primary"
+      />
+      <p class="inline-block w-10/12 mb-6">
+        {{ t("components.edit-event.group-toggle") }}
+      </p>
+    </div>
 
     <v-row v-if="model.uses_groups && !excludeFields.includes('event_groups')">
       <v-col cols="6">
@@ -168,8 +186,6 @@ const model = computed<EditEventInfo>({
     emits("update:modelValue", newVal);
   },
 });
-
-// const showPicker = ref(false);
 
 const showDatePicker = ref(false);
 const showTimePicker = ref(false);
@@ -272,31 +288,15 @@ const displayedTime = computed(() => {
 
 // make sure we release the url
 onBeforeUnmount(() => URL.revokeObjectURL(headerImageSrc.value));
-
-// const dateTime = ref("");
 </script>
 
 <style scoped>
-.header-container {
-  position: relative;
-}
-
-.absolute {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
 .header-text {
   background: rgba(0, 0, 0, 0.2);
 }
 
 .file-input:active + .header-text {
   background: rgba(0, 0, 0, 0.1);
-}
-
-.opacity-0 {
-  opacity: 0;
 }
 
 .h-48 {

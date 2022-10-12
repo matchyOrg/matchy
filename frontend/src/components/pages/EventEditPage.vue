@@ -12,12 +12,13 @@
         />
 
         <!-- update button -->
-        <section class="d-flex flex-column align-center mt-3">
+        <section class="d-flex flex-column align-center mt-5">
           <v-btn
             class="mb-4"
             size="x-large"
             color="green"
             variant="tonal"
+            elevation="5"
             append-icon="mdi-content-save-outline"
             type="submit"
             minWidth="20rem"
