@@ -101,13 +101,13 @@
       "title": "Passwort vergessen?"
     },
     "home": {
-      "active-event": "Jetzt gerade",
+      "active-event": "Veranstaltest du gerade",
       "active-event-action": "Zum Dashboard",
       "confirm-presence-action": "Ich bin da",
-      "confirm-presence-header": "Bestätige dass du da bist",
+      "confirm-presence-header": "Besuchst du gerade",
       "finish-profile": "Zuerst das Profil ausfüllen",
-      "future-events-hosting-header": "Events die du veranstaltest",
-      "future-events-visiting-header": "Events die du besuchst",
+      "future-events-hosting-header": "Wirst du veranstalten",
+      "future-events-visiting-header": "Wirst du besuchen",
       "hello": "Hallo",
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",

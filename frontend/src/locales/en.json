@@ -101,10 +101,10 @@
       "title": "Forgot Your Password?"
     },
     "home": {
-      "active-event": "Your active event",
+      "active-event": "Currently hosting",
       "active-event-action": "To Dashboard",
       "confirm-presence-action": "I'm here",
-      "confirm-presence-header": "Confirm you're here",
+      "confirm-presence-header": "Currently visiting",
       "finish-profile": "First fill out your profile",
       "future-events-hosting-header": "Events you'll be hosting",
       "future-events-visiting-header": "Events you'll be visiting",

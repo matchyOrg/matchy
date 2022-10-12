@@ -59,9 +59,18 @@
 
       <!-- Future user events -->
       <section class="mb-12">
-        <page-title v-bind:is-subtitle="true">
-          {{ t("pages.home.future-events-visiting-header") }}
-        </page-title>
+        <header class="flex justify-between w-full">
+          <page-title v-bind:is-subtitle="true">
+            {{ t("pages.home.future-events-visiting-header") }}
+          </page-title>
+          <v-btn
+            class="-mt-1 -mr-1"
+            to="/events"
+            color="primary"
+            variant="text"
+            icon="mdi-calendar-search-outline"
+          />
+        </header>
         <template v-if="futureUserEvents.length > 0">
           <event-list-item
             class="mb-4"
@@ -73,9 +82,8 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey">
+        <div v-else class="text-center text-grey -mb-5">
           {{ t("pages.home.no-events") }}
-          <br />
           <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
             t("pages.home.no-event-cta")
           }}</v-btn>
@@ -129,7 +137,7 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey">
+        <div v-else class="text-center text-grey -mb-5">
           {{ t("pages.home.no-org-events") }}
           <v-btn
             color="primary"
@@ -143,6 +151,7 @@
       </section>
     </v-container>
   </v-main>
+
   <!-- about us -->
   <v-footer class="flex justify-center mb-20">
     <a
