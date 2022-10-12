@@ -1,3 +1,4 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-bottom-navigation color="primary" grow app>
     <v-btn to="/" class="flex-1 w-0 pl-0 pr-0">

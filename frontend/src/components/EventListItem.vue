@@ -1,10 +1,11 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-card :to="to" :class="{ pulse }" elevation="4">
     <header class="flex justify-between">
       <v-card-title
         class="flex align-center py-0 pr-4 text-body-1 font-weight-bold text-wrap"
       >
-        <p style="max-width: 20rem" class="leading-tight">
+        <p style="max-width: 20rem" class="leading-tight break-words">
           {{ matchyEvent.title }}
         </p>
       </v-card-title>
@@ -12,17 +13,18 @@
     </header>
 
     <v-img
+      class="mt-1 mb-4"
       v-if="matchyEvent.header_image && showImage"
       :src="headerImageSrc"
       width="100%"
       height="200"
       cover
     />
-    <div v-else class="w-10/12">
-      <v-divider v-if="showDivider"></v-divider>
+    <div v-else>
+      <v-divider class="mb-4 w-10/12" v-if="showDivider" />
     </div>
 
-    <div class="mt-3 mx-4" v-if="showInfo">
+    <div class="mt-1 mx-4" v-if="showInfo">
       <event-info
         :loading="false"
         :location="matchyEvent.location ?? ''"

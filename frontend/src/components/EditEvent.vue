@@ -14,11 +14,9 @@
       color="#E0E0E0"
     >
       <v-img cover :src="headerImageSrc" v-if="hasHeaderImage" />
-      <v-card-title class="header-text absolute text-white">{{
-        model.header_image
-          ? t("components.edit-event.add-image")
-          : t("components.edit-event.edit-image")
-      }}</v-card-title>
+      <v-card-title class="header-text absolute text-white">
+        {{ t("components.edit-event.edit-image") }}
+      </v-card-title>
       <v-file-input
         hide-details
         class="file-input absolute opacity-0 h-48"

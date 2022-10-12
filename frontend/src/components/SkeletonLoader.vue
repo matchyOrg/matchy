@@ -1,10 +1,11 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <div
     v-for="i in numRows"
     :key="i"
     class="skeleton-loader mb-2"
     :style="style"
-  ></div>
+  />
 </template>
 
 <script lang="ts" setup>

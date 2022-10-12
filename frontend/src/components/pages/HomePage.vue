@@ -1,3 +1,4 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container>
@@ -43,12 +44,14 @@
           <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
               v-if="e.id == +currentEventStore.getCurrentId()"
+              class="-mt-5"
               :to="'/events/' + e.id + '/participant'"
               color="primary"
               >{{ t("pages.home.to-action") }}</v-btn
             >
             <v-btn
               v-else
+              class="-mt-5"
               color="primary"
               @click.prevent="confirmPresence(e.id)"
               >{{ t("pages.home.confirm-presence-action") }}</v-btn
@@ -64,7 +67,7 @@
             {{ t("pages.home.future-events-visiting-header") }}
           </page-title>
           <v-btn
-            class="-mt-1 -mr-1"
+            class="-mt-2.5 -mr-1"
             to="/events"
             color="primary"
             variant="text"
@@ -107,13 +110,18 @@
         >
           <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
+              class="-mt-5"
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/dashboard'"
               color="primary"
             >
               {{ t("pages.home.active-event-action") }}
             </v-btn>
-            <v-btn v-else color="primary" @click.prevent="startEvent(e.id)"
+            <v-btn
+              v-else
+              class="-mt-5"
+              color="primary"
+              @click.prevent="startEvent(e.id)"
               >Start Event</v-btn
             >
           </v-card-actions>

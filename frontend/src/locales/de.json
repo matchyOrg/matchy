@@ -23,7 +23,7 @@
       "date-placeholder": "Wähle ein Datum",
       "description-input": "Beschreibung",
       "description-placeholder": "Eventbeschreibung",
-      "edit-image": "Titelbild ändern",
+      "edit-image": "Titelbild hochladen",
       "group-a-description-label": "Beschreibung Gruppe A",
       "group-a-description-placeholder": "Beschreibe Gruppe A",
       "group-a-name": "Gruppenname A",
@@ -90,7 +90,7 @@
       "register-modal-title": "Wähle eine Gruppe",
       "register-without-group-success": "Du hast dich für das Event registriert",
       "share-button-text": "Teile dieses Event",
-      "share-hint-organizer": "Lade Teilnehmenden ein indem du diesen Link mit ihnen teilst",
+      "share-hint-organizer": "Lade Teilnehmende ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
     "forgot-password": {

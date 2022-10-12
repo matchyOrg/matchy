@@ -1,3 +1,4 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container v-if="!registered">
