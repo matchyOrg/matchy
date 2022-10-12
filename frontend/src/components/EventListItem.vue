@@ -1,11 +1,16 @@
 <template>
   <v-card :to="to" :class="{ pulse }" elevation="4">
-    <v-card-title
-      class="event-title d-flex justify-space-between align-center py-0 pr-4 text-body-1 font-weight-bold"
-    >
-      <span class="d-block mr-4 text-wrap">{{ matchyEvent.title }}</span>
+    <header class="flex justify-between">
+      <v-card-title
+        class="flex align-center py-0 pr-4 text-body-1 font-weight-bold text-wrap"
+      >
+        <p style="max-width: 20rem" class="leading-tight">
+          {{ matchyEvent.title }}
+        </p>
+      </v-card-title>
       <v-btn variant="text" icon="mdi-share-variant" @click.prevent="share" />
-    </v-card-title>
+    </header>
+
     <v-img
       v-if="matchyEvent.header_image && showImage"
       :src="headerImageSrc"
@@ -13,13 +18,18 @@
       height="200"
       cover
     />
-    <div class="info my-2 mx-4" v-if="showInfo">
+    <div v-else class="w-10/12">
+      <v-divider></v-divider>
+    </div>
+
+    <div class="mt-3 mx-4" v-if="showInfo">
       <event-info
         :loading="false"
         :location="matchyEvent.location ?? ''"
         :datetime="matchyEvent.datetime"
       />
     </div>
+
     <slot />
   </v-card>
 </template>
@@ -51,10 +61,6 @@ const headerImageSrc = computed(
 </script>
 
 <style scoped>
-.event-title {
-  line-height: 20px !important;
-}
-
 .pulse {
   position: relative;
 }

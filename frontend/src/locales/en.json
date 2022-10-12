@@ -78,7 +78,7 @@
     },
     "event-search": {
       "no-results": "There are no events at the moment",
-      "title": "Find Events"
+      "title": "All Events"
     },
     "events": {
       "already-registered": "You are registered",

@@ -1,30 +1,33 @@
 <template>
-  <div class="mb-4 d-flex align-center" v-if="loading || location">
-    <v-icon class="mr-4" size="small" color="grey-darken-2"
-      >mdi-map-marker</v-icon
-    >
+  <section class="mb-4 flex align-center" v-if="loading || location">
+    <v-icon class="mr-4" size="small" color="grey-darken-2">
+      mdi-map-marker
+    </v-icon>
     <skeleton-loader v-if="loading" width="200" />
-    <span v-else-if="location">{{ location }}</span>
-  </div>
-  <div class="mb-4 d-flex align-center" v-if="loading || datetimeToDisplay">
-    <v-icon class="mr-4" size="small" color="grey-darken-2"
-      >mdi-calendar</v-icon
-    >
+    <span v-else-if="location" style="max-width: 19rem">{{ location }}</span>
+  </section>
+
+  <section class="mb-4 flex align-center" v-if="loading || datetimeToDisplay">
+    <v-icon class="mr-4" size="small" color="grey-darken-2">
+      mdi-calendar
+    </v-icon>
     <skeleton-loader v-if="loading" width="200" />
     <span v-else-if="datetimeToDisplay">
-      {{ String(datetimeToDisplay.day).padStart(2, "0") }}/{{
+      {{ String(datetimeToDisplay.day).padStart(2, "0") }}.{{
         String(datetimeToDisplay.month).padStart(2, "0")
-      }}/{{ datetimeToDisplay.year }}
+      }}.{{ datetimeToDisplay.year }}
     </span>
-  </div>
-  <div class="mb-4 d-flex align-center" v-if="loading || datetimeToDisplay">
+  </section>
+
+  <section class="mb-4 flex align-center" v-if="loading || datetimeToDisplay">
     <v-icon class="mr-4" size="small" color="grey-darken-2">mdi-clock</v-icon>
     <skeleton-loader v-if="loading" width="200" />
     <span v-else-if="datetimeToDisplay">
-      {{ String(datetimeToDisplay.hour).padStart(2, "0") }}
-      :{{ String(datetimeToDisplay.minute).padStart(2, "0") }}
+      {{ String(datetimeToDisplay.hour).padStart(2, "0") }}:{{
+        String(datetimeToDisplay.minute).padStart(2, "0")
+      }}
     </span>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
