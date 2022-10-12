@@ -40,7 +40,7 @@
           :to="'/events/' + e.id"
           @share="share(e)"
         >
-          <v-card-actions class="d-flex justify-center mh-0">
+          <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/participant'"
@@ -97,7 +97,7 @@
           :pulse="e.id == +currentEventStore.getCurrentId()"
           @share="share(e)"
         >
-          <v-card-actions class="d-flex justify-center mh-0">
+          <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/dashboard'"
@@ -202,7 +202,6 @@ function groupCurrentAndFutureEvents(events: EventInfo[]) {
   // all other events
   // this is inefficient, but people probably won't be registered for many events anyways
   // and very unlikely to more than 1 at the same time
-  // when will https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/group finally ship?
   const future = events.filter((e) => current.every((ce) => ce.id !== e.id));
 
   return { current, future };
@@ -227,7 +226,7 @@ const share = async (e: EventInfo) => await shareEvent(e, authStore, t, router);
 const confirmPresence = async (id: number) => {
   try {
     await currentEventStore.confirmPresence(id);
-    successToast("Welcome to the event");
+    successToast("Welcome to the event!");
     router.push({ name: "participant-view", params: { id } });
   } catch (e) {
     errorToast(e);
@@ -244,9 +243,3 @@ const startEvent = async (id: number) => {
   }
 };
 </script>
-
-<style scoped>
-.mh-0 {
-  min-height: 0;
-}
-</style>
