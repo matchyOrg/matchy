@@ -25,7 +25,9 @@
         :location="matchyEvent?.location ?? ''"
         :datetime="matchyEvent?.datetime"
       />
-      <p v-if="!loadingEvent" class="mt-8">{{ matchyEvent?.description }}</p>
+      <p v-if="!loadingEvent" class="mt-8 keep-whitespaces">
+        {{ matchyEvent?.description }}
+      </p>
 
       <skeleton-loader v-else width="100%" :num-rows="2" />
       <v-divider class="my-4" />
@@ -35,7 +37,7 @@
           matchyEvent.event_groups.groupA.title
         }}</span>
         <span
-          class="d-block pl-4 mb-4"
+          class="d-block pl-4 mb-4 keep-whitespaces"
           v-if="matchyEvent.event_groups.groupA.description"
           >{{ matchyEvent.event_groups.groupA.description }}</span
         >
@@ -46,7 +48,7 @@
           matchyEvent.event_groups.groupB.title
         }}</span>
         <span
-          class="d-block pl-4 mb-4"
+          class="d-block pl-4 mb-4 keep-whitespaces"
           v-if="matchyEvent.event_groups.groupB.description"
           >{{ matchyEvent.event_groups.groupB.description }}</span
         >
@@ -342,3 +344,8 @@ watch(
   { immediate: true, flush: "post" }
 );
 </script>
+<style scoped>
+.keep-whitespaces {
+  white-space: pre-wrap;
+}
+</style>
