@@ -140,7 +140,7 @@ const route = useRoute();
 const second = 1000;
 const minute = 60 * second;
 const hour = 60 * minute;
-const time = ref(minute);
+const time = ref(7 * minute); // Time of the ongoing round
 
 const loadingEvent = ref(true);
 
@@ -159,7 +159,7 @@ const totalPresent = ref();
 const pairSubscription = ref<RealtimeSubscription>();
 const voteSubscription = ref<RealtimeSubscription>();
 
-const setDuration = ref(minute);
+const setDuration = ref(7 * minute);
 
 const eventEnded = ref(false);
 const eventStarted = ref(false);
@@ -249,6 +249,7 @@ watch(
   () => {
     pairsThisRound.value = 0;
     votesThisRound.value = 0;
+    pairSubscription.value?.unsubscribe();
     pairSubscription.value = supabase
       .from<any>("event_user_pairs:event_round=eq." + currentRoundId.value)
       .on("INSERT", () => {
@@ -261,6 +262,8 @@ watch(
           currentRoundId.value
         );
       });
+
+    voteSubscription.value?.unsubscribe();
     voteSubscription.value = supabase
       .from<any>("votes")
       .on("INSERT", () => {
