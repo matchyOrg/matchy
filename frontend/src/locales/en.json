@@ -142,7 +142,7 @@
     },
     "participant-event": {
       "ended-button-link": "To Homepage",
-      "ended-subtitle": "This event is now over, thanks for being here!",
+      "ended-subtitle": "This event is now over, thanks for being here! Your matches should arrive sometime after the event.",
       "ended-title": "That's all volks!",
       "not-started-subtitle": "Please wait for the organizer to start the event",
       "not-started-title": "The event hasn't started yet...",
