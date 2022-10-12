@@ -1,15 +1,34 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container>
       <page-title>{{ t("pages.event-edit.title") }}</page-title>
 
       <div v-if="matchyEvent">
+        <!-- same as create event but excludes some fields -->
         <EditEvent
           v-model="matchyEvent"
           :exclude-fields="['event_groups', 'datetime', 'max_participants']"
         />
-        <v-btn color="success" @click="submit">Submit</v-btn>
+
+        <!-- update button -->
+        <section class="d-flex flex-column align-center mt-5">
+          <v-btn
+            class="mb-4"
+            size="x-large"
+            color="green"
+            variant="tonal"
+            elevation="5"
+            append-icon="mdi-content-save-outline"
+            type="submit"
+            minWidth="20rem"
+            @click="submit"
+          >
+            {{ t("pages.event-edit.update") }}
+          </v-btn>
+        </section>
       </div>
+
       <v-progress-circular indeterminate class="spinner ma-auto" v-else />
     </v-container>
   </v-main>

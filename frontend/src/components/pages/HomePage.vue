@@ -1,21 +1,16 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
-  <!-- MAKE THIS THE HEADER EVERYWHERE -->
-  <!-- <header class="d-flex align-center mb-6">
-    <img class="mr-2" src="@/assets/matchyLogo.svg" height="19" />
-    <h2 class="text-h6 font-weight-bold">AYOOO</h2>
-  </header> -->
-
   <v-main>
     <v-container>
       <!-- Greeting -->
-      <section class="mb-7">
+      <section>
         <h2
           v-if="authStore.isRegistered"
-          class="mt-1 text-grey font-weight-regular"
+          class="mt-1 mb-6 text-grey font-weight-regular"
         >
           {{ t("pages.home.hello") }} {{ firstName }}!
         </h2>
-        <div v-else class="mt-5 flex justify-center">
+        <div v-else class="mt-5 mb-8 flex justify-center">
           <div class="border-1 rounded-md border-neutral-300">
             <v-btn
               to="/edit-profile"
@@ -31,14 +26,11 @@
         </div>
       </section>
 
-      <!-- Events currently running -->
-      <section>
-        <h2
-          v-if="currentUserEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
-        >
+      <!-- Current user events -->
+      <section v-if="currentUserEvents.length > 0" class="mb-12">
+        <page-title v-bind:is-subtitle="true">
           {{ t("pages.home.confirm-presence-header") }}
-        </h2>
+        </page-title>
         <event-list-item
           class="mb-4"
           v-for="(e, i) in currentUserEvents"
@@ -49,15 +41,17 @@
           :to="'/events/' + e.id"
           @share="share(e)"
         >
-          <v-card-actions class="d-flex justify-center mh-0">
+          <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
               v-if="e.id == +currentEventStore.getCurrentId()"
+              class="-mt-4"
               :to="'/events/' + e.id + '/participant'"
               color="primary"
               >{{ t("pages.home.to-action") }}</v-btn
             >
             <v-btn
               v-else
+              class="-mt-4"
               color="primary"
               @click.prevent="confirmPresence(e.id)"
               >{{ t("pages.home.confirm-presence-action") }}</v-btn
@@ -66,11 +60,20 @@
         </event-list-item>
       </section>
 
-      <!-- Participant view -->
-      <section>
-        <h2 class="text-h6 font-weight-bold mb-4">
-          {{ t("pages.home.future-events-visiting-header") }}
-        </h2>
+      <!-- Future user events -->
+      <section class="mb-12">
+        <header class="flex justify-between w-full">
+          <page-title v-bind:is-subtitle="true">
+            {{ t("pages.home.future-events-visiting-header") }}
+          </page-title>
+          <v-btn
+            class="-mt-2.5 -mr-1"
+            to="/events"
+            color="primary"
+            variant="text"
+            icon="mdi-calendar-search-outline"
+          />
+        </header>
         <template v-if="futureUserEvents.length > 0">
           <event-list-item
             class="mb-4"
@@ -82,23 +85,19 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey">
+        <div v-else class="text-center text-grey -mb-3">
           {{ t("pages.home.no-events") }}
-          <br />
           <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
             t("pages.home.no-event-cta")
           }}</v-btn>
         </div>
       </section>
 
-      <!-- Organizer events -->
-      <section>
-        <div
-          v-if="currentOrganizerEvents.length > 0"
-          class="text-h6 font-weight-bold mb-4"
-        >
+      <!-- Current organizer events -->
+      <section class="mb-12" v-if="currentOrganizerEvents.length > 0">
+        <page-title v-bind:is-subtitle="true">
           {{ t("pages.home.active-event") }}
-        </div>
+        </page-title>
         <event-list-item
           class="mb-4"
           v-for="(e, i) in currentOrganizerEvents"
@@ -109,22 +108,33 @@
           :pulse="e.id == +currentEventStore.getCurrentId()"
           @share="share(e)"
         >
-          <v-card-actions class="d-flex justify-center mh-0">
+          <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
+              class="-mt-4"
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/dashboard'"
               color="primary"
-              >{{ t("pages.home.active-event-action") }}</v-btn
             >
-            <v-btn v-else color="primary" @click.prevent="startEvent(e.id)"
-              >Start Event</v-btn
+              {{ t("pages.home.active-event-action") }}
+            </v-btn>
+            <v-btn
+              v-else
+              class="-mt-4"
+              color="primary"
+              @click.prevent="startEvent(e.id)"
             >
+              {{ t("pages.home.active-event-start") }}
+            </v-btn>
           </v-card-actions>
         </event-list-item>
+      </section>
 
-        <div class="text-h6 font-weight-bold mb-4">
+      <!-- Future organizer events -->
+      <section class="mb-12">
+        <page-title v-bind:is-subtitle="true">
           {{ t("pages.home.future-events-hosting-header") }}
-        </div>
+        </page-title>
+        <div class="text-h6 font-weight-bold mb-4"></div>
         <template v-if="futureOrganizerEvents.length > 0">
           <event-list-item
             class="mb-4"
@@ -136,7 +146,7 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey">
+        <div v-else class="text-center text-grey -mb-3">
           {{ t("pages.home.no-org-events") }}
           <v-btn
             color="primary"
@@ -151,7 +161,8 @@
     </v-container>
   </v-main>
 
-  <v-footer class="flex justify-center -mb-21">
+  <!-- about us -->
+  <v-footer class="flex justify-center mb-20">
     <a
       href="https://github.com/matchyOrg/.github/blob/main/profile/README.md"
       class="mx-2 text-grey"
@@ -196,8 +207,7 @@ const currentOrganizerEvents = ref<EventInfo[]>([]);
 const futureOrganizerEvents = ref<EventInfo[]>([]);
 
 function groupCurrentAndFutureEvents(events: EventInfo[]) {
-  // events with a start date that is approximately now (one and a half hours)
-  // or have started but not ended
+  // current events have a delta of one and a half hours - or have started but not ended
   const current = events.filter((e) => {
     const diff = Temporal.Now.instant().since(e.datetime);
     return (
@@ -206,9 +216,9 @@ function groupCurrentAndFutureEvents(events: EventInfo[]) {
   });
 
   // all other events
-  // this is inefficient, but people probably won't be registered for many events anyways
-  // and very unlikely to more than 1 at the same time
-  // when will https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/group finally ship?
+  // filtered inefficiently, but we assume that
+  // - people won't be registered for too many events anyways
+  // - it's very unlikely to be more than 1 at the same time
   const future = events.filter((e) => current.every((ce) => ce.id !== e.id));
 
   return { current, future };
@@ -225,7 +235,6 @@ const fetchEvents = async () => {
     future: futureOrganizerEvents.value,
   } = groupCurrentAndFutureEvents(organizingEvents));
 };
-
 fetchEvents();
 
 const share = async (e: EventInfo) => await shareEvent(e, authStore, t, router);
@@ -233,7 +242,7 @@ const share = async (e: EventInfo) => await shareEvent(e, authStore, t, router);
 const confirmPresence = async (id: number) => {
   try {
     await currentEventStore.confirmPresence(id);
-    successToast("Welcome to the event");
+    successToast("Welcome to the event!");
     router.push({ name: "participant-view", params: { id } });
   } catch (e) {
     errorToast(e);
@@ -250,9 +259,3 @@ const startEvent = async (id: number) => {
   }
 };
 </script>
-
-<style scoped>
-.mh-0 {
-  min-height: 0;
-}
-</style>

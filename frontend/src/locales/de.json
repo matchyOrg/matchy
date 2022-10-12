@@ -23,7 +23,8 @@
       "date-placeholder": "Wähle ein Datum",
       "description-input": "Beschreibung",
       "description-placeholder": "Eventbeschreibung",
-      "edit-image": "Titelbild ändern",
+      "edit-image": "Titelbild hochladen",
+      "group-toggle": "Zwei Gruppen erstellen",
       "group-a-description-label": "Beschreibung Gruppe A",
       "group-a-description-placeholder": "Beschreibe Gruppe A",
       "group-a-name": "Gruppenname A",
@@ -32,8 +33,8 @@
       "group-b-name": "Gruppenname B",
       "location-input": "Standort",
       "location-placeholder": "Eventstandort",
-      "max-participants": "Max Teilnehmer",
-      "max-participants-placeholder": "Maximale Anzahl an Teilnehmern",
+      "max-participants": "Max Teilnehmende",
+      "max-participants-placeholder": "Maximale Anzahl an Teilnehmenden",
       "remove-image": "Bild entfernen",
       "time-label": "Zeit",
       "time-placeholder": "Wähle eine Zeit",
@@ -76,23 +77,24 @@
       "title": "Event organisieren"
     },
     "event-edit": {
-      "title": "Event bearbeiten"
+      "title": "Event bearbeiten",
+      "update": "Änderungen speichern"
     },
     "event-search": {
       "no-results": "Derzeit gibt es keine Events",
-      "title": "Events finden"
+      "title": "Alle Events"
     },
     "events": {
       "already-registered": "Du nimmst teil",
       "edit-event": "Event bearbeiten",
-      "groups-text": "Es gibt 2 Arten von Teilnehmer(inne)n bei diesem Event",
+      "groups-text": "Es gibt 2 Arten von Teilnehmenden bei diesem Event",
       "login-register": "Log dich ein oder registriere dich",
       "register-button-text": "Ich bin dabei",
       "register-modal-text": "Bitte wähle die Gruppe in der du am Event teilnehmen willst.",
       "register-modal-title": "Wähle eine Gruppe",
       "register-without-group-success": "Du hast dich für das Event registriert",
       "share-button-text": "Teile dieses Event",
-      "share-hint-organizer": "Lade Teilnehmer(innen) ein indem du diesen Link mit ihnen teilst",
+      "share-hint-organizer": "Lade Teilnehmende ein indem du diesen Link mit ihnen teilst",
       "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
     },
     "forgot-password": {
@@ -103,13 +105,14 @@
       "title": "Passwort vergessen?"
     },
     "home": {
-      "active-event": "Jetzt gerade",
+      "active-event": "Veranstaltest du gerade",
       "active-event-action": "Zum Dashboard",
+      "active-event-start": "Event starten",
       "confirm-presence-action": "Ich bin da",
-      "confirm-presence-header": "Bestätige dass du da bist",
+      "confirm-presence-header": "Besuchst du gerade",
       "finish-profile": "Zuerst das Profil ausfüllen",
-      "future-events-hosting-header": "Events die du veranstalten möchtest",
-      "future-events-visiting-header": "Events die du besuchen möchtest",
+      "future-events-hosting-header": "Wirst du veranstalten",
+      "future-events-visiting-header": "Wirst du besuchen",
       "hello": "Hallo",
       "no-event-cta": "Zu den Events",
       "no-events": "Du bist bei keinem Event registriert",
@@ -171,7 +174,7 @@
       "register-button-text": "Profil fertigstellen",
       "sign-out-button-text": "Ausloggen",
       "title": "Profil bearbeiten",
-      "update-button-text": "ÄNDERUNGEN SPEICHERN",
+      "update-button-text": "Änderungen speichern",
       "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."

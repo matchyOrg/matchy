@@ -23,7 +23,8 @@
       "date-placeholder": "Select date",
       "description-input": "Description",
       "description-placeholder": "Event description",
-      "edit-image": "Edit header image",
+      "edit-image": "Upload header image",
+      "group-toggle": "Create two groups",
       "group-a-description-label": "Group A description",
       "group-a-description-placeholder": "Describe Group A",
       "group-a-name": "Group A Name",
@@ -76,11 +77,12 @@
       "title": "Organize an Event"
     },
     "event-edit": {
-      "title": "Edit Event"
+      "title": "Edit Event",
+      "update": "Update"
     },
     "event-search": {
       "no-results": "There are no events at the moment",
-      "title": "Find Events"
+      "title": "All Events"
     },
     "events": {
       "already-registered": "You are registered",
@@ -103,13 +105,14 @@
       "title": "Forgot Your Password?"
     },
     "home": {
-      "active-event": "Your active event",
+      "active-event": "Currently hosting",
       "active-event-action": "To Dashboard",
+      "active-event-start": "Start event",
       "confirm-presence-action": "I'm here",
-      "confirm-presence-header": "Confirm you're here",
+      "confirm-presence-header": "Currently visiting",
       "finish-profile": "First fill out your profile",
-      "future-events-hosting-header": "Events you'll be hosting",
-      "future-events-visiting-header": "Events you'll be visiting",
+      "future-events-hosting-header": "You'll be hosting",
+      "future-events-visiting-header": "You'll be visiting",
       "hello": "Hey",
       "no-event-cta": "Check out events",
       "no-events": "You aren't registered for any events",
@@ -125,7 +128,7 @@
       "footer-feedback": "feedback",
       "footer-legal-notice": "legal notice",
       "forgot-password": "Forgot Password?",
-      "no-account": "Don't have an account?",
+      "no-account": "No account?",
       "not-confirmed-error": "Please confirm your email before logging in",
       "not-signed-up": "Not signed up yet?",
       "oauth-login-prompt": "Or just use your ",

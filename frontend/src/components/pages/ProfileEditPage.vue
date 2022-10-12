@@ -1,3 +1,4 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container>
@@ -37,14 +38,15 @@
             variant="outlined"
           />
         </div>
+
+        <!-- update button -->
         <section class="d-flex flex-column align-center mt-3">
-          <!-- update button -->
           <v-btn
             class="mb-4"
             size="x-large"
             color="green"
             variant="tonal"
-            append-icon="mdi-account-arrow-left"
+            append-icon="mdi-content-save-outline"
             type="submit"
             minWidth="20rem"
             :disabled="onSubmit.loading || !valid"
@@ -61,7 +63,7 @@
     </v-container>
   </v-main>
 
-  <v-footer class="flex flex-col justify-center mb-10">
+  <v-footer class="flex flex-col justify-center mb-24">
     <!-- sign out button -->
     <v-btn
       class="mb-4"

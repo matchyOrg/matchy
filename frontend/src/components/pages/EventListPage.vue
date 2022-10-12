@@ -1,20 +1,22 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container>
       <page-title>{{ t("pages.event-search.title") }}</page-title>
-      <br />
       <div>
         <div v-if="eventPage.length <= 0">
           <!--TODO: Add loading indicator using fetchPageItems.loading-->
           <b>{{ t("pages.event-search.no-results") }}</b>
         </div>
         <event-list-item
+          class="mb-6"
           v-for="event in eventPage"
           :key="event.id"
           :matchy-event="event"
           :showInfo="true"
           :showImage="true"
           :to="'/events/' + event.id"
+          :show-divider="true"
         >
         </event-list-item>
         <!--TODO: Add loading indicator using fetchPageItems.loading-->

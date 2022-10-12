@@ -1,74 +1,96 @@
 <template>
   <v-main>
     <v-container>
-      <div v-if="!loadingEvent" class="d-flex">
-        <h2 class="mr-auto break-all">{{ matchyEvent?.title }}</h2>
-        <v-btn v-if="isOrganizer" icon elevation="0" @click="onEdit">
-          <v-icon>mdi-pencil</v-icon>
+      <!-- title -->
+      <section>
+        <header class="flex justify-between w-full">
+          <page-title v-bind:isSubtitle="true" style="max-width: 22rem">
+            {{ matchyEvent?.title }}
+          </page-title>
+          <v-btn
+            v-if="isOrganizer"
+            class="-mt-2.8 -mr-1"
+            color="primary"
+            variant="text"
+            icon="mdi-pencil"
+            @click="onEdit"
+          />
+        </header>
+      </section>
+
+      <!-- event info -->
+      <section>
+        <div class="ml-3">
+          <v-card
+            class="mb-6 font-weight-bold"
+            width="100%"
+            height="200"
+            color="#E0E0E0"
+            elevation="0"
+            v-if="matchyEvent?.header_image"
+          >
+            <v-img cover width="100%" :src="imageHeaderSrc" />
+          </v-card>
+          <event-info
+            :loading="loadingEvent"
+            :location="matchyEvent?.location ?? ''"
+            :datetime="matchyEvent?.datetime"
+          />
+        </div>
+        <p v-if="!loadingEvent" class="mt-6 whitespace-pre-line break-words">
+          {{ matchyEvent?.description }}
+        </p>
+        <skeleton-loader v-if="loadingEvent" width="100%" :num-rows="2" />
+      </section>
+
+      <!-- event groups -->
+      <v-divider class="my-7" />
+      <section>
+        <div v-if="matchyEvent?.event_groups">
+          <span class="block mb-4">{{ t("pages.events.groups-text") }}:</span>
+          <span class="block font-weight-bold">{{
+            matchyEvent.event_groups.groupA.title
+          }}</span>
+          <span
+            class="block pl-4 mb-4 whitespace-pre-line break-words"
+            v-if="matchyEvent.event_groups.groupA.description"
+            >{{ matchyEvent.event_groups.groupA.description }}</span
+          >
+          <span class="block pl-4 mb-4 text-grey" v-else>{{
+            t("shared.events.no-description")
+          }}</span>
+          <span class="block font-weight-bold break-words">{{
+            matchyEvent.event_groups.groupB.title
+          }}</span>
+          <span
+            class="block pl-4 mb-4 whitespace-pre-line break-words"
+            v-if="matchyEvent.event_groups.groupB.description"
+            >{{ matchyEvent.event_groups.groupB.description }}</span
+          >
+          <span class="block pl-4 mb-4 text-grey" v-else>{{
+            t("shared.events.no-description")
+          }}</span>
+        </div>
+      </section>
+
+      <!-- share button -->
+      <section class="my-10">
+        <v-btn
+          class="block mx-auto font-weight-bold mb-1"
+          height="52"
+          @click="onShare"
+        >
+          <v-icon class="mr-4" size="large">mdi-share-variant</v-icon>
+          {{ t("pages.events.share-button-text") }}
         </v-btn>
-      </div>
-      <skeleton-loader v-else width="200" height="32" />
-      <v-card
-        class="mb-3 font-weight-bold"
-        width="100%"
-        height="200"
-        color="#E0E0E0"
-        elevation="0"
-        v-if="matchyEvent?.header_image"
-      >
-        <v-img cover width="100%" :src="imageHeaderSrc" />
-      </v-card>
-      <div v-else class="mt-8"></div>
+        <span class="block text-center text-grey text-caption">{{
+          authStore.user && authStore.user.id === matchyEvent?.organizer
+            ? t("pages.events.share-hint-organizer")
+            : t("pages.events.share-hint-participant")
+        }}</span>
+      </section>
 
-      <event-info
-        :loading="loadingEvent"
-        :location="matchyEvent?.location ?? ''"
-        :datetime="matchyEvent?.datetime"
-      />
-      <p v-if="!loadingEvent" class="mt-8 keep-whitespaces">
-        {{ matchyEvent?.description }}
-      </p>
-
-      <skeleton-loader v-else width="100%" :num-rows="2" />
-      <v-divider class="my-4" />
-      <div v-if="matchyEvent?.event_groups">
-        <span class="d-block mb-4">{{ t("pages.events.groups-text") }}:</span>
-        <span class="d-block font-weight-bold">{{
-          matchyEvent.event_groups.groupA.title
-        }}</span>
-        <span
-          class="d-block pl-4 mb-4 keep-whitespaces"
-          v-if="matchyEvent.event_groups.groupA.description"
-          >{{ matchyEvent.event_groups.groupA.description }}</span
-        >
-        <span class="d-block pl-4 mb-4 text-grey" v-else>{{
-          t("shared.events.no-description")
-        }}</span>
-        <span class="d-block font-weight-bold">{{
-          matchyEvent.event_groups.groupB.title
-        }}</span>
-        <span
-          class="d-block pl-4 mb-4 keep-whitespaces"
-          v-if="matchyEvent.event_groups.groupB.description"
-          >{{ matchyEvent.event_groups.groupB.description }}</span
-        >
-        <span class="d-block pl-4 mb-4 text-grey" v-else>{{
-          t("shared.events.no-description")
-        }}</span>
-      </div>
-      <v-btn
-        class="d-block mx-auto mt-8 mb-1 font-weight-bold"
-        height="52"
-        @click="onShare"
-      >
-        <v-icon class="mr-2" size="large">mdi-share-variant</v-icon>
-        {{ t("pages.events.share-button-text") }}
-      </v-btn>
-      <span class="d-block text-center text-grey text-caption">{{
-        authStore.user && authStore.user.id === matchyEvent?.organizer
-          ? t("pages.events.share-hint-organizer")
-          : t("pages.events.share-hint-participant")
-      }}</span>
+      <!-- registration data for organizer -->
       <registration-overview
         v-if="isOrganizer"
         :event_groups="matchyEvent?.event_groups"
@@ -77,9 +99,11 @@
         :total-present-count="totalPresentCount"
         :total-registered-count="totalRegisteredCount"
       />
-      <div class="d-flex justify-center mt-8">
+
+      <!-- button based on state / role -->
+      <section class="flex justify-center mt-14 mb-20">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
-        <span v-else-if="isRegisteredForEvent" class="d-block">
+        <span v-else-if="isRegisteredForEvent" class="block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
           {{ t("pages.events.already-registered") }}
         </span>
@@ -107,6 +131,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
+                  class="whitespace-pre-line break-words"
                   color="primary"
                   variant="text"
                   @click="registerForEvent(matchyEvent?.event_groups?.groupA)"
@@ -114,6 +139,7 @@
                   {{ matchyEvent?.event_groups?.groupA.title }}
                 </v-btn>
                 <v-btn
+                  class="whitespace-pre-line break-words"
                   color="primary"
                   variant="text"
                   @click="registerForEvent(matchyEvent?.event_groups?.groupB)"
@@ -126,7 +152,7 @@
         </v-btn>
         <v-btn
           v-else-if="!matchyEvent?.is_ended"
-          class="d-block mx-auto"
+          class="block mx-auto"
           @click="showStartModal = true"
         >
           {{ t("pages.dashboard.prepare.start-event") }}
@@ -150,7 +176,6 @@
             </v-card>
           </v-dialog>
         </v-btn>
-
         <v-btn
           v-else-if="!matchyEvent.results_published"
           :loading="publishing"
@@ -159,16 +184,9 @@
           >{{ t("pages.dashboard.publish-results") }}</v-btn
         >
         <div v-else class="text-h6 font-weight-bold">
-          {{ t("pages.dashboard.results-published") }}
+          {{ t("pages.dashboard.results-published") }} 🎉
         </div>
-      </div>
-
-      <div class="d-flex justify-center mt-8">
-        <v-btn v-if="isOrganizer" @click="onEdit">
-          <v-icon>mdi-pencil</v-icon>
-          {{ t("pages.events.edit-event") }}
-        </v-btn>
-      </div>
+      </section>
     </v-container>
   </v-main>
 </template>
@@ -344,8 +362,3 @@ watch(
   { immediate: true, flush: "post" }
 );
 </script>
-<style scoped>
-.keep-whitespaces {
-  white-space: pre-wrap;
-}
-</style>

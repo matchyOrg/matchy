@@ -1,7 +1,8 @@
+<!-- MVP APPROVED BY @SUESZLI -->
 <template>
   <v-main>
     <v-container>
-      <!-- LOGO -->
+      <!-- logo -->
       <section class="mt-5 flex flex-col content-center items-center">
         <img src="@/assets/matchyLogoGreen.svg" height="40" />
         <p
@@ -16,7 +17,7 @@
         </p>
       </section>
 
-      <!-- MAIN LOGIN SECTION-->
+      <!-- main logo section -->
       <v-form
         class="mx-5 mt-16 mb-5"
         :model-value="hasEmail"
@@ -79,7 +80,7 @@
           </span>
         </v-btn>
 
-        <!-- ALTERNATIVE LOGIN SECTION-->
+        <!-- alternative logo section-->
         <section class="flex justify-center align-center mt-7">
           <p class="text-grey ml-4 mr-2 inline-block">
             {{ t("pages.login.oauth-login-prompt") }}
@@ -108,13 +109,10 @@
         </section>
       </v-form>
 
-      <!-- SIGN UP -->
+      <!-- sign up -->
       <section
         class="mx-5 text-grey flex align-center justify-center mt-20 border-1 rounded-md border-t-teal-600"
       >
-        <p class="inline-block text-xl mb-0.5 ml-5">
-          {{ t("pages.login.no-account") }}
-        </p>
         <v-btn
           class="-ml-2"
           to="/signup"
