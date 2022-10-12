@@ -176,7 +176,6 @@
             </v-card>
           </v-dialog>
         </v-btn>
-
         <v-btn
           v-else-if="!matchyEvent.results_published"
           :loading="publishing"
@@ -185,7 +184,7 @@
           >{{ t("pages.dashboard.publish-results") }}</v-btn
         >
         <div v-else class="text-h6 font-weight-bold">
-          {{ t("pages.dashboard.results-published") }}
+          {{ t("pages.dashboard.results-published") }} 🎉
         </div>
       </section>
     </v-container>
