@@ -15,6 +15,7 @@
           :showInfo="true"
           :showImage="true"
           :to="'/events/' + event.id"
+          :show-divider="true"
         >
         </event-list-item>
         <!--TODO: Add loading indicator using fetchPageItems.loading-->

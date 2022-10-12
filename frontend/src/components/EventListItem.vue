@@ -19,7 +19,7 @@
       cover
     />
     <div v-else class="w-10/12">
-      <v-divider></v-divider>
+      <v-divider v-if="showDivider"></v-divider>
     </div>
 
     <div class="mt-3 mx-4" v-if="showInfo">
@@ -44,6 +44,7 @@ const props = withDefaults(
     showInfo?: boolean;
     to?: string;
     pulse?: boolean;
+    showDivider?: boolean;
   }>(),
   { showImage: false, showInfo: false, pulse: false }
 );
