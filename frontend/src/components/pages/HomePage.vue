@@ -71,6 +71,7 @@
             to="/events"
             color="primary"
             variant="text"
+            :alt="t('pages.home.events')"
             icon="mdi-calendar-search-outline"
           />
         </header>
