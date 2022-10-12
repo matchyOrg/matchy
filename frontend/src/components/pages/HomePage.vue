@@ -82,7 +82,7 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey -mb-5">
+        <div v-else class="text-center text-grey -mb-3">
           {{ t("pages.home.no-events") }}
           <v-btn color="primary" variant="text" class="mx-auto" to="/events">{{
             t("pages.home.no-event-cta")
@@ -137,7 +137,7 @@
             @share="share(e)"
           />
         </template>
-        <div v-else class="text-center text-grey -mb-5">
+        <div v-else class="text-center text-grey -mb-3">
           {{ t("pages.home.no-org-events") }}
           <v-btn
             color="primary"
