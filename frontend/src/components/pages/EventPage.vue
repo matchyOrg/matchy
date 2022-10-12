@@ -4,12 +4,12 @@
       <!-- title -->
       <section>
         <header class="flex justify-between w-full">
-          <page-title style="max-width: 22rem">
+          <page-title v-bind:isSubtitle="true" style="max-width: 22rem">
             {{ matchyEvent?.title }}
           </page-title>
           <v-btn
             v-if="isOrganizer"
-            class="-mt-2 -mr-1"
+            class="-mt-2.8 -mr-1"
             color="primary"
             variant="text"
             icon="mdi-pencil"
@@ -76,11 +76,11 @@
       <!-- share button -->
       <section class="my-10">
         <v-btn
-          class="block mx-auto font-weight-bold"
+          class="block mx-auto font-weight-bold mb-1"
           height="52"
           @click="onShare"
         >
-          <v-icon class="mr-2" size="large">mdi-share-variant</v-icon>
+          <v-icon class="mr-4" size="large">mdi-share-variant</v-icon>
           {{ t("pages.events.share-button-text") }}
         </v-btn>
         <span class="block text-center text-grey text-caption">{{
@@ -90,7 +90,7 @@
         }}</span>
       </section>
 
-      <!-- data for organizer -->
+      <!-- registration data for organizer -->
       <registration-overview
         v-if="isOrganizer"
         :event_groups="matchyEvent?.event_groups"
@@ -99,7 +99,9 @@
         :total-present-count="totalPresentCount"
         :total-registered-count="totalRegisteredCount"
       />
-      <div class="flex justify-center mt-8">
+
+      <!-- button based on state / role -->
+      <section class="flex justify-center mt-14 mb-20">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
         <span v-else-if="isRegisteredForEvent" class="block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
@@ -185,14 +187,7 @@
         <div v-else class="text-h6 font-weight-bold">
           {{ t("pages.dashboard.results-published") }}
         </div>
-      </div>
-
-      <div class="flex justify-center mt-8">
-        <v-btn v-if="isOrganizer" @click="onEdit">
-          <v-icon>mdi-pencil</v-icon>
-          {{ t("pages.events.edit-event") }}
-        </v-btn>
-      </div>
+      </section>
     </v-container>
   </v-main>
 </template>

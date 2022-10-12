@@ -5,9 +5,9 @@
       mdi-map-marker
     </v-icon>
     <skeleton-loader v-if="loading" width="200" />
-    <span v-else-if="location" class="break-all" style="max-width: 19rem">{{
-      location
-    }}</span>
+    <span v-else-if="location" class="break-words" style="max-width: 19rem">
+      {{ location }}
+    </span>
   </section>
 
   <section class="mb-4 flex align-center" v-if="loading || datetimeToDisplay">
