@@ -105,6 +105,7 @@
     "home": {
       "active-event": "Currently hosting",
       "active-event-action": "To Dashboard",
+      "active-event-start": "Start event",
       "confirm-presence-action": "I'm here",
       "confirm-presence-header": "Currently visiting",
       "finish-profile": "First fill out your profile",

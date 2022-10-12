@@ -44,14 +44,14 @@
           <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
               v-if="e.id == +currentEventStore.getCurrentId()"
-              class="-mt-5"
+              class="-mt-4"
               :to="'/events/' + e.id + '/participant'"
               color="primary"
               >{{ t("pages.home.to-action") }}</v-btn
             >
             <v-btn
               v-else
-              class="-mt-5"
+              class="-mt-4"
               color="primary"
               @click.prevent="confirmPresence(e.id)"
               >{{ t("pages.home.confirm-presence-action") }}</v-btn
@@ -110,7 +110,7 @@
         >
           <v-card-actions class="d-flex justify-center min-h-0">
             <v-btn
-              class="-mt-5"
+              class="-mt-4"
               v-if="e.id == +currentEventStore.getCurrentId()"
               :to="'/events/' + e.id + '/dashboard'"
               color="primary"
@@ -119,11 +119,12 @@
             </v-btn>
             <v-btn
               v-else
-              class="-mt-5"
+              class="-mt-4"
               color="primary"
               @click.prevent="startEvent(e.id)"
-              >Start Event</v-btn
             >
+              {{ t("pages.home.active-event-start") }}
+            </v-btn>
           </v-card-actions>
         </event-list-item>
       </section>
