@@ -112,9 +112,9 @@
       <section
         class="mx-5 text-grey flex align-center justify-center mt-20 border-1 rounded-md border-t-teal-600"
       >
-        <p class="inline-block text-xl mb-0.5 ml-5">
+        <!-- <p class="inline-block text-xl mb-0.5 ml-5">
           {{ t("pages.login.no-account") }}
-        </p>
+        </p> -->
         <v-btn
           class="-ml-2"
           to="/signup"
