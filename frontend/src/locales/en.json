@@ -52,7 +52,9 @@
         "end-event": " End event",
         "end-event-question": "Are you sure you want to end the event?",
         "round": "Round",
-        "start-round": "Start round"
+        "start-round": "Start round",
+        "start-round-question": "Are you sure you want to start the next round? Not all participants have finished voting.",
+        "start-round-title": "Start next round?"
       },
       "prepare": {
         "loading-text": "Loading the event...",

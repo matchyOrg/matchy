@@ -49,10 +49,34 @@
       />
       <v-btn
         class="d-block mx-auto"
-        @click="startRound"
+        @click="tryStartRound"
         :disabled="roundOngoing"
-        >{{ t("pages.dashboard.ongoing.start-round") }}</v-btn
       >
+        {{ t("pages.dashboard.ongoing.start-round") }}
+        <v-dialog v-model="showNewRoundModal">
+          <v-card>
+            <v-card-title>
+              {{ t("pages.dashboard.ongoing.start-round-title") }}
+            </v-card-title>
+            <v-card-text>
+              {{ t("pages.dashboard.ongoing.start-round-question") }}
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                variant="text"
+                @click="showNewRoundModal = false"
+              >
+                {{ t("pages.dashboard.cancel") }}
+              </v-btn>
+              <v-btn color="primary" variant="text" @click="startRound">
+                {{ t("pages.dashboard.ongoing.start-round") }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-btn>
 
       <v-btn
         class="d-block mx-auto mt-20"
@@ -125,6 +149,7 @@ const currentRoundId = ref<number>();
 const roundOngoing = ref(false);
 const startingRound = ref(false);
 const hasNoRoundYet = ref(false);
+const showNewRoundModal = ref(false);
 const countingInterval = ref<ReturnType<typeof setInterval>>();
 
 const pairsThisRound = ref(0);
@@ -189,7 +214,16 @@ const setupTimer = (round: definitions["event_rounds"]) => {
   }
 };
 
+const tryStartRound = () => {
+  if (votesThisRound.value < pairsThisRound.value * 2) {
+    showNewRoundModal.value = true;
+  } else {
+    startRound();
+  }
+};
+
 const startRound = async () => {
+  showNewRoundModal.value = false;
   roundOngoing.value = true;
   startingRound.value = true;
   const round = await currentEvent.startNewRound(setDuration.value);
@@ -201,6 +235,7 @@ const startRound = async () => {
 
 const endEvent = async () => {
   try {
+    showEndEventModal.value = false;
     await currentEvent.endCurrentEvent();
     successToast("Event ended");
     router.push("/");
