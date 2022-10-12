@@ -74,7 +74,8 @@
       "title": "Event organisieren"
     },
     "event-edit": {
-      "title": "Event bearbeiten"
+      "title": "Event bearbeiten",
+      "update": "Änderungen speichern"
     },
     "event-search": {
       "no-results": "Derzeit gibt es keine Events",
@@ -169,7 +170,7 @@
       "register-button-text": "Profil fertigstellen",
       "sign-out-button-text": "Ausloggen",
       "title": "Profil bearbeiten",
-      "update-button-text": "ÄNDERUNGEN SPEICHERN",
+      "update-button-text": "Änderungen speichern",
       "update-success": "Dein Profil wurde erfolgreich aktualisiert!",
       "welcome": "Willkommen bei",
       "welcome-subtitle": "Erzähl' uns was über dich."

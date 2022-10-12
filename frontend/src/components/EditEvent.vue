@@ -1,30 +1,35 @@
 <template>
   <v-form>
-    <div class="text-right" v-if="!excludeFields.includes('header_image')">
-      <span class="text-red" @click="removeImage">{{
-        t("components.edit-event.remove-image")
-      }}</span>
-    </div>
-    <v-card
-      v-if="!excludeFields.includes('header_image')"
-      class="header-container mb-8"
-      width="100%"
-      height="200"
-      elevation="0"
-      color="#E0E0E0"
-    >
-      <v-img cover :src="headerImageSrc" v-if="hasHeaderImage" />
-      <v-card-title class="header-text absolute text-white">
-        {{ t("components.edit-event.edit-image") }}
-      </v-card-title>
-      <v-file-input
-        hide-details
-        class="file-input absolute opacity-0 h-48"
-        accept="image/*"
-        v-model="headerImage"
-        :key="updateId"
-      />
-    </v-card>
+    <!-- header image -->
+    <section>
+      <div class="text-right" v-if="!excludeFields.includes('header_image')">
+        <span class="text-red" @click="removeImage">{{
+          t("components.edit-event.remove-image")
+        }}</span>
+      </div>
+      <v-card
+        v-if="!excludeFields.includes('header_image')"
+        class="header-container mb-8"
+        width="100%"
+        height="200"
+        elevation="0"
+        color="#E0E0E0"
+      >
+        <v-img cover :src="headerImageSrc" v-if="hasHeaderImage" />
+        <v-card-title class="header-text absolute text-white">
+          {{ t("components.edit-event.edit-image") }}
+        </v-card-title>
+        <v-file-input
+          hide-details
+          class="file-input absolute opacity-0 h-48"
+          accept="image/*"
+          v-model="headerImage"
+          :key="updateId"
+        />
+      </v-card>
+    </section>
+
+    <!-- info -->
     <v-text-field
       v-model="model.title"
       v-if="!excludeFields.includes('title')"

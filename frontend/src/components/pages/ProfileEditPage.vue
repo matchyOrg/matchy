@@ -38,14 +38,15 @@
             variant="outlined"
           />
         </div>
+
+        <!-- update button -->
         <section class="d-flex flex-column align-center mt-3">
-          <!-- update button -->
           <v-btn
             class="mb-4"
             size="x-large"
             color="green"
             variant="tonal"
-            append-icon="mdi-account-arrow-left"
+            append-icon="mdi-content-save-outline"
             type="submit"
             minWidth="20rem"
             :disabled="onSubmit.loading || !valid"
