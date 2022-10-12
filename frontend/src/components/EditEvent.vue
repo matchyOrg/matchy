@@ -106,10 +106,12 @@
     </v-row>
 
     <!-- group switch -->
-    <v-divider class="my-6" />
-    <div class="flex align-center -mb-7">
+    <v-divider v-if="!excludeFields.includes('event_groups')" class="my-6" />
+    <div
+      v-if="!excludeFields.includes('event_groups')"
+      class="flex align-center -mb-7"
+    >
       <v-switch
-        v-if="!excludeFields.includes('event_groups')"
         class="ml-2"
         v-model="model.uses_groups"
         size="20"
