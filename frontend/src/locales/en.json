@@ -119,6 +119,7 @@
       "no-events": "You aren't registered for any events",
       "no-org-events": "You aren't organizing any events",
       "no-org-events-cta": "Create an Event",
+      "past-events-hosting-header": "You have hosted",
       "to-action": "Let's go"
     },
     "login": {

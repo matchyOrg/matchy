@@ -27,13 +27,13 @@
       </section>
 
       <!-- Current user events -->
-      <section v-if="currentUserEvents.length > 0" class="mb-12">
-        <page-title v-bind:is-subtitle="true">
+      <section v-if="userEvents.current.length > 0" class="mb-12">
+        <page-title :is-subtitle="true">
           {{ t("pages.home.confirm-presence-header") }}
         </page-title>
         <event-list-item
           class="mb-4"
-          v-for="(e, i) in currentUserEvents"
+          v-for="(e, i) in userEvents.current"
           :key="i"
           :matchy-event="e"
           show-image
@@ -63,7 +63,7 @@
       <!-- Future user events -->
       <section class="mb-12">
         <header class="flex justify-between w-full">
-          <page-title v-bind:is-subtitle="true">
+          <page-title :is-subtitle="true">
             {{ t("pages.home.future-events-visiting-header") }}
           </page-title>
           <v-btn
@@ -75,10 +75,10 @@
             icon="mdi-calendar-search-outline"
           />
         </header>
-        <template v-if="futureUserEvents.length > 0">
+        <template v-if="userEvents.future.length > 0">
           <event-list-item
             class="mb-4"
-            v-for="(e, i) in futureUserEvents"
+            v-for="(e, i) in userEvents.future"
             :key="i"
             :matchy-event="e"
             show-info
@@ -94,14 +94,16 @@
         </div>
       </section>
 
+      <!-- Don't bother listing past user events -->
+
       <!-- Current organizer events -->
-      <section class="mb-12" v-if="currentOrganizerEvents.length > 0">
-        <page-title v-bind:is-subtitle="true">
+      <section class="mb-12" v-if="organizerEvents.current.length > 0">
+        <page-title :is-subtitle="true">
           {{ t("pages.home.active-event") }}
         </page-title>
         <event-list-item
           class="mb-4"
-          v-for="(e, i) in currentOrganizerEvents"
+          v-for="(e, i) in organizerEvents.current"
           :key="i"
           :matchy-event="e"
           show-image
@@ -132,14 +134,14 @@
 
       <!-- Future organizer events -->
       <section class="mb-12">
-        <page-title v-bind:is-subtitle="true">
+        <page-title :is-subtitle="true">
           {{ t("pages.home.future-events-hosting-header") }}
         </page-title>
         <div class="text-h6 font-weight-bold mb-4"></div>
-        <template v-if="futureOrganizerEvents.length > 0">
+        <template v-if="organizerEvents.future.length > 0">
           <event-list-item
             class="mb-4"
-            v-for="(e, i) in futureOrganizerEvents"
+            v-for="(e, i) in organizerEvents.future"
             :key="i"
             :matchy-event="e"
             show-info
@@ -158,6 +160,22 @@
             {{ t("pages.home.no-org-events-cta") }}
           </v-btn>
         </div>
+      </section>
+
+      <!-- Past organizer events -->
+      <section class="mb-12" v-if="organizerEvents.past.length > 0">
+        <page-title :is-subtitle="true">
+          {{ t("pages.home.past-events-hosting-header") }}
+        </page-title>
+        <div class="text-h6 font-weight-bold mb-4"></div>
+        <event-list-item
+          class="mb-4"
+          v-for="(e, i) in organizerEvents.past"
+          :key="i"
+          :matchy-event="e"
+          show-info
+          :to="'/events/' + e.id"
+        />
       </section>
     </v-container>
   </v-main>
@@ -202,39 +220,44 @@ const firstName = computed(() => authStore.profile.fullName?.split(" ")[0]);
 
 const eventService = useEventService(authStore);
 
-const currentUserEvents = ref<EventInfo[]>([]);
-const futureUserEvents = ref<EventInfo[]>([]);
-const currentOrganizerEvents = ref<EventInfo[]>([]);
-const futureOrganizerEvents = ref<EventInfo[]>([]);
+const userEvents = ref<{
+  current: EventInfo[];
+  future: EventInfo[];
+  past: EventInfo[];
+}>({ current: [], future: [], past: [] });
+
+const organizerEvents = ref<{
+  current: EventInfo[];
+  future: EventInfo[];
+  past: EventInfo[];
+}>({ current: [], future: [], past: [] });
 
 function groupCurrentAndFutureEvents(events: EventInfo[]) {
   // current events have a delta of one and a half hours - or have started but not ended
+  const now = Temporal.Now.instant();
   const current = events.filter((e) => {
-    const diff = Temporal.Now.instant().since(e.datetime);
+    const diff = now.since(e.datetime);
     return (
       diff.abs().total({ unit: "hour" }) <= 1.5 || (e.is_started && !e.is_ended)
     );
   });
 
-  // all other events
-  // filtered inefficiently, but we assume that
-  // - people won't be registered for too many events anyways
-  // - it's very unlikely to be more than 1 at the same time
-  const future = events.filter((e) => current.every((ce) => ce.id !== e.id));
+  const currentIds = new Set(current.map((e) => e.id));
+  const future = events.filter(
+    (e) => !currentIds.has(e.id) && now.since(e.datetime).sign <= 0
+  );
+  const past = events.filter(
+    (e) => !currentIds.has(e.id) && now.since(e.datetime).sign > 0
+  );
 
-  return { current, future };
+  return { current, future, past };
 }
 
 const fetchEvents = async () => {
   const participatingEvents = await eventService.fetchUserEvents();
-  ({ current: currentUserEvents.value, future: futureUserEvents.value } =
-    groupCurrentAndFutureEvents(participatingEvents));
-
+  userEvents.value = groupCurrentAndFutureEvents(participatingEvents);
   const organizingEvents = await eventService.fetchOrganizerEvents();
-  ({
-    current: currentOrganizerEvents.value,
-    future: futureOrganizerEvents.value,
-  } = groupCurrentAndFutureEvents(organizingEvents));
+  organizerEvents.value = groupCurrentAndFutureEvents(organizingEvents);
 };
 fetchEvents();
 

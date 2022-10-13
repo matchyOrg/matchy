@@ -119,6 +119,7 @@
       "no-events": "Du bist bei keinem Event registriert",
       "no-org-events": "Du hast keine bevorstehenden Events",
       "no-org-events-cta": "Erstelle ein Event",
+      "past-events-hosting-header": "Du hast veranstaltet",
       "to-action": "Los gehts"
     },
     "login": {
