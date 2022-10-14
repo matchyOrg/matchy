@@ -121,13 +121,24 @@
               {{ t("pages.home.active-event-action") }}
             </v-btn>
             <v-btn
-              v-else
+              v-else-if="!e.is_ended"
               class="-mt-4"
               color="primary"
               @click.prevent="startEvent(e.id)"
             >
               {{ t("pages.home.active-event-start") }}
             </v-btn>
+            <v-btn
+              v-else-if="!e.results_published"
+              class="-mt-4"
+              color="primary"
+              :to="'/events/' + e.id"
+            >
+              {{ t("pages.home.active-event-publish-matches") }}
+            </v-btn>
+            <v-btn class="-mt-4" color="primary" v-else>{{
+              t("pages.home.active-event-done")
+            }}</v-btn>
           </v-card-actions>
         </event-list-item>
       </section>
