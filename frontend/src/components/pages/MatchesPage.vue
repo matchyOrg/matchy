@@ -32,15 +32,15 @@
             }}</span>
           </v-expansion-panel-text>
           <v-expansion-panel-text v-else>
-            <v-table>
-              <tbody>
-                <tr v-for="match in event.matches" :key="match.email">
-                  <td>{{ match.fullName ?? t("shared.profiles.unknown") }}</td>
-                  <td>{{ match.email }}</td>
-                  <td>{{ match.description }}</td>
-                </tr>
-              </tbody>
-            </v-table>
+            <div>
+              <v-card
+                v-for="match in event.matches"
+                :key="match.email"
+                :title="match.fullName ?? t('shared.profiles.unknown')"
+                :subtitle="match.email"
+                :text="match.description"
+              ></v-card>
+            </div>
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
