@@ -107,6 +107,8 @@
     "home": {
       "active-event": "Veranstaltest du gerade",
       "active-event-action": "Zum Dashboard",
+      "active-event-done": "Event ist fertig 🎉",
+      "active-event-publish-matches": "Matches verschicken",
       "active-event-start": "Event starten",
       "confirm-presence-action": "Ich bin da",
       "confirm-presence-header": "Besuchst du gerade",

@@ -1,4 +1,6 @@
 import { POSITION, useToast } from "vue-toastification";
+import newGithubIssueUrl from "new-github-issue-url";
+import { serializeError } from "serialize-error";
 const toast = useToast();
 
 const toastOptions = {
@@ -35,6 +37,67 @@ export async function errorToast(error: any, userFriendlyMessage?: string) {
     toastOptions
   );
   return message;
+}
+
+export async function reportErrorToast(
+  error: any,
+  userFriendlyMessage?: string
+) {
+  console.error(error, { error, userFriendlyMessage });
+  const message = await getErrorMessage(error);
+  toast.error(
+    (userFriendlyMessage ? userFriendlyMessage + "\n" : "") + message,
+    {
+      ...toastOptions,
+      timeout: false,
+      closeOnClick: false,
+      onClick: () => {
+        const errorString = escapeMarkdownCodeblock(
+          JSON.stringify(serializeError(error), undefined, 0)
+        );
+
+        if (typeof navigator?.clipboard.writeText === "function") {
+          navigator.clipboard.writeText(errorString).then(
+            () => {
+              const url = newGithubIssueUrl({
+                user: "matchyOrg",
+                repo: "matchy",
+                title: "Error report: " + message,
+                body:
+                  "Please paste the error here. It has been copied to your clipboard.\n\n" +
+                  "Please describe what you were doing when this error occurred and how to reproduce it.",
+              });
+              openInNewTab(url);
+            },
+            () => {
+              // Not sure what to do
+            }
+          );
+        } else {
+          // Hmm
+        }
+      },
+    }
+  );
+  return message;
+}
+
+function escapeMarkdownCodeblock(str: string) {
+  const longestRunOfBackticks = (str.match(/`+/g) ?? [])
+    .map((v) => v.length)
+    .reduce((a, b) => (a > b ? a : b), 0);
+  const escapeBackticks =
+    "`".repeat(Math.max(3, longestRunOfBackticks + 1)) + str;
+  return escapeBackticks + "\n" + str + "\n" + escapeBackticks;
+}
+
+// https://stackoverflow.com/a/28374344/3492994
+function openInNewTab(href: string) {
+  Object.assign(document.createElement("a"), {
+    target: "_blank",
+    rel: "noopener noreferrer",
+    href: href,
+  }).click();
 }
 
 async function getErrorMessage(e: any) {
