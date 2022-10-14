@@ -38,6 +38,7 @@ declare global {
   const reactive: typeof import('vue')['reactive']
   const readonly: typeof import('vue')['readonly']
   const ref: typeof import('vue')['ref']
+  const reportErrorToast: typeof import('./composables/toastNotification')['reportErrorToast']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const routeParam: typeof import('./composables/routeParam')['routeParam']
   const shallowReactive: typeof import('vue')['shallowReactive']

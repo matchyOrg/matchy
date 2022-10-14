@@ -63,10 +63,10 @@ app.config.errorHandler = async (err, instance, info) => {
     instance,
     info,
   });
-  errorToast(err);
-  // TODO: remove before putting into production
-  errorToast((err as any).stack || "");
-  errorToast(info);
+  const combinedError = new Error();
+  combinedError.cause = err;
+  combinedError.message = info;
+  reportErrorToast(combinedError, "Unhandled error - click here to report it");
 };
 
 app.use(router);

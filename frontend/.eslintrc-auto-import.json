@@ -37,6 +37,7 @@
     "reactive": true,
     "readonly": true,
     "ref": true,
+    "reportErrorToast": true,
     "resolveComponent": true,
     "routeParam": true,
     "shallowReactive": true,
