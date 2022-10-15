@@ -74,7 +74,6 @@ That's why – after some non profits reached out to us and told us how desperat
 ---
 <i> 🤖 Want to join us and improve the app? </i>
 
-Here's all you need to get started:
-- Our wonderful [discord server](https://discord.gg/ahNVefYjUc) where we meme around and organize ourselves.
-- The [`CONTRIBUTING.md`](./CONTRIBUTING.md) file. It's an in depth guide to this app.
-- Our [notion page](https://sueszli.notion.site/matchy-457ed5cee087469ab5ff78e67bacf3b6) where we store all of our files.
+Thanks for helping us develop this app. <br>
+We reached a state of our _proof of concept_ that we are pretty satisfied with so we are currently just throwing events in cooperation with FsWInf @ TU Wien and gathering user feedback to determine whether there is serious potential in this app and whether we want to move post-MVP from february 2023. <br>
+If so - we will recreate the app based on our learnings with a new technology stack (this time with middleware such that our project can actually scale well and is not just a prototype for fun).
