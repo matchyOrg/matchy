@@ -72,8 +72,9 @@ That's why – after some non profits reached out to us and told us how desperat
 
 
 ---
-<i> 🤖 Want to join us and improve the app? </i>
+<i> 🤖 Not under active development </i>
+Thanks for helping us develop this app so far! We reached a state of our _proof of concept_ that we are pretty satisfied with.
 
-Thanks for helping us develop this app. <br>
-We reached a state of our _proof of concept_ that we are pretty satisfied with so we are currently just throwing events in cooperation with FsWInf @ TU Wien and gathering user feedback to determine whether there is serious potential in this app and whether we want to move post-MVP from february 2023. <br>
-If so - we will recreate the app based on our learnings with a new technology stack (this time with middleware such that our project can actually scale well and is not just a prototype for fun).
+At this point we are just polishing the app and fixing minor mistakes and throwing events in cooperation with the FsWInf @ TU Wien and gathering user feedback to determine whether there is serious potential in this app and whether we want to move post-MVP from february 2023.
+
+If so, we will recreate the app based on our learnings, with a completely new technology stack (this time with middleware such that our project can actually scale well and is not just a prototype for fun).
