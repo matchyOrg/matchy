@@ -103,9 +103,10 @@
       <!-- button based on state / role -->
       <section class="flex justify-center mt-14 mb-20">
         <v-progress-circular indeterminate v-if="loadingRegisteredStatus" />
-        <span v-else-if="isRegisteredForEvent" class="block">
+        <span v-else-if="isRegisteredForEvent" class="block text-center">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
           {{ t("pages.events.already-registered") }}
+          <br />
 
           <v-btn v-if="matchyEvent?.is_started">{{
             t("pages.events.to-action")
