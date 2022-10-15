@@ -31,7 +31,7 @@
         :users-in-pairs="pairsThisRound * 2"
         :total-expected-users="totalPresent"
       />
-      <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
+      <!--<div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>-->
       <div class="d-flex justify-center mb-4">
         <time-display
           :loading="startingRound"
