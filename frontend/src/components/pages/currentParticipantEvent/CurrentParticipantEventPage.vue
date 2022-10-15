@@ -55,6 +55,15 @@ const roundDuration = computed(() => {
 });
 const countingInterval = ref<number>();
 
+const confirmPresence = async (id: number) => {
+  try {
+    await currentEvent.confirmPresence(id);
+    successToast("Welcome to the event!");
+  } catch (e) {
+    errorToast(e);
+  }
+};
+
 const startCountdown = () =>
   window.setInterval(() => {
     if (roundTimes.value === undefined) {
@@ -130,7 +139,7 @@ const setupRoundSubscription = () => {
     then try to fetch the round info.
     this way there shouldn't be a time inbetween,
     where a round might be pushed after we tried fetching it
-    but before we established the subscription 
+    but before we established the subscription
 
     Yes, this is cursed
 
@@ -217,16 +226,17 @@ watch(
 );
 
 onMounted(async () => {
-  if (
-    !currentEvent.hasEvent ||
-    +useRoute().params.id !== +currentEvent.getCurrentId()
-  ) {
-    errorToast(
-      "This event does not exist or you have not confirmed you're present"
-    );
+  const eventRouteId = routeParam(useRoute(), "id");
+  if (!currentEvent.hasEvent || eventRouteId === null) {
+    errorToast("This event does not exist");
     router.push("/");
     return;
   }
+
+  if (eventRouteId == currentEvent.getCurrentId()) {
+    confirmPresence(+eventRouteId);
+  }
+
   const eventId = +currentEvent.getCurrentId();
   // Generated types do not work with the realtime syntax
   eventSubscription.value = supabase
