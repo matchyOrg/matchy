@@ -140,7 +140,7 @@ const route = useRoute();
 const second = 1000;
 const minute = 60 * second;
 const hour = 60 * minute;
-const time = ref(7 * minute); // Time of the ongoing round
+const time = ref(5 * minute); // Time of the ongoing round
 
 const loadingEvent = ref(true);
 
@@ -159,7 +159,7 @@ const totalPresent = ref();
 const pairSubscription = ref<RealtimeSubscription>();
 const voteSubscription = ref<RealtimeSubscription>();
 
-const setDuration = ref(7 * minute);
+const setDuration = ref(5 * minute);
 
 const eventEnded = ref(false);
 const eventStarted = ref(false);
