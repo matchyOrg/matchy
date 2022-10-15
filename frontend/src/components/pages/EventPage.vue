@@ -106,6 +106,10 @@
         <span v-else-if="isRegisteredForEvent" class="block">
           <v-icon class="mr-2" color="success">mdi-check-bold</v-icon>
           {{ t("pages.events.already-registered") }}
+
+          <v-btn v-if="matchyEvent?.is_started">{{
+            t("pages.events.to-action")
+          }}</v-btn>
         </span>
         <v-btn
           v-else-if="!authStore.isLoggedIn"

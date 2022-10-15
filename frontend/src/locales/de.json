@@ -95,7 +95,8 @@
       "register-without-group-success": "Du hast dich für das Event registriert",
       "share-button-text": "Teile dieses Event",
       "share-hint-organizer": "Lade Teilnehmende ein indem du diesen Link mit ihnen teilst",
-      "share-hint-participant": "Teile diesen Einladungslink mit Freunden!"
+      "share-hint-participant": "Teile diesen Einladungslink mit Freunden!",
+      "to-action": "Los gehts"
     },
     "forgot-password": {
       "heading-p1": "Kein Problem. ",
