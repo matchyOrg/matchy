@@ -7,7 +7,7 @@
 
 For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s).
 
-Also this [mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) gives you a good idea of where we're trying to get.
+Also this [mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) gives you a good idea of where we're currently at.
 <br><br><br><br>
 
 
