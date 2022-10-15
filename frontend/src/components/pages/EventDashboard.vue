@@ -31,7 +31,7 @@
         :users-in-pairs="pairsThisRound * 2"
         :total-expected-users="totalPresent"
       />
-      <div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>
+      <!--<div class="text-h6 mb-2">{{ t("pages.dashboard.ongoing.round") }} 1</div>-->
       <div class="d-flex justify-center mb-4">
         <time-display
           :loading="startingRound"
@@ -140,7 +140,7 @@ const route = useRoute();
 const second = 1000;
 const minute = 60 * second;
 const hour = 60 * minute;
-const time = ref(7 * minute); // Time of the ongoing round
+const time = ref(5 * minute); // Time of the ongoing round
 
 const loadingEvent = ref(true);
 
@@ -159,7 +159,7 @@ const totalPresent = ref();
 const pairSubscription = ref<RealtimeSubscription>();
 const voteSubscription = ref<RealtimeSubscription>();
 
-const setDuration = ref(7 * minute);
+const setDuration = ref(5 * minute);
 
 const eventEnded = ref(false);
 const eventStarted = ref(false);
