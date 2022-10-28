@@ -9,14 +9,14 @@ import { timestampToInstant } from "@/services/utils/datetime";
 
 export const useCurrentEventStore = defineStore("current-event", () => {
   const currentEventId = useStorage("current-event-id", ""); // TODO: Refactor to use localStorage
-  const hasEvent = computed(() => currentEventId.value !== "");
+  const hasEvent = computed(() => currentEventId.value != "");
 
   function getCurrentId() {
     return currentEventId.value;
   }
 
   function setCurrentId(id: number | null) {
-    currentEventId.value = id?.toString();
+    currentEventId.value = id + "";
   }
 
   async function getCurrentEvent(): Promise<EventInfo | null> {
