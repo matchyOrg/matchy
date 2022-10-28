@@ -30,6 +30,7 @@ import { Temporal } from "@js-temporal/polyfill";
 import type { RealtimeSubscription } from "@supabase/realtime-js";
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 const currentEvent = useCurrentEventStore();
 
@@ -226,15 +227,19 @@ watch(
 );
 
 onMounted(async () => {
-  const eventRouteId = routeParam(useRoute(), "id");
-  if (!currentEvent.hasEvent || eventRouteId === null) {
+  const eventRouteId = route.params.id;
+  if (eventRouteId === null) {
     errorToast("This event does not exist");
     router.push("/");
     return;
   }
 
-  if (eventRouteId == currentEvent.getCurrentId()) {
-    confirmPresence(+eventRouteId);
+  await confirmPresence(+eventRouteId);
+
+  if (!currentEvent.hasEvent) {
+    errorToast("Missing current event");
+    router.push("/");
+    return;
   }
 
   const eventId = +currentEvent.getCurrentId();

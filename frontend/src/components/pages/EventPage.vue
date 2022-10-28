@@ -108,9 +108,11 @@
           {{ t("pages.events.already-registered") }}
           <br />
 
-          <v-btn v-if="matchyEvent?.is_started">{{
-            t("pages.events.to-action")
-          }}</v-btn>
+          <v-btn
+            v-if="matchyEvent?.is_started"
+            @click="router.push('/events/' + matchyEvent?.id + '/participant')"
+            >{{ t("pages.events.to-action") }}</v-btn
+          >
         </span>
         <v-btn
           v-else-if="!authStore.isLoggedIn"
