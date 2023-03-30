@@ -5,7 +5,7 @@
   <i>Making speed dating paperless! 💌 🏃🏻💨</i>
 </p>
 
-For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s):
+For a super short summary - check out the [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s) from HackZürich2022:
 
 <a href="https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s">
   <p align="center">
@@ -13,7 +13,7 @@ For a super short summary - check out this [elevator pitch](https://www.youtube.
   </p>
 </a>
 
-Also this [mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) gives you a good idea of where we're currently at.
+Also this [UI mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) could give you a good idea of where we're currently at.
 <br><br><br><br>
 
 
