@@ -1,11 +1,17 @@
 <p align="center">
-<img width="512" src="./frontend/src/assets/matchyLogoGreen.svg" alt="Matchy Logo">
+  <img width="512" src="./frontend/src/assets/matchyLogoGreen.svg" alt="Matchy Logo">
 </p>
 <p align="center">
-<i>Making speed dating paperless! 💌 🏃🏻💨</i>
+  <i>Making speed dating paperless! 💌 🏃🏻💨</i>
 </p>
 
-For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s).
+For a super short summary - check out this [elevator pitch](https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s):
+
+<a href="https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s">
+  <p align="center">
+    <img width="512" src="./documentation/interview_preview.jpeg" alt="bouncing yahya lol">
+  </p>
+</a>
 
 Also this [mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) gives you a good idea of where we're currently at.
 <br><br><br><br>
