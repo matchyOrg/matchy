@@ -58,30 +58,20 @@ Evaluating the matches is very time consuming and is the most expensive part of 
 
 </details>
 
-That's why – after some non profits reached out to us and told us how desperately they need this app – we decided to get our hands dirty and help them out.
-
-<details>
-  <summary> <i> Some of our potential clients from Vienna. </i> </summary>
-
-  > - https://www.meetup.com/speed-friending-events/ (over 8800 members)
-  > - https://esnuniwien.com/events/speedfriending-esn-1
-  > - https://events.htu.at/events/d58a7134-469b-4528-bc4a-dca2e7b1fa74
-  > - https://www.wien.gv.at/video/1482/Speeddating-unter-Pensionisten
-  > 
-  > (But effectively anyone can use it to throw their own event!)
-  
-</details>
-
 <br><br><br>
 
 
 
 
 ---
-<i> ⚠ Project not under active development - only active maintenance ⚠ </i>
+<i> ⚠ **DEVELOPMENT IS CURRENTLY ON HOLD** ⚠ </i>
 
-Thanks for helping us develop this app so far! We've reached a state with our MVP that we are pretty satisfied with. At this point we are just polishing the app, fixing minor mistakes, throwing events in cooperation with the FsWInf @ TU Wien, gathering user feedback to determine whether there is serious potential in this app and whether we want to move post-MVP from february 2023.
+Thanks for helping us develop this proof-of-concept!
 
-If so, we will recreate the app based on our learnings, with a completely new technology stack (this time with middleware such that our project can actually scale well and is not just a prototype for fun).
+We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool.
 
-Until then: Enjoy!
+However, despite our efforts, **we were unable to secure financial backing to continue developing the project**.
+
+We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being.
+
+We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
