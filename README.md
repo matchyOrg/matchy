@@ -14,8 +14,24 @@ For a super short summary - check out the [elevator pitch](https://www.youtube.c
 </a>
 
 Also this [UI mockup](/documentation/figma%20mockups/V3/matchy%20V3.pdf) could give you a good idea of where we're currently at.
+
 <br><br><br><br>
 
+---
+> <i> ⚠ **DEVELOPMENT IS CURRENTLY ON HOLD** ⚠ </i>
+> 
+> Thanks for helping us develop this proof-of-concept!
+> 
+> We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool.
+>
+> However, despite our efforts, **we were unable to secure financial backing to continue developing the project**.
+>
+> We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being.
+>
+> We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
+---
+
+<br><br><br><br>
 
 ## What is speed dating?
 
@@ -29,6 +45,7 @@ You will use your card to mark down if you are interested in the people you meet
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
 
 Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
+
 <br><br><br><br>
 
 
@@ -57,21 +74,3 @@ Evaluating the matches is very time consuming and is the most expensive part of 
   > But we also have the option to disable groups altogether which enables all participants to date each other. <br> In this case the number of comparisons would be a lot higher. If iterating by people we would require $(n \cdot (n-1))$ 1560 comparisons and if iterating by dates we would require a grand total of $({\sum}_{i = 0}^{n-1}i = \frac{n(n+1)}{2} - n)$ 740 comparisons.
 
 </details>
-
-<br><br><br>
-
-
-
-
----
-<i> ⚠ **DEVELOPMENT IS CURRENTLY ON HOLD** ⚠ </i>
-
-Thanks for helping us develop this proof-of-concept!
-
-We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool.
-
-However, despite our efforts, **we were unable to secure financial backing to continue developing the project**.
-
-We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being.
-
-We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
