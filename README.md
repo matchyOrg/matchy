@@ -29,11 +29,14 @@ Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a
 
 ## What is speed dating?
 
-Speed dating doesn't happen online! <br>
+Speed dating doesn't happen online!
+
 It is an organized social event in which participants have one-on-one conversations in person, which are typically limited to less than ten minutes, for the purpose of meeting people they would like to date or befriend.
 
-Here's how it works: When you arrive at the event, a host will sign you up and you will receive a card with your name on it. <br>
-There will be two rows sitting in front of eachother at tables and one these rows will remain seated while the other one rotates about every 3-4 mins. Think of the dates as mini introductions. <br>
+Here's how it works: When you arrive at the event, a host will sign you up and you will receive a card with your name on it.
+
+There will be two rows sitting in front of eachother at tables and one these rows will remain seated while the other one rotates about every 3-4 mins. Think of the dates as mini introductions.
+
 You will use your card to mark down if you are interested in the people you meet.
 
 After the event, each of the participants will give their cards to the host to process. The host will then contact each person individually and send them their matches' contact data.
