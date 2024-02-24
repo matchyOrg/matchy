@@ -19,7 +19,7 @@ Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a
 
 > [!CAUTION]
 >
-> **PROJECT PAUSED: We failed to secure funding**
+> **Project paused: We failed to secure funding**
 >
 > Thanks for helping us develop this proof-of-concept!
 >
