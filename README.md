@@ -15,7 +15,7 @@ For a super short summary - check out the [elevator pitch](https://www.youtube.c
 
 Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a good idea of where we're currently at.
 
-<br><br><br><br>
+<br>
 
 ---
 
@@ -33,7 +33,7 @@ Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a
 
 ---
 
-<br><br><br><br>
+<br>
 
 ## What is speed dating?
 
@@ -48,7 +48,7 @@ After the event, each of the participants will give their cards to the host to p
 
 Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
-<br><br><br><br>
+<br>
 
 ## How are we improving speed dating?
 
