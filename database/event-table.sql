@@ -56,7 +56,6 @@ create table event_round (
 
 -- TODO: Maybe make event_registration unmodifyable after the event has started? But maybe people want to suddenly leave (cause they gotta go) or maybe the organzier realllly wants to add someone?
 
-
 -- Note that for every date between two people, we end up with *two* rows in this table.
 -- One for "Alice likes Bob" and another one for "Bob likes Alice".
 create table event_user_pair (
