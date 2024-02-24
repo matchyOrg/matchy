@@ -15,25 +15,19 @@ For a super short summary - check out the [elevator pitch](https://www.youtube.c
 
 Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a good idea of where we're currently at.
 
-<br>
+<br><br>
 
----
-
-> <i> ⚠ **DEVELOPMENT IS CURRENTLY ON HOLD** ⚠ </i>
+> [!CAUTION]
+>
+> **PROJECT PAUSED: WE WEREN'T ABLE TO SECURE FUNDING**
 >
 > Thanks for helping us develop this proof-of-concept!
 >
-> We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool.
+> We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool. However, despite our efforts, we were unable to secure financial backing to continue developing the project.
 >
-> However, despite our efforts, **we were unable to secure financial backing to continue developing the project**.
->
-> We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being.
->
-> We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
+> We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being. We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
 
----
-
-<br>
+<br><br>
 
 ## What is speed dating?
 
@@ -48,7 +42,7 @@ After the event, each of the participants will give their cards to the host to p
 
 Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
-<br>
+<br><br>
 
 ## How are we improving speed dating?
 
