@@ -18,7 +18,6 @@ Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a
 <br><br>
 
 > [!CAUTION]
->
 > **Project paused: We failed to secure funding**
 >
 > Big thanks for helping us with our proof-of-concept! We teamed up with FsWInf @ TU Wien for some awesome events and got amazing feedback on our app.
