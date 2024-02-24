@@ -21,11 +21,9 @@ Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a
 >
 > **Project paused: We failed to secure funding**
 >
-> Thanks for helping us develop this proof-of-concept!
+> Big thanks for helping us with our proof-of-concept! We teamed up with FsWInf @ TU Wien for some awesome events and got amazing feedback on our app.
 >
-> We threw a couple of events in cooperation with the FsWInf @ TU Wien and after gathering user feedback, we discovered that people really enjoyed using the app and found it to be a valuable tool. However, despite our efforts, we were unable to secure financial backing to continue developing the project.
->
-> We explored various funding options, such as reaching out to potential investors, but unfortunately, none of these efforts resulted in the necessary financial support. As a result, we have made the difficult decision to put the project on hold for the time being. We want to express our gratitude to everyone who contributed to this project and helped us along the way. We are proud of what we were able to accomplish, and we hope that in the future, we will be able to return to this project and continue its development.
+> Sadly, despite our best efforts, we couldn't secure funding to keep it going. We reached out to investors, but no luck. For now, we're putting the project on hold. Huge thanks to all who contributed! We're proud of what we achieved and hopeful for the future. Cheers to more adventures ahead!
 
 <br><br>
 
