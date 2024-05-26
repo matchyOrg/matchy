@@ -24,8 +24,6 @@ To get an idea of where we're at check out this [demo video](https://github.com/
 >
 > Sadly, despite our best efforts, we couldn't secure funding to keep it going. We reached out to investors, but no luck. For now, we're putting the project on hold. Huge thanks to all who contributed! We're proud of what we achieved and hopeful for the future. Cheers to more adventures ahead!
 
-<br><br>
-
 ## What is speed dating?
 
 Speed dating doesn't happen online!
