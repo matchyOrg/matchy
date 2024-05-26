@@ -13,7 +13,7 @@ For a super short summary - check out the [elevator pitch](https://www.youtube.c
   </p>
 </a>
 
-Also this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf) could give you a good idea of where we're currently at.
+To get an idea of where we're at check out this [demo video](https://github.com/matchyOrg/matchy/blob/main/docs/videos/raw%20footage/marco%20yahya%20review.mp4) and this [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf).
 
 <br><br>
 
