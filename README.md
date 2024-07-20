@@ -5,7 +5,7 @@
   <i>Making speed dating paperless! 💌 🏃🏻💨</i>
 </p>
 
-Check out the elevator pitch from HackZürich2022 or our Youtube demo by clicking one of the images below:
+Check out the elevator pitch from HackZürich2022 or our Youtube demo by clicking one of the images below.
 
 <a href="https://www.youtube.com/watch?v=n2XdwmY_asM&t=133s">
   <p align="center">
@@ -19,7 +19,7 @@ Check out the elevator pitch from HackZürich2022 or our Youtube demo by clickin
   </p>
 </a>
 
-alternatively feel free to check out our [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf).
+Alternatively check out our little [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf).
 
 <br><br>
 
