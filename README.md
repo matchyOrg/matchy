@@ -19,7 +19,7 @@ Check out the elevator pitch from HackZürich2022 or our Youtube demo by clickin
   </p>
 </a>
 
-alternatively feel free to check out our (https://github.com/matchyOrg/matchy/blob/main/docs/videos/raw%20footage/marco%20yahya%20review.mp4)[UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf).
+alternatively feel free to check out our [UI mockup](/docs/figma%20mockups/V3/matchy%20V3.pdf).
 
 <br><br>
 
