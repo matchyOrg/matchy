@@ -44,8 +44,6 @@ After the event, each of the participants will give their cards to the host to p
 
 Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
-<br><br>
-
 ## How are we improving speed dating?
 
 No more paperwork! With our app:
