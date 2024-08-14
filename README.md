@@ -8,7 +8,7 @@
 <br><br><br><br>
 
 <p align="center">
-  <img width="512" src="./frontend/src/assets/matchyLogoGreen.svg" alt="Matchy Logo">
+  <img width="512" src="./docs/logo/matchyLogoTypeGrünWhite.svg" alt="Matchy Logo">
 </p>
 <p align="center">
   <i>Making speed dating paperless! 💌 🏃🏻💨</i>
