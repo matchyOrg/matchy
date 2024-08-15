@@ -28,6 +28,8 @@ Click on one of the thumbnails below to check out the HackZürich2022 elevator p
   </p>
 </a>
 
+<br>
+
 ## What is speed dating?
 
 Speed dating doesn't happen online!
