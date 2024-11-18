@@ -1,4 +1,4 @@
-This software service falls under the [MIT licence](https://opensource.org/licenses/MIT). <br>
+This software service falls under the [MIT licence](https://opensource.org/licenses/MIT).
 It was made as a proof of concept and is not intended for commercial usage.
 
 # Client Side
