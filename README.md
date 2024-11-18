@@ -1,9 +1,8 @@
 > [!CAUTION]
 > **Project paused: We failed to secure funding**
 >
-> Big thanks for helping us with our proof-of-concept! We teamed up with FsWInf @ TU Wien for some awesome events and got amazing feedback on our app.
->
-> Sadly, despite our best efforts, we couldn't secure funding and have to put the project on hold.
+> Big thanks for helping us with our proof-of-concept!
+> We teamed up with FsWInf @ TU Wien for some awesome events and got amazing feedback on our app.
 
 <br>
 
