@@ -3,9 +3,9 @@
 >
 > Big thanks for helping us with our proof-of-concept! We teamed up with FsWInf @ TU Wien for some awesome events and got amazing feedback on our app.
 >
-> Sadly, despite our best efforts, we couldn't secure funding to keep it going. We reached out to investors, but no luck. For now, we're putting the project on hold. Huge thanks to all who contributed! We're proud of what we achieved and hopeful for the future. Cheers to more adventures ahead!
+> Sadly, despite our best efforts, we couldn't secure funding and have to put the project on hold.
 
-<br><br><br><br>
+<br>
 
 <p align="center">
   <img width="512" src="./docs/logo/matchyLogoTypeGrünWhite.svg" alt="Matchy Logo">
