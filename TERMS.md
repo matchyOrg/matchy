@@ -2,6 +2,7 @@ This software service falls under the [MIT licence](https://opensource.org/licen
 It was made as a proof of concept and is not intended for commercial usage.
 
 # Client Side
+
 The client does not store any personal data other than an authentication token
 linked to the user credentials, necessary for the user to stay logged in and managed by
 the Supabase frontend library.
