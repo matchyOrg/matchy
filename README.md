@@ -28,9 +28,7 @@ Click on one of the thumbnails below to check out the HackZürich2022 elevator p
   </p>
 </a>
 
-<br>
-
-## What is speed dating?
+# What is speed dating?
 
 Speed dating doesn't happen online!
 
@@ -46,7 +44,7 @@ After the event, each of the participants will give their cards to the host to p
 
 Enough said. See what it's like to participate in such an event for yourself in this [short demo](https://www.youtube.com/watch?v=p-3cmlPnx0s&t=9s).
 
-## How are we improving speed dating?
+# How are we improving speed dating?
 
 No more paperwork! With our app:
 
